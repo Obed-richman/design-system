@@ -70,10 +70,8 @@ Always use semantic tokens in components. Never hardcode hex values.
 When prompting Figma Make (or any AI tool), include this instruction:
 
 > "Use the design tokens from this file:
-> `https://raw.githubusercontent.com/YOUR-USERNAME/design-system/main/tokens/tokens.css`
+> `https://raw.githubusercontent.com/Obed-richman/design-system/main/tokens/tokens.css`
 > Always reference CSS custom properties rather than hardcoded values."
-
-Replace `YOUR-USERNAME` with your GitHub username once the repo is live.
 
 ---
 
