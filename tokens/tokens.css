@@ -13,10 +13,7 @@
  *   5. Corner Radius
  *   6. Border Width
  *   7. Shadows
- *
- * ⚠️  ACTION NEEDED: Replace placeholder hex values below
- *     with your exact values from Figma.
- *     In Figma: Select any colour swatch → inspect panel → copy hex.
+
  * ============================================================
  */
 
@@ -31,25 +28,25 @@
 
   /* White & Black */
   --color-white:           #FFFFFF;
-  --color-black:           #27252D;  /* ⚠️ verify */
+  --color-black:           #27252D;  /* */
 
   /* Navy scale */
-  --color-navy-10:         #F5F6F9;  /* ⚠️ verify */
-  --color-navy-40:         #5D596F;  /* ⚠️ verify */
-  --color-navy-50:         #443B5C;  /* ⚠️ verify */
-  --color-navy-70:         #09002D;  /* ⚠️ verify — your BrandNavy */
+  --color-navy-10:         #F5F6F9;  /* */
+  --color-navy-40:         #5D596F;  /* */
+  --color-navy-50:         #443B5C;  /* */
+  --color-navy-70:         #09002D;  /* your BrandNavy */
 
   /* Aqua scale */
-  --color-aqua-10:         #E7FFFC;  /* ⚠️ verify */
-  --color-aqua-20:         #B2FFF6;  /* ⚠️ verify */
-  --color-aqua-30:         #76F8E8;  /* ⚠️ verify */
-  --color-aqua-40:         #12EFD4;  /* ⚠️ verify — your BrandAqua */
-  --color-aqua-50:         #02CCB4;  /* ⚠️ verify */
+  --color-aqua-10:         #E7FFFC;  /* */
+  --color-aqua-20:         #B2FFF6;  /* */
+  --color-aqua-30:         #76F8E8;  /* */
+  --color-aqua-40:         #12EFD4;  /* your BrandAqua */
+  --color-aqua-50:         #02CCB4;  /* */
 
   /* Purple scale */
-  --color-purple-10:       #E9EDFF;  /* ⚠️ verify */
-  --color-purple-20:       #C9D3FF;  /* ⚠️ verify */
-  --color-purple-50:       #6A58F8;  /* ⚠️ verify — your BrandLightPurple */
+  --color-purple-10:       #E9EDFF;  /* */
+  --color-purple-20:       #C9D3FF;  /* */
+  --color-purple-50:       #6A58F8;  /* your BrandLightPurple */
   --color-purple-60:       #371987;  /* BrandPurple */
 
   /* Ecru scale */
