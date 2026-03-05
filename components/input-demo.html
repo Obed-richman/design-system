@@ -1,1 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../../tokens.css">
+<link rel="stylesheet" href="input.css">
+<title>Text Input Component</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; }
 
+:root {
+  --color-white:    #FFFFFF;
+  --color-black:    #27252d;
+  --color-navy-10:  #E8EDF5;
+  --color-navy-40:  #5C7BA3;
+  --color-navy-70:  #0D2449;
+  --color-aqua-20:  #80DDD8;
+  --color-grey-30:  #D9D9D9;
+  --color-grey-40:  #e5e5e5;
+  --color-grey-50:  #A0A0A0;
+  --color-grey-60:  #737373;
+  --color-grey-70:  #525252;
+  --color-red-bg:   #ffe9e9;
+  --color-red:      #e21313;
+  --color-green:    #22C55E;
+
+  --color-bg-primary:       var(--color-white);
+  --color-bg-disabled:      var(--color-grey-30);
+  --color-bg-negative:      var(--color-red-bg);
+  --color-text-primary:     var(--color-black);
+  --color-text-disabled:    #929195;
+  --color-text-negative:    var(--color-red);
+  --color-text-positive:    var(--color-green);
+  --color-border-primary:   var(--color-grey-40);
+  --color-border-secondary: var(--color-grey-50);
+  --color-border-focused:   var(--color-aqua-20);
+  --color-border-positive:  var(--color-green);
+  --color-icon-negative:    var(--color-red);
+  --color-icon-positive:    var(--color-green);
+  --shadow-focus: 0 0 0 4px var(--color-border-focused);
+
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --text-body-lg: 16px;
+  --text-body-md: 14px;
+  --radius-md: 8px;
+  --border-width-default: 1px;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 32px;
+  color: #27252d;
+}
+
+h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+.subtitle { color: #737373; font-size: 14px; margin: 0 0 40px; }
+section { margin-bottom: 40px; }
+h2 { font-size: 13px; font-weight: 600; text-transform: uppercase;
+     letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+
+/* ---- COMPONENT ---- */
+.input-group { display: flex; flex-direction: column; gap: var(--space-xs); width: 100%; }
+.input-label { font-size: var(--text-body-md); line-height: 20px; color: var(--color-text-primary); display: block; }
+
+.input-field {
+  display: flex; align-items: center; gap: var(--space-xs);
+  height: 48px; padding: var(--space-sm) var(--space-md); width: 100%;
+  background-color: var(--color-bg-primary);
+  border: var(--border-width-default) solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+  transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+.input-field:hover  { border-color: var(--color-border-secondary); }
+.input-field:focus-within { border-color: var(--color-border-focused); box-shadow: var(--shadow-focus); }
+
+.input {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent; padding: 0;
+  font-family: system-ui, sans-serif; font-size: var(--text-body-lg); line-height: 24px;
+  color: var(--color-text-primary);
+}
+.input::placeholder { color: var(--color-text-disabled); }
+
+.input-icon { display: flex; align-items: center; flex-shrink: 0; width: 16px; height: 16px; }
+
+/* SVG icons inline */
+.icon-clear { color: #929195; }
+.icon-error { color: var(--color-red); }
+.icon-valid { color: var(--color-green); }
+
+/* States */
+.input-field--error {
+  background-color: var(--color-bg-negative);
+  border-color: var(--color-red);
+}
+.input-field--error:focus-within {
+  border-color: var(--color-red);
+  box-shadow: 0 0 0 4px rgba(226,19,19,0.15);
+}
+
+.input-field--valid { border-color: var(--color-border-positive); }
+
+.input-field--disabled {
+  background-color: var(--color-bg-disabled);
+  border-color: var(--color-bg-disabled);
+  pointer-events: none;
+}
+.input-field--disabled .input { color: var(--color-text-disabled); }
+
+/* Messages */
+.input-message {
+  display: flex; align-items: center; gap: var(--space-xs);
+  font-size: var(--text-body-md); line-height: 20px;
+}
+.input-message--error { color: var(--color-text-negative); }
+.input-message--valid { color: var(--color-text-positive); }
+.input-message--hint  { color: var(--color-text-disabled); }
+.msg-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* Dark */
+.dark-bg { background: var(--color-navy-70); border-radius: 12px; padding: 24px; }
+.dark-bg h2 { color: rgba(255,255,255,0.4); }
+.dark-bg .input-field { background: transparent; border-color: var(--color-navy-40); }
+.dark-bg .input { color: #fff; }
+.dark-bg .input::placeholder { color: rgba(255,255,255,0.4); }
+.dark-bg .input-label { color: rgba(255,255,255,0.7); }
+</style>
+</head>
+<body>
+
+<h1>Text Input</h1>
+<p class="subtitle">All states — Zego Design System</p>
+
+<section>
+  <h2>States</h2>
+  <div class="grid">
+
+    <!-- Default (with value) -->
+    <div class="input-group">
+      <label class="input-label">Default</label>
+      <div class="input-field">
+        <input class="input" type="text" value="Input value">
+        <span class="input-icon icon-clear">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- Placeholder -->
+    <div class="input-group">
+      <label class="input-label">Placeholder</label>
+      <div class="input-field">
+        <input class="input" type="text" placeholder="Placeholder text">
+      </div>
+    </div>
+
+    <!-- Hover (simulated) -->
+    <div class="input-group">
+      <label class="input-label">Hover</label>
+      <div class="input-field" style="border-color:var(--color-border-secondary)">
+        <input class="input" type="text" value="Input value">
+      </div>
+    </div>
+
+    <!-- Focused (simulated) -->
+    <div class="input-group">
+      <label class="input-label">Focused</label>
+      <div class="input-field" style="border-color:var(--color-border-focused);box-shadow:var(--shadow-focus)">
+        <input class="input" type="text" value="Input value">
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="input-group">
+      <label class="input-label">Error</label>
+      <div class="input-field input-field--error">
+        <input class="input" type="text" value="Input value">
+        <span class="input-icon icon-error">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M8 5v3.5M8 10.5v.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+      </div>
+      <div class="input-message input-message--error">
+        <svg class="msg-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#e21313" stroke-width="1.5"/><path d="M12 8v5M12 15.5v.5" stroke="#e21313" stroke-width="1.5" stroke-linecap="round"/></svg>
+        This field has an error
+      </div>
+    </div>
+
+    <!-- Valid -->
+    <div class="input-group">
+      <label class="input-label">Valid</label>
+      <div class="input-field input-field--valid">
+        <input class="input" type="text" value="Input value">
+        <span class="input-icon icon-valid">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="currentColor"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </div>
+      <div class="input-message input-message--valid">Valid message</div>
+    </div>
+
+    <!-- Hint -->
+    <div class="input-group">
+      <label class="input-label">Hint</label>
+      <div class="input-field">
+        <input class="input" type="text" value="Input value">
+      </div>
+      <div class="input-message input-message--hint">This is a hint message</div>
+    </div>
+
+    <!-- Disabled -->
+    <div class="input-group">
+      <label class="input-label">Disabled</label>
+      <div class="input-field input-field--disabled">
+        <input class="input" type="text" disabled value="Input value">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DARK MODE -->
+<section>
+  <h2>Dark Mode</h2>
+  <div class="dark-bg">
+    <h2>On dark background</h2>
+    <div class="grid">
+      <div class="input-group">
+        <label class="input-label">Default</label>
+        <div class="input-field">
+          <input class="input" type="text" value="Input value">
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Placeholder</label>
+        <div class="input-field">
+          <input class="input" type="text" placeholder="Placeholder text">
+        </div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Focused</label>
+        <div class="input-field" style="border-color:var(--color-border-focused);box-shadow:var(--shadow-focus)">
+          <input class="input" type="text" value="Input value" style="color:#fff">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
