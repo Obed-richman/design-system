@@ -1,4 +1,3 @@
-
 /*
  * ============================================================
  * TEXT INPUT COMPONENT
@@ -11,7 +10,6 @@
  *   error | valid | hint | disabled
  *
  * Usage:
- *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="input.css">
  *
  *   <!-- Default -->
@@ -46,6 +44,11 @@
  *   <div class="input-field input-field--disabled">
  *     <input class="input" type="text" disabled value="Input">
  *   </div>
+ *
+ *   <!-- Dark mode — add data-theme="dark" to a parent wrapper -->
+ *   <div data-theme="dark">
+ *     <div class="input-field"> ... </div>
+ *   </div>
  * ============================================================
  */
 
@@ -70,12 +73,12 @@
    ------------------------------------------------------------ */
 
 .input-label {
-  font-family:  'Modern Era', sans-serif;
-  font-weight:  400;
-  font-size:    var(--text-body-md);  /* 14px */
-  line-height:  20px;
-  color:        var(--color-text-primary);
-  display:      block;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: 400;
+  font-size:   var(--text-body-md);  /* 14px */
+  line-height: 20px;
+  color:       var(--color-text-primary);
+  display:     block;
 }
 
 
@@ -87,57 +90,55 @@
 .input-field {
   display:          flex;
   align-items:      center;
-  gap:              var(--space-xs);          /* 8px between text and icon */
+  gap:              var(--space-xs);                               /* 8px between text and icon */
   height:           48px;
-  padding:          var(--space-sm) var(--space-md);  /* 12px 16px */
+  padding:          var(--space-sm) var(--space-md);               /* 12px 16px */
   width:            100%;
-
-  background-color: var(--color-bg-primary);  /* white */
-  border:           var(--border-width-default) solid var(--color-border-primary); /* 1px #e5e5e5 */
-  border-radius:    var(--radius-md);          /* 8px — confirmed from Figma */
   box-sizing:       border-box;
 
-  transition:       border-color  120ms ease,
+  background-color: var(--color-bg-primary);                       /* white */
+  border:           var(--border-width-default) solid var(--color-border-primary); /* 1px #e5e5e5 */
+  border-radius:    var(--radius-md);                              /* 8px */
+
+  transition:       border-color     120ms ease,
                     background-color 120ms ease,
-                    box-shadow    120ms ease;
+                    box-shadow       120ms ease;
 }
 
 .input-field:hover {
-  border-color: var(--color-border-secondary);  /* slightly stronger on hover */
+  border-color: var(--color-border-secondary);
 }
 
 .input-field:focus-within {
-  border-color: var(--color-border-focused);    /* Aqua 20 */
+  border-color: var(--color-border-focused);   /* Aqua 20 */
   box-shadow:   var(--shadow-focus);
 }
 
 
 /* ------------------------------------------------------------
    THE ACTUAL INPUT ELEMENT
-   Sits inside .input-field, takes all available space
    ------------------------------------------------------------ */
 
 .input {
-  flex:         1;
-  min-width:    0;
-  border:       none;
-  outline:      none;
-  background:   transparent;
-  padding:      0;
+  flex:       1;
+  min-width:  0;
+  border:     none;
+  outline:    none;
+  background: transparent;
+  padding:    0;
 
-  font-family:  'Modern Era', sans-serif;
-  font-weight:  400;
-  font-size:    var(--text-body-lg);   /* 16px — confirmed */
-  line-height:  24px;
-  color:        var(--color-text-primary);  /* #27252d */
+  font-family: 'Modern Era', sans-serif;
+  font-weight: 400;
+  font-size:   var(--text-body-lg);        /* 16px */
+  line-height: 24px;
+  color:       var(--color-text-primary);  /* #27252d */
 
-  /* Remove browser default styles */
   -webkit-appearance: none;
-  appearance: none;
+  appearance:         none;
 }
 
 .input::placeholder {
-  color: var(--color-text-disabled);   /* #929195 — confirmed from Figma */
+  color: var(--color-text-disabled);   /* #929195 */
 }
 
 
@@ -160,7 +161,7 @@
    ------------------------------------------------------------ */
 
 .input-field--error {
-  background-color: var(--color-bg-negative);   /* #ffe9e9 — confirmed */
+  background-color: var(--color-bg-negative);                    /* #ffe9e9 */
   border-color:     var(--color-border-negative, #e21313);
 }
 
@@ -180,11 +181,11 @@
 
 .input-field--valid {
   background-color: var(--color-bg-primary);
-  border-color:     var(--color-border-positive);  /* Green 50 */
+  border-color:     var(--color-border-positive);
 }
 
 .input-field--valid .input-icon {
-  color: var(--color-icon-positive);  /* Green 50 */
+  color: var(--color-icon-positive);
 }
 
 
@@ -194,7 +195,7 @@
 
 .input-field--disabled,
 .input-field:has(input:disabled) {
-  background-color: var(--color-bg-disabled);  /* Grey 30 */
+  background-color: var(--color-bg-disabled);   /* Grey 30 */
   border-color:     var(--color-bg-disabled);
   cursor:           not-allowed;
   pointer-events:   none;
@@ -202,7 +203,7 @@
 
 .input-field--disabled .input,
 .input:disabled {
-  color:  var(--color-text-disabled);   /* #929195 — confirmed */
+  color:  var(--color-text-disabled);   /* #929195 */
   cursor: not-allowed;
 }
 
@@ -217,7 +218,7 @@
   gap:         var(--space-xs);   /* 8px icon + text gap */
   font-family: 'Modern Era', sans-serif;
   font-weight: 400;
-  font-size:   var(--text-body-md);   /* 14px — confirmed */
+  font-size:   var(--text-body-md);   /* 14px */
   line-height: 20px;
   width:       100%;
 }
@@ -228,24 +229,14 @@
   height:      24px;
 }
 
-/* Error message */
-.input-message--error {
-  color: var(--color-text-negative);   /* #e21313 — confirmed */
-}
-
-/* Valid message */
-.input-message--valid {
-  color: var(--color-text-positive);   /* Green 50 */
-}
-
-/* Hint message */
-.input-message--hint {
-  color: var(--color-text-disabled);   /* #929195 */
-}
+.input-message--error { color: var(--color-text-negative); }  /* #e21313 */
+.input-message--valid { color: var(--color-text-positive); }  /* Green 50 */
+.input-message--hint  { color: var(--color-text-disabled); }  /* #929195 */
 
 
 /* ------------------------------------------------------------
    DARK MODE
+   Apply data-theme="dark" to any parent wrapper element
    ------------------------------------------------------------ */
 
 [data-theme="dark"] .input-field {
@@ -259,6 +250,10 @@
 
 [data-theme="dark"] .input::placeholder {
   color: var(--color-text-disabled);
+}
+
+[data-theme="dark"] .input-label {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 [data-theme="dark"] .input-field--disabled {
