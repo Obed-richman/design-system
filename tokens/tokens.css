@@ -1,1 +1,358 @@
+/*
+ * ============================================================
+ * DESIGN SYSTEM TOKENS
+ * ============================================================
+ * Generated from Figma file: 002-Components
+ * https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
+ *
+ * Structure:
+ *   1. Primitive Palette  — raw named colours
+ *   2. Semantic Colours   — background, text, icon, border
+ *   3. Typography         — type scale (large & small device)
+ *   4. Spacing            — spacer & margin scales
+ *   5. Corner Radius
+ *   6. Border Width
+ *   7. Shadows
+ *
+ * ⚠️  ACTION NEEDED: Replace placeholder hex values below
+ *     with your exact values from Figma.
+ *     In Figma: Select any colour swatch → inspect panel → copy hex.
+ * ============================================================
+ */
 
+
+/* ============================================================
+   1. PRIMITIVE PALETTE
+   These are your raw base colours. Semantic tokens below
+   reference these, so you only need to update here.
+   ============================================================ */
+
+:root {
+
+  /* White & Black */
+  --color-white:           #FFFFFF;
+  --color-black:           #0A0A0A;  /* ⚠️ verify */
+
+  /* Navy scale */
+  --color-navy-10:         #E8EDF5;  /* ⚠️ verify */
+  --color-navy-40:         #5C7BA3;  /* ⚠️ verify */
+  --color-navy-50:         #3D5F8A;  /* ⚠️ verify */
+  --color-navy-70:         #0D2449;  /* ⚠️ verify — your BrandNavy */
+
+  /* Aqua scale */
+  --color-aqua-10:         #E0F7F5;  /* ⚠️ verify */
+  --color-aqua-20:         #80DDD8;  /* ⚠️ verify */
+  --color-aqua-30:         #26C6BF;  /* ⚠️ verify */
+  --color-aqua-40:         #00ADA6;  /* ⚠️ verify — your BrandAqua */
+  --color-aqua-50:         #008880;  /* ⚠️ verify */
+
+  /* Purple scale */
+  --color-purple-10:       #F3EEF9;  /* ⚠️ verify */
+  --color-purple-20:       #D4BEF0;  /* ⚠️ verify */
+  --color-purple-50:       #8B5CF6;  /* ⚠️ verify — your BrandLightPurple */
+  --color-purple-60:       #6D28D9;  /* ⚠️ verify — your BrandPurple */
+
+  /* Ecru scale */
+  --color-ecru-20:         #F5F0E8;  /* ⚠️ verify — your BrandEcru */
+
+  /* Blue scale */
+  --color-blue-40:         #3B82F6;  /* ⚠️ verify — BackgroundBrandBlue */
+
+  /* Grey scale */
+  --color-grey-20:         #F0F0F0;  /* ⚠️ verify */
+  --color-grey-30:         #D9D9D9;  /* ⚠️ verify */
+  --color-grey-40:         #BFBFBF;  /* ⚠️ verify */
+  --color-grey-50:         #A0A0A0;  /* ⚠️ verify */
+  --color-grey-60:         #737373;  /* ⚠️ verify */
+  --color-grey-70:         #525252;  /* ⚠️ verify */
+
+  /* Red (Negative) scale */
+  --color-red-10:          #FEF2F2;  /* ⚠️ verify */
+  --color-red-20:          #FECACA;  /* ⚠️ verify */
+  --color-red-50:          #EF4444;  /* ⚠️ verify */
+  --color-red-70:          #B91C1C;  /* ⚠️ verify */
+
+  /* Green (Positive) scale */
+  --color-green-10:        #F0FDF4;  /* ⚠️ verify */
+  --color-green-30:        #86EFAC;  /* ⚠️ verify */
+  --color-green-50:        #22C55E;  /* ⚠️ verify */
+  --color-green-70:        #15803D;  /* ⚠️ verify */
+
+  /* Yellow/Orange (Warning) scale */
+  --color-yellow-30:       #FDE68A;  /* ⚠️ verify */
+  --color-yellow-50:       #EAB308;  /* ⚠️ verify */
+  --color-orange-10:       #FFF7ED;  /* ⚠️ verify */
+  --color-orange-70:       #C2410C;  /* ⚠️ verify */
+
+  /* Black alpha variants */
+  --color-black-2:         #F5F5F5;  /* ⚠️ verify — near-black/off-white */
+  --color-black-3:         #0D0D0D;  /* ⚠️ verify */
+  --color-black-4:         #1A1A1A;  /* ⚠️ verify */
+}
+
+
+/* ============================================================
+   2. SEMANTIC COLOUR TOKENS
+   These reference primitives above. Do not hardcode hex here.
+   Two modes: Light (default) and Dark.
+   ============================================================ */
+
+/* --- LIGHT MODE (default) --- */
+:root {
+
+  /* Background */
+  --color-bg-primary:                 var(--color-white);
+  --color-bg-primary-subtle:          var(--color-navy-10);
+  --color-bg-secondary:               var(--color-grey-20);
+  --color-bg-tertiary:                var(--color-black);
+  --color-bg-brand-aqua:              var(--color-aqua-40);
+  --color-bg-brand-aqua-active:       var(--color-aqua-30);
+  --color-bg-brand-aqua-pressed:      var(--color-aqua-50);
+  --color-bg-brand-ecru:              var(--color-ecru-20);
+  --color-bg-brand-purple:            var(--color-purple-60);
+  --color-bg-brand-light-purple:      var(--color-purple-50);
+  --color-bg-brand-blue:              var(--color-blue-40);
+  --color-bg-brand-navy:              var(--color-navy-70);
+  --color-bg-light-navy:              var(--color-navy-50);
+  --color-bg-disabled:                var(--color-grey-30);
+  --color-bg-dark-mode-disabled:      var(--color-grey-70);
+  --color-bg-pressed:                 var(--color-grey-40);
+  --color-bg-transparent:             rgba(255,255,255,0.40);
+  --color-bg-transparent-focused:     rgba(255,255,255,0.30);
+  --color-bg-white-overlay:           rgba(255,255,255,0.80);
+  --color-bg-black-overlay:           rgba(0,0,0,0.40);
+  --color-bg-navy-overlay:            rgba(13,36,73,0.80);    /* navy-70 at 80% ⚠️ verify */
+  --color-bg-navy-transparent:        rgba(13,36,73,0.00);
+  --color-bg-dark-mode-overlay:       rgba(0,0,0,0.80);
+  --color-bg-negative:                var(--color-red-10);
+  --color-bg-warning:                 var(--color-orange-10);
+  --color-bg-positive:                var(--color-green-10);
+  --color-bg-information:             var(--color-purple-10);
+  --color-bg-purple-muted:            var(--color-purple-20);
+  --color-bg-brand-positive:          var(--color-aqua-10);
+  --color-bg-black-fixed:             var(--color-black);
+  --color-bg-white-fixed:             var(--color-white);
+
+  /* Text */
+  --color-text-primary:               var(--color-black);
+  --color-text-disabled:              var(--color-grey-60);
+  --color-text-pressed:               var(--color-grey-70);
+  --color-text-on-colour:             var(--color-white);
+  --color-text-on-brand-pressed:      var(--color-grey-50);   /* "Grey50" ⚠️ */
+  --color-text-link:                  var(--color-purple-60);
+  --color-text-link-pressed:          var(--color-purple-50);
+  --color-text-link-on-dark:          var(--color-aqua-40);
+  --color-text-link-on-dark-pressed:  var(--color-aqua-20);
+  --color-text-negative:              var(--color-red-50);
+  --color-text-warning:               var(--color-yellow-50);
+  --color-text-positive:              var(--color-green-50);
+  --color-text-black-fixed:           var(--color-black);
+  --color-text-white-fixed:           var(--color-white);
+
+  /* Icon */
+  --color-icon-primary:               var(--color-black);
+  --color-icon-secondary:             var(--color-grey-40);
+  --color-icon-disabled:              var(--color-grey-60);
+  --color-icon-pressed:               var(--color-grey-70);
+  --color-icon-on-colour:             var(--color-white);
+  --color-icon-on-brand-pressed:      var(--color-grey-50);
+  --color-icon-link:                  var(--color-purple-60);
+  --color-icon-link-pressed:          var(--color-purple-50);
+  --color-icon-negative:              var(--color-red-50);
+  --color-icon-warning:               var(--color-yellow-50);
+  --color-icon-positive:              var(--color-green-50);
+  --color-icon-black-fixed:           var(--color-black);
+  --color-icon-white-fixed:           var(--color-white);
+
+  /* Border */
+  --color-border-primary:             var(--color-grey-40);
+  --color-border-secondary:           var(--color-grey-50);
+  --color-border-on-colour:           var(--color-white);
+  --color-border-on-light-bg:         var(--color-black);
+  --color-border-dark-mode:           var(--color-navy-40);
+  --color-border-focused:             var(--color-aqua-20);
+  --color-border-brand-positive:      var(--color-aqua-30);
+  --color-border-active:              var(--color-aqua-40);
+  --color-border-positive:            var(--color-green-50);
+  --color-border-warning:             var(--color-yellow-50);
+  --color-border-negative:            var(--color-red-50);
+  --color-border-information-subtle:  var(--color-purple-20);
+  --color-border-positive-subtle:     var(--color-green-30);
+  --color-border-warning-subtle:      var(--color-yellow-30);
+  --color-border-negative-subtle:     var(--color-red-20);
+}
+
+/* --- DARK MODE --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg-primary:               var(--color-black);
+    --color-bg-primary-subtle:        var(--color-black-2);
+    --color-bg-secondary:             var(--color-navy-40);
+    --color-bg-tertiary:              var(--color-white);
+    --color-text-primary:             var(--color-white);
+    --color-text-link:                var(--color-aqua-40);
+    --color-text-link-pressed:        var(--color-aqua-20);
+    --color-icon-primary:             var(--color-white);
+    --color-border-primary:           var(--color-navy-40);
+    /* Add further dark mode overrides here as needed */
+  }
+}
+
+/* You can also apply dark mode with a class if you prefer: */
+/* [data-theme="dark"] { ... } */
+
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
+
+:root {
+  /* Font family — ⚠️ replace with your actual font(s) */
+  --font-family-base:    'Inter', sans-serif;   /* ⚠️ verify */
+  --font-family-heading: 'Inter', sans-serif;   /* ⚠️ verify */
+
+  /* Type scale — Large Device */
+  --text-display-lg:     52px;   /* ⚠️ verify */
+  --text-display-md:     44px;   /* ⚠️ verify */
+  --text-display-sm:     36px;   /* ⚠️ verify */
+  --text-h1:             32px;   /* ⚠️ verify */
+  --text-h2:             28px;   /* ⚠️ verify */
+  --text-h3:             24px;   /* ⚠️ verify */
+  --text-h4:             20px;   /* ⚠️ verify */
+  --text-h5:             18px;   /* ⚠️ verify */
+  --text-h6:             16px;   /* ⚠️ verify */
+  --text-body-lg:        16px;
+  --text-body-md:        14px;
+  --text-body-sm:        12px;
+  --text-caption:        12px;
+  --text-overline:       10px;   /* ⚠️ verify */
+
+  /* Type scale — Small Device overrides */
+  --text-display-lg-sm:  36px;   /* ⚠️ verify */
+  --text-display-md-sm:  32px;   /* ⚠️ verify */
+  --text-h1-sm:          28px;   /* ⚠️ verify */
+  --text-h2-sm:          24px;   /* ⚠️ verify */
+
+  /* Line heights — ⚠️ verify */
+  --leading-tight:  1.2;
+  --leading-normal: 1.5;
+  --leading-loose:  1.75;
+
+  /* Font weights — ⚠️ verify */
+  --font-regular:   400;
+  --font-medium:    500;
+  --font-semibold:  600;
+  --font-bold:      700;
+}
+
+
+/* ============================================================
+   4. SPACING
+   Spacer scale (component-level padding, gaps, etc.)
+   ============================================================ */
+
+:root {
+  --space-2xs: 4px;   /* XX-Small  */
+  --space-xs:  8px;   /* X-Small   */
+  --space-sm:  12px;  /* Small     */
+  --space-md:  16px;  /* Medium    */
+  --space-lg:  24px;  /* Large     */
+  --space-xl:  32px;  /* X-Large   */
+  --space-2xl: 40px;  /* XX-Large (small device macro) */
+  --space-3xl: 48px;  /* XXX-Large (small device macro) */
+
+  /* Large Device Macro Spacers */
+  --space-macro-xs:  8px;   /* X-Small  ⚠️ verify */
+  --space-macro-sm:  16px;  /* Small    ⚠️ verify */
+  --space-macro-md:  24px;  /* Medium   ⚠️ verify */
+  --space-macro-lg:  32px;  /* Large    ⚠️ verify */
+  --space-macro-xl:  64px;  /* X-Large  — confirmed from file */
+  --space-macro-2xl: 96px;  /* XX-Large ⚠️ verify */
+
+  /* Margins (layout-level) */
+  --margin-sm:  24px;   /* Small  ⚠️ verify */
+  --margin-md:  48px;   /* Medium ⚠️ verify */
+  --margin-lg:  64px;   /* Large  ⚠️ verify */
+  --margin-xl:  94px;   /* X-Large ⚠️ verify — inferred from frame */
+  --margin-2xl: 192px;  /* XX-Large ⚠️ verify — inferred from frame */
+}
+
+
+/* ============================================================
+   5. CORNER RADIUS
+   ============================================================ */
+
+:root {
+  --radius-none:  0px;
+  --radius-xs:    2px;   /* ⚠️ verify */
+  --radius-sm:    4px;   /* ⚠️ verify */
+  --radius-md:    8px;   /* ⚠️ verify */
+  --radius-lg:    12px;  /* ⚠️ verify */
+  --radius-xl:    16px;  /* ⚠️ verify */
+  --radius-full:  9999px;
+}
+
+
+/* ============================================================
+   6. BORDER WIDTH
+   — confirmed from your "Border Width" tab
+   ============================================================ */
+
+:root {
+  --border-width-default: 1px;
+  --border-width-medium:  2px;
+  --border-width-thick:   3px;
+  --border-width-heavy:   4px;
+  --border-width-xl:      8px;
+}
+
+
+/* ============================================================
+   7. SHADOWS
+   — confirmed from your "Styles / Shadow" tab
+   ============================================================ */
+
+:root {
+  /* Shadow 1 — Large drop (e.g. modals, popovers) */
+  --shadow-lg:
+    0px 10px 16px rgba(0,0,0,0.10),
+    0px 4px  6px  rgba(0,0,0,0.05);
+
+  /* Shadow 2 — Medium drop */
+  --shadow-md:
+    0px 4px 16px rgba(0,0,0,0.10),
+    0px 2px 6px  rgba(0,0,0,0.05);
+
+  /* Shadow 3 — Small drop */
+  --shadow-sm:
+    0px 2px 4px rgba(0,0,0,0.04),
+    0px 4px 6px rgba(0,0,0,0.08);
+
+  /* Shadow 4 — Upward shadow (e.g. bottom sheets) */
+  --shadow-up:
+    0px -2px 4px rgba(0,0,0,0.04),
+    0px -4px 6px rgba(0,0,0,0.08);
+
+  /* Shadow 5 — Focus ring */
+  --shadow-focus:
+    0px 0px 0px 4px var(--color-border-focused);
+}
+
+
+/* ============================================================
+   8. LAYOUT GRID (reference values — not CSS Grid config)
+   ============================================================ */
+
+:root {
+  /* Desktop 12-column grid */
+  --grid-desktop-columns:   12;
+  --grid-desktop-col-width: 66px;   /* ⚠️ verify */
+  --grid-desktop-gutter:    24px;   /* ⚠️ verify */
+  --grid-desktop-margin:    var(--margin-xl);
+
+  /* Mobile 4-column grid */
+  --grid-mobile-columns:    4;
+  --grid-mobile-col-width:  73.75px; /* confirmed from file */
+  --grid-mobile-gutter:     16px;    /* ⚠️ verify */
+  --grid-mobile-margin:     var(--margin-sm);
+}
