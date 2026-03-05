@@ -1,1 +1,331 @@
+/*
+ * ============================================================
+ * BUTTON COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
+ * Node: 232:53181
+ *
+ * Variants:
+ *   Hierarchy  — primary | secondary | tertiary
+ *   Style      — pill | rounded | fab | text
+ *   State      — default | hover | active | pressed | focused
+ *                disabled | loading
+ *   Dark mode  — supported via [data-theme="dark"]
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="button.css">
+ *
+ *   <button class="btn btn--primary btn--pill">Button</button>
+ *   <button class="btn btn--secondary btn--rounded">Button</button>
+ *   <button class="btn btn--tertiary btn--pill" disabled>Button</button>
+ * ============================================================
+ */
 
+/* Import tokens (adjust path as needed) */
+@import '../tokens/tokens.css';
+
+/* ------------------------------------------------------------
+   BASE BUTTON
+   All buttons share these properties
+   ------------------------------------------------------------ */
+
+.btn {
+  /* Layout */
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--space-xs);        /* 8px between text and icon */
+  padding:         var(--space-sm) var(--space-md); /* 12px 16px */
+
+  /* Typography — Modern Era Bold */
+  font-family:     'Modern Era', sans-serif;
+  font-weight:     700;
+  font-size:       var(--text-body-lg);    /* 16px */
+  line-height:     24px;
+  text-align:      center;
+  white-space:     nowrap;
+  text-decoration: none;
+
+  /* Behaviour */
+  cursor:          pointer;
+  border:          var(--border-width-default) solid transparent;
+  outline:         none;
+  transition:      background-color 120ms ease,
+                   border-color     120ms ease,
+                   color            120ms ease,
+                   box-shadow       120ms ease,
+                   opacity          120ms ease;
+  position:        relative;
+  overflow:        hidden;
+}
+
+.btn:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+
+/* ------------------------------------------------------------
+   ICON WITHIN BUTTON
+   ------------------------------------------------------------ */
+
+.btn__icon {
+  display:    flex;
+  align-items: center;
+  width:       16px;
+  height:      16px;
+  flex-shrink: 0;
+}
+
+
+/* ------------------------------------------------------------
+   STYLES — Pill / Rounded / FAB / Text
+   ------------------------------------------------------------ */
+
+/* Pill — fully rounded ends (default) */
+.btn--pill {
+  border-radius: var(--radius-full);  /* 9999px */
+}
+
+/* Rounded — softer rectangle */
+.btn--rounded {
+  border-radius: var(--radius-md);    /* 8px */
+}
+
+/* FAB — icon-only circular button */
+.btn--fab {
+  border-radius: var(--radius-full);
+  padding:       var(--space-sm);     /* equal padding all sides */
+  width:         40px;
+  height:        40px;
+}
+
+/* Text — no background, no border */
+.btn--text {
+  background:  transparent;
+  border:      none;
+  padding:     0;
+  height:      auto;
+}
+
+
+/* ------------------------------------------------------------
+   HIERARCHY — Primary
+   Background: Brand Aqua | Text: Black Fixed
+   ------------------------------------------------------------ */
+
+.btn--primary {
+  background-color: var(--color-bg-brand-aqua);   /* Aqua 40 */
+  border-color:     transparent;
+  color:            var(--color-text-black-fixed); /* #27252d */
+}
+
+.btn--primary:hover {
+  background-color: var(--color-bg-brand-aqua-active); /* Aqua 30 — lighter */
+}
+
+.btn--primary:active,
+.btn--primary.btn--active {
+  background-color: var(--color-bg-brand-aqua-active);
+}
+
+.btn--primary.btn--pressed {
+  background-color: var(--color-bg-brand-aqua-pressed); /* Aqua 50 — deeper */
+  color:            var(--color-text-on-brand-pressed);
+}
+
+.btn--primary:focus-visible {
+  background-color: var(--color-bg-brand-aqua);
+  box-shadow:       var(--shadow-focus);
+}
+
+.btn--primary:disabled,
+.btn--primary.btn--disabled {
+  background-color: var(--color-bg-disabled);   /* Grey 30 */
+  color:            var(--color-text-disabled); /* Grey 60 */
+  cursor:           not-allowed;
+  pointer-events:   none;
+}
+
+/* Primary — Text style variant */
+.btn--primary.btn--text {
+  background:  transparent;
+  color:       var(--color-text-black-fixed);
+}
+.btn--primary.btn--text:hover {
+  color: var(--color-bg-brand-aqua-active);
+}
+
+
+/* ------------------------------------------------------------
+   HIERARCHY — Secondary
+   Background: White | Border: Grey | Text: Black Fixed
+   ------------------------------------------------------------ */
+
+.btn--secondary {
+  background-color: var(--color-bg-primary);  /* White */
+  border-color:     var(--color-border-primary); /* Grey 40 */
+  color:            var(--color-text-black-fixed);
+}
+
+.btn--secondary:hover {
+  background-color: var(--color-bg-primary-subtle); /* Navy 10 */
+  border-color:     var(--color-border-primary);
+}
+
+.btn--secondary:active,
+.btn--secondary.btn--active {
+  background-color: var(--color-bg-primary-subtle);
+}
+
+.btn--secondary.btn--pressed {
+  background-color: var(--color-bg-pressed);          /* Grey 40 */
+  color:            var(--color-text-pressed);
+}
+
+.btn--secondary:focus-visible {
+  background-color: var(--color-bg-primary);
+  border-color:     var(--color-border-primary);
+  box-shadow:       var(--shadow-focus);
+}
+
+.btn--secondary:disabled,
+.btn--secondary.btn--disabled {
+  background-color: var(--color-bg-primary);
+  border-color:     var(--color-bg-disabled);
+  color:            var(--color-text-disabled);
+  cursor:           not-allowed;
+  pointer-events:   none;
+}
+
+/* Secondary — Text style */
+.btn--secondary.btn--text {
+  background:  transparent;
+  border:      none;
+  color:       var(--color-text-black-fixed);
+}
+.btn--secondary.btn--text:hover {
+  color: var(--color-text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   HIERARCHY — Tertiary
+   Background: Transparent | Border: Current | Text: Black Fixed
+   ------------------------------------------------------------ */
+
+.btn--tertiary {
+  background-color: transparent;
+  border-color:     var(--color-border-primary);
+  color:            var(--color-text-black-fixed);
+}
+
+.btn--tertiary:hover {
+  background-color: var(--color-bg-primary-subtle);
+}
+
+.btn--tertiary:active,
+.btn--tertiary.btn--active {
+  background-color: var(--color-bg-primary-subtle);
+}
+
+.btn--tertiary.btn--pressed {
+  background-color: var(--color-bg-pressed);
+  color:            var(--color-text-pressed);
+}
+
+.btn--tertiary:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.btn--tertiary:disabled,
+.btn--tertiary.btn--disabled {
+  background-color: transparent;
+  border-color:     var(--color-bg-disabled);
+  color:            var(--color-text-disabled);
+  cursor:           not-allowed;
+  pointer-events:   none;
+}
+
+/* Tertiary — Text style */
+.btn--tertiary.btn--text {
+  border: none;
+  color:  var(--color-text-black-fixed);
+}
+.btn--tertiary.btn--text:hover {
+  color: var(--color-text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE OVERRIDES
+   Applied when [data-theme="dark"] is on a parent element
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] .btn--primary {
+  background-color: var(--color-bg-brand-aqua);
+  color:            var(--color-text-black-fixed);
+}
+
+[data-theme="dark"] .btn--secondary {
+  background-color: transparent;
+  border-color:     var(--color-border-dark-mode);
+  color:            var(--color-text-on-colour);
+}
+
+[data-theme="dark"] .btn--secondary:hover {
+  background-color: var(--color-bg-transparent);
+}
+
+[data-theme="dark"] .btn--tertiary {
+  background-color: transparent;
+  border-color:     var(--color-border-dark-mode);
+  color:            var(--color-text-on-colour);
+}
+
+[data-theme="dark"] .btn--tertiary:hover {
+  background-color: var(--color-bg-transparent);
+}
+
+[data-theme="dark"] .btn:disabled,
+[data-theme="dark"] .btn.btn--disabled {
+  background-color: var(--color-bg-dark-mode-disabled);
+  color:            var(--color-text-disabled);
+  border-color:     transparent;
+}
+
+
+/* ------------------------------------------------------------
+   LOADING STATE
+   Spinner replaces/overlays button content
+   ------------------------------------------------------------ */
+
+.btn--loading {
+  cursor:         wait;
+  pointer-events: none;
+  position:       relative;
+  color:          transparent !important; /* hide text while loading */
+}
+
+.btn--loading::after {
+  content:        '';
+  position:       absolute;
+  inset:          0;
+  margin:         auto;
+  width:          16px;
+  height:         16px;
+  border:         2px solid currentColor;
+  border-color:   var(--color-text-black-fixed) transparent transparent transparent;
+  border-radius:  var(--radius-full);
+  animation:      btn-spin 0.7s linear infinite;
+  color:          var(--color-text-black-fixed);
+}
+
+.btn--secondary.btn--loading::after,
+.btn--tertiary.btn--loading::after {
+  border-color: var(--color-text-black-fixed) transparent transparent transparent;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
