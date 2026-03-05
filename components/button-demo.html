@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button Component</title>
+<style>
+/* ---- TOKENS (inline for preview) ---- */
+:root {
+  --color-white: #FFFFFF;
+  --color-black: #27252d;
+  --color-navy-10: #E8EDF5;
+  --color-navy-40: #5C7BA3;
+  --color-navy-70: #0D2449;
+  --color-aqua-10: #E0F7F5;
+  --color-aqua-20: #80DDD8;
+  --color-aqua-30: #26C6BF;
+  --color-aqua-40: #12efd4;
+  --color-aqua-50: #008880;
+  --color-grey-20: #F0F0F0;
+  --color-grey-30: #D9D9D9;
+  --color-grey-40: #e5e5e5;
+  --color-grey-50: #A0A0A0;
+  --color-grey-60: #737373;
+  --color-grey-70: #525252;
 
+  --color-bg-primary:              var(--color-white);
+  --color-bg-primary-subtle:       var(--color-navy-10);
+  --color-bg-brand-aqua:           var(--color-aqua-40);
+  --color-bg-brand-aqua-active:    var(--color-aqua-30);
+  --color-bg-brand-aqua-pressed:   var(--color-aqua-50);
+  --color-bg-disabled:             var(--color-grey-30);
+  --color-bg-pressed:              var(--color-grey-40);
+  --color-bg-transparent:          rgba(255,255,255,0.15);
+  --color-text-black-fixed:        var(--color-black);
+  --color-text-on-colour:          var(--color-white);
+  --color-text-disabled:           var(--color-grey-60);
+  --color-text-pressed:            var(--color-grey-70);
+  --color-text-on-brand-pressed:   var(--color-grey-50);
+  --color-border-primary:          var(--color-grey-40);
+  --color-border-dark-mode:        var(--color-navy-40);
+  --color-border-focused:          var(--color-aqua-20);
+  --color-bg-dark-mode-disabled:   var(--color-grey-70);
+
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --text-body-lg: 16px;
+  --radius-full: 9999px;
+  --radius-md: 8px;
+  --border-width-default: 1px;
+  --shadow-focus: 0 0 0 4px var(--color-border-focused);
+}
+
+/* ---- BASE BUTTON ---- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  font-family: system-ui, sans-serif;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 32px;
+  color: #27252d;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  font-family: system-ui, sans-serif; /* replace with 'Modern Era' when available */
+  font-weight: 700;
+  font-size: var(--text-body-lg);
+  line-height: 24px;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  border: var(--border-width-default) solid transparent;
+  outline: none;
+  transition: background-color 120ms ease, border-color 120ms ease,
+              color 120ms ease, box-shadow 120ms ease;
+  position: relative;
+}
+.btn:focus-visible { box-shadow: var(--shadow-focus); }
+.btn--pill    { border-radius: var(--radius-full); }
+.btn--rounded { border-radius: var(--radius-md); }
+.btn--fab     { border-radius: var(--radius-full); padding: var(--space-sm); width:40px; height:40px; }
+.btn--text    { background: transparent; border: none; padding: 0; }
+
+/* Primary */
+.btn--primary { background-color: var(--color-bg-brand-aqua); color: var(--color-text-black-fixed); }
+.btn--primary:hover { background-color: var(--color-bg-brand-aqua-active); }
+.btn--primary:active { background-color: var(--color-bg-brand-aqua-pressed); }
+.btn--primary:disabled { background-color: var(--color-bg-disabled); color: var(--color-text-disabled); cursor: not-allowed; }
+
+/* Secondary */
+.btn--secondary { background-color: var(--color-bg-primary); border-color: var(--color-border-primary); color: var(--color-text-black-fixed); }
+.btn--secondary:hover { background-color: var(--color-bg-primary-subtle); }
+.btn--secondary:active { background-color: var(--color-bg-pressed); }
+.btn--secondary:disabled { border-color: var(--color-bg-disabled); color: var(--color-text-disabled); cursor: not-allowed; }
+
+/* Tertiary */
+.btn--tertiary { background-color: transparent; border-color: var(--color-border-primary); color: var(--color-text-black-fixed); }
+.btn--tertiary:hover { background-color: var(--color-bg-primary-subtle); }
+.btn--tertiary:active { background-color: var(--color-bg-pressed); }
+.btn--tertiary:disabled { border-color: var(--color-bg-disabled); color: var(--color-text-disabled); cursor: not-allowed; }
+
+/* Text buttons */
+.btn--primary.btn--text   { color: var(--color-text-black-fixed); }
+.btn--secondary.btn--text { color: var(--color-text-black-fixed); }
+.btn--tertiary.btn--text  { color: var(--color-text-black-fixed); }
+.btn--text:hover { opacity: 0.7; }
+
+/* Loading */
+.btn--loading { cursor: wait; pointer-events: none; color: transparent !important; }
+.btn--loading::after {
+  content: ''; position: absolute; inset: 0; margin: auto;
+  width: 16px; height: 16px;
+  border: 2px solid #27252d; border-right-color: transparent;
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- DEMO PAGE STYLES ---- */
+h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+.subtitle { color: #737373; font-size: 14px; margin: 0 0 40px; }
+section { margin-bottom: 48px; }
+h2 { font-size: 13px; font-weight: 600; text-transform: uppercase;
+     letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+.row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+.label { font-size: 11px; color: #A0A0A0; width: 72px; flex-shrink: 0; }
+.dark-bg { background: var(--color-navy-70); border-radius: 12px; padding: 24px; }
+.dark-bg h2 { color: rgba(255,255,255,0.4); }
+
+/* Dark mode button overrides (demo) */
+.dark-bg .btn--secondary,
+.dark-bg .btn--tertiary {
+  background: transparent;
+  border-color: var(--color-border-dark-mode);
+  color: var(--color-text-on-colour);
+}
+.arrow { display: inline-block; margin-left: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Button</h1>
+<p class="subtitle">Hierarchy × Style × State — Zego Design System</p>
+
+<!-- PRIMARY -->
+<section>
+  <h2>Primary</h2>
+  <div class="row"><span class="label">Default</span>
+    <button class="btn btn--primary btn--pill">Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--rounded">Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--fab">→</button>
+    <button class="btn btn--primary btn--text">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Hover</span>
+    <button class="btn btn--primary btn--pill" style="background:var(--color-bg-brand-aqua-active)">Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--rounded" style="background:var(--color-bg-brand-aqua-active)">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Focused</span>
+    <button class="btn btn--primary btn--pill" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--rounded" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Disabled</span>
+    <button class="btn btn--primary btn--pill" disabled>Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--rounded" disabled>Button <span class="arrow">→</span></button>
+    <button class="btn btn--primary btn--fab" disabled>→</button>
+  </div>
+  <div class="row"><span class="label">Loading</span>
+    <button class="btn btn--primary btn--pill btn--loading">Button</button>
+    <button class="btn btn--primary btn--rounded btn--loading">Button</button>
+    <button class="btn btn--primary btn--fab btn--loading"></button>
+  </div>
+</section>
+
+<!-- SECONDARY -->
+<section>
+  <h2>Secondary</h2>
+  <div class="row"><span class="label">Default</span>
+    <button class="btn btn--secondary btn--pill">Button <span class="arrow">→</span></button>
+    <button class="btn btn--secondary btn--rounded">Button <span class="arrow">→</span></button>
+    <button class="btn btn--secondary btn--fab">→</button>
+    <button class="btn btn--secondary btn--text">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Focused</span>
+    <button class="btn btn--secondary btn--pill" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+    <button class="btn btn--secondary btn--rounded" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Disabled</span>
+    <button class="btn btn--secondary btn--pill" disabled>Button <span class="arrow">→</span></button>
+    <button class="btn btn--secondary btn--rounded" disabled>Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Loading</span>
+    <button class="btn btn--secondary btn--pill btn--loading">Button</button>
+    <button class="btn btn--secondary btn--rounded btn--loading">Button</button>
+  </div>
+</section>
+
+<!-- TERTIARY -->
+<section>
+  <h2>Tertiary</h2>
+  <div class="row"><span class="label">Default</span>
+    <button class="btn btn--tertiary btn--pill">Button <span class="arrow">→</span></button>
+    <button class="btn btn--tertiary btn--rounded">Button <span class="arrow">→</span></button>
+    <button class="btn btn--tertiary btn--fab">→</button>
+    <button class="btn btn--tertiary btn--text">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Focused</span>
+    <button class="btn btn--secondary btn--pill" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+    <button class="btn btn--secondary btn--rounded" style="box-shadow:var(--shadow-focus)">Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Disabled</span>
+    <button class="btn btn--tertiary btn--pill" disabled>Button <span class="arrow">→</span></button>
+    <button class="btn btn--tertiary btn--rounded" disabled>Button <span class="arrow">→</span></button>
+  </div>
+  <div class="row"><span class="label">Loading</span>
+    <button class="btn btn--tertiary btn--pill btn--loading">Button</button>
+    <button class="btn btn--tertiary btn--rounded btn--loading">Button</button>
+  </div>
+</section>
+
+<!-- DARK MODE -->
+<section>
+  <h2>Dark Mode</h2>
+  <div class="dark-bg" data-theme="dark">
+    <h2>On dark background</h2>
+    <div class="row">
+      <button class="btn btn--primary btn--pill">Button <span class="arrow">→</span></button>
+      <button class="btn btn--secondary btn--pill">Button <span class="arrow">→</span></button>
+      <button class="btn btn--tertiary btn--pill">Button <span class="arrow">→</span></button>
+    </div>
+    <div class="row">
+      <button class="btn btn--primary btn--rounded">Button <span class="arrow">→</span></button>
+      <button class="btn btn--secondary btn--rounded">Button <span class="arrow">→</span></button>
+      <button class="btn btn--tertiary btn--rounded">Button <span class="arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
