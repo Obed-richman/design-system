@@ -1,1 +1,267 @@
 
+/*
+ * ============================================================
+ * TEXT INPUT COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
+ * Node: 2066:311180
+ *
+ * States:
+ *   default | placeholder | hover | focused |
+ *   error | valid | hint | disabled
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="input.css">
+ *
+ *   <!-- Default -->
+ *   <div class="input-field">
+ *     <input class="input" type="text" value="Input">
+ *   </div>
+ *
+ *   <!-- With label -->
+ *   <div class="input-group">
+ *     <label class="input-label">Label</label>
+ *     <div class="input-field">
+ *       <input class="input" type="text" placeholder="Placeholder">
+ *     </div>
+ *   </div>
+ *
+ *   <!-- Error state -->
+ *   <div class="input-group">
+ *     <label class="input-label">Label</label>
+ *     <div class="input-field input-field--error">
+ *       <input class="input" type="text" value="Input">
+ *     </div>
+ *     <p class="input-message input-message--error">Error message here</p>
+ *   </div>
+ *
+ *   <!-- Valid state -->
+ *   <div class="input-field input-field--valid">
+ *     <input class="input" type="text" value="Input">
+ *   </div>
+ *   <p class="input-message input-message--valid">Valid message</p>
+ *
+ *   <!-- Disabled -->
+ *   <div class="input-field input-field--disabled">
+ *     <input class="input" type="text" disabled value="Input">
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   INPUT GROUP
+   Wraps label + field + message together
+   ------------------------------------------------------------ */
+
+.input-group {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-xs);   /* 8px — between label/field/message */
+  width:          100%;
+}
+
+
+/* ------------------------------------------------------------
+   LABEL
+   ------------------------------------------------------------ */
+
+.input-label {
+  font-family:  'Modern Era', sans-serif;
+  font-weight:  400;
+  font-size:    var(--text-body-md);  /* 14px */
+  line-height:  20px;
+  color:        var(--color-text-primary);
+  display:      block;
+}
+
+
+/* ------------------------------------------------------------
+   INPUT FIELD WRAPPER
+   The visible bordered container
+   ------------------------------------------------------------ */
+
+.input-field {
+  display:          flex;
+  align-items:      center;
+  gap:              var(--space-xs);          /* 8px between text and icon */
+  height:           48px;
+  padding:          var(--space-sm) var(--space-md);  /* 12px 16px */
+  width:            100%;
+
+  background-color: var(--color-bg-primary);  /* white */
+  border:           var(--border-width-default) solid var(--color-border-primary); /* 1px #e5e5e5 */
+  border-radius:    var(--radius-md);          /* 8px — confirmed from Figma */
+  box-sizing:       border-box;
+
+  transition:       border-color  120ms ease,
+                    background-color 120ms ease,
+                    box-shadow    120ms ease;
+}
+
+.input-field:hover {
+  border-color: var(--color-border-secondary);  /* slightly stronger on hover */
+}
+
+.input-field:focus-within {
+  border-color: var(--color-border-focused);    /* Aqua 20 */
+  box-shadow:   var(--shadow-focus);
+}
+
+
+/* ------------------------------------------------------------
+   THE ACTUAL INPUT ELEMENT
+   Sits inside .input-field, takes all available space
+   ------------------------------------------------------------ */
+
+.input {
+  flex:         1;
+  min-width:    0;
+  border:       none;
+  outline:      none;
+  background:   transparent;
+  padding:      0;
+
+  font-family:  'Modern Era', sans-serif;
+  font-weight:  400;
+  font-size:    var(--text-body-lg);   /* 16px — confirmed */
+  line-height:  24px;
+  color:        var(--color-text-primary);  /* #27252d */
+
+  /* Remove browser default styles */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--color-text-disabled);   /* #929195 — confirmed from Figma */
+}
+
+
+/* ------------------------------------------------------------
+   ICON SLOT (clear, valid, error icons)
+   ------------------------------------------------------------ */
+
+.input-icon {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  color:       var(--color-icon-secondary);
+}
+
+
+/* ------------------------------------------------------------
+   STATE — Error
+   ------------------------------------------------------------ */
+
+.input-field--error {
+  background-color: var(--color-bg-negative);   /* #ffe9e9 — confirmed */
+  border-color:     var(--color-border-negative, #e21313);
+}
+
+.input-field--error:focus-within {
+  border-color: var(--color-border-negative, #e21313);
+  box-shadow:   0 0 0 4px rgba(226, 19, 19, 0.15);
+}
+
+.input-field--error .input-icon {
+  color: var(--color-icon-negative);   /* #e21313 */
+}
+
+
+/* ------------------------------------------------------------
+   STATE — Valid
+   ------------------------------------------------------------ */
+
+.input-field--valid {
+  background-color: var(--color-bg-primary);
+  border-color:     var(--color-border-positive);  /* Green 50 */
+}
+
+.input-field--valid .input-icon {
+  color: var(--color-icon-positive);  /* Green 50 */
+}
+
+
+/* ------------------------------------------------------------
+   STATE — Disabled
+   ------------------------------------------------------------ */
+
+.input-field--disabled,
+.input-field:has(input:disabled) {
+  background-color: var(--color-bg-disabled);  /* Grey 30 */
+  border-color:     var(--color-bg-disabled);
+  cursor:           not-allowed;
+  pointer-events:   none;
+}
+
+.input-field--disabled .input,
+.input:disabled {
+  color:  var(--color-text-disabled);   /* #929195 — confirmed */
+  cursor: not-allowed;
+}
+
+
+/* ------------------------------------------------------------
+   MESSAGES (error / valid / hint text below field)
+   ------------------------------------------------------------ */
+
+.input-message {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-xs);   /* 8px icon + text gap */
+  font-family: 'Modern Era', sans-serif;
+  font-weight: 400;
+  font-size:   var(--text-body-md);   /* 14px — confirmed */
+  line-height: 20px;
+  width:       100%;
+}
+
+.input-message__icon {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+}
+
+/* Error message */
+.input-message--error {
+  color: var(--color-text-negative);   /* #e21313 — confirmed */
+}
+
+/* Valid message */
+.input-message--valid {
+  color: var(--color-text-positive);   /* Green 50 */
+}
+
+/* Hint message */
+.input-message--hint {
+  color: var(--color-text-disabled);   /* #929195 */
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] .input-field {
+  background-color: transparent;
+  border-color:     var(--color-border-dark-mode);
+}
+
+[data-theme="dark"] .input {
+  color: var(--color-text-on-colour);
+}
+
+[data-theme="dark"] .input::placeholder {
+  color: var(--color-text-disabled);
+}
+
+[data-theme="dark"] .input-field--disabled {
+  background-color: var(--color-bg-dark-mode-disabled);
+  border-color:     transparent;
+}
