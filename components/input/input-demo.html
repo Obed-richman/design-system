@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="input.css">
   <title>Text Input Component</title>
   <style>
@@ -31,7 +32,7 @@
 
     /* Demo dark wrapper — styling only, not component styles */
     .dark-demo {
-      background: var(--color-navy-70);
+      background: var(--brand-3-high);
       border-radius: 12px;
       padding: 24px;
     }
@@ -75,7 +76,7 @@
       <!-- Hover (simulated with inline style for demo only) -->
       <div class="input-group">
         <label class="input-label">Hover</label>
-        <div class="input-field" style="border-color: var(--color-border-secondary)">
+        <div class="input-field" style="border-color: var(--border-secondary)">
           <input class="input" type="text" value="Input value">
         </div>
       </div>
@@ -83,7 +84,7 @@
       <!-- Focused (simulated with inline style for demo only) -->
       <div class="input-group">
         <label class="input-label">Focused</label>
-        <div class="input-field" style="border-color: var(--color-border-focused); box-shadow: var(--shadow-focus)">
+        <div class="input-field" style="border-color: var(--border-focus); box-shadow: var(--shadow-focus)">
           <input class="input" type="text" value="Input value">
         </div>
       </div>
@@ -169,7 +170,7 @@
 
         <div class="input-group">
           <label class="input-label">Focused</label>
-          <div class="input-field" style="border-color: var(--color-border-focused); box-shadow: var(--shadow-focus)">
+          <div class="input-field" style="border-color: var(--border-focus); box-shadow: var(--shadow-focus)">
             <input class="input" type="text" value="Input value">
           </div>
         </div>

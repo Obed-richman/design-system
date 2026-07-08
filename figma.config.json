@@ -1,0 +1,7 @@
+{
+  "codeConnect": {
+    "parser": "html",
+    "include": ["components/**/*.figma.ts"],
+    "exclude": ["node_modules/**", "components/input/**"]
+  }
+}

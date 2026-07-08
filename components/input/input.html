@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="input.css">
+  <style>
+    /* Demo / layout styles only — all input appearance comes from input.css */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background-page);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      min-height: 100vh;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      width: 100%;
+      height: 104px;
+      background: var(--brand-3-high);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header__logo {
+      color: var(--colour-white);
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-bold);
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* ---- Content ---- */
+    .content {
+      max-width: 876px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ---- Back button ---- */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 24px;
+      border: 1px solid var(--border-primary);
+      background: var(--colour-white);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body-3);
+      font-weight: var(--font-weight-regular);
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: background-color 200ms ease;
+    }
+    .back-btn:hover { background: var(--surface-secondary); }
+
+    /* ---- Component title section ---- */
+    .component-header { margin-bottom: 24px; }
+    .component-header__name {
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-title-4);
+      line-height: var(--line-height-title-4);
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .component-header__description {
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-regular);
+      font-size: var(--font-size-body-2);
+      line-height: var(--line-height-body-2);
+      color: var(--colour-grey-60);
+      margin: 4px 0 0;
+    }
+
+    /* ---- Variants container ---- */
+    .variants {
+      background: var(--colour-white);
+      border-radius: 16px;
+      border: 1px solid var(--border-primary);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ---- Demo helpers ---- */
+    .variant-group { display: flex; flex-direction: column; gap: 12px; }
+    .variant-group__label {
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-subtitle-3);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--colour-grey-60);
+      margin: 0;
+    }
+    .dark-panel {
+      background: var(--brand-3-high);
+      border-radius: var(--radius-medium);
+      padding: var(--gap-large);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo">Zego</span>
+  </header>
+
+  <main class="content">
+
+    <a class="back-btn" href="../../index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="component-header">
+      <h1 class="component-header__name">Input</h1>
+      <p class="component-header__description">Text input with validation states — Zego Design System</p>
+    </div>
+
+    <div class="variants">
+
+      <!-- Default -->
+      <div class="variant-group">
+        <p class="variant-group__label">Default</p>
+        <div class="input-group">
+          <label class="input-label">Label</label>
+          <div class="input-field">
+            <input class="input" type="text" placeholder="Placeholder text">
+          </div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="variant-group">
+        <p class="variant-group__label">Error</p>
+        <div class="input-group">
+          <label class="input-label">Label</label>
+          <div class="input-field input-field--error">
+            <input class="input" type="text" value="Input value">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" fill="currentColor"/>
+                <path d="M8 5v3.5M8 10.5v.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="input-message input-message--error">This field is required</div>
+        </div>
+      </div>
+
+      <!-- Valid -->
+      <div class="variant-group">
+        <p class="variant-group__label">Valid</p>
+        <div class="input-group">
+          <label class="input-label">Label</label>
+          <div class="input-field input-field--valid">
+            <input class="input" type="text" value="Input value">
+            <span class="input-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="8" cy="8" r="7" fill="currentColor"/>
+                <path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="input-message input-message--valid">Looks good</div>
+        </div>
+      </div>
+
+      <!-- Hint -->
+      <div class="variant-group">
+        <p class="variant-group__label">Hint</p>
+        <div class="input-group">
+          <label class="input-label">Label</label>
+          <div class="input-field">
+            <input class="input" type="text" value="Input value">
+          </div>
+          <div class="input-message input-message--hint">This is a hint message</div>
+        </div>
+      </div>
+
+      <!-- Disabled -->
+      <div class="variant-group">
+        <p class="variant-group__label">Disabled</p>
+        <div class="input-group">
+          <label class="input-label">Label</label>
+          <div class="input-field input-field--disabled">
+            <input class="input" type="text" disabled value="Input value">
+          </div>
+        </div>
+      </div>
+
+      <!-- Dark mode -->
+      <div class="variant-group">
+        <p class="variant-group__label">Dark mode</p>
+        <div class="dark-panel" data-theme="dark">
+          <div class="input-group">
+            <label class="input-label">Label</label>
+            <div class="input-field">
+              <input class="input" type="text" placeholder="Placeholder text">
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Label</label>
+            <div class="input-field">
+              <input class="input" type="text" value="Input value">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

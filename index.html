@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Component Library</title>
+  <link rel="stylesheet" href="tokens/tokens.css">
+  <link rel="stylesheet" href="tokens/typography.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background-page);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      min-height: 100vh;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      width: 100%;
+      height: 104px;
+      background: var(--brand-3-high);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header__logo {
+      color: var(--colour-white);
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-bold);
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* ---- Content ---- */
+    .content {
+      max-width: 876px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ---- Search bar ---- */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: var(--colour-grey-60);
+      pointer-events: none;
+      display: flex;
+    }
+    .search-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px 0 44px;
+      background: var(--colour-white);
+      border: 1px solid var(--border-primary);
+      border-radius: 12px;
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body-2);
+      font-weight: var(--font-weight-regular);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .search-input::placeholder { color: var(--colour-grey-60); }
+    .search-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: var(--shadow-focus);
+    }
+
+    /* ---- Cards list ---- */
+    .cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ---- Component card ---- */
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--colour-white);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: box-shadow 200ms ease;
+    }
+    .card:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+
+    .card__image {
+      width: 104px;
+      height: 104px;
+      border-radius: 8px;
+      background: #e0e0e0;
+      flex-shrink: 0;
+      object-fit: cover;
+    }
+    .card__text {
+      flex: 1;
+      min-width: 0;
+    }
+    .card__title {
+      font-family: var(--font-family-base);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+      color: var(--text-primary, #27252d);
+      margin: 0;
+    }
+    .card__description {
+      font-family: var(--font-family-base);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--colour-grey-60, #929195);
+      margin: 4px 0 0;
+    }
+    .card__arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--border-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-primary);
+    }
+
+    /* ---- Empty state ---- */
+    .empty-state {
+      text-align: center;
+      padding: 48px 0;
+      color: var(--colour-grey-60);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body-2);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo">Zego</span>
+  </header>
+
+  <main class="content">
+
+    <div class="search-wrapper">
+      <svg class="search-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 10l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input
+        class="search-input"
+        type="search"
+        placeholder="Search for component"
+        id="search"
+        aria-label="Search components"
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="cards-list" id="cards-list"></div>
+    <p class="empty-state" id="empty-state">No components found</p>
+
+  </main>
+
+  <script>
+    const components = [
+      {
+        name: "Button",
+        description: "Primary, secondary and tertiary button styles with all interactive states.",
+        image: "",
+        page: "components/button/button.html"
+      },
+      {
+        name: "Input",
+        description: "Text input fields including validation states and helper text.",
+        image: "",
+        page: "components/input/input.html"
+      },
+      {
+        name: "Icons",
+        description: "Full icon library across finance, general, product, social, telematics, and UI categories.",
+        image: "",
+        page: "pages/icons.html"
+      }
+    ];
+
+    const cardsList  = document.getElementById('cards-list');
+    const emptyState = document.getElementById('empty-state');
+    const searchInput = document.getElementById('search');
+
+    function renderCards(items) {
+      cardsList.innerHTML = '';
+      if (items.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+      items.forEach(({ name, description, image, page }) => {
+        const card = document.createElement('a');
+        card.href = page;
+        card.className = 'card';
+
+        const imgEl = image
+          ? `<img class="card__image" src="${image}" alt="${name}">`
+          : `<div class="card__image" aria-hidden="true"></div>`;
+
+        card.innerHTML = `
+          ${imgEl}
+          <div class="card__text">
+            <h3 class="card__title">${name}</h3>
+            <p class="card__description">${description}</p>
+          </div>
+          <div class="card__arrow" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        `;
+        cardsList.appendChild(card);
+      });
+    }
+
+    function filterCards(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) { renderCards(components); return; }
+      renderCards(components.filter(c =>
+        c.name.toLowerCase().includes(q) ||
+        c.description.toLowerCase().includes(q)
+      ));
+    }
+
+    searchInput.addEventListener('input', e => filterCards(e.target.value));
+
+    renderCards(components);
+  </script>
+
+</body>
+</html>

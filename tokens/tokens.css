@@ -1,355 +1,560 @@
-/*
- * ============================================================
- * DESIGN SYSTEM TOKENS
- * ============================================================
- * Generated from Figma file: 002-Components
- * https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
- *
- * Structure:
- *   1. Primitive Palette  — raw named colours
- *   2. Semantic Colours   — background, text, icon, border
- *   3. Typography         — type scale (large & small device)
- *   4. Spacing            — spacer & margin scales
- *   5. Corner Radius
- *   6. Border Width
- *   7. Shadows
+/* ============================================
+   FONT FACE DECLARATIONS
+   ============================================ */
 
- * ============================================================
- */
-
-
-/* ============================================================
-   1. PRIMITIVE PALETTE
-   These are your raw base colours. Semantic tokens below
-   reference these, so you only need to update here.
-   ============================================================ */
-
-:root {
-
-  /* White & Black */
-  --color-white:           #FFFFFF;
-  --color-black:           #27252D;  /* */
-
-  /* Navy scale */
-  --color-navy-10:         #F5F6F9;  /* */
-  --color-navy-40:         #5D596F;  /* */
-  --color-navy-50:         #443B5C;  /* */
-  --color-navy-70:         #09002D;  /* your BrandNavy */
-
-  /* Aqua scale */
-  --color-aqua-10:         #E7FFFC;  /* */
-  --color-aqua-20:         #B2FFF6;  /* */
-  --color-aqua-30:         #76F8E8;  /* */
-  --color-aqua-40:         #12EFD4;  /* your BrandAqua */
-  --color-aqua-50:         #02CCB4;  /* */
-
-  /* Purple scale */
-  --color-purple-10:       #E9EDFF;  /* */
-  --color-purple-20:       #C9D3FF;  /* */
-  --color-purple-50:       #6A58F8;  /* your BrandLightPurple */
-  --color-purple-60:       #371987;  /* BrandPurple */
-
-  /* Ecru scale */
-  --color-ecru-20:         #F8F5F3;  /* BrandEcru */
-
-  /* Blue scale */
-  --color-blue-40:         #44C7FF;  /* BackgroundBrandBlue */
-
-  /* Grey scale */
-  --color-grey-20:         #F5F5F5;  /* */
-  --color-grey-30:         #EEEEEE;  /* */
-  --color-grey-40:         #E5E5E5;  /* */
-  --color-grey-50:         #D4D3D5;  /* */
-  --color-grey-60:         #929195;  /* */
-  --color-grey-70:         #68676C;  /* */
-
-  /* Red (Negative) scale */
-  --color-red-10:          #FFE9E9;  /* */
-  --color-red-20:          #FFC1C1;  /* */
-  --color-red-50:          #E21313;  /* */
-  --color-red-70:          #730101;  /* */
-
-  /* Green (Positive) scale */
-  --color-green-10:        #E6FFEE;  /* */
-  --color-green-30:        #AAF6B4;  /* */
-  --color-green-50:        #0FC461;  /* */
-  --color-green-70:        #163300;  /* */
-
-  /* Yellow/Orange (Warning) scale */
-  --color-yellow-30:       #FFB68D;  /* */
-  --color-yellow-50:       #FE6F1F;  /* */
-  --color-orange-10:       #FFEEE4;  /* */
-  --color-orange-70:       #8D3401;  /* */
-
-  /* Black alpha variants */
-  --color-black-2:         #201E26;  /* near-black/off-white */
-  --color-black-3:         #2E2D35;  /* */
-  --color-black-4:         #33323B;  /* */
+@font-face {
+  font-family: 'Modern Era';
+  src: url('../fonts/ModernEra-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Modern Era';
+  src: url('../fonts/ModernEra-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Modern Era';
+  src: url('../fonts/ModernEra-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Modern Era';
+  src: url('../fonts/ModernEra-Black.woff2') format('woff2');
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'UKNumberPlate';
+  src: url('../fonts/UKNumberPlate.ttf') format('truetype');
+  font-weight: 400; font-style: normal; font-display: swap;
 }
 
 
-/* ============================================================
-   2. SEMANTIC COLOUR TOKENS
-   These reference primitives above. Do not hardcode hex here.
-   Two modes: Light (default) and Dark.
-   ============================================================ */
+/* ============================================
+   DESIGN TOKENS — synced to Figma "Design-System-003"
+   Primitive colours + semantic (Mode: Light/Dark) mirror
+   the Figma Variables panel (source of truth).
+   Dark mode is explicit via [data-theme="dark"].
+   ============================================ */
 
-/* --- LIGHT MODE (default) --- */
+body { font-family: var(--font-family-base); }
+[hidden] { display: none !important; }
+
+
+/* ============================================
+   1. PRIMITIVE COLOUR PALETTE
+   Mirrors Figma Primitive collection. Scale 10 (lightest)
+   → 100 (darkest). Suffixes (e.g. -30) are alpha percents.
+   Do NOT use directly in components — use semantics below.
+   ============================================ */
+
 :root {
 
-  /* Background */
-  --color-bg-primary:                 var(--color-white);
-  --color-bg-primary-subtle:          var(--color-navy-10);
-  --color-bg-secondary:               var(--color-grey-20);
-  --color-bg-tertiary:                var(--color-black);
-  --color-bg-brand-aqua:              var(--color-aqua-40);
-  --color-bg-brand-aqua-active:       var(--color-aqua-30);
-  --color-bg-brand-aqua-pressed:      var(--color-aqua-50);
-  --color-bg-brand-ecru:              var(--color-ecru-20);
-  --color-bg-brand-purple:            var(--color-purple-60);
-  --color-bg-brand-light-purple:      var(--color-purple-50);
-  --color-bg-brand-blue:              var(--color-blue-40);
-  --color-bg-brand-navy:              var(--color-navy-70);
-  --color-bg-light-navy:              var(--color-navy-50);
-  --color-bg-disabled:                var(--color-grey-30);
-  --color-bg-dark-mode-disabled:      var(--color-grey-70);
-  --color-bg-pressed:                 var(--color-grey-40);
-  --color-bg-transparent:             rgba(255,255,255,0.40);
-  --color-bg-transparent-focused:     rgba(255,255,255,0.30);
-  --color-bg-white-overlay:           rgba(255,255,255,0.80);
-  --color-bg-black-overlay:           rgba(0,0,0,0.40);
-  --color-bg-navy-overlay:            rgba(13,36,73,0.80);    /* navy-70 at 80% ⚠️ verify */
-  --color-bg-navy-transparent:        rgba(13,36,73,0.00);
-  --color-bg-dark-mode-overlay:       rgba(0,0,0,0.80);
-  --color-bg-negative:                var(--color-red-10);
-  --color-bg-warning:                 var(--color-orange-10);
-  --color-bg-positive:                var(--color-green-10);
-  --color-bg-information:             var(--color-purple-10);
-  --color-bg-purple-muted:            var(--color-purple-20);
-  --color-bg-brand-positive:          var(--color-aqua-10);
-  --color-bg-black-fixed:             var(--color-black);
-  --color-bg-white-fixed:             var(--color-white);
+  /* --- Aqua --- */
+  --colour-aqua-100:   #055555;
+  --colour-aqua-90:    #047373;
+  --colour-aqua-90-20: #04737333;
+  --colour-aqua-80:    #059292;
+  --colour-aqua-70:    #08B0B0;
+  --colour-aqua-60:    #05CFCF;
+  --colour-aqua-50:    #08F0F0;
+  --colour-aqua-50-30: #08F0F04D;
+  --colour-aqua-40:    #34F7F7;
+  --colour-aqua-40-20: #34F7F733;
+  --colour-aqua-30:    #68F9F9;
+  --colour-aqua-20:    #9AFCFC;
+  --colour-aqua-10:    #CEFDFD;
 
-  /* Text */
-  --color-text-primary:               var(--color-black);
-  --color-text-disabled:              var(--color-grey-60);
-  --color-text-pressed:               var(--color-grey-70);
-  --color-text-on-colour:             var(--color-white);
-  --color-text-on-brand-pressed:      var(--color-grey-50);   /* "Grey50" ⚠️ */
-  --color-text-link:                  var(--color-purple-60);
-  --color-text-link-pressed:          var(--color-purple-50);
-  --color-text-link-on-dark:          var(--color-aqua-40);
-  --color-text-link-on-dark-pressed:  var(--color-aqua-20);
-  --color-text-negative:              var(--color-red-50);
-  --color-text-warning:               var(--color-yellow-50);
-  --color-text-positive:              var(--color-green-50);
-  --color-text-black-fixed:           var(--color-black);
-  --color-text-white-fixed:           var(--color-white);
+  /* --- Orange --- */
+  --colour-orange-100:    #6B4400;
+  --colour-orange-100-30: #6B44004D;
+  --colour-orange-90:     #8C5900;
+  --colour-orange-80:     #B06F00;
+  --colour-orange-80-80:  #B06F00CC;
+  --colour-orange-70:     #D68800;
+  --colour-orange-70-10:  #D688001A;
+  --colour-orange-60:     #F59B00;
+  --colour-orange-50:     #FFB029;
+  --colour-orange-40:     #FBC362;
+  --colour-orange-30:     #F9D494;
+  --colour-orange-20:     #FAE3BD;
+  --colour-orange-10:     #FBF1E0;
 
-  /* Icon */
-  --color-icon-primary:               var(--color-black);
-  --color-icon-secondary:             var(--color-grey-40);
-  --color-icon-disabled:              var(--color-grey-60);
-  --color-icon-pressed:               var(--color-grey-70);
-  --color-icon-on-colour:             var(--color-white);
-  --color-icon-on-brand-pressed:      var(--color-grey-50);
-  --color-icon-link:                  var(--color-purple-60);
-  --color-icon-link-pressed:          var(--color-purple-50);
-  --color-icon-negative:              var(--color-red-50);
-  --color-icon-warning:               var(--color-yellow-50);
-  --color-icon-positive:              var(--color-green-50);
-  --color-icon-black-fixed:           var(--color-black);
-  --color-icon-white-fixed:           var(--color-white);
+  /* --- Red --- */
+  --colour-red-100:    #670303;
+  --colour-red-100-30: #6703034D;
+  --colour-red-90:     #880303;
+  --colour-red-80:     #AB0606;
+  --colour-red-70:     #D00909;
+  --colour-red-70-10:  #D009091A;
+  --colour-red-60:     #EB0000;
+  --colour-red-50:     #FF2525;
+  --colour-red-50-40:  #FF252566;
+  --colour-red-40:     #FB5454;
+  --colour-red-30:     #FA8282;
+  --colour-red-20:     #FCACAC;
+  --colour-red-20-40:  #FCACAC66;
+  --colour-red-10:     #FDD7D7;
 
-  /* Border */
-  --color-border-primary:             var(--color-grey-40);
-  --color-border-secondary:           var(--color-grey-50);
-  --color-border-on-colour:           var(--color-white);
-  --color-border-on-light-bg:         var(--color-black);
-  --color-border-dark-mode:           var(--color-navy-40);
-  --color-border-focused:             var(--color-aqua-20);
-  --color-border-brand-positive:      var(--color-aqua-30);
-  --color-border-active:              var(--color-aqua-40);
-  --color-border-positive:            var(--color-green-50);
-  --color-border-warning:             var(--color-yellow-50);
-  --color-border-negative:            var(--color-red-50);
-  --color-border-information-subtle:  var(--color-purple-20);
-  --color-border-positive-subtle:     var(--color-green-30);
-  --color-border-warning-subtle:      var(--color-yellow-30);
-  --color-border-negative-subtle:     var(--color-red-20);
+  /* --- Ecru --- */
+  --colour-ecru-10:  #FDFCFB;
+  --colour-ecru-20:  #F8F5F3;
+  --colour-ecru-30:  #F2EDE9;
+  --colour-ecru-40:  #E2D6CF;
+  --colour-ecru-50:  #C5B8B1;
+  --colour-ecru-60:  #A89990;
+  --colour-ecru-70:  #8C7B74;
+  --colour-ecru-80:  #6B5A53;
+  --colour-ecru-90:  #4A3D38;
+  --colour-ecru-100: #2C2420;
+
+  /* --- Grey (10 = lightest → 100 = darkest) --- */
+  --colour-grey-100:   #2B2A2E;
+  --colour-grey-90:    #48474C;
+  --colour-grey-80:    #68676C;
+  --colour-grey-80-10: #68676C1A;
+  --colour-grey-70:    #929195;
+  --colour-grey-60:    #D4D3D5;
+  --colour-grey-50:    #E5E5E5;
+  --colour-grey-40:    #EEEEEE;
+  --colour-grey-30:    #F5F5F5;
+  --colour-grey-20:    #F5F6F9;
+  --colour-grey-10:    #FBFBFB;
+
+  /* --- Black (note: 20==90, 30==70 in Figma; non-monotonic — mirrored as-is) --- */
+  --colour-black-10:    #C8C7CC;
+  --colour-black-20:    #201E26;
+  --colour-black-30:    #2E2D35;
+  --colour-black-40:    #33323B;
+  --colour-black-50:    #555161;
+  --colour-black-60:    #3D3946;
+  --colour-black-70:    #2E2D35;
+  --colour-black-70-80: #2E2D35CC;
+  --colour-black-70-0:  #2E2D3500;
+  --colour-black-80:    #27252D;
+  --colour-black-80-20: #27252D33;
+  --colour-black-80-30: #27252D4D;
+  --colour-black-80-40: #27252D66;
+  --colour-black-80-80: #27252DCC;
+  --colour-black-90:    #201E26;
+  --colour-black-100:   #18161D;
+
+  /* --- Blue --- */
+  --colour-blue-100:    #04405D;
+  --colour-blue-100-30: #04405D4D;
+  --colour-blue-90:     #05587F;
+  --colour-blue-90-20:  #05587F33;
+  --colour-blue-80:     #066FA1;
+  --colour-blue-70:     #0887C3;
+  --colour-blue-60:     #099FE5;
+  --colour-blue-50:     #1CB0F6;
+  --colour-blue-40:     #49C0F8;
+  --colour-blue-30:     #77D0FA;
+  --colour-blue-20:     #A4DFFB;
+  --colour-blue-10:     #D2EFFD;
+
+  /* --- Green --- */
+  --colour-green-100:    #025123;
+  --colour-green-100-30: #0251234D;
+  --colour-green-90:     #037231;
+  --colour-green-80:     #04903E;
+  --colour-green-70:     #05B14C;
+  --colour-green-70-50:  #05B14C80;
+  --colour-green-60:     #05CC58;
+  --colour-green-50:     #00E660;
+  --colour-green-40:     #23F97D;
+  --colour-green-30:     #5FF89F;
+  --colour-green-30-30:  #5FF89F4D;
+  --colour-green-20:     #96F8BF;
+  --colour-green-10:     #CEFAE0;
+
+  /* --- Navy (blue family) --- */
+  --colour-navy-100:   #00134C;
+  --colour-navy-90:    #00166C;
+  --colour-navy-90-80: #00166CCC;
+  --colour-navy-90-50: #00166C80;
+  --colour-navy-90-0:  #00166C00;
+  --colour-navy-80:    #0630AD;
+  --colour-navy-70:    #093BD2;
+  --colour-navy-60:    #0944F4;
+  --colour-navy-50:    #2E61FA;
+  --colour-navy-40:    #5780FB;
+  --colour-navy-30:    #84A2FA;
+  --colour-navy-20:    #AFC2FA;
+  --colour-navy-10:    #D9E2FB;
+
+  /* --- Purple --- */
+  --colour-purple-100:    #390676;
+  --colour-purple-100-10: #3906761A;
+  --colour-purple-100-20: #39067633;
+  --colour-purple-90:     #4B059F;
+  --colour-purple-90-20:  #4B059F33;
+  --colour-purple-80:     #5F06C9;
+  --colour-purple-70:     #750BF3;
+  --colour-purple-60:     #892BFA;
+  --colour-purple-50:     #A458FF;
+  --colour-purple-50-40:  #A458FF66;
+  --colour-purple-40:     #B67DFA;
+  --colour-purple-30:     #C99FFB;
+  --colour-purple-20:     #DBBFFD;
+  --colour-purple-10:     #EDE0FE;
+
+  /* --- White --- */
+  --colour-white:     #FFFFFF;
+  --colour-white-10:  #FFFFFF1A;
+  --colour-white-20:  #FFFFFF33;
+  --colour-white-30:  #FFFFFF4D;
+  --colour-white-40:  #FFFFFF66;
+  --colour-white-80:  #FFFFFFCC;
+
+  /* --- Yellow --- */
+  --colour-yellow-100:   #767806;
+  --colour-yellow-90:    #9FA205;
+  --colour-yellow-90-20: #9FA20533;
+  --colour-yellow-80:    #CACD06;
+  --colour-yellow-70:    #E2E612;
+  --colour-yellow-60:    #F7FA31;
+  --colour-yellow-50:    #FCFF5F;
+  --colour-yellow-40:    #F8FA83;
+  --colour-yellow-30:    #FAFCA3;
+  --colour-yellow-30-40: #FAFCA366;
+  --colour-yellow-20:    #FCFDC1;
+  --colour-yellow-10:    #FDFEE1;
+
+  /* --- Pink --- */
+  --colour-pink-100: #680346;
+  --colour-pink-90:  #8A045D;
+  --colour-pink-80:  #AD0675;
+  --colour-pink-70:  #D2098F;
+  --colour-pink-60:  #F409A6;
+  --colour-pink-50:  #FA2EB6;
+  --colour-pink-40:  #FB57C4;
+  --colour-pink-30:  #FA84D3;
+  --colour-pink-20:  #FAAFE1;
+  --colour-pink-10:  #FBD9F0;
+
+  /* --- Lime (Figma leaf names are "Green N" inside the Lime group) --- */
+  --colour-lime-100:    #2E6303;
+  --colour-lime-100-30: #2E63034D;
+  --colour-lime-90:     #3E8603;
+  --colour-lime-80:     #4DA704;
+  --colour-lime-70:     #61D105;
+  --colour-lime-70-50:  #61D10580;
+  --colour-lime-60:     #89ED37;
+  --colour-lime-50:     #AAFF64;
+  --colour-lime-40:     #BCFC87;
+  --colour-lime-30:     #CDFBA7;
+  --colour-lime-30-30:  #CDFBA74D;
+  --colour-lime-20:     #DEFBC6;
+  --colour-lime-10:     #EFFCE4;
+
 }
 
-/* --- DARK MODE --- */
-@media (prefers-color-scheme: dark) {
+
+/* ============================================
+   2. SIZE / SPACING / RADIUS / TYPE PRIMITIVES
+   (Confirmed in sync with Figma — unchanged.)
+   ============================================ */
+
+:root {
+  /* Number */
+  --number-0: 0px;   --number-1: 1px;   --number-2: 2px;   --number-4: 4px;
+  --number-8: 8px;   --number-12: 12px; --number-14: 14px; --number-16: 16px;
+  --number-20: 20px; --number-24: 24px; --number-28: 28px; --number-32: 32px;
+  --number-40: 40px; --number-48: 48px; --number-56: 56px; --number-64: 64px;
+  --number-72: 72px; --number-80: 80px; --number-88: 88px; --number-94: 94px;
+  --number-192: 192px;
+
+  /* Gap */
+  --gap-none: 0px;   --gap-xx-small: 4px; --gap-x-small: 8px; --gap-small: 12px;
+  --gap-medium: 16px; --gap-large: 24px; --gap-x-large: 32px; --gap-xx-large: 40px;
+  --gap-xxx-large: 48px;
+
+  /* Radius */
+  --radius-none: 0px; --radius-x-small: 4px; --radius-small: 8px;
+  --radius-medium: 16px; --radius-large: 24px; --radius-x-large: 32px;
+  --radius-round: 9999px;
+
+  /* Border width */
+  --border-none: 0px; --border-s: 1px; --border-m: 2px; --border-l: 3px;
+  --border-focused: 4px; --border-icon: 8px;
+
+  /* Margin (mobile) */
+  --margin-small: 16px; --margin-medium: 32px; --margin-large: 48px; --margin-x-large: 24px;
+
+  /* Frame (mobile) */
+  --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 327px;
+
+  /* Icon sizes */
+  --icon-size-3xs: 12px; --icon-size-xxs: 16px; --icon-size-xs: 24px; --icon-size-s: 32px;
+  --icon-size-m: 48px; --icon-size-l: 64px; --icon-size-xl: 72px; --icon-size-xxl: 96px;
+}
+
+@media (min-width: 768px) {
   :root {
-    --color-bg-primary:               var(--color-black);
-    --color-bg-primary-subtle:        var(--color-black-2);
-    --color-bg-secondary:             var(--color-navy-40);
-    --color-bg-tertiary:              var(--color-white);
-    --color-text-primary:             var(--color-white);
-    --color-text-link:                var(--color-aqua-40);
-    --color-text-link-pressed:        var(--color-aqua-20);
-    --color-icon-primary:             var(--color-white);
-    --color-border-primary:           var(--color-navy-40);
-    /* Add further dark mode overrides here as needed */
+    --margin-small: 48px; --margin-medium: 64px; --margin-large: 94px; --margin-x-large: 192px;
+    --frame-screen: 1440px; --frame-wrapper: 1056px; --frame-container: 876px; --frame-content: 516px;
   }
 }
 
-/* You can also apply dark mode with a class if you prefer: */
-/* [data-theme="dark"] { ... } */
 
-
-/* ============================================================
-   3. TYPOGRAPHY
-   ============================================================ */
+/* ============================================
+   3. SEMANTIC TOKENS — LIGHT (default)
+   Mirrors the Figma "Mode" collection (Light). Names match the
+   Figma variable paths with the leading `color/` dropped and `/`→`-`
+   (e.g. color/surface/active → --surface-active).
+   ============================================ */
 
 :root {
-  /* Font family — ⚠️ replace with your actual font(s) */
-  --font-family-base:    'Inter', sans-serif;   /* ⚠️ verify */
-  --font-family-heading: 'Inter', sans-serif;   /* ⚠️ verify */
 
-  /* Type scale — Large Device */
-  --text-display-lg:     52px;   /* ⚠️ verify */
-  --text-display-md:     44px;   /* ⚠️ verify */
-  --text-display-sm:     36px;   /* ⚠️ verify */
-  --text-h1:             32px;   /* ⚠️ verify */
-  --text-h2:             28px;   /* ⚠️ verify */
-  --text-h3:             24px;   /* ⚠️ verify */
-  --text-h4:             20px;   /* ⚠️ verify */
-  --text-h5:             18px;   /* ⚠️ verify */
-  --text-h6:             16px;   /* ⚠️ verify */
-  --text-body-lg:        16px;
-  --text-body-md:        14px;
-  --text-body-sm:        12px;
-  --text-caption:        12px;
-  --text-overline:       10px;   /* ⚠️ verify */
+  /* --- background --- */
+  --background-primary:         var(--colour-white);
+  --background-secondary:       var(--colour-grey-20);
+  --background-tertiary:        var(--colour-ecru-20);
+  --background-inverse:         var(--colour-black-80);
+  --background-inverse-fixed:   var(--colour-black-80);
+  --background-disabled:        var(--colour-grey-50);
+  --background-primary-fixed:   var(--colour-white);
+  --background-secondary-fixed: var(--colour-grey-30);
+  --background-tertiary-fixed:  var(--colour-ecru-20);
+  --background-page:            var(--colour-grey-20);   /* app shell — not a Figma token */
 
-  /* Type scale — Small Device overrides */
-  --text-display-lg-sm:  36px;   /* ⚠️ verify */
-  --text-display-md-sm:  32px;   /* ⚠️ verify */
-  --text-h1-sm:          28px;   /* ⚠️ verify */
-  --text-h2-sm:          24px;   /* ⚠️ verify */
+  /* --- surface --- */
+  --surface-primary:            var(--colour-white);
+  --surface-primary-hover:      var(--colour-aqua-60);
+  --surface-primary-pressed:    var(--colour-aqua-70);
+  --surface-primary-fixed:      var(--colour-white);
+  --surface-secondary:          var(--colour-grey-30);
+  --surface-secondary-hover:    var(--colour-grey-40);
+  --surface-secondary-pressed:  var(--colour-grey-50);
+  --surface-tertiary-low:       var(--colour-ecru-20);
+  --surface-tertiary-medium:    var(--colour-ecru-30);
+  --surface-tertiary-high:      var(--colour-ecru-40);
+  --surface-inverse:            var(--colour-black-80);
+  --surface-active:             var(--colour-aqua-50);
+  --surface-focus:              var(--colour-aqua-10);
+  --surface-information:        var(--colour-blue-50);
+  --surface-success:            var(--colour-green-50);
+  --surface-warning:            var(--colour-orange-50);
+  --surface-error:              var(--colour-red-50);
+  --surface-error-low:          var(--colour-red-10);
+  --surface-warning-low:        var(--colour-orange-10);
+  --surface-success-low:        var(--colour-green-10);
+  --surface-information-low:    var(--colour-blue-10);
 
-  /* Line heights — ⚠️ verify */
-  --leading-tight:  1.2;
-  --leading-normal: 1.5;
-  --leading-loose:  1.75;
+  /* --- border --- */
+  --border-primary:             var(--colour-grey-50);
+  --border-secondary:           var(--colour-grey-60);
+  --border-tertiary:            var(--colour-black-40);
+  --border-on-color:            var(--colour-white);
+  --border-on-light:            var(--colour-black-80);
+  --border-on-light-fixed:      var(--colour-black-80);
+  --border-focus:               var(--colour-aqua-50-30);
+  --border-active:              var(--colour-aqua-60);
+  --border-success:             var(--colour-green-70);
+  --border-success-low:         var(--colour-green-20);
+  --border-error:               var(--colour-red-60);
+  --border-error-low:           var(--colour-red-20);
+  --border-warning:             var(--colour-orange-70);
+  --border-warning-low:         var(--colour-orange-30);
+  --border-information:         var(--colour-blue-70);
+  --border-information-low:     var(--colour-blue-20);
+  --border-brand-1:             var(--colour-aqua-50);
+  --border-brand-2:             var(--colour-purple-50);
+  --border-brand-3:             var(--colour-navy-50);
+  --border-brand-4:             var(--colour-yellow-50);
 
-  /* Font weights — ⚠️ verify */
-  --font-regular:   400;
-  --font-medium:    500;
-  --font-semibold:  600;
-  --font-bold:      700;
+  /* --- brand (mode-independent) --- */
+  --brand-1-high:   var(--colour-aqua-100);
+  --brand-1-medium: var(--colour-aqua-50);
+  --brand-1-low:    var(--colour-aqua-10);
+  --brand-2-high:   var(--colour-purple-80);
+  --brand-2-medium: var(--colour-purple-50);
+  --brand-2-low:    var(--colour-purple-10);
+  --brand-3-high:   var(--colour-navy-90);
+  --brand-3-medium: var(--colour-navy-50);
+  --brand-3-low:    var(--colour-navy-10);
+  --brand-4-high:   var(--colour-yellow-100);
+  --brand-4-medium: var(--colour-yellow-50);
+  --brand-4-low:    var(--colour-yellow-10);
+
+  /* --- overlay --- */
+  --overlay-light-high:   var(--colour-white-80);
+  --overlay-light-medium: var(--colour-white-40);
+  --overlay-light-low:    var(--colour-white-30);
+  --overlay-light-fixed:  var(--colour-white-20);
+  --overlay-dark-fixed:   var(--colour-black-80-20);
+  --overlay-dark-high:    var(--colour-black-80-80);
+  --overlay-dark-medium:  var(--colour-black-80-30);
+  --overlay-dark-low:     var(--colour-black-80-30);
+
+  /* --- icon / glyph --- */
+  --icon-glyph-primary:          var(--colour-black-80);
+  --icon-glyph-on-color:         var(--colour-white);
+  --icon-glyph-secondary:        var(--colour-grey-50);
+  --icon-glyph-disabled:         var(--colour-grey-70);
+  --icon-glyph-pressed:          var(--colour-grey-80);
+  --icon-glyph-on-color-pressed: var(--colour-grey-60);
+  --icon-glyph-error:            var(--colour-red-70);
+  --icon-glyph-warning:          var(--colour-orange-70);
+  --icon-glyph-success:          var(--colour-green-70);
+  --icon-glyph-information:      var(--colour-blue-70);
+  --icon-glyph-active:           var(--colour-aqua-60);
+  --icon-glyph-primary-fixed:    var(--colour-black-80);
+  --icon-glyph-on-color-fixed:   var(--colour-white);
+
+  /* --- icon / link --- */
+  --icon-link-default:         var(--colour-purple-90);
+  --icon-link-pressed:         var(--colour-purple-70);
+  --icon-link-on-dark:         var(--colour-aqua-50);
+  --icon-link-on-dark-pressed: var(--colour-aqua-40);
+
+  /* --- text --- */
+  --text-primary:              var(--colour-black-80);
+  --text-on-color:             var(--colour-white);
+  --text-disabled:             var(--colour-grey-70);
+  --text-pressed:              var(--colour-grey-80);
+  --text-on-color-pressed:     var(--colour-grey-70);
+  --text-link:                 var(--colour-purple-90);
+  --text-link-pressed:         var(--colour-purple-70);
+  --text-link-on-dark:         var(--colour-aqua-70);
+  --text-link-on-dark-pressed: var(--colour-aqua-40);
+  --text-error:                var(--colour-red-70);
+  --text-warning:              var(--colour-orange-70);
+  --text-success:              var(--colour-green-70);
+  --text-information:          var(--colour-blue-70);
+  --text-primary-fixed:        var(--colour-black-80);
+  --text-on-color-fixed:       var(--colour-white);
+
+  /* --- shadows --- */
+  --shadow-dropdown: 0 2px 6px rgba(39, 37, 45, 0.05), 0 4px 16px rgba(39, 37, 45, 0.1);
+  --shadow-focus:    0 0 0 var(--border-focused) var(--border-focus);
+
 }
 
 
-/* ============================================================
-   4. SPACING
-   Spacer scale (component-level padding, gaps, etc.)
-   ============================================================ */
+/* ============================================
+   4. SEMANTIC TOKENS — DARK  [data-theme="dark"]
+   Only tokens whose Figma "Dark" value differs from Light.
+   ============================================ */
 
-:root {
-  --space-2xs: 4px;   /* XX-Small  */
-  --space-xs:  8px;   /* X-Small   */
-  --space-sm:  12px;  /* Small     */
-  --space-md:  16px;  /* Medium    */
-  --space-lg:  24px;  /* Large     */
-  --space-xl:  32px;  /* X-Large   */
-  --space-2xl: 40px;  /* XX-Large (small device macro) */
-  --space-3xl: 48px;  /* XXX-Large (small device macro) */
+[data-theme="dark"] {
 
-  /* Large Device Macro Spacers */
-  --space-macro-xs:  8px;   /* X-Small  ⚠️ verify */
-  --space-macro-sm:  16px;  /* Small    ⚠️ verify */
-  --space-macro-md:  24px;  /* Medium   ⚠️ verify */
-  --space-macro-lg:  32px;  /* Large    ⚠️ verify */
-  --space-macro-xl:  64px;  /* X-Large  — confirmed from file */
-  --space-macro-2xl: 96px;  /* XX-Large ⚠️ verify */
+  /* background */
+  --background-primary:   var(--colour-black-80);
+  --background-secondary: var(--colour-black-90);
+  --background-tertiary:  var(--colour-black-80);
+  --background-inverse:   var(--colour-white);
+  --background-disabled:  var(--colour-black-80);
+  --background-page:      var(--colour-black-90);
 
-  /* Margins (layout-level) */
-  --margin-sm:  24px;   /* Small  ⚠️ verify */
-  --margin-md:  48px;   /* Medium ⚠️ verify */
-  --margin-lg:  64px;   /* Large  ⚠️ verify */
-  --margin-xl:  94px;   /* X-Large ⚠️ verify — inferred from frame */
-  --margin-2xl: 192px;  /* XX-Large ⚠️ verify — inferred from frame */
+  /* surface */
+  --surface-primary:           var(--colour-black-70);
+  --surface-secondary:         var(--colour-white-20);
+  --surface-secondary-hover:   var(--colour-white-40);
+  --surface-secondary-pressed: var(--colour-grey-90);
+  --surface-inverse:           var(--colour-white-80);
+  --surface-active:            var(--colour-aqua-80);
+  --surface-focus:             var(--colour-aqua-90-20);
+  --surface-success:           var(--colour-green-80);
+  --surface-error-low:         var(--colour-red-70-10);
+  --surface-warning-low:       var(--colour-orange-70-10);
+  --surface-success-low:       var(--colour-green-100-30);
+  --surface-information-low:   var(--colour-blue-90-20);
+
+  /* border */
+  --border-primary:         var(--colour-black-60);
+  --border-secondary:       var(--colour-black-50);
+  --border-tertiary:        var(--colour-grey-90);
+  --border-on-light:        var(--colour-white);
+  --border-active:          var(--colour-aqua-80);
+  --border-error:           var(--colour-red-70);
+  --border-information:     var(--colour-blue-60);
+  --border-success-low:     var(--colour-green-90);
+  --border-error-low:       var(--colour-red-90);
+  --border-warning-low:     var(--colour-orange-90);
+  --border-information-low: var(--colour-blue-90);
+
+  /* overlay */
+  --overlay-light-high:   var(--colour-black-80-80);
+  --overlay-light-medium: var(--colour-black-80-40);
+  --overlay-light-low:    var(--colour-black-80-30);
+  --overlay-dark-high:    var(--colour-white-80);
+  --overlay-dark-medium:  var(--colour-white-30);
+  --overlay-dark-low:     var(--colour-white-30);
+
+  /* icon */
+  --icon-glyph-primary:     var(--colour-white);
+  --icon-glyph-on-color:    var(--colour-black-80);
+  --icon-glyph-information: var(--colour-blue-60);
+  --icon-link-default:      var(--colour-purple-70);
+
+  /* text */
+  --text-primary:          var(--colour-white);
+  --text-on-color:         var(--colour-black-80);
+  --text-on-color-pressed: var(--colour-grey-60);
+  --text-link:             var(--colour-aqua-50);
+  --text-link-pressed:     var(--colour-aqua-40);
+  --text-error:            var(--colour-red-50);
+  --text-information:      var(--colour-blue-60);
+
 }
 
-
-/* ============================================================
-   5. CORNER RADIUS
-   ============================================================ */
+/* ============================================
+   5. TYPOGRAPHY TOKENS  (unchanged — in sync with Figma)
+   ============================================ */
 
 :root {
-  --radius-none:  0px;
-  --radius-xs:    2px;   /* ⚠️ verify */
-  --radius-sm:    4px;   /* ⚠️ verify */
-  --radius-md:    8px;   /* ⚠️ verify */
-  --radius-lg:    12px;  /* ⚠️ verify */
-  --radius-xl:    16px;  /* ⚠️ verify */
-  --radius-full:  9999px;
+  --font-family-base:  'Modern Era', sans-serif;
+  --font-family-plate: 'UKNumberPlate', monospace;
+
+  --font-size-display:      48px;
+  --font-size-title-1:      48px;
+  --font-size-title-2:      40px;
+  --font-size-title-3:      32px;
+  --font-size-title-4:      24px;
+  --font-size-subtitle-1:   18px;
+  --font-size-subtitle-2:   16px;
+  --font-size-subtitle-3:   14px;
+  --font-size-subtitle-4:   12px;
+  --font-size-body-1:       18px;
+  --font-size-body-2:       16px;
+  --font-size-body-3:       14px;
+  --font-size-body-4:       12px;
+  --font-size-metadata:     11px;
+  --font-size-plate-number: 18px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-bold:    700;
+  --font-weight-black:   900;
+
+  --line-height-display:      52px;
+  --line-height-title-1:      52px;
+  --line-height-title-2:      44px;
+  --line-height-title-3:      36px;
+  --line-height-title-4:      28px;
+  --line-height-subtitle-1:   24px;
+  --line-height-subtitle-2:   24px;
+  --line-height-subtitle-3:   20px;
+  --line-height-subtitle-4:   18px;
+  --line-height-body-1:       24px;
+  --line-height-body-2:       24px;
+  --line-height-body-3:       20px;
+  --line-height-body-4:       16px;
+  --line-height-metadata:     16px;
+  --line-height-plate-number: 24px;
+
+  --letter-spacing-tight:  -0.02em;
+  --letter-spacing-snug:   -0.01em;
+  --letter-spacing-normal:  0em;
+  --letter-spacing-wide:    0.03em;
 }
 
-
-/* ============================================================
-   6. BORDER WIDTH
-   — confirmed from your "Border Width" tab
-   ============================================================ */
-
-:root {
-  --border-width-default: 1px;
-  --border-width-medium:  2px;
-  --border-width-thick:   3px;
-  --border-width-heavy:   4px;
-  --border-width-xl:      8px;
-}
-
-
-/* ============================================================
-   7. SHADOWS
-   — confirmed from your "Styles / Shadow" tab
-   ============================================================ */
-
-:root {
-  /* Shadow 1 — Large drop (e.g. modals, popovers) */
-  --shadow-lg:
-    0px 10px 16px rgba(0,0,0,0.10),
-    0px 4px  6px  rgba(0,0,0,0.05);
-
-  /* Shadow 2 — Medium drop */
-  --shadow-md:
-    0px 4px 16px rgba(0,0,0,0.10),
-    0px 2px 6px  rgba(0,0,0,0.05);
-
-  /* Shadow 3 — Small drop */
-  --shadow-sm:
-    0px 2px 4px rgba(0,0,0,0.04),
-    0px 4px 6px rgba(0,0,0,0.08);
-
-  /* Shadow 4 — Upward shadow (e.g. bottom sheets) */
-  --shadow-up:
-    0px -2px 4px rgba(0,0,0,0.04),
-    0px -4px 6px rgba(0,0,0,0.08);
-
-  /* Shadow 5 — Focus ring */
-  --shadow-focus:
-    0px 0px 0px 4px var(--color-border-focused);
-}
-
-
-/* ============================================================
-   8. LAYOUT GRID (reference values — not CSS Grid config)
-   ============================================================ */
-
-:root {
-  /* Desktop 12-column grid */
-  --grid-desktop-columns:   12;
-  --grid-desktop-col-width: 66px;   /* ⚠️ verify */
-  --grid-desktop-gutter:    24px;   /* ⚠️ verify */
-  --grid-desktop-margin:    var(--margin-xl);
-
-  /* Mobile 4-column grid */
-  --grid-mobile-columns:    4;
-  --grid-mobile-col-width:  73.75px; /* confirmed from file */
-  --grid-mobile-gutter:     16px;    /* ⚠️ verify */
-  --grid-mobile-margin:     var(--margin-sm);
+@media (max-width: 767px) {
+  :root {
+    --font-size-display: 48px; --font-size-title-1: 40px; --font-size-title-2: 32px;
+    --font-size-title-3: 28px; --font-size-title-4: 20px;
+    --line-height-display: 52px; --line-height-title-1: 44px; --line-height-title-2: 36px;
+    --line-height-title-3: 32px; --line-height-title-4: 24px;
+  }
 }

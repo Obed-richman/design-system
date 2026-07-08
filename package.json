@@ -1,0 +1,14 @@
+{
+  "name": "zego-design-system",
+  "version": "1.0.0",
+  "description": "Zego Design System — components, tokens, and Figma Code Connect",
+  "private": true,
+  "scripts": {
+    "figma:parse": "figma connect parse",
+    "figma:publish": "figma connect publish",
+    "figma:unpublish": "figma connect unpublish"
+  },
+  "devDependencies": {
+    "@figma/code-connect": "^1.0.0"
+  }
+}

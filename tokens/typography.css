@@ -1,0 +1,247 @@
+/* ==============================================
+   TYPOGRAPHY UTILITY CLASSES
+   Maps directly to Figma text styles.
+   Breakpoint: 768px (desktop > 768 / mobile <= 768)
+   ============================================== */
+
+@import './tokens.css';
+
+/* ---- Display ---- */
+
+.display-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.display-medium {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ---- Title 1 ---- */
+
+.title-1-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-1);
+  line-height: var(--line-height-title-1);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-1-medium {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-title-1);
+  line-height: var(--line-height-title-1);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ---- Title 2 ---- */
+
+.title-2-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-2-medium {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-2-regular {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ---- Title 3 ---- */
+
+.title-3-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-3-medium {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-3-regular {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ---- Title 4 ---- */
+
+.title-4-medium {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-title-4);
+  line-height: var(--line-height-title-4);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title-4-regular {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-title-4);
+  line-height: var(--line-height-title-4);
+  letter-spacing: var(--letter-spacing-snug);
+}
+
+/* ---- Subtitle ---- */
+
+.subtitle-1 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subtitle-1);
+  line-height: var(--line-height-subtitle-1);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.subtitle-2 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subtitle-2);
+  line-height: var(--line-height-subtitle-2);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.subtitle-3 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subtitle-3);
+  line-height: var(--line-height-subtitle-3);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.subtitle-4 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subtitle-4);
+  line-height: var(--line-height-subtitle-4);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ---- Body ---- */
+
+.body-1 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body-1);
+  line-height: var(--line-height-body-1);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.body-2 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.body-3 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body-3);
+  line-height: var(--line-height-body-3);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.body-4 {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-body-4);
+  line-height: var(--line-height-body-4);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ---- Metadata ---- */
+
+.metadata {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-metadata);
+  line-height: var(--line-height-metadata);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+/* ---- Special: Plate Number ---- */
+
+.plate-number {
+  font-family: var(--font-family-plate);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-plate-number);
+  line-height: var(--line-height-plate-number);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ==============================================
+   RESPONSIVE: Mobile overrides (max-width: 768px)
+   Only titles scale down. Subtitles, body,
+   metadata, and plate number stay the same.
+   ============================================== */
+
+@media (max-width: 768px) {
+
+  /* Display stays the same size on mobile */
+
+  .title-1-bold,
+  .title-1-medium {
+    font-size: 40px;
+    line-height: 44px;
+    letter-spacing: -0.02em;
+  }
+
+  .title-2-bold,
+  .title-2-medium,
+  .title-2-regular {
+    font-size: 32px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+  }
+
+  .title-3-bold,
+  .title-3-medium,
+  .title-3-regular {
+    font-size: 28px;
+    line-height: 32px;
+    letter-spacing: -0.02em;
+  }
+
+  .title-4-medium {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .title-4-regular {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.01em;
+  }
+}

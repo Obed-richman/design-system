@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Component Name] — Design System</title>
+  <link rel="stylesheet" href="../tokens/tokens.css">
+  <link rel="stylesheet" href="../tokens/typography.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--background-page);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      min-height: 100vh;
+    }
+
+    /* ---- Header ---- */
+    .header {
+      width: 100%;
+      height: 104px;
+      background: var(--brand-3-high);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header__logo {
+      color: var(--colour-white);
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-bold);
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    /* ---- Content ---- */
+    .content {
+      max-width: 876px;
+      margin: 0 auto;
+      padding: 24px 24px 48px;
+    }
+
+    /* ---- Back button ---- */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 24px;
+      border: 1px solid var(--border-primary);
+      background: var(--colour-white);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      font-size: var(--font-size-body-3);
+      font-weight: var(--font-weight-regular);
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: background-color 200ms ease;
+    }
+    .back-btn:hover { background: var(--surface-secondary); }
+
+    /* ---- Component title section ---- */
+    .component-header {
+      margin-bottom: 24px;
+    }
+    .component-header__name {
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-title-4);
+      line-height: var(--line-height-title-4);
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .component-header__description {
+      font-family: var(--font-family-base);
+      font-weight: var(--font-weight-regular);
+      font-size: var(--font-size-body-2);
+      line-height: var(--line-height-body-2);
+      color: var(--colour-grey-60);
+      margin: 4px 0 0;
+    }
+
+    /* ---- Variants container ---- */
+    .variants {
+      background: var(--colour-white);
+      border-radius: 16px;
+      border: 1px solid var(--border-primary);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo">Zego</span>
+  </header>
+
+  <main class="content">
+
+    <a class="back-btn" href="../index.html">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </a>
+
+    <div class="component-header">
+      <h1 class="component-header__name">[Component Name]</h1>
+      <p class="component-header__description">[Short description — e.g. "Hierarchy × Style × State — Zego Design System"]</p>
+    </div>
+
+    <div class="variants">
+      <!-- Component variants will be placed here -->
+    </div>
+
+  </main>
+
+</body>
+</html>
