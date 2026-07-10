@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="plate.css">
+  <title>Registration Plate Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 40px; }
+    section { margin-bottom: 32px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+    .row { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; }
+  </style>
+</head>
+<body>
+
+  <h1>Registration Plate</h1>
+  <p class="subtitle">UK number plate — Zego Design System</p>
+
+  <section>
+    <h2>Sizes</h2>
+    <div class="row">
+      <span class="plate">SH48 HSA</span>
+      <span class="plate plate--16">SH48 HSA</span>
+      <span class="plate plate--12">SH48 HSA</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Examples</h2>
+    <div class="row">
+      <span class="plate">LB07 ZGO</span>
+      <span class="plate">EK21 XYZ</span>
+      <span class="plate plate--16">AB12 CDE</span>
+    </div>
+  </section>
+
+</body>
+</html>

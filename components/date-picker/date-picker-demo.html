@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="date-picker.css">
+  <script src="date-picker.js" defer></script>
+  <title>Date Picker Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 32px; color: #27252d; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; align-self: flex-start; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 24px; align-self: flex-start; }
+  </style>
+</head>
+<body>
+
+  <h1>When did it happen?</h1>
+  <p class="subtitle">Date Picker — Zego Design System</p>
+
+  <div class="date-picker" data-year="2026" data-month="0" data-today="2026-0-15" data-selected="2026-0-26">
+    <div class="date-picker__header">
+      <button class="btn btn--secondary btn--fab date-picker__nav date-picker__prev" type="button" aria-label="Previous month">
+        <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.1018 20.4098C13.2972 20.6049 13.2972 20.9213 13.1018 21.1164L12.3641 21.8532C12.1687 22.0483 11.8519 22.0483 11.6565 21.8532L2.19214 12.4013C2.1798 12.389 2.16824 12.3762 2.15746 12.3629L2.14656 12.3521C1.95117 12.1569 1.95117 11.8406 2.14656 11.6454L11.6585 2.14614C11.8539 1.951 12.1706 1.951 12.366 2.14614L13.1037 2.88286C13.2991 3.078 13.2991 3.39437 13.1037 3.5895L5.68394 10.9995L21.5002 10.9995C21.7764 10.9995 22.0002 11.2233 22.0002 11.4995V12.4995C22.0002 12.7756 21.7764 12.9995 21.5002 12.9995L5.68167 12.9995L13.1018 20.4098Z" fill="currentColor"/></svg></span>
+      </button>
+      <p class="date-picker__title">January 2026</p>
+      <button class="btn btn--secondary btn--fab date-picker__nav date-picker__next" type="button" aria-label="Next month">
+        <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8984 3.58972C10.703 3.39458 10.703 3.07821 10.8984 2.88308L11.6361 2.14635C11.8315 1.95122 12.1483 1.95122 12.3437 2.14635L21.8081 11.5982C21.8204 11.6105 21.832 11.6233 21.8428 11.6366L21.8537 11.6475C22.0491 11.8426 22.0491 12.159 21.8537 12.3541L12.3418 21.8534C12.1464 22.0485 11.8296 22.0485 11.6342 21.8534L10.8965 21.1166C10.7011 20.9215 10.7011 20.6051 10.8965 20.41L18.3163 13H2.5C2.22386 13 2 12.7762 2 12.5V11.5C2 11.2239 2.22386 11 2.5 11H18.3186L10.8984 3.58972Z" fill="currentColor"/></svg></span>
+      </button>
+    </div>
+    <div class="date-picker__weekdays">
+      <span class="date-picker__weekday">M</span><span class="date-picker__weekday">T</span><span class="date-picker__weekday">W</span><span class="date-picker__weekday">T</span><span class="date-picker__weekday">F</span><span class="date-picker__weekday">S</span><span class="date-picker__weekday">S</span>
+    </div>
+    <div class="date-picker__grid"></div>
+    <div class="date-picker__actions">
+      <button class="btn btn--secondary btn--pill" type="button">Cancel</button>
+      <button class="btn btn--primary btn--pill" type="button">Confirm</button>
+    </div>
+  </div>
+
+</body>
+</html>

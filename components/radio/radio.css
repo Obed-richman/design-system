@@ -1,0 +1,169 @@
+/*
+ * ============================================================
+ * RADIO BUTTON COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=8675-1570
+ *
+ * Types:
+ *   Radio (default)   — filled dot when selected
+ *   Check circle      — checkmark when selected (add .radio--check)
+ *
+ * Variants:
+ *   Checked — false | true          (native :checked)
+ *   State   — default | hover | focused | disabled | error
+ *   Size    — 20 (large, default) | 16 (small, .radio--16)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="radio.css">
+ *
+ *   <!-- Radio (dot) -->
+ *   <label class="radio">
+ *     <input class="radio__input" type="radio" name="choice">
+ *     <span class="radio__control"></span>
+ *     <span class="radio__label">Label</span>
+ *   </label>
+ *
+ *   <!-- Check circle -->
+ *   <label class="radio radio--check">
+ *     <input class="radio__input" type="radio" name="choice">
+ *     <span class="radio__control">
+ *       <svg class="radio__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+ *         <path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5"
+ *               stroke-linecap="round" stroke-linejoin="round"/>
+ *       </svg>
+ *     </span>
+ *     <span class="radio__label">Label</span>
+ *   </label>
+ *
+ *   <!-- Error: add .radio--error · Disabled: add .radio--disabled + disabled attr · Small: add .radio--16 -->
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   WRAPPER (label)
+   ------------------------------------------------------------ */
+
+.radio {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--gap-x-small);   /* 8px */
+  cursor:      pointer;
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* Visually-hidden native input (keeps keyboard focus + a11y) */
+.radio__input {
+  position:    absolute;
+  width:       1px;
+  height:      1px;
+  margin:      -1px;
+  padding:     0;
+  overflow:    hidden;
+  clip:        rect(0 0 0 0);
+  white-space: nowrap;
+  border:      0;
+}
+
+
+/* ------------------------------------------------------------
+   THE CONTROL (circle)
+   ------------------------------------------------------------ */
+
+.radio__control {
+  --radio-size: 20px;                              /* Large */
+  box-sizing:      border-box;
+  position:        relative;
+  flex-shrink:     0;
+  width:           var(--radio-size);
+  height:          var(--radio-size);
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  border:          var(--border-m) solid var(--border-secondary);  /* 2px */
+  border-radius:   var(--radius-round);
+  background-color:var(--surface-primary);
+  transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* Filled dot (Radio type) — centred, hidden until checked */
+.radio__control::after {
+  content:       '';
+  width:         40%;
+  height:        40%;
+  border-radius: var(--radius-round);
+  background:    var(--border-active);   /* Aqua 60 */
+  opacity:       0;
+  transition:    opacity 120ms ease;
+}
+
+/* Checkmark (Check circle type) */
+.radio__tick {
+  width:      100%;
+  height:     100%;
+  color:      var(--icon-glyph-primary);   /* dark tick */
+  opacity:    0;
+  transition: opacity 120ms ease;
+}
+.radio--check .radio__control::after { display: none; }  /* no dot for the check type */
+
+.radio__label {
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   SIZE
+   ------------------------------------------------------------ */
+
+.radio--16 .radio__control { --radio-size: 16px; }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+/* Hover — aqua border (enabled) */
+.radio:hover .radio__input:not(:disabled) + .radio__control {
+  border-color: var(--border-active);
+}
+
+/* Focus */
+.radio__input:focus-visible + .radio__control {
+  box-shadow: var(--shadow-focus);
+}
+
+/* Checked — aqua border + reveal dot / tick */
+.radio__input:checked + .radio__control { border-color: var(--border-active); }
+.radio__input:checked + .radio__control::after { opacity: 1; }
+/* Tick only reveals for the check-circle type (dot handles the Radio type) */
+.radio--check .radio__input:checked + .radio__control .radio__tick { opacity: 1; }
+
+/* Force-state helpers — render hover/focus statically on showcase/demo pages */
+.radio--hover .radio__control { border-color: var(--border-active); }
+.radio--focused .radio__control {
+  border-color: var(--border-active);
+  box-shadow:   var(--shadow-focus);
+}
+
+/* Error — red border + red dot / tick */
+.radio--error .radio__control,
+.radio--error .radio__input:checked + .radio__control { border-color: var(--border-error); }
+.radio--error .radio__control::after { background: var(--icon-glyph-error); }
+.radio--error .radio__tick { color: var(--icon-glyph-error); }
+
+/* Disabled — grey fill, border + indicator */
+.radio--disabled { cursor: not-allowed; }
+.radio--disabled .radio__control,
+.radio--disabled .radio__input:checked + .radio__control {
+  background-color: var(--background-disabled);
+  border-color:     var(--border-primary);
+}
+.radio--disabled .radio__control::after { background: var(--icon-glyph-disabled); }
+.radio--disabled .radio__tick { color: var(--icon-glyph-disabled); }
+.radio--disabled .radio__label { color: var(--text-disabled); }

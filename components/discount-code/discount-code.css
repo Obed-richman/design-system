@@ -1,0 +1,125 @@
+/*
+ * ============================================================
+ * DISCOUNT CODE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=7861-485803
+ *
+ * Enter and apply a promo / discount code. Three states:
+ *   - Default — label + Input + "Apply code" button
+ *   - Error   — Input in error state (with clear ×) + error message below
+ *   - Applied — an information banner (Alert) with a "Remove" button
+ *
+ * Responsive: on desktop the Input + Apply button sit side by side; below
+ * 768px the Apply button drops full-width beneath the Input.
+ *
+ * Composes existing components: Input (+ clear, input.js), Button, Alert, and
+ * icons from /icons (voucher, minus, arrow-right, warning, close). Their CSS
+ * is imported below.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="discount-code.css">
+ *   <script src="../input/input.js"></script>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../input/input.css';
+@import '../button/button.css';
+@import '../alert/alert.css';
+
+
+.discount-code {
+  width:       100%;
+  box-sizing:  border-box;
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* The form (label + row + message). Hidden once a code is applied. */
+.discount-code__form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);                /* 8px */
+}
+
+.discount-code__label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ROW — Input + Apply button
+   ------------------------------------------------------------ */
+
+.discount-code__row {
+  display:     flex;
+  gap:         var(--spacer-16);                  /* 16px */
+  align-items: flex-start;
+}
+.discount-code__row .input-field { flex: 1; min-width: 0; }
+.discount-code__apply { flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .discount-code__row { flex-direction: column; }
+  .discount-code__apply { width: 100%; }
+}
+
+
+/* ------------------------------------------------------------
+   ERROR MESSAGE
+   ------------------------------------------------------------ */
+
+.discount-code__message {
+  display:     none;                              /* shown in the error state */
+  gap:         var(--spacer-8);                   /* 8px */
+  align-items: center;
+}
+.discount-code[data-state="error"] .discount-code__message { display: flex; }
+
+/* Clear (×) only shows once the field has text */
+.discount-code .input__clear { display: none; }
+.discount-code .input-field:has(.input:not(:placeholder-shown)) .input__clear { display: inline-flex; }
+.discount-code__message-icon {
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  color:       var(--text-error);
+}
+.discount-code__message-icon svg { display: block; width: 100%; height: 100%; }
+.discount-code__message-text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-error);
+}
+
+
+/* ------------------------------------------------------------
+   APPLIED — information banner (reuses Alert)
+   ------------------------------------------------------------ */
+
+/* Applied banner lives inside .discount-code and only shows in the applied
+   state (a standalone .discount-code__applied — e.g. a static preview — is
+   unaffected and stays visible). */
+.discount-code .discount-code__applied { display: none; }
+.discount-code[data-state="applied"] .discount-code__applied { display: flex; }
+.discount-code[data-state="applied"] .discount-code__form { display: none; }
+
+.discount-code__applied.alert {
+  align-items:   center;
+  gap:           var(--spacer-16);
+  border-radius: var(--radius-small);             /* 8px (Alert default is 16) */
+  border-color:  var(--border-information);        /* #0887c3 */
+}
+.discount-code__applied .alert__icon { color: var(--icon-glyph-primary); }  /* dark ticket, not blue */
+.discount-code__applied .alert__content { gap: var(--spacer-4); }           /* 4px title→saving */
+
+.discount-code__remove { flex-shrink: 0; }
+@media (max-width: 768px) {
+  .discount-code__remove-arrow { display: none; }  /* mobile Remove shows minus only */
+}

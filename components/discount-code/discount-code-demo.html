@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="discount-code.css">
+  <script src="../input/input.js"></script>
+  <script src="discount-code.js" defer></script>
+  <title>Discount Code Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 24px; }
+    .checkout { max-width: 460px; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 28px; }
+    .checkout h2 { font-size: 18px; font-weight: 700; margin: 0 0 16px; }
+    .line { display: flex; justify-content: space-between; font-size: 15px; padding: 6px 0; }
+    .line--total { font-weight: 700; font-size: 18px; border-top: 1px solid #e5e5e5; margin-top: 8px; padding-top: 14px; }
+    .divider { height: 1px; background: #e5e5e5; border: 0; margin: 20px 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Checkout</h1>
+  <p class="subtitle">Discount Code — Zego Design System</p>
+
+  <div class="checkout">
+    <h2>Order summary</h2>
+    <div class="line"><span>Comprehensive cover · 12 months</span><span>£412.00</span></div>
+    <div class="line"><span>Discount (ZEGO22)</span><span>−£60.00</span></div>
+
+    <hr class="divider">
+
+    <div class="discount-code" data-code="ZEGO22" data-state="default">
+      <div class="discount-code__form">
+        <p class="discount-code__label">Add a discount code</p>
+        <div class="discount-code__row">
+          <div class="input-field">
+            <input class="input" type="text" placeholder="Enter discount code" aria-label="Discount code">
+            <button class="input__clear" type="button" aria-label="Clear"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+          </div>
+          <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply code</button>
+        </div>
+        <div class="discount-code__message">
+          <span class="discount-code__message-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/><path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+          <p class="discount-code__message-text">Invalid code, please check and try again</p>
+        </div>
+      </div>
+      <div class="alert alert--information alert--bordered discount-code__applied">
+        <span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.02893 5.48853C1.02893 4.6601 1.7005 3.98853 2.52893 3.98853H21.5C22.3284 3.98853 23 4.6601 23 5.48853V9.8198H22C20.8954 9.8198 20 10.7152 20 11.8198C20 12.9244 20.8954 13.8198 22 13.8198H23V18.4999C23 19.3283 22.3284 19.9999 21.5 19.9999H2.52893C1.7005 19.9999 1.02893 19.3283 1.02893 18.4999V13.9942H2.02893C3.1335 13.9942 4.02893 13.0988 4.02893 11.9942C4.02893 10.8896 3.1335 9.99422 2.02893 9.99422H1.02893V5.48853ZM3.02893 5.98853V8.12023C4.75416 8.56428 6.02893 10.1304 6.02893 11.9942C6.02893 13.8581 4.75416 15.4242 3.02893 15.8682V17.9999H21V15.6938C19.2748 15.2497 18 13.6836 18 11.8198C18 9.95596 19.2748 8.38986 21 7.94582V5.98853H3.02893Z" fill="currentColor"/><path d="M9.51447 10.7499C10.2048 10.7499 10.7645 10.1903 10.7645 9.49994C10.7645 8.80958 10.2048 8.24994 9.51447 8.24994C8.82411 8.24994 8.26447 8.80958 8.26447 9.49994C8.26447 10.1903 8.82411 10.7499 9.51447 10.7499Z" fill="currentColor"/><path d="M8.45371 14.8535C8.25845 14.6582 8.25845 14.3416 8.45371 14.1464L14.1106 8.48953C14.3058 8.29427 14.6224 8.29427 14.8177 8.48953L15.5248 9.19664C15.72 9.3919 15.72 9.70848 15.5248 9.90374L9.86793 15.5606C9.67266 15.7559 9.35608 15.7559 9.16082 15.5606L8.45371 14.8535Z" fill="currentColor"/><path d="M15.7645 14.4999C15.7645 15.1903 15.2048 15.7499 14.5145 15.7499C13.8241 15.7499 13.2645 15.1903 13.2645 14.4999C13.2645 13.8096 13.8241 13.2499 14.5145 13.2499C15.2048 13.2499 15.7645 13.8096 15.7645 14.4999Z" fill="currentColor"/></svg></span>
+        <div class="alert__content"><p class="alert__title">Code ZEGO22 applied!</p><p class="alert__description">You&rsquo;re saving £60.00</p></div>
+        <button class="btn btn--tertiary btn--pill discount-code__remove" type="button"><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.4812 13C3.20506 13 2.9812 12.7761 2.9812 12.5V11.5C2.9812 11.2239 3.20506 11 3.4812 11H20.5187C20.7948 11 21.0187 11.2239 21.0187 11.5V12.5C21.0187 12.7761 20.7948 13 20.5187 13L3.4812 13Z" fill="currentColor"/></svg></span>Remove<span class="btn__icon discount-code__remove-arrow"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8984 3.58972C10.703 3.39458 10.703 3.07821 10.8984 2.88308L11.6361 2.14635C11.8315 1.95122 12.1483 1.95122 12.3437 2.14635L21.8081 11.5982C21.8204 11.6105 21.832 11.6233 21.8428 11.6366L21.8537 11.6475C22.0491 11.8426 22.0491 12.159 21.8537 12.3541L12.3418 21.8534C12.1464 22.0485 11.8296 22.0485 11.6342 21.8534L10.8965 21.1166C10.7011 20.9215 10.7011 20.6051 10.8965 20.41L18.3163 13H2.5C2.22386 13 2 12.7762 2 12.5V11.5C2 11.2239 2.22386 11 2.5 11H18.3186L10.8984 3.58972Z" fill="currentColor"/></svg></span></button>
+      </div>
+    </div>
+
+    <div class="line line--total"><span>Total</span><span>£352.00</span></div>
+  </div>
+
+</body>
+</html>

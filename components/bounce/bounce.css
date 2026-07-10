@@ -1,0 +1,89 @@
+/*
+ * ============================================================
+ * BOUNCE ANIMATION
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6540-28634
+ *
+ * A dot scales from 0 up to full size and back (Figma _Bounce keyframes:
+ * 1px → 12px). Used on its own via the .bounce utility, or as a staggered
+ * three-dot loader via .bounce-dots.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="bounce.css">
+ *
+ *   <!-- Three-dot loader -->
+ *   <span class="bounce-dots" role="status" aria-label="Loading">
+ *     <span class="bounce-dots__dot"></span>
+ *     <span class="bounce-dots__dot"></span>
+ *     <span class="bounce-dots__dot"></span>
+ *   </span>
+ *
+ *   <!-- Bounce any element -->
+ *   <span class="bounce"> … </span>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   KEYFRAMES — scale 0 → full → 0 (the _Bounce pulse)
+   ------------------------------------------------------------ */
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40%           { transform: scale(1); }
+}
+
+
+/* ------------------------------------------------------------
+   UTILITY — apply the bounce to any element
+   ------------------------------------------------------------ */
+
+.bounce {
+  display:   inline-block;
+  animation: bounce 1.4s ease-in-out infinite both;
+}
+
+
+/* ------------------------------------------------------------
+   BOUNCE DOTS — three staggered dots (loading indicator)
+   ------------------------------------------------------------ */
+
+.bounce-dots {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--gap-xx-small);   /* 4px */
+  color:       var(--icon-glyph-primary);   /* dot colour — adapts to theme */
+}
+
+.bounce-dots__dot {
+  --bounce-dot-size: 12px;
+  width:            var(--bounce-dot-size);
+  height:           var(--bounce-dot-size);
+  border-radius:    var(--radius-round);
+  background-color: currentColor;
+  animation:        bounce 1.4s ease-in-out infinite both;
+}
+
+/* Stagger so the dots bounce in sequence */
+.bounce-dots__dot:nth-child(1) { animation-delay: -0.32s; }
+.bounce-dots__dot:nth-child(2) { animation-delay: -0.16s; }
+.bounce-dots__dot:nth-child(3) { animation-delay: 0s; }
+
+/* Small size — 8px dots */
+.bounce-dots--8 .bounce-dots__dot { --bounce-dot-size: 8px; }
+
+/* Force white dots on a dark surface without a theme wrapper */
+.bounce-dots--inverse { color: var(--colour-white); }
+
+
+/* ------------------------------------------------------------
+   MOTION PREFERENCE
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .bounce,
+  .bounce-dots__dot { animation-duration: 3s; }
+}

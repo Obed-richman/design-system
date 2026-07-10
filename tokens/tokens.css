@@ -121,22 +121,22 @@ body { font-family: var(--font-family-base); }
   --colour-grey-10:    #FBFBFB;
 
   /* --- Black (note: 20==90, 30==70 in Figma; non-monotonic — mirrored as-is) --- */
-  --colour-black-10:    #C8C7CC;
-  --colour-black-20:    #201E26;
-  --colour-black-30:    #2E2D35;
-  --colour-black-40:    #33323B;
-  --colour-black-50:    #555161;
-  --colour-black-60:    #3D3946;
-  --colour-black-70:    #2E2D35;
-  --colour-black-70-80: #2E2D35CC;
-  --colour-black-70-0:  #2E2D3500;
+  --colour-black-100:   #18161D;
+  --colour-black-90:    #201E26;
   --colour-black-80:    #27252D;
   --colour-black-80-20: #27252D33;
   --colour-black-80-30: #27252D4D;
   --colour-black-80-40: #27252D66;
   --colour-black-80-80: #27252DCC;
-  --colour-black-90:    #201E26;
-  --colour-black-100:   #18161D;
+  --colour-black-70:    #2E2D35;
+  --colour-black-70-80: #2E2D35CC;
+  --colour-black-70-0:  #2E2D3500;
+  --colour-black-60:    #3D3946;
+  --colour-black-50:    #555161;
+  --colour-black-40:    #716C7F;
+  --colour-black-30:    #8E8A99;
+  --colour-black-20:    #ABA9B2;
+  --colour-black-10:    #C8C7CC;
 
   /* --- Blue --- */
   --colour-blue-100:    #04405D;
@@ -278,8 +278,13 @@ body { font-family: var(--font-family-base); }
   --border-none: 0px; --border-s: 1px; --border-m: 2px; --border-l: 3px;
   --border-focused: 4px; --border-icon: 8px;
 
-  /* Margin (mobile) */
-  --margin-small: 16px; --margin-medium: 32px; --margin-large: 48px; --margin-x-large: 24px;
+  /* Spacer (mobile — desktop overrides in the @media below).
+     The small steps are the same in both modes; only the large steps scale up. */
+  --spacer-none: 0px;
+  --spacer-4:   4px;  --spacer-8:   8px;  --spacer-12:  12px; --spacer-16:  16px;
+  --spacer-20:  20px; --spacer-24:  24px; --spacer-32:  32px; --spacer-40:  40px;
+  --spacer-48:  48px;
+  --spacer-64:  32px; --spacer-80:  32px; --spacer-94:  48px; --spacer-192: 24px;
 
   /* Frame (mobile) */
   --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 327px;
@@ -291,7 +296,8 @@ body { font-family: var(--font-family-base); }
 
 @media (min-width: 768px) {
   :root {
-    --margin-small: 48px; --margin-medium: 64px; --margin-large: 94px; --margin-x-large: 192px;
+    /* Spacer (desktop) — only the large steps differ from mobile */
+    --spacer-64: 64px; --spacer-80: 80px; --spacer-94: 96px; --spacer-192: 192px;
     --frame-screen: 1440px; --frame-wrapper: 1056px; --frame-container: 876px; --frame-content: 516px;
   }
 }

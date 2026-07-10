@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="notice-toggle.css">
+  <title>Notice Toggle Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 24px; }
+    .stack { display: flex; flex-direction: column; gap: 16px; max-width: 343px; }
+  </style>
+</head>
+<body>
+
+  <h1>Policy settings</h1>
+  <p class="subtitle">Notice Toggle — Zego Design System</p>
+
+  <div class="stack">
+    <div class="notice-toggle notice-toggle--positive">
+      <div class="notice-toggle__content">
+        <p class="notice-toggle__title">Auto renewal is turned on</p>
+        <p class="notice-toggle__text">Your policy will automatically renew on 14/07/2026, so you do not need to do anything.</p>
+      </div>
+      <label class="toggle notice-toggle__switch"><input class="toggle__input" type="checkbox" role="switch" checked><span class="toggle__track"><span class="toggle__thumb"></span></span></label>
+    </div>
+
+    <div class="notice-toggle notice-toggle--information">
+      <div class="notice-toggle__content">
+        <p class="notice-toggle__title">Paperless documents</p>
+        <p class="notice-toggle__text">We'll email your policy documents instead of posting them.</p>
+      </div>
+      <label class="toggle notice-toggle__switch"><input class="toggle__input" type="checkbox" role="switch"><span class="toggle__track"><span class="toggle__thumb"></span></span></label>
+    </div>
+
+    <div class="notice-toggle">
+      <div class="notice-toggle__content">
+        <p class="notice-toggle__title">Marketing emails</p>
+        <p class="notice-toggle__text">Get product updates and the occasional offer. You can opt out any time.</p>
+      </div>
+      <label class="toggle notice-toggle__switch"><input class="toggle__input" type="checkbox" role="switch"><span class="toggle__track"><span class="toggle__thumb"></span></span></label>
+    </div>
+  </div>
+
+</body>
+</html>

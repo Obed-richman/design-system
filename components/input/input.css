@@ -2,53 +2,44 @@
  * ============================================================
  * TEXT INPUT COMPONENT
  * ============================================================
- * Figma source: https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
- * Node: 2066:311180
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2489-15197
  *
  * States:
  *   default | placeholder | hover | focused |
  *   error | valid | hint | disabled
  *
+ * Border colour by state:
+ *   default / placeholder / disabled → border-secondary
+ *   hover / focused                  → border-active (+ focus ring)
+ *   error                            → border-error
+ *   valid / hint                     → border-primary
+ *
  * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="input.css">
  *
- *   <!-- Default -->
- *   <div class="input-field">
- *     <input class="input" type="text" value="Input">
- *   </div>
- *
- *   <!-- With label -->
  *   <div class="input-group">
- *     <label class="input-label">Label</label>
+ *     <label class="input-label" for="email">Label</label>
  *     <div class="input-field">
- *       <input class="input" type="text" placeholder="Placeholder">
+ *       <input class="input" id="email" type="text" placeholder="Placeholder text">
  *     </div>
  *   </div>
  *
- *   <!-- Error state -->
+ *   <!-- Error (with clear button + message) -->
  *   <div class="input-group">
- *     <label class="input-label">Label</label>
+ *     <label class="input-label" for="e2">Label</label>
  *     <div class="input-field input-field--error">
- *       <input class="input" type="text" value="Input">
+ *       <input class="input" id="e2" type="text" value="Input">
+ *       <button class="input__clear" type="button" aria-label="Clear"><svg>…close…</svg></button>
  *     </div>
- *     <p class="input-message input-message--error">Error message here</p>
+ *     <p class="input-message input-message--error">Error message</p>
  *   </div>
  *
- *   <!-- Valid state -->
- *   <div class="input-field input-field--valid">
- *     <input class="input" type="text" value="Input">
- *   </div>
- *   <p class="input-message input-message--valid">Valid message</p>
- *
- *   <!-- Disabled -->
- *   <div class="input-field input-field--disabled">
- *     <input class="input" type="text" disabled value="Input">
- *   </div>
- *
- *   <!-- Dark mode — add data-theme="dark" to a parent wrapper -->
- *   <div data-theme="dark">
- *     <div class="input-field"> ... </div>
- *   </div>
+ *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message -->
+ *   <!-- Disabled: add input-field--disabled and the disabled attribute -->
+ *   <!-- Dark mode: add data-theme="dark" to a parent wrapper -->
+ *   <!-- Clear button behaviour: include input.js — clicking .input__clear empties the field -->
+ *   <script src="input.js"></script>
  * ============================================================
  */
 
@@ -56,14 +47,13 @@
 
 
 /* ------------------------------------------------------------
-   INPUT GROUP
-   Wraps label + field + message together
+   GROUP — wraps label + field + message
    ------------------------------------------------------------ */
 
 .input-group {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-x-small);   /* 8px — between label/field/message */
+  gap:            var(--gap-x-small);   /* 8px */
   width:          100%;
 }
 
@@ -74,49 +64,39 @@
 
 .input-label {
   font-family: 'Modern Era', sans-serif;
-  font-weight: 400;
-  font-size:   var(--font-size-body-3);  /* 14px */
-  line-height: 20px;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);   /* 14px */
+  line-height: var(--line-height-body-3); /* 20px */
   color:       var(--text-primary);
   display:     block;
 }
 
 
 /* ------------------------------------------------------------
-   INPUT FIELD WRAPPER
-   The visible bordered container
+   FIELD — the bordered container
    ------------------------------------------------------------ */
 
 .input-field {
   display:          flex;
   align-items:      center;
-  gap:              var(--gap-x-small);                               /* 8px between text and icon */
+  gap:              var(--gap-x-small);                    /* 8px between text and icon */
   height:           48px;
-  padding:          var(--gap-small) var(--gap-medium);               /* 12px 16px */
+  padding:          var(--gap-small) var(--gap-medium);    /* 12px 16px */
   width:            100%;
   box-sizing:       border-box;
 
-  background-color: var(--background-primary);                       /* white */
-  border:           var(--border-s) solid var(--border-primary); /* 1px #e5e5e5 */
-  border-radius:    var(--radius-small);                              /* 8px */
+  background-color: var(--background-primary);             /* white */
+  border:           var(--border-m) solid var(--border-secondary); /* 2px #d4d3d5 */
+  border-radius:    var(--radius-small);                   /* 8px */
 
-  transition:       border-color     120ms ease,
-                    background-color 120ms ease,
-                    box-shadow       120ms ease;
-}
-
-.input-field:hover {
-  border-color: var(--border-secondary);
-}
-
-.input-field:focus-within {
-  border-color: var(--border-focus);   /* Aqua 20 */
-  box-shadow:   var(--shadow-focus);
+  transition:       border-color     150ms ease,
+                    background-color 150ms ease,
+                    box-shadow       150ms ease;
 }
 
 
 /* ------------------------------------------------------------
-   THE ACTUAL INPUT ELEMENT
+   INPUT ELEMENT
    ------------------------------------------------------------ */
 
 .input {
@@ -128,10 +108,10 @@
   padding:    0;
 
   font-family: 'Modern Era', sans-serif;
-  font-weight: 400;
+  font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-2);        /* 16px */
-  line-height: 24px;
-  color:       var(--text-primary);  /* #27252d */
+  line-height: var(--line-height-body-2);      /* 24px */
+  color:       var(--text-primary);            /* #27252d */
 
   -webkit-appearance: none;
   appearance:         none;
@@ -141,122 +121,116 @@
   color: var(--text-disabled);   /* #929195 */
 }
 
+/* Remove the browser's native search clear/decoration on type="search"
+   — the component provides its own clear button (see Search). */
+.input::-webkit-search-cancel-button,
+.input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance:         none;
+  display:            none;
+}
+
 
 /* ------------------------------------------------------------
-   ICON SLOT (clear, valid, error icons)
+   CLEAR BUTTON — trailing (×), shown in focused / error states
+   Uses the design-system close glyph (icons/close.svg).
    ------------------------------------------------------------ */
 
-.input-icon {
-  display:     flex;
-  align-items: center;
+.input__clear {
   flex-shrink: 0;
-  width:       16px;
-  height:      16px;
-  color:       var(--icon-glyph-secondary);
+  width:       20px;
+  height:      20px;
+  padding:     0;
+  border:      none;
+  background:  none;
+  cursor:      pointer;
+  color:       var(--icon-glyph-primary);
 }
+.input__clear svg { display: block; width: 20px; height: 20px; }
 
 
 /* ------------------------------------------------------------
-   STATE — Error
+   MESSAGE — below the field (error / valid / hint)
    ------------------------------------------------------------ */
 
-.input-field--error {
-  background-color: var(--surface-error-low);                    /* #ffe9e9 */
-  border-color:     var(--border-error, #e21313);
+.input-message {
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);   /* 14px */
+  line-height: var(--line-height-body-3); /* 20px */
+  color:       var(--text-primary);
+  width:       100%;
 }
 
+.input-message--error { color: var(--text-error); }   /* #d00909 */
+.input-message--valid { color: var(--text-primary); } /* dark — no green in this design */
+.input-message--hint  { color: var(--text-primary); }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+/* Hover — aqua border */
+.input-field:hover,
+.input-field--hover {
+  border-color: var(--border-active);
+}
+
+/* Focused — aqua border + focus ring
+   (.input-field--focused forces the look statically for showcase/demo pages) */
+.input-field:focus-within,
+.input-field--focused {
+  border-color: var(--border-active);
+  box-shadow:   var(--shadow-focus);
+}
+
+/* Error — red border (keeps red border on focus, no aqua ring) */
+.input-field--error,
+.input-field--error:hover,
 .input-field--error:focus-within {
-  border-color: var(--border-error, #e21313);
-  box-shadow:   0 0 0 4px rgba(226, 19, 19, 0.15);
+  border-color: var(--border-error);
+  box-shadow:   none;
 }
 
-.input-field--error .input-icon {
-  color: var(--icon-glyph-error);   /* #e21313 */
+/* Valid / Hint — light primary border */
+.input-field--valid,
+.input-field--hint {
+  border-color: var(--border-primary);
 }
 
-
-/* ------------------------------------------------------------
-   STATE — Valid
-   ------------------------------------------------------------ */
-
-.input-field--valid {
-  background-color: var(--background-primary);
-  border-color:     var(--border-success);
-}
-
-.input-field--valid .input-icon {
-  color: var(--icon-glyph-success);
-}
-
-
-/* ------------------------------------------------------------
-   STATE — Disabled
-   ------------------------------------------------------------ */
-
+/* Disabled */
 .input-field--disabled,
-.input-field:has(input:disabled) {
-  background-color: var(--background-disabled);   /* Grey 30 */
-  border-color:     var(--background-disabled);
+.input-field:has(.input:disabled) {
+  background-color: var(--background-disabled);
+  border-color:     var(--border-secondary);
   cursor:           not-allowed;
-  pointer-events:   none;
 }
-
 .input-field--disabled .input,
 .input:disabled {
-  color:  var(--text-disabled);   /* #929195 */
+  color:  var(--text-disabled);
   cursor: not-allowed;
 }
 
 
 /* ------------------------------------------------------------
-   MESSAGES (error / valid / hint text below field)
+   DARK MODE — [data-theme="dark"] parent
    ------------------------------------------------------------ */
 
-.input-message {
-  display:     flex;
-  align-items: center;
-  gap:         var(--gap-x-small);   /* 8px icon + text gap */
-  font-family: 'Modern Era', sans-serif;
-  font-weight: 400;
-  font-size:   var(--font-size-body-3);   /* 14px */
-  line-height: 20px;
-  width:       100%;
-}
-
-.input-message__icon {
-  flex-shrink: 0;
-  width:       24px;
-  height:      24px;
-}
-
-.input-message--error { color: var(--text-error); }  /* #e21313 */
-.input-message--valid { color: var(--text-success); }  /* Green 50 */
-.input-message--hint  { color: var(--text-disabled); }  /* #929195 */
-
-
-/* ------------------------------------------------------------
-   DARK MODE
-   Apply data-theme="dark" to any parent wrapper element
-   ------------------------------------------------------------ */
+[data-theme="dark"] .input-label { color: var(--text-primary); }
 
 [data-theme="dark"] .input-field {
   background-color: transparent;
-  border-color:     var(--border-on-color);
+  border-color:     var(--border-secondary);
 }
+[data-theme="dark"] .input { color: var(--text-primary); }
+[data-theme="dark"] .input::placeholder { color: var(--text-disabled); }
 
-[data-theme="dark"] .input {
-  color: var(--text-on-color-fixed);
-}
+[data-theme="dark"] .input-field:hover,
+[data-theme="dark"] .input-field:focus-within { border-color: var(--border-active); }
 
-[data-theme="dark"] .input::placeholder {
-  color: var(--text-disabled);
-}
-
-[data-theme="dark"] .input-label {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-[data-theme="dark"] .input-field--disabled {
+[data-theme="dark"] .input-field--disabled,
+[data-theme="dark"] .input-field:has(.input:disabled) {
   background-color: var(--background-disabled);
-  border-color:     transparent;
+  border-color:     var(--border-secondary);
 }

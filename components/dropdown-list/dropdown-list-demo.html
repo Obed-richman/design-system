@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../checkbox/checkbox.css">
+  <link rel="stylesheet" href="../dropdown-item/dropdown-item.css">
+  <link rel="stylesheet" href="dropdown-list.css">
+  <title>Dropdown List Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    /* a trigger + the list floating beneath it, like a real select */
+    .field { max-width: 320px; }
+    .field__trigger { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding: 12px 16px; background: #fff; border: 2px solid #d4d3d5; border-radius: 8px; font: inherit; font-weight: 700; cursor: pointer; }
+    .field__list { margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>Dropdown List</h1>
+  <p class="subtitle">Floating select menu — Zego Design System</p>
+
+  <div class="field">
+    <button class="field__trigger" type="button">
+      Choose your vehicle
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="dropdown-list field__list">
+      <button class="dropdown-item" type="button"><span class="dropdown-item__label">Car</span></button>
+      <button class="dropdown-item" type="button"><span class="dropdown-item__label">Van</span></button>
+      <button class="dropdown-item" type="button"><span class="dropdown-item__label">Motorbike</span></button>
+      <button class="dropdown-item" type="button"><span class="dropdown-item__label">Taxi</span></button>
+    </div>
+  </div>
+
+</body>
+</html>

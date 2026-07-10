@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../radio/radio.css">
+  <link rel="stylesheet" href="../comparison-tile/comparison-tile.css">
+  <link rel="stylesheet" href="../input/input.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="price-comparison.css">
+  <title>Price Comparison Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    .wrap { max-width: 720px; }
+  </style>
+</head>
+<body>
+
+  <h1>Price Comparison</h1>
+  <p class="subtitle">Purchase-journey pricing — Zego Design System · the tiles below are live (pick one)</p>
+
+  <div class="wrap">
+    <section class="price-comparison">
+      <div class="price-comparison__header">
+        <h2 class="price-comparison__title">Choose your cover</h2>
+        <p class="price-comparison__sub">You can change this before you pay.</p>
+      </div>
+
+      <div class="price-comparison__tiles">
+        <label class="comparison-tile">
+          <div class="comparison-tile__header">
+            <input class="radio__input" type="radio" name="quote" checked>
+            <span class="radio__control"></span>
+            <span class="comparison-tile__title">Comprehensive</span>
+            <span class="comparison-tile__badge">Best value</span>
+          </div>
+          <div class="comparison-tile__body">
+            <div class="comparison-tile__price-group">
+              <p class="comparison-tile__price"><span class="comparison-tile__amount">£182</span><span class="comparison-tile__period">/year</span></p>
+              <p class="comparison-tile__sub">Pay annually</p>
+            </div>
+            <p class="comparison-tile__support">Or £16.50 a month</p>
+          </div>
+        </label>
+
+        <label class="comparison-tile">
+          <div class="comparison-tile__header">
+            <input class="radio__input" type="radio" name="quote">
+            <span class="radio__control"></span>
+            <span class="comparison-tile__title">Third party</span>
+          </div>
+          <div class="comparison-tile__body">
+            <div class="comparison-tile__price-group">
+              <p class="comparison-tile__price"><span class="comparison-tile__amount">£146</span><span class="comparison-tile__period">/year</span></p>
+              <p class="comparison-tile__sub">Pay annually</p>
+            </div>
+            <p class="comparison-tile__support">Or £13.20 a month</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="price-comparison__discount">
+        <span class="price-comparison__discount-label">Add a discount code</span>
+        <div class="price-comparison__discount-row">
+          <div class="input-field"><input class="input" type="text" placeholder="Enter discount code"></div>
+          <button class="btn btn--secondary btn--rounded" type="button">Apply code</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="../comparison-tile/comparison-tile.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../radio/radio.css">
+  <link rel="stylesheet" href="comparison-tile.css">
+  <title>Comparison Tile Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+    .row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; max-width: 720px; }
+    .row > * { flex: 1 1 220px; max-width: 340px; }
+  </style>
+</head>
+<body>
+
+  <h1>Comparison Tile</h1>
+  <p class="subtitle">Selectable plan cards — Zego Design System · the group below is live (pick one)</p>
+
+  <h2>Live — choose a plan</h2>
+  <div class="row" id="plans"></div>
+
+  <script>
+    function tile(name, title, amount, sub, support, checked, badge) {
+      return '<label class="comparison-tile">'
+        + '<div class="comparison-tile__header">'
+        +   '<input class="radio__input" type="radio" name="' + name + '"' + (checked ? ' checked' : '') + '>'
+        +   '<span class="radio__control"></span>'
+        +   '<span class="comparison-tile__title">' + title + '</span>'
+        +   (badge ? '<span class="comparison-tile__badge">' + badge + '</span>' : '')
+        + '</div>'
+        + '<div class="comparison-tile__body">'
+        +   '<div class="comparison-tile__price-group">'
+        +     '<p class="comparison-tile__price"><span class="comparison-tile__amount">' + amount + '</span><span class="comparison-tile__period">/year</span></p>'
+        +     '<p class="comparison-tile__sub">' + sub + '</p>'
+        +   '</div>'
+        +   '<p class="comparison-tile__support">' + support + '</p>'
+        + '</div>'
+        + '</label>';
+    }
+    document.getElementById('plans').innerHTML =
+      tile('plan', 'Basic', '£120', 'Third party', 'Legal cover included', false) +
+      tile('plan', 'Plus', '£180', 'Third party, fire & theft', 'Breakdown cover included', true, 'Best value') +
+      tile('plan', 'Premium', '£240', 'Fully comprehensive', 'Courtesy car included', false);
+  </script>
+
+  <script src="comparison-tile.js"></script>
+
+</body>
+</html>

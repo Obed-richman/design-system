@@ -1,0 +1,90 @@
+/*
+ * ============================================================
+ * NUMBER ITEM COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3781
+ *
+ * A single 48×48 cell holding one number — a verification-code / OTP cell.
+ * Compose several in a row to build a code input.
+ *
+ * States:
+ *   default (borderless) | inactive | hover | focused | active | error
+ *   disabled | disabled-active
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="number-item.css">
+ *
+ *   <span class="number-item">0</span>
+ *   <span class="number-item number-item--active">4</span>
+ *   <span class="number-item number-item--error">9</span>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.number-item {
+  box-sizing:       border-box;
+  width:            48px;
+  height:           48px;
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+
+  border:           var(--border-m) solid transparent;   /* 2px; Default has no visible border */
+  border-radius:    var(--radius-small);                  /* 8px */
+  background-color: var(--background-primary);            /* white */
+  color:            var(--text-primary);
+
+  font-family:      'Modern Era', sans-serif;
+  font-weight:      var(--font-weight-bold);
+  font-size:        var(--font-size-subtitle-2);          /* 16px */
+  line-height:      var(--line-height-subtitle-2);        /* 24px */
+
+  transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+/* Inactive — resting empty cell */
+.number-item--inactive { border-color: var(--border-secondary); }
+
+/* Hover — aqua border */
+.number-item--hover { border-color: var(--border-active); }
+
+/* Active — aqua border + light aqua fill */
+.number-item--active {
+  border-color:     var(--border-active);
+  background-color: var(--surface-focus);
+}
+
+/* Focused — active look + focus ring */
+.number-item--focused {
+  border-color:     var(--border-active);
+  background-color: var(--surface-focus);
+  box-shadow:       var(--shadow-focus);
+}
+
+/* Error — red border, light red fill, red number */
+.number-item--error {
+  border-color:     var(--border-error);
+  background-color: var(--surface-error-low);
+  color:            var(--text-error);
+}
+
+/* Disabled — grey border, muted number */
+.number-item--disabled {
+  border-color: var(--border-primary);
+  color:        var(--text-disabled);
+}
+
+/* Disabled (Active) — filled grey, muted number */
+.number-item--disabled-active {
+  border-color:     transparent;
+  background-color: var(--background-disabled);
+  color:            var(--text-disabled);
+}

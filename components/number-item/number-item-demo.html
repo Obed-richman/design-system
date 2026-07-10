@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="number-item.css">
+  <title>Number Item Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 28px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+    .row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Number Item</h1>
+  <p class="subtitle">Verification-code cell — Zego Design System</p>
+
+  <section>
+    <h2>States</h2>
+    <div class="row">
+      <span class="number-item">0</span>
+      <span class="number-item number-item--inactive">0</span>
+      <span class="number-item number-item--hover">0</span>
+      <span class="number-item number-item--focused">0</span>
+      <span class="number-item number-item--active">0</span>
+      <span class="number-item number-item--error">0</span>
+      <span class="number-item number-item--disabled">0</span>
+      <span class="number-item number-item--disabled-active">0</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Verification code — in progress</h2>
+    <div class="row">
+      <span class="number-item number-item--active">4</span>
+      <span class="number-item number-item--active">8</span>
+      <span class="number-item number-item--focused">2</span>
+      <span class="number-item number-item--inactive"></span>
+      <span class="number-item number-item--inactive"></span>
+      <span class="number-item number-item--inactive"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Verification code — error</h2>
+    <div class="row">
+      <span class="number-item number-item--error">4</span>
+      <span class="number-item number-item--error">8</span>
+      <span class="number-item number-item--error">2</span>
+      <span class="number-item number-item--error">9</span>
+      <span class="number-item number-item--error">1</span>
+      <span class="number-item number-item--error">0</span>
+    </div>
+  </section>
+
+</body>
+</html>

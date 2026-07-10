@@ -1,0 +1,98 @@
+/*
+ * ============================================================
+ * SEGMENT CONTROL COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=719-198571
+ *
+ * A pill track holding 2–3 segments; the selected segment is a raised white
+ * pill, the rest are grey text. Single-select.
+ *
+ * Sizes (by height): 32 (small, default) | 40 (.segment--40) | 56 (.segment--56)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="segment.css">
+ *   <script src="segment.js"></script>   <!-- selection behaviour -->
+ *
+ *   <div class="segment" role="tablist">
+ *     <button class="segment__item segment__item--active" role="tab" aria-selected="true">On</button>
+ *     <button class="segment__item" role="tab" aria-selected="false">Off</button>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.segment {
+  --seg-px:   var(--gap-small);                  /* 12px (small) */
+  --seg-font: var(--font-size-subtitle-4);       /* 12px */
+  --seg-lh:   var(--line-height-subtitle-4);
+
+  display:          inline-flex;
+  align-items:      stretch;
+  gap:              var(--spacer-4);             /* 4px */
+  min-height:       32px;
+  padding:          var(--spacer-4);             /* 4px */
+  box-sizing:       border-box;
+  background-color: var(--background-disabled);  /* grey track */
+  border:           var(--border-s) solid var(--border-primary);
+  border-radius:    var(--radius-round);
+}
+
+
+/* ------------------------------------------------------------
+   SEGMENT ITEM
+   ------------------------------------------------------------ */
+
+.segment__item {
+  -webkit-appearance: none;
+  appearance:         none;
+  flex:               0 0 auto;
+  display:            inline-flex;
+  align-items:        center;
+  justify-content:    center;
+  padding:            0 var(--seg-px);
+  border:             none;
+  border-radius:      var(--radius-round);
+  background-color:   transparent;
+  color:              var(--text-disabled);      /* inactive */
+  font-family:        'Modern Era', sans-serif;
+  font-weight:        var(--font-weight-bold);
+  font-size:          var(--seg-font);
+  line-height:        var(--seg-lh);
+  white-space:        nowrap;
+  cursor:             pointer;
+  transition:         background-color 150ms ease, color 150ms ease;
+}
+
+/* Selected — raised white pill */
+.segment__item--active,
+.segment__item[aria-selected="true"] {
+  background-color: var(--background-primary);
+  color:            var(--text-primary-fixed);
+}
+
+
+/* ------------------------------------------------------------
+   SIZES
+   ------------------------------------------------------------ */
+
+.segment--40 {
+  min-height: 40px;
+  --seg-px:   var(--gap-medium);                 /* 16px */
+  --seg-font: var(--font-size-subtitle-3);       /* 14px */
+  --seg-lh:   var(--line-height-subtitle-3);
+}
+
+.segment--56 {
+  min-height: 56px;
+  --seg-px:   var(--spacer-20);                  /* 20px */
+  --seg-font: var(--font-size-subtitle-2);       /* 16px */
+  --seg-lh:   var(--line-height-subtitle-2);
+}
+
+
+/* Equal-width segments (optional) */
+.segment--fill { display: flex; width: 100%; }
+.segment--fill .segment__item { flex: 1 1 0; min-width: 0; }

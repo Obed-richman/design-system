@@ -1,0 +1,150 @@
+/*
+ * ============================================================
+ * TOGGLE (SWITCH) COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=683-38207
+ *
+ * Styles:
+ *   OS (default)  — full-height pill track, knob sits inside (iOS style)
+ *   Web           — thin rail with a raised thumb on top (.toggle--web)
+ *
+ * Variants:
+ *   State — inactive | active   (native :checked)
+ *   Size  — 20 (large, default) | 16 (small, .toggle--16)   [OS]
+ *
+ * Colours: inactive track background-disabled · active track surface-success
+ *          · thumb background-primary-fixed (white).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="toggle.css">
+ *
+ *   <label class="toggle">
+ *     <input class="toggle__input" type="checkbox" role="switch">
+ *     <span class="toggle__track"><span class="toggle__thumb"></span></span>
+ *     <span class="toggle__label">Label</span>
+ *   </label>
+ *
+ *   <!-- Web style: add .toggle--web · Small: add .toggle--16 -->
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   WRAPPER (label)
+   ------------------------------------------------------------ */
+
+.toggle {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--gap-x-small);   /* 8px */
+  cursor:      pointer;
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* Visually-hidden native input (keeps keyboard focus + a11y) */
+.toggle__input {
+  position:    absolute;
+  width:       1px;
+  height:      1px;
+  margin:      -1px;
+  padding:     0;
+  overflow:    hidden;
+  clip:        rect(0 0 0 0);
+  white-space: nowrap;
+  border:      0;
+}
+
+
+/* ------------------------------------------------------------
+   TRACK + THUMB  (OS style — the default)
+   ------------------------------------------------------------ */
+
+.toggle__track {
+  --tgl-w:     36px;   /* Large */
+  --tgl-h:     24px;
+  --tgl-thumb: 20px;
+  --tgl-pad:   2px;
+
+  position:        relative;
+  flex-shrink:     0;
+  width:           var(--tgl-w);
+  height:          var(--tgl-h);
+  border-radius:   var(--radius-round);
+  background-color:var(--background-disabled);   /* inactive */
+  transition:      background-color 200ms ease, box-shadow 150ms ease;
+}
+
+.toggle__thumb {
+  position:        absolute;
+  top:             50%;
+  left:            var(--tgl-pad);
+  width:           var(--tgl-thumb);
+  height:          var(--tgl-thumb);
+  transform:       translateY(-50%);
+  border-radius:   var(--radius-round);
+  background-color:var(--background-primary-fixed);   /* white */
+  box-shadow:      0 1px 2px rgba(0, 0, 0, 0.06);
+  transition:      left 200ms ease;
+}
+
+.toggle__label {
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   SIZE (OS)
+   ------------------------------------------------------------ */
+
+.toggle--16 .toggle__track { --tgl-w: 30px; --tgl-h: 20px; --tgl-thumb: 16px; }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+/* Active — green track + thumb slides right */
+.toggle__input:checked + .toggle__track { background-color: var(--surface-success); }
+.toggle__input:checked + .toggle__track .toggle__thumb {
+  left: calc(100% - var(--tgl-thumb) - var(--tgl-pad));
+}
+
+/* Focus */
+.toggle__input:focus-visible + .toggle__track { box-shadow: var(--shadow-focus); }
+
+/* Disabled */
+.toggle--disabled { cursor: not-allowed; }
+.toggle--disabled .toggle__track { opacity: 0.5; }
+
+
+/* ------------------------------------------------------------
+   WEB STYLE — thin rail with a raised thumb
+   ------------------------------------------------------------ */
+
+.toggle--web .toggle__track { background-color: transparent; }
+
+/* The rail (thinner than the thumb) */
+.toggle--web .toggle__track::before {
+  content:          '';
+  position:         absolute;
+  top:              50%;
+  left:             0;
+  right:            0;
+  height:           calc(var(--tgl-h) - 10px);   /* 14px on Large */
+  transform:        translateY(-50%);
+  border-radius:    var(--radius-round);
+  background-color: var(--background-disabled);
+  transition:       background-color 200ms ease;
+}
+
+/* Thumb rides on top with a touch more elevation */
+.toggle--web .toggle__thumb { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+
+/* Active — colour the rail, not the container */
+.toggle--web .toggle__input:checked + .toggle__track { background-color: transparent; }
+.toggle--web .toggle__input:checked + .toggle__track::before { background-color: var(--surface-success); }

@@ -1,0 +1,176 @@
+/*
+ * ============================================================
+ * TEXT + ICON ITEM COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3798
+ *
+ * A selectable option row: leading icon + label (+ optional support text) +
+ * a trailing radio. REUSES the Radio component for the trailing control —
+ * link radio.css alongside this file.
+ *
+ * Variants:
+ *   Size  — 48 (large, default) | 32 (.text-icon-item--32) | 24 (.text-icon-item--24)
+ *   State — default | inactive | hover | focused | active | error
+ *           disabled | disabled-active
+ *
+ * The box border mirrors the selection: none (default) → secondary (inactive)
+ * → active on hover/focus/checked → error → primary (disabled).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="text-icon-item.css">
+ *
+ *   <label class="text-icon-item">
+ *     <span class="text-icon-item__icon"><svg>…</svg></span>
+ *     <span class="text-icon-item__text"><span class="text-icon-item__label">Text</span></span>
+ *     <input class="radio__input" type="radio" name="opt">
+ *     <span class="radio__control"></span>
+ *   </label>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   BOX
+   ------------------------------------------------------------ */
+
+.text-icon-item {
+  box-sizing:       border-box;
+  display:          flex;
+  align-items:      center;
+  gap:              var(--gap-x-small);          /* 8px */
+  width:            100%;
+  min-height:       48px;                        /* Large */
+  padding:          0 var(--gap-medium);         /* 16px */
+  border:           var(--border-m) solid transparent;   /* Default: borderless */
+  border-radius:    var(--radius-small);         /* 8px */
+  background-color: var(--surface-primary);      /* white */
+  color:            var(--text-primary);
+  cursor:           pointer;
+  transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.text-icon-item__icon {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.text-icon-item__icon svg { display: block; width: 100%; height: 100%; }
+
+.text-icon-item__text {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-xx-small);           /* 4px */
+}
+.text-icon-item__label {
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+  white-space: nowrap;
+}
+.text-icon-item__support {
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+/* Trailing radio (reused from radio.css) */
+.text-icon-item .radio__control { flex-shrink: 0; }
+/* Keep the focus ring on the whole box, not on the small radio */
+.text-icon-item .radio__input:focus-visible + .radio__control { box-shadow: none; }
+
+
+/* ------------------------------------------------------------
+   SIZES
+   ------------------------------------------------------------ */
+
+.text-icon-item--32 { min-height: 32px; padding: 0 var(--gap-small); }        /* 12px */
+.text-icon-item--24 { min-height: 24px; padding: 0 var(--gap-x-small); gap: var(--gap-xx-small); }
+
+.text-icon-item--32 .text-icon-item__icon,
+.text-icon-item--24 .text-icon-item__icon { width: 16px; height: 16px; }
+
+.text-icon-item--32 .text-icon-item__label,
+.text-icon-item--24 .text-icon-item__label {
+  font-size:   var(--font-size-subtitle-4);      /* 12px */
+  line-height: var(--line-height-subtitle-4);
+}
+
+.text-icon-item--32 .radio__control,
+.text-icon-item--24 .radio__control { --radio-size: 16px; }
+
+
+/* ------------------------------------------------------------
+   STATES  (box border mirrors selection)
+   ------------------------------------------------------------ */
+
+.text-icon-item--inactive { border-color: var(--border-primary); }
+
+.text-icon-item:hover,
+.text-icon-item--hover,
+.text-icon-item--active,
+.text-icon-item:has(.radio__input:checked) {
+  border-color: var(--border-active);
+}
+
+.text-icon-item:focus-within,
+.text-icon-item--focused {
+  border-color: var(--border-active);
+  box-shadow:   var(--shadow-focus);
+}
+
+/* Error — red box + red content + red radio (wins over hover/focus/checked) */
+.text-icon-item--error,
+.text-icon-item--error:hover,
+.text-icon-item--error:focus-within,
+.text-icon-item--error:has(.radio__input:checked) {
+  border-color: var(--border-error);
+  box-shadow:   none;
+}
+.text-icon-item--error .text-icon-item__icon,
+.text-icon-item--error .text-icon-item__label { color: var(--text-error); }
+.text-icon-item--error .radio__control { border-color: var(--border-error); }
+.text-icon-item--error .radio__control::after { background: var(--icon-glyph-error); }
+
+/* Disabled */
+.text-icon-item--disabled,
+.text-icon-item--disabled:hover,
+.text-icon-item--disabled:has(.radio__input:checked) {
+  border-color: var(--border-primary);
+  box-shadow:   none;
+  cursor:       not-allowed;
+}
+.text-icon-item--disabled .text-icon-item__icon,
+.text-icon-item--disabled .text-icon-item__label,
+.text-icon-item--disabled .text-icon-item__support { color: var(--text-disabled); }
+.text-icon-item--disabled .radio__control { border-color: var(--border-primary); }
+.text-icon-item--disabled .radio__control::after { background: var(--icon-glyph-disabled); }
+
+/* Disabled (Active) — grey fill + muted, radio checked-disabled */
+.text-icon-item--disabled-active,
+.text-icon-item--disabled-active:hover,
+.text-icon-item--disabled-active:has(.radio__input:checked) {
+  border-color:     transparent;
+  background-color: var(--background-disabled);
+  box-shadow:       none;
+  cursor:           not-allowed;
+}
+.text-icon-item--disabled-active .text-icon-item__icon,
+.text-icon-item--disabled-active .text-icon-item__label { color: var(--text-disabled); }
+.text-icon-item--disabled-active .radio__control,
+.text-icon-item--disabled-active .radio__input:checked + .radio__control {
+  border-color:     var(--border-primary);
+  background-color: var(--background-disabled);
+}
+.text-icon-item--disabled-active .radio__control::after { background: var(--icon-glyph-disabled); }

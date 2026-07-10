@@ -1,0 +1,144 @@
+/*
+ * ============================================================
+ * ACCORDION COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58205-10512
+ *
+ * A collapsible row: a Title + chevron header that expands to reveal content
+ * (an optional Edit-details action, an Information label, content rows, and an
+ * info alert). Built on native <details>/<summary> — no JS needed to toggle.
+ *
+ * States: default | hover | pressed | error (adds an inline message)
+ * Reuses Button (Edit details), Alert (info) and Display Row (content rows) —
+ * link button.css + alert.css + display-row.css when those are used.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="accordion.css">
+ *
+ *   <details class="accordion">
+ *     <summary class="accordion__header">
+ *       <span class="accordion__title">Title</span>
+ *       <svg class="accordion__chevron" …></svg>
+ *     </summary>
+ *     <div class="accordion__panel">
+ *       <div class="accordion__action"><button class="btn btn--secondary btn--pill">Edit details</button></div>
+ *       <p class="accordion__info">Information</p>
+ *       <div class="display-row"><div class="display-row__main"><p class="display-row__label">Delivery</p></div><p class="display-row__value">Delivery</p></div>
+ *       …
+ *       <div class="alert alert--information alert--bordered">…</div>
+ *     </div>
+ *   </details>
+ *
+ *   <!-- Error: add .accordion--error and an .accordion__error-msg in the action row -->
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.accordion {
+  width:            100%;
+  box-sizing:       border-box;
+  background-color: var(--surface-primary);
+  border:           var(--border-s) solid var(--border-secondary);
+  border-radius:    var(--radius-medium);        /* 16px */
+  overflow:         hidden;
+}
+
+.accordion--error { border-color: var(--border-error); }
+
+
+/* ------------------------------------------------------------
+   HEADER (summary)
+   ------------------------------------------------------------ */
+
+.accordion__header {
+  display:      flex;
+  align-items:  center;
+  gap:          var(--gap-medium);               /* 16px */
+  padding:      var(--gap-medium) var(--spacer-24); /* 16px 24px */
+  cursor:       pointer;
+  list-style:   none;                            /* remove default marker */
+  user-select:  none;
+  transition:   background-color 150ms ease;
+}
+.accordion__header::-webkit-details-marker { display: none; }
+
+.accordion__header:hover,
+.accordion__header--hover { background-color: var(--surface-secondary); }
+
+.accordion__header:active,
+.accordion__header--pressed { background-color: var(--surface-secondary-pressed); }
+
+.accordion__title {
+  flex:        1;
+  min-width:   0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+.accordion__chevron {
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+  transition:  transform 200ms ease;
+}
+.accordion[open] .accordion__chevron { transform: rotate(180deg); }
+
+
+/* ------------------------------------------------------------
+   PANEL (expanded content)
+   ------------------------------------------------------------ */
+
+.accordion__panel {
+  display:        flex;
+  flex-direction: column;
+  padding:        0 var(--spacer-24) var(--spacer-24);   /* 0 24px 24px */
+  border-top:     var(--border-s) solid var(--border-primary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Edit-details / error-message row */
+.accordion__action {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--gap-x-small);
+  padding:       var(--gap-small) 0;             /* 12px */
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+.accordion__action .btn { margin-left: auto; }  /* push the button to the right */
+
+.accordion__error-msg {
+  flex:        1;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-error);
+}
+.accordion__error-msg a { color: var(--text-error); font-weight: var(--font-weight-bold); }
+
+/* Information label */
+.accordion__info {
+  margin:        0;
+  padding:       var(--gap-medium) 0;            /* 16px */
+  border-bottom: var(--border-s) solid var(--border-primary);
+  font-weight:   var(--font-weight-regular);
+  font-size:     var(--font-size-body-2);        /* 16px */
+  line-height:   var(--line-height-body-2);
+  color:         var(--text-primary);
+}
+
+/* Content rows — these are Display Row components (link display-row.css).
+   The panel already draws a divider under .accordion__info, so drop the
+   first row's top border to avoid a double line; the rows' own dividers
+   handle the rest. */
+.accordion__panel .display-row:first-of-type { border-top: none; }
+
+/* Trailing alert */
+.accordion__panel .alert { margin-top: var(--gap-medium); }

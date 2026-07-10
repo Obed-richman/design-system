@@ -1,0 +1,61 @@
+/*
+ * ============================================================
+ * WARNING (PULSING DOT) COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58151-4988
+ *
+ * An attention indicator: a solid red dot with a ring that scales
+ * outward and fades (a "ping"). Figma keyframes grow the ring
+ * 16 → 24 → 32 → 40px on a 12px dot.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="warning.css">
+ *
+ *   <span class="warning" role="status" aria-label="Warning">
+ *     <span class="warning__ring"></span>
+ *     <span class="warning__dot"></span>
+ *   </span>
+ *
+ *   <!-- Size: override --warning-size, e.g. style="--warning-size:8px" -->
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.warning {
+  --warning-size: 12px;
+  position:     relative;
+  display:      inline-flex;
+  flex-shrink:  0;
+  width:        var(--warning-size);
+  height:       var(--warning-size);
+}
+
+/* Solid dot */
+.warning__dot {
+  position:         absolute;
+  inset:            0;
+  border-radius:    var(--radius-round);
+  background-color: var(--surface-error);   /* #ff2525 */
+}
+
+/* Expanding + fading ring behind the dot */
+.warning__ring {
+  position:         absolute;
+  inset:            0;
+  border-radius:    var(--radius-round);
+  background-color: var(--surface-error);
+  animation:        warning-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes warning-ping {
+  0%        { transform: scale(1);   opacity: 0.6; }
+  75%, 100% { transform: scale(3);   opacity: 0; }
+}
+
+/* Reduced motion — hold the ring steady instead of pinging */
+@media (prefers-reduced-motion: reduce) {
+  .warning__ring { animation: none; opacity: 0; }
+}

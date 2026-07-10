@@ -1,0 +1,47 @@
+/*
+ * ============================================================
+ * REGISTRATION PLATE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-17518
+ *
+ * A UK number plate: yellow field, black plate-font text.
+ *
+ * Sizes (by text size):
+ *   24 (large, default) | 16 (.plate--16) | 12 (.plate--12)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="plate.css">
+ *
+ *   <span class="plate">SH48 HSA</span>
+ *   <span class="plate plate--16">SH48 HSA</span>
+ *   <span class="plate plate--12">SH48 HSA</span>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.plate {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  padding:          var(--gap-xx-small) var(--gap-x-small);   /* 4px 8px */
+  border-radius:    var(--radius-x-small);                    /* 4px */
+  background-color: var(--surface-warning);                   /* plate yellow */
+  color:            var(--text-primary-fixed);                /* ink, fixed */
+
+  font-family:      var(--font-family-plate);                 /* UKNumberPlate */
+  font-size:        24px;                                     /* Large */
+  line-height:      1;
+  text-transform:   uppercase;
+  white-space:      nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   SIZES
+   ------------------------------------------------------------ */
+
+.plate--16 { font-size: 16px; }   /* Medium */
+.plate--12 { font-size: 12px; }   /* Small */

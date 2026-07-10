@@ -1,0 +1,79 @@
+/*
+ * ============================================================
+ * DROPDOWN LIST COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4049-53004
+ *
+ * A floating menu card that stacks 1–10 Dropdown Items. Two styles:
+ *   - Default  — plain text rows
+ *   - Selector — rows with a leading checkbox
+ * A subtle scrollbar (.dropdown-list__scrollbar) can be shown for long lists.
+ *
+ * Built on the Dropdown Item component — link dropdown-item.css (and
+ * checkbox.css for the Selector style).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../dropdown-item/dropdown-item.css">
+ *   <link rel="stylesheet" href="dropdown-list.css">
+ *
+ *   <div class="dropdown-list">
+ *     <button class="dropdown-item" type="button"><span class="dropdown-item__label">Item</span></button>
+ *     <button class="dropdown-item" type="button"><span class="dropdown-item__label">Item</span></button>
+ *     …
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../dropdown-item/dropdown-item.css';
+
+
+.dropdown-list {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  align-items:    stretch;
+  width:          100%;
+  box-sizing:     border-box;
+  background:     var(--surface-primary);
+  border-radius:  var(--radius-small);           /* 8px */
+  overflow:       hidden;
+  box-shadow:     0 0 16px 0 rgba(39, 37, 45, 0.08),
+                  0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+/* ------------------------------------------------------------
+   SCROLLABLE (long lists)
+   ------------------------------------------------------------ */
+
+.dropdown-list--scroll {
+  max-height:  240px;                            /* ~5 rows */
+  overflow-y:  auto;
+}
+
+
+/* ------------------------------------------------------------
+   SCROLL BAR — decorative track + thumb (top-right)
+   ------------------------------------------------------------ */
+
+.dropdown-list__scrollbar {
+  position:        absolute;
+  top:             var(--spacer-8);              /* 8px */
+  right:           var(--spacer-4);              /* 4px */
+  width:           2px;
+  bottom:          var(--spacer-8);
+  display:         flex;
+  justify-content: center;
+  background:      var(--surface-primary);
+  border-radius:   var(--radius-round);
+  overflow:        hidden;
+  pointer-events:  none;
+}
+.dropdown-list__scroller {
+  width:         2px;
+  height:        100px;
+  background:    var(--border-primary);
+  border-radius: var(--radius-round);
+}

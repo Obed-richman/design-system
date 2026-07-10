@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="bounce.css">
+  <title>Bounce Animation</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 40px; }
+    section { margin-bottom: 40px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+    .row { display: flex; align-items: center; flex-wrap: wrap; gap: 40px; margin-bottom: 16px; }
+    .label { font-size: 11px; color: #A0A0A0; width: 72px; flex-shrink: 0; }
+    .dark-demo { background: var(--brand-3-high); border-radius: 12px; padding: 24px; }
+    .dark-demo h2 { color: rgba(255,255,255,0.4); }
+    .swatch { width: 12px; height: 12px; border-radius: 9999px; background: var(--brand-3-high); }
+  </style>
+</head>
+<body>
+
+  <h1>Bounce</h1>
+  <p class="subtitle">Scaling-dot bounce animation — Zego Design System</p>
+
+  <section>
+    <h2>Bounce dots</h2>
+    <div class="row"><span class="label">12 (default)</span>
+      <span class="bounce-dots" role="status" aria-label="Loading">
+        <span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span>
+      </span>
+    </div>
+    <div class="row"><span class="label">8 (small)</span>
+      <span class="bounce-dots bounce-dots--8" role="status" aria-label="Loading">
+        <span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span>
+      </span>
+    </div>
+  </section>
+
+  <section>
+    <h2>.bounce utility (any element)</h2>
+    <div class="row"><span class="label">Element</span>
+      <span class="bounce"><span class="swatch"></span></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Dark Mode</h2>
+    <div class="dark-demo" data-theme="dark">
+      <h2>On dark background</h2>
+      <div class="row">
+        <span class="bounce-dots" role="status" aria-label="Loading">
+          <span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span>
+        </span>
+        <span class="bounce-dots bounce-dots--8" role="status" aria-label="Loading">
+          <span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span><span class="bounce-dots__dot"></span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

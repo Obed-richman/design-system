@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="onboarding-steps.css">
+  <title>Onboarding Steps Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 0; color: #27252d; }
+    .bar { background: #f8f5f3; padding: 32px 24px; }
+    .bar__inner { max-width: 516px; margin: 0 auto; }
+    .page { max-width: 516px; margin: 40px auto; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 32px; }
+    .page h1 { font-size: 24px; font-weight: 700; margin: 0 0 8px; }
+    .page p { color: #555; font-size: 15px; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="bar">
+    <div class="bar__inner">
+      <div class="onboarding-steps">
+        <div class="onboarding-steps__step onboarding-steps__step--complete">
+          <span class="onboarding-steps__label">Quote</span>
+          <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+        </div>
+        <div class="onboarding-steps__step onboarding-steps__step--current">
+          <span class="onboarding-steps__label">Details</span>
+          <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+        </div>
+        <div class="onboarding-steps__step">
+          <span class="onboarding-steps__label">Review</span>
+          <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+        </div>
+        <div class="onboarding-steps__step">
+          <span class="onboarding-steps__label">Payment</span>
+          <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>Your details</h1>
+    <p>Tell us a little about yourself so we can tailor your quote.</p>
+  </div>
+
+</body>
+</html>

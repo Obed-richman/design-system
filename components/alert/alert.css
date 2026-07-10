@@ -1,0 +1,158 @@
+/*
+ * ============================================================
+ * ALERT COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=719-197745
+ *
+ * Variants:
+ *   State   — neutral | information | positive | warning | negative
+ *   Border  — off (default) | on  (add .alert--bordered)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="alert.css">
+ *
+ *   <div class="alert alert--information alert--bordered">
+ *     <span class="alert__icon"><svg>…</svg></span>
+ *     <div class="alert__content">
+ *       <p class="alert__title">Information</p>
+ *       <p class="alert__description">Description</p>
+ *       <a class="alert__link" href="#">Link</a>
+ *     </div>
+ *     <button class="alert__close" aria-label="Dismiss"><svg>…</svg></button>
+ *   </div>
+ *
+ *   <!-- Dismiss behaviour: include alert.js — clicking .alert__close removes the alert -->
+ *   <script src="alert.js"></script>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   BASE ALERT
+   State colours are driven by three per-state custom properties
+   set by the .alert--<state> modifiers below.
+   ------------------------------------------------------------ */
+
+.alert {
+  --alert-surface: var(--background-primary);   /* neutral defaults */
+  --alert-border:  var(--border-primary);
+  --alert-icon:    var(--icon-glyph-primary);
+
+  display:          flex;
+  align-items:      flex-start;
+  gap:              var(--gap-x-small);        /* 8px */
+  width:            100%;
+  box-sizing:       border-box;
+  padding:          var(--gap-medium);         /* 16px */
+  border-radius:    var(--radius-medium);      /* 16px */
+  background-color: var(--alert-surface);
+  font-family:      'Modern Era', sans-serif;
+}
+
+/* Border=On */
+.alert--bordered {
+  border: var(--border-s) solid var(--alert-border);
+}
+
+
+/* ------------------------------------------------------------
+   ICON (state-coloured, leading)
+   ------------------------------------------------------------ */
+
+.alert__icon {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  color:       var(--alert-icon);
+}
+.alert__icon svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   CONTENT (title / description / link)
+   ------------------------------------------------------------ */
+
+.alert__content {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);          /* 8px */
+}
+
+.alert__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);    /* 16px */
+  line-height: var(--line-height-subtitle-2);  /* 24px */
+  color:       var(--text-primary);
+}
+
+.alert__description {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);        /* 14px */
+  line-height: var(--line-height-body-3);      /* 20px */
+  color:       var(--text-primary);
+}
+
+.alert__link {
+  align-self:      flex-start;
+  font-size:       var(--font-size-body-3);
+  font-weight:     var(--font-weight-regular);
+  line-height:     var(--line-height-body-3);
+  color:           var(--text-link);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   CLOSE (trailing, optional)
+   Uses the close glyph tinted with overlay/dark-medium.
+   ------------------------------------------------------------ */
+
+.alert__close {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  padding:     0;
+  border:      none;
+  background:  none;
+  cursor:      pointer;
+  color:       var(--icon-glyph-primary);
+}
+.alert__close svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+.alert--information {
+  --alert-surface: var(--surface-information-low);
+  --alert-border:  var(--border-information-low);
+  --alert-icon:    var(--icon-glyph-information);
+}
+
+.alert--positive {
+  --alert-surface: var(--surface-success-low);
+  --alert-border:  var(--border-success-low);
+  --alert-icon:    var(--icon-glyph-success);
+}
+
+.alert--warning {
+  --alert-surface: var(--surface-warning-low);
+  --alert-border:  var(--border-warning-low);
+  --alert-icon:    var(--icon-glyph-warning);
+}
+
+.alert--negative {
+  --alert-surface: var(--surface-error-low);
+  --alert-border:  var(--border-error-low);
+  --alert-icon:    var(--icon-glyph-error);
+}
+
+/* Neutral uses the base defaults (white surface, grey border, dark icon). */

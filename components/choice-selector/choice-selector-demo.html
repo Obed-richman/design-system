@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../radio/radio.css">
+  <link rel="stylesheet" href="../text-icon-item/text-icon-item.css">
+  <link rel="stylesheet" href="choice-selector.css">
+  <title>Multiple Choice Selector Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 32px; max-width: 560px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 16px; }
+  </style>
+</head>
+<body>
+
+  <h1>Multiple Choice Selector</h1>
+  <p class="subtitle">Titled radio group — Zego Design System · the groups below are live (pick one)</p>
+
+  <section>
+    <h2>Yes / No</h2>
+    <fieldset class="choice-selector">
+      <div class="choice-selector__header">
+        <p class="choice-selector__title">Do you have any named drivers?</p>
+        <p class="choice-selector__paragraph">Select one option to continue.</p>
+      </div>
+      <div class="choice-selector__options">
+        <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="yn"><span class="radio__control"></span></label>
+        <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="yn"><span class="radio__control"></span></label>
+      </div>
+    </fieldset>
+  </section>
+
+  <section>
+    <h2>Three options</h2>
+    <fieldset class="choice-selector">
+      <div class="choice-selector__header">
+        <p class="choice-selector__title">Cover level</p>
+        <p class="choice-selector__paragraph">Choose the level that suits you.</p>
+      </div>
+      <div class="choice-selector__options">
+        <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Basic</span></span><input class="radio__input" type="radio" name="cover"><span class="radio__control"></span></label>
+        <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Plus</span></span><input class="radio__input" type="radio" name="cover" checked><span class="radio__control"></span></label>
+        <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Premium</span></span><input class="radio__input" type="radio" name="cover"><span class="radio__control"></span></label>
+      </div>
+      <p class="choice-selector__message">You can change this later in settings.</p>
+    </fieldset>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+/*
+ * ============================================================
+ * TRUSTPILOT LOCKUP COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-19142
+ *
+ * Marketing lock-ups that pair a TrustScore word ("Excellent"), the
+ * Trustpilot stars and/or the Trustpilot logo with supporting copy.
+ *
+ * Axes:
+ *   Lock up   — inline (row, default) | stacked (.trustpilot-lockup--stacked)
+ *   Alignment — centre (default) | left (--left) | right (--right)   [stacked]
+ *   Size      — large (18px, default) | small (--small, 14px)
+ *   Content   — any mix of label + stars + logo + text
+ *
+ * Reuses the Trustpilot stars — link trustpilot.css.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../trustpilot/trustpilot.css">
+ *   <link rel="stylesheet" href="trustpilot-lockup.css">
+ *
+ *   <div class="trustpilot-lockup">
+ *     <span class="trustpilot-lockup__label">Excellent</span>
+ *     <div class="trustpilot trustpilot--green trustpilot--24">…5 stars…</div>
+ *     <span class="trustpilot-lockup__text">Trustpilot</span>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../trustpilot/trustpilot.css';
+
+
+.trustpilot-lockup {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--gap-small);                 /* 12px */
+  font-family: 'Modern Era', sans-serif;
+  color:       var(--text-primary);
+}
+
+/* Stacked (label/logo row, then stars, then copy) */
+.trustpilot-lockup--stacked {
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-x-small);            /* 8px */
+}
+
+/* Alignment (mainly for the stacked layout) */
+.trustpilot-lockup--left  { align-items: flex-start; text-align: left; }
+.trustpilot-lockup--right { align-items: flex-end;   text-align: right; }
+
+
+/* ------------------------------------------------------------
+   TEXT
+   ------------------------------------------------------------ */
+
+.trustpilot-lockup__label,
+.trustpilot-lockup__text {
+  margin:      0;
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);    /* 24px */
+  white-space: nowrap;
+}
+.trustpilot-lockup__label { font-weight: var(--font-weight-bold); }
+.trustpilot-lockup__text  { font-weight: var(--font-weight-regular); }
+.trustpilot-lockup__text strong { font-weight: var(--font-weight-bold); }
+
+/* Small size — 14px text + 16px stars */
+.trustpilot-lockup--small .trustpilot-lockup__label,
+.trustpilot-lockup--small .trustpilot-lockup__text {
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);    /* 20px */
+}
+
+
+/* ------------------------------------------------------------
+   TRUSTPILOT LOGO (green star + wordmark)
+   ------------------------------------------------------------ */
+
+.trustpilot-logo {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--gap-xx-small);              /* 4px */
+}
+.trustpilot-logo__star {
+  flex-shrink: 0;
+  width:       28px;
+  height:      28px;
+  color:       #00b67a;                          /* Trustpilot green */
+}
+.trustpilot-logo__star svg { display: block; width: 100%; height: 100%; }
+
+.trustpilot-logo__wordmark {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.trustpilot-lockup--small .trustpilot-logo__star { width: 20px; height: 20px; }
+.trustpilot-lockup--small .trustpilot-logo__wordmark {
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+}

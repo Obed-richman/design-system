@@ -1,0 +1,123 @@
+/*
+ * ============================================================
+ * PRICE COMPARISON COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=7925-150877
+ *
+ * A titled container (Title + Sub text) holding one or two Comparison Tiles,
+ * with an optional discount-code row. REUSES the Comparison Tile (and Radio) —
+ * link radio.css + comparison-tile.css alongside this file. The discount row
+ * reuses Input + Button (link input.css + button.css when used).
+ *
+ * The tiles sit in a row on desktop and stack below 768px automatically.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="../comparison-tile/comparison-tile.css">
+ *   <link rel="stylesheet" href="price-comparison.css">
+ *
+ *   <section class="price-comparison">
+ *     <div class="price-comparison__header">
+ *       <h2 class="price-comparison__title">Title</h2>
+ *       <p class="price-comparison__sub">Sub text</p>
+ *     </div>
+ *     <div class="price-comparison__tiles">… comparison tiles …</div>
+ *   </section>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.price-comparison {
+  display:          flex;
+  flex-direction:   column;
+  align-items:      center;
+  gap:              var(--spacer-20);            /* 20px */
+  width:            100%;
+  box-sizing:       border-box;
+  padding:          var(--spacer-20);            /* 20px */
+  border-radius:    var(--radius-x-large);       /* 32px */
+  background-color: var(--background-tertiary);  /* cream */
+  font-family:      'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — centred Title + Sub text
+   ------------------------------------------------------------ */
+
+.price-comparison__header {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-small);              /* 12px */
+  width:          100%;
+  text-align:     center;
+}
+
+.price-comparison__title {
+  margin:         0;
+  font-weight:    var(--font-weight-medium);
+  font-size:      var(--font-size-title-3);      /* 32px */
+  line-height:    var(--line-height-title-3);    /* 36px */
+  letter-spacing: var(--letter-spacing-tight);
+  color:          var(--text-primary);
+}
+
+.price-comparison__sub {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-1);          /* 18px */
+  line-height: var(--line-height-body-1);        /* 24px */
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   TILES — 1 or 2, row on desktop → stacked on mobile
+   ------------------------------------------------------------ */
+
+.price-comparison__tiles {
+  display:     flex;
+  gap:         var(--spacer-20);                 /* 20px */
+  align-items: stretch;
+  width:       100%;
+}
+
+.price-comparison__tiles .comparison-tile { flex: 1 1 0; min-width: 0; }
+
+@media (max-width: 768px) {
+  .price-comparison__tiles { flex-direction: column; }
+}
+
+
+/* ------------------------------------------------------------
+   DISCOUNT CODE — optional row (reuses Input + Button)
+   ------------------------------------------------------------ */
+
+.price-comparison__discount {
+  display:          flex;
+  flex-direction:   column;
+  gap:              var(--gap-x-small);          /* 8px */
+  width:            100%;
+  box-sizing:       border-box;
+  padding:          var(--gap-medium);           /* 16px */
+  border-radius:    var(--radius-medium);        /* 16px */
+  background-color: var(--background-primary);   /* white */
+}
+
+.price-comparison__discount-label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.price-comparison__discount-row {
+  display:     flex;
+  align-items: flex-end;
+  gap:         var(--gap-x-small);               /* 8px */
+}
+.price-comparison__discount-row .input-field { flex: 1; min-width: 0; }

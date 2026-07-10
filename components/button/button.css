@@ -2,15 +2,20 @@
  * ============================================================
  * BUTTON COMPONENT
  * ============================================================
- * Figma source: https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN
- * Node: 232:53181
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=85-78500
  *
  * Variants:
  *   Hierarchy  — primary | secondary | tertiary
  *   Style      — pill | rounded | fab | text
- *   State      — default | hover | active | pressed | focused
- *                disabled | loading
+ *   State      — default | hover | pressed | focused | disabled | loading
  *   Dark mode  — supported via [data-theme="dark"]
+ *
+ * Interaction states are driven by real pseudo-classes (:hover, :active,
+ * :focus-visible). Matching force-state modifiers (.btn--hover, .btn--pressed,
+ * .btn--focused) render the same look statically for showcase/demo pages.
+ *
+ * State colour progression (primary): surface-active (default)
+ *   -> surface-primary-hover (hover) -> surface-primary-pressed (pressed).
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -19,10 +24,17 @@
  *   <button class="btn btn--primary btn--pill">Button</button>
  *   <button class="btn btn--secondary btn--rounded">Button</button>
  *   <button class="btn btn--tertiary btn--pill" disabled>Button</button>
+ *
+ *   Loading — reuses the Spinner component, so also link spinner.css and
+ *   nest a spinner inside the button:
+ *   <link rel="stylesheet" href="../spinner/spinner.css">
+ *   <button class="btn btn--primary btn--pill btn--loading">
+ *     <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+ *     Button
+ *   </button>
  * ============================================================
  */
 
-/* Import tokens (adjust path as needed) */
 @import '../tokens/tokens.css';
 
 /* ------------------------------------------------------------
@@ -51,16 +63,20 @@
   cursor:          pointer;
   border:          var(--border-s) solid transparent;
   outline:         none;
-  transition:      background-color 400ms ease-in-out,
-                   border-color     400ms ease-in-out,
-                   color            400ms ease-in-out,
-                   box-shadow       400ms ease-in-out,
-                   opacity          400ms ease-in-out;
+
+  /* Snappy, consistent transitions across every interaction state */
+  transition:      background-color 150ms ease,
+                   border-color     150ms ease,
+                   color            150ms ease,
+                   box-shadow       150ms ease;
   position:        relative;
   overflow:        hidden;
 }
 
-.btn:focus-visible {
+/* Focus ring — shown for keyboard focus and for the .btn--focused demo class.
+   Kept separate from background so hover/pressed colours still apply on top. */
+.btn:focus-visible,
+.btn.btn--focused {
   box-shadow: var(--shadow-focus);
 }
 
@@ -110,33 +126,44 @@
 
 
 /* ------------------------------------------------------------
+   SIZE — Large
+   Roomier padding for a more prominent (≈56px) button. Base size
+   (default) stays 48px; add .btn--large to step up.
+   ------------------------------------------------------------ */
+
+.btn--large {
+  padding:   var(--gap-medium) var(--gap-large);   /* 16px 24px */
+  font-size: var(--font-size-body-2);              /* 16px */
+}
+
+
+/* ------------------------------------------------------------
    HIERARCHY — Primary
    Background: Brand Aqua | Text: Black Fixed
    ------------------------------------------------------------ */
 
 .btn--primary {
-  background-color: var(--surface-active);   /* Aqua 40 */
+  background-color: var(--surface-active);   /* Aqua 50 */
   border-color:     transparent;
   color:            var(--text-primary-fixed); /* #27252d */
 }
 
-.btn--primary:hover {
-  background-color: var(--surface-primary-hover); /* Aqua 30 — lighter */
+/* Hover — deeper aqua */
+.btn--primary:hover,
+.btn--primary.btn--hover {
+  background-color: var(--surface-primary-hover); /* Aqua 60 */
 }
 
+/* Pressed — deepest aqua (mouse down) */
 .btn--primary:active,
-.btn--primary.btn--active {
-  background-color: var(--surface-primary-hover);
-}
-
 .btn--primary.btn--pressed {
-  background-color: var(--surface-primary-pressed); /* Aqua 50 — deeper */
-  color:            var(--icon-glyph-on-color-pressed);
+  background-color: var(--surface-primary-pressed); /* Aqua 70 */
 }
 
-.btn--primary:focus-visible {
+/* Focused — default fill + focus ring (ring comes from the base rule above) */
+.btn--primary:focus-visible,
+.btn--primary.btn--focused {
   background-color: var(--surface-active);
-  box-shadow:       var(--shadow-focus);
 }
 
 .btn--primary:disabled,
@@ -152,8 +179,13 @@
   background:  transparent;
   color:       var(--text-primary-fixed);
 }
-.btn--primary.btn--text:hover {
-  color: var(--surface-active);
+.btn--primary.btn--text:hover,
+.btn--primary.btn--text.btn--hover {
+  color: var(--surface-primary-hover);
+}
+.btn--primary.btn--text:active,
+.btn--primary.btn--text.btn--pressed {
+  color: var(--surface-primary-pressed);
 }
 
 
@@ -168,25 +200,26 @@
   color:            var(--text-primary-fixed);
 }
 
-.btn--secondary:hover {
-  background-color: var(--surface-secondary); /* Navy 10 */
+/* Hover — subtle grey fill */
+.btn--secondary:hover,
+.btn--secondary.btn--hover {
+  background-color: var(--surface-secondary);
   border-color:     var(--border-primary);
 }
 
+/* Pressed — deeper grey fill + muted text */
 .btn--secondary:active,
-.btn--secondary.btn--active {
-  background-color: var(--surface-secondary);
-}
-
 .btn--secondary.btn--pressed {
-  background-color: var(--surface-secondary-pressed);          /* Grey 40 */
+  background-color: var(--surface-secondary-pressed);
+  border-color:     var(--border-primary);
   color:            var(--text-pressed);
 }
 
-.btn--secondary:focus-visible {
+/* Focused — white fill + border + focus ring */
+.btn--secondary:focus-visible,
+.btn--secondary.btn--focused {
   background-color: var(--background-primary);
   border-color:     var(--border-primary);
-  box-shadow:       var(--shadow-focus);
 }
 
 .btn--secondary:disabled,
@@ -204,9 +237,10 @@
   border:      none;
   color:       var(--text-primary-fixed);
 }
-.btn--secondary.btn--text:hover {
-  color: var(--text-pressed);
-}
+.btn--secondary.btn--text:hover,
+.btn--secondary.btn--text.btn--hover { color: var(--text-pressed); }
+.btn--secondary.btn--text:active,
+.btn--secondary.btn--text.btn--pressed { color: var(--text-pressed); }
 
 
 /* ------------------------------------------------------------
@@ -220,22 +254,24 @@
   color:            var(--text-primary-fixed);
 }
 
-.btn--tertiary:hover {
+/* Hover — subtle grey fill */
+.btn--tertiary:hover,
+.btn--tertiary.btn--hover {
   background-color: var(--surface-secondary);
 }
 
+/* Pressed — deeper grey fill + muted text + grey border */
 .btn--tertiary:active,
-.btn--tertiary.btn--active {
-  background-color: var(--surface-secondary);
-}
-
 .btn--tertiary.btn--pressed {
   background-color: var(--surface-secondary-pressed);
+  border-color:     var(--border-primary);
   color:            var(--text-pressed);
 }
 
-.btn--tertiary:focus-visible {
-  box-shadow: var(--shadow-focus);
+/* Focused — transparent fill + focus ring */
+.btn--tertiary:focus-visible,
+.btn--tertiary.btn--focused {
+  background-color: transparent;
 }
 
 .btn--tertiary:disabled,
@@ -252,9 +288,10 @@
   border: none;
   color:  var(--text-primary-fixed);
 }
-.btn--tertiary.btn--text:hover {
-  color: var(--text-pressed);
-}
+.btn--tertiary.btn--text:hover,
+.btn--tertiary.btn--text.btn--hover { color: var(--text-pressed); }
+.btn--tertiary.btn--text:active,
+.btn--tertiary.btn--text.btn--pressed { color: var(--text-pressed); }
 
 
 /* ------------------------------------------------------------
@@ -273,7 +310,8 @@
   color:            var(--text-on-color-fixed);
 }
 
-[data-theme="dark"] .btn--secondary:hover {
+[data-theme="dark"] .btn--secondary:hover,
+[data-theme="dark"] .btn--secondary.btn--hover {
   background-color: var(--surface-secondary-hover);
 }
 
@@ -283,7 +321,8 @@
   color:            var(--text-on-color-fixed);
 }
 
-[data-theme="dark"] .btn--tertiary:hover {
+[data-theme="dark"] .btn--tertiary:hover,
+[data-theme="dark"] .btn--tertiary.btn--hover {
   background-color: var(--surface-secondary-hover);
 }
 
@@ -304,28 +343,15 @@
   cursor:         wait;
   pointer-events: none;
   position:       relative;
-  color:          transparent !important; /* hide text while loading */
+  color:          transparent !important; /* hide the label while the spinner shows */
 }
 
-.btn--loading::after {
-  content:        '';
-  position:       absolute;
-  inset:          0;
-  margin:         auto;
-  width:          16px;
-  height:         16px;
-  border:         2px solid currentColor;
-  border-color:   var(--text-primary-fixed) transparent transparent transparent;
-  border-radius:  var(--radius-round);
-  animation:      btn-spin 0.7s linear infinite;
-  color:          var(--text-primary-fixed);
-}
-
-.btn--secondary.btn--loading::after,
-.btn--tertiary.btn--loading::after {
-  border-color: var(--text-primary-fixed) transparent transparent transparent;
-}
-
-@keyframes btn-spin {
-  to { transform: rotate(360deg); }
+/* Reuse the Spinner component (../spinner/spinner.css) for the loading state.
+   The nested <span class="spinner spinner--16"> is centred over the hidden
+   label. The spinner declares its own colour, so it stays visible while the
+   button's own text colour is transparent. */
+.btn--loading .spinner {
+  position: absolute;
+  inset:    0;
+  margin:   auto;
 }

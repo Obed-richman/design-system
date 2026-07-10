@@ -1,0 +1,106 @@
+/*
+ * ============================================================
+ * TAB ITEM COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4221-76076
+ *
+ * A single tab in a tab bar: a label with a bottom indicator line.
+ *
+ * States:
+ *   inactive (default) | active | hover | focused | disabled
+ * Breakpoint (size):
+ *   Responsive by default — Subtitle 2 / 16px pad on desktop, and it shrinks to
+ *   Subtitle 3 / 12px pad below 768px automatically. Add .tab-item--mobile to
+ *   force the compact size at any width.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="tab.css">
+ *
+ *   <div class="tabs" role="tablist">
+ *     <button class="tab-item tab-item--active" role="tab" aria-selected="true">Item</button>
+ *     <button class="tab-item" role="tab" aria-selected="false">Item</button>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   TAB ITEM
+   (The tab bar that lays these out is the Tab component — tab-bar.css.)
+   ------------------------------------------------------------ */
+
+.tab-item {
+  -webkit-appearance: none;
+  appearance:         none;
+  background-color:   transparent;
+  border:             none;
+  border-bottom:      var(--border-m) solid transparent;   /* indicator (reserved) */
+  margin-bottom:      calc(-1 * var(--border-s));          /* overlap the track line */
+  padding:            var(--gap-medium);                   /* 16px */
+  cursor:             pointer;
+
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);                /* 16px */
+  line-height: var(--line-height-subtitle-2);              /* 24px */
+  color:       var(--text-primary);
+  white-space: nowrap;
+
+  transition:  background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   BREAKPOINT — Mobile (compact)
+   ------------------------------------------------------------ */
+
+.tab-item--mobile {
+  padding:     var(--gap-small) var(--gap-medium);         /* 12px 16px */
+  font-size:   var(--font-size-subtitle-3);                /* 14px */
+  line-height: var(--line-height-subtitle-3);              /* 20px */
+}
+
+/* Automatically use the compact size on mobile (< 768px), matching the
+   repo breakpoint. .tab-item--mobile forces the compact size at any width. */
+@media (max-width: 768px) {
+  .tab-item {
+    padding:     var(--gap-small) var(--gap-medium);       /* 12px 16px */
+    font-size:   var(--font-size-subtitle-3);              /* 14px */
+    line-height: var(--line-height-subtitle-3);            /* 20px */
+  }
+}
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+/* Active — aqua indicator */
+.tab-item--active { border-bottom-color: var(--border-active); }
+
+/* Hover — light aqua fill + indicator */
+.tab-item:hover:not(:disabled),
+.tab-item--hover {
+  background-color:   var(--surface-focus);
+  border-bottom-color: var(--border-active);
+}
+
+/* Focused — bright aqua fill + indicator */
+.tab-item:focus-visible,
+.tab-item--focused {
+  outline:            none;
+  background-color:   var(--surface-active);
+  border-bottom-color: var(--border-active);
+}
+
+/* Disabled — grey fill, muted label, no indicator */
+.tab-item:disabled,
+.tab-item--disabled {
+  background-color:    var(--background-disabled);
+  color:               var(--text-disabled);
+  border-bottom-color: transparent;
+  cursor:              not-allowed;
+}

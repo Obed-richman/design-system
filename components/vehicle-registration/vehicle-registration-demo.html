@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="vehicle-registration.css">
+  <title>Vehicle Registration Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 28px; }
+    .card { max-width: 420px; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 28px; }
+    .card h2 { font-size: 20px; font-weight: 700; margin: 0 0 4px; }
+    .card p.lead { color: #555; font-size: 15px; margin: 0 0 20px; }
+    .actions { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Vehicle Registration</h1>
+  <p class="subtitle">UK number-plate input — Zego Design System</p>
+
+  <div class="card">
+    <h2>Find your car</h2>
+    <p class="lead">Enter your registration and we'll look up the details automatically.</p>
+
+    <div class="veh-reg">
+      <div class="veh-reg__label">
+        <p class="veh-reg__label-title">Registration number</p>
+        <p class="veh-reg__label-support">As shown on your number plate</p>
+      </div>
+      <div class="veh-reg__field">
+        <span class="veh-reg__country">
+          <span class="veh-reg__flag"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><g stroke="#fff" stroke-width="6"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><g stroke="#C8102E" stroke-width="2.5"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg></span>
+          <span class="veh-reg__gb">GB</span>
+          <span class="veh-reg__chevron"><svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </span>
+        <input class="veh-reg__input" type="text" placeholder="SH48 HSA" aria-label="Registration">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn--primary btn--pill btn--large" type="button">Find my car</button>
+    </div>
+  </div>
+
+</body>
+</html>

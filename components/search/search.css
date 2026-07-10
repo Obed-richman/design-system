@@ -1,0 +1,51 @@
+/*
+ * ============================================================
+ * SEARCH COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2066-313046
+ *
+ * Search is the Text Input with a trailing search glyph. It REUSES the Input
+ * component — link input.css alongside this file (and input.js for the clear
+ * behaviour). This file only adds the search glyph and the glyph → clear swap.
+ *
+ * States (all inherited from .input-field): default | hover | focused | error.
+ * The magnifier shows by default; on focus or error it swaps to the clear (×).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../input/input.css">
+ *   <link rel="stylesheet" href="search.css">
+ *   <script src="../input/input.js"></script>
+ *
+ *   <div class="input-field">
+ *     <input class="input" type="search" placeholder="Input">
+ *     <span class="search__glyph"><svg>…search…</svg></span>
+ *     <button class="input__clear search__clear" type="button" aria-label="Clear"><svg>…close…</svg></button>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* Trailing magnifier */
+.search__glyph {
+  flex-shrink:  0;
+  display:      inline-flex;
+  width:        16px;
+  height:       16px;
+  color:        var(--icon-glyph-primary);
+}
+.search__glyph svg { display: block; width: 16px; height: 16px; }
+
+/* Clear button (the shared .input__clear) is hidden until focus / error */
+.search__clear { display: none; }
+
+/* Swap: on focus (real or forced) or error, hide the magnifier and show clear (×) */
+.input-field:focus-within .search__glyph,
+.input-field--focused .search__glyph,
+.input-field--error .search__glyph { display: none; }
+
+.input-field:focus-within .search__clear,
+.input-field--focused .search__clear,
+.input-field--error .search__clear { display: inline-flex; }

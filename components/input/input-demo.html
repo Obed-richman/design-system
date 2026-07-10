@@ -53,92 +53,74 @@
 
       <!-- Default (with value) -->
       <div class="input-group">
-        <label class="input-label">Default</label>
+        <label class="input-label" for="d-default">Default</label>
         <div class="input-field">
-          <input class="input" type="text" value="Input value">
-          <span class="input-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
+          <input class="input" id="d-default" type="text" value="Input">
         </div>
       </div>
 
       <!-- Placeholder -->
       <div class="input-group">
-        <label class="input-label">Placeholder</label>
+        <label class="input-label" for="d-placeholder">Placeholder</label>
         <div class="input-field">
-          <input class="input" type="text" placeholder="Placeholder text">
+          <input class="input" id="d-placeholder" type="text" placeholder="Input">
         </div>
       </div>
 
-      <!-- Hover (simulated with inline style for demo only) -->
+      <!-- Hover (forced) -->
       <div class="input-group">
-        <label class="input-label">Hover</label>
-        <div class="input-field" style="border-color: var(--border-secondary)">
-          <input class="input" type="text" value="Input value">
+        <label class="input-label" for="d-hover">Hover</label>
+        <div class="input-field input-field--hover">
+          <input class="input" id="d-hover" type="text" placeholder="Input">
         </div>
       </div>
 
-      <!-- Focused (simulated with inline style for demo only) -->
+      <!-- Focused (forced) with clear -->
       <div class="input-group">
-        <label class="input-label">Focused</label>
-        <div class="input-field" style="border-color: var(--border-focus); box-shadow: var(--shadow-focus)">
-          <input class="input" type="text" value="Input value">
+        <label class="input-label" for="d-focused">Focused</label>
+        <div class="input-field input-field--focused">
+          <input class="input" id="d-focused" type="text" placeholder="Input">
+          <button class="input__clear" type="button" aria-label="Clear">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg>
+          </button>
         </div>
       </div>
 
       <!-- Error -->
       <div class="input-group">
-        <label class="input-label">Error</label>
+        <label class="input-label" for="d-error">Error</label>
         <div class="input-field input-field--error">
-          <input class="input" type="text" value="Input value">
-          <span class="input-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" fill="currentColor"/>
-              <path d="M8 5v3.5M8 10.5v.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </span>
+          <input class="input" id="d-error" type="text" value="Input">
+          <button class="input__clear" type="button" aria-label="Clear">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg>
+          </button>
         </div>
-        <div class="input-message input-message--error">
-          <svg class="input-message__icon" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="#e21313" stroke-width="1.5"/>
-            <path d="M12 8v5M12 15.5v.5" stroke="#e21313" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          This field has an error
-        </div>
+        <p class="input-message input-message--error">Error</p>
       </div>
 
       <!-- Valid -->
       <div class="input-group">
-        <label class="input-label">Valid</label>
+        <label class="input-label" for="d-valid">Valid</label>
         <div class="input-field input-field--valid">
-          <input class="input" type="text" value="Input value">
-          <span class="input-icon">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" fill="currentColor"/>
-              <path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+          <input class="input" id="d-valid" type="text" placeholder="Input">
         </div>
-        <div class="input-message input-message--valid">Valid message</div>
+        <p class="input-message input-message--valid">Valid Message</p>
       </div>
 
       <!-- Hint -->
       <div class="input-group">
-        <label class="input-label">Hint</label>
-        <div class="input-field">
-          <input class="input" type="text" value="Input value">
+        <label class="input-label" for="d-hint">Hint</label>
+        <div class="input-field input-field--hint">
+          <input class="input" id="d-hint" type="text" placeholder="Input">
         </div>
-        <div class="input-message input-message--hint">This is a hint message</div>
+        <p class="input-message input-message--hint">Hint Message</p>
       </div>
 
       <!-- Disabled -->
       <div class="input-group">
-        <label class="input-label">Disabled</label>
+        <label class="input-label" for="d-disabled">Disabled</label>
         <div class="input-field input-field--disabled">
-          <input class="input" type="text" disabled value="Input value">
+          <input class="input" id="d-disabled" type="text" placeholder="Input" disabled>
         </div>
       </div>
 
@@ -155,29 +137,31 @@
       <div class="grid">
 
         <div class="input-group">
-          <label class="input-label">Default</label>
+          <label class="input-label" for="d-dark-default">Default</label>
           <div class="input-field">
-            <input class="input" type="text" value="Input value">
+            <input class="input" id="d-dark-default" type="text" value="Input">
           </div>
         </div>
 
         <div class="input-group">
-          <label class="input-label">Placeholder</label>
+          <label class="input-label" for="d-dark-placeholder">Placeholder</label>
           <div class="input-field">
-            <input class="input" type="text" placeholder="Placeholder text">
+            <input class="input" id="d-dark-placeholder" type="text" placeholder="Input">
           </div>
         </div>
 
         <div class="input-group">
-          <label class="input-label">Focused</label>
-          <div class="input-field" style="border-color: var(--border-focus); box-shadow: var(--shadow-focus)">
-            <input class="input" type="text" value="Input value">
+          <label class="input-label" for="d-dark-focused">Focused</label>
+          <div class="input-field input-field--focused">
+            <input class="input" id="d-dark-focused" type="text" placeholder="Input">
           </div>
         </div>
 
       </div>
     </div>
   </section>
+
+  <script src="input.js"></script>
 
 </body>
 </html>

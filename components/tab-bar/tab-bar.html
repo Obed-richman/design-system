@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tab — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="../tab/tab.css">
+  <link rel="stylesheet" href="tab-bar.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo { display: inline-flex; align-items: center; color: var(--colour-white); }
+    .header__logo svg { width: 110px; height: 32px; display: block; }
+    .content { max-width: 876px; margin: 0 auto; padding: 24px 24px 48px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-family: var(--font-family-base); font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); color: var(--text-primary); margin: 0; }
+    .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .variants { background: var(--colour-white); border-radius: 16px; border: 1px solid var(--border-primary); padding: 24px; display: flex; flex-direction: column; gap: 24px; }
+    .variant-group { display: grid; grid-template-columns: 80px 1fr; align-items: center; gap: 12px 24px; }
+    .variant-label { font-family: var(--font-family-base); font-size: var(--font-size-body-3); color: var(--colour-grey-60); }
+    .desktop-slot { max-width: 508px; }
+    .mobile-slot { max-width: 327px; }
+    .section-label { font-family: var(--font-family-base); font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 8px 0 0; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span>
+  </header>
+
+  <main class="content">
+
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+
+    <div class="component-header">
+      <h1 class="component-header__name">Tab</h1>
+      <p class="component-header__description">Tab bar — 2–5 equal-width tabs × Breakpoint — Zego Design System</p>
+    </div>
+
+    <div class="variants" id="variants"></div>
+
+  </main>
+
+  <script>
+    function bar(count, mobile) {
+      const item = mobile ? 'tab-item tab-item--mobile' : 'tab-item';
+      let tabs = '';
+      for (let i = 0; i < count; i++) {
+        tabs += '<button class="' + item + (i === 0 ? ' tab-item--active' : '') + '" role="tab" aria-selected="' + (i === 0) + '">Item</button>';
+      }
+      return '<div class="tabs" role="tablist">' + tabs + '</div>';
+    }
+
+    let html = '<p class="section-label" style="grid-column:1/-1;margin:0">Desktop</p>';
+    for (let n = 2; n <= 5; n++) {
+      html += '<span class="variant-label">' + n + ' tabs</span><div class="desktop-slot">' + bar(n, false) + '</div>';
+    }
+    html += '<p class="section-label" style="grid-column:1/-1">Mobile</p>';
+    for (let n = 2; n <= 5; n++) {
+      html += '<span class="variant-label">' + n + ' tabs</span><div class="mobile-slot">' + bar(n, true) + '</div>';
+    }
+    document.getElementById('variants').innerHTML = html;
+  </script>
+
+  <script src="tab-bar.js"></script>
+
+</body>
+</html>

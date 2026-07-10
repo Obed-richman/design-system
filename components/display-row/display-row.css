@@ -1,0 +1,121 @@
+/*
+ * ============================================================
+ * DISPLAY ROW COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4097-22988
+ *
+ * A configurable list row with dividers. Optional slots:
+ *   - leading icon (.display-row__icon)
+ *   - support text below the label (.display-row__support)
+ *   - a right-hand value / 2nd column (.display-row__value)
+ *   - a trailing chevron / radio / button (.display-row__trailing)
+ *
+ * Reuses Radio and Button for the trailing slot — link radio.css / button.css
+ * when those are used.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="display-row.css">
+ *
+ *   <div class="display-row">
+ *     <span class="display-row__icon"><svg>…tick…</svg></span>        <!-- optional -->
+ *     <div class="display-row__main">
+ *       <p class="display-row__label">Delivery</p>
+ *       <p class="display-row__support">Paragraph</p>                 <!-- optional -->
+ *     </div>
+ *     <p class="display-row__value">Delivery</p>                      <!-- optional 2nd column -->
+ *     <span class="display-row__trailing"><svg class="display-row__chevron">…</svg></span>  <!-- optional -->
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.display-row {
+  display:       flex;
+  gap:           var(--gap-medium);              /* 16px */
+  align-items:   flex-start;
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       var(--gap-medium) 0;            /* 16px vertical */
+  border-top:    var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-s) solid var(--border-primary);
+  margin-bottom: calc(-1 * var(--border-s));     /* collapse divider with next row */
+  background:    transparent;
+  font-family:   'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   LEADING ICON
+   ------------------------------------------------------------ */
+
+.display-row__icon {
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  margin-top:  var(--spacer-4);                  /* align with the first text line */
+  color:       var(--icon-glyph-primary);
+}
+.display-row__icon svg { display: block; width: 16px; height: 16px; }
+
+
+/* ------------------------------------------------------------
+   MAIN — label + optional support text
+   ------------------------------------------------------------ */
+
+.display-row__main {
+  flex:            1;
+  min-width:       0;
+  display:         flex;
+  flex-direction:  column;
+  gap:             2px;
+  justify-content: center;
+}
+
+.display-row__label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.display-row__support {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   RIGHT VALUE (2 columns)
+   ------------------------------------------------------------ */
+
+.display-row__value {
+  flex-shrink: 0;
+  align-self:  center;
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+  text-align:  right;
+}
+
+
+/* ------------------------------------------------------------
+   TRAILING (chevron / radio / button)
+   ------------------------------------------------------------ */
+
+.display-row__trailing {
+  flex-shrink: 0;
+  align-self:  center;
+  display:     inline-flex;
+  align-items: center;
+  color:       var(--icon-glyph-primary);
+}
+.display-row__chevron { display: block; width: 16px; height: 16px; }

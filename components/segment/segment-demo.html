@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="segment.css">
+  <title>Segment Control Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 28px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Segment Control</h1>
+  <p class="subtitle">Single-select segments — Zego Design System · click a segment to select it</p>
+
+  <section>
+    <h2>Live — billing</h2>
+    <div class="segment segment--40" role="tablist" aria-label="Billing period">
+      <button class="segment__item segment__item--active" role="tab" aria-selected="true">Monthly</button>
+      <button class="segment__item" role="tab" aria-selected="false">Annual</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Live — view</h2>
+    <div class="segment segment--40" role="tablist" aria-label="View">
+      <button class="segment__item segment__item--active" role="tab" aria-selected="true">Day</button>
+      <button class="segment__item" role="tab" aria-selected="false">Week</button>
+      <button class="segment__item" role="tab" aria-selected="false">Month</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Full width (--fill)</h2>
+    <div class="segment segment--40 segment--fill" role="tablist" aria-label="Cover" style="max-width:420px">
+      <button class="segment__item segment__item--active" role="tab" aria-selected="true">Comprehensive</button>
+      <button class="segment__item" role="tab" aria-selected="false">Third party</button>
+    </div>
+  </section>
+
+  <script src="segment.js"></script>
+
+</body>
+</html>

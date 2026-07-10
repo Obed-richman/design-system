@@ -6,6 +6,43 @@
   <title>Design System — Component Library</title>
   <link rel="stylesheet" href="tokens/tokens.css">
   <link rel="stylesheet" href="tokens/typography.css">
+  <!-- Component styles so the home-page cards can render live previews -->
+  <link rel="stylesheet" href="components/button/button.css">
+  <link rel="stylesheet" href="components/input/input.css">
+  <link rel="stylesheet" href="components/alert/alert.css">
+  <link rel="stylesheet" href="components/checkbox/checkbox.css">
+  <link rel="stylesheet" href="components/spinner/spinner.css">
+  <link rel="stylesheet" href="components/radio/radio.css">
+  <link rel="stylesheet" href="components/bounce/bounce.css">
+  <link rel="stylesheet" href="components/toggle/toggle.css">
+  <link rel="stylesheet" href="components/status-label/status-label.css">
+  <link rel="stylesheet" href="components/warning/warning.css">
+  <link rel="stylesheet" href="components/search/search.css">
+  <link rel="stylesheet" href="components/plate/plate.css">
+  <link rel="stylesheet" href="components/acknowledge/acknowledge.css">
+  <link rel="stylesheet" href="components/number-item/number-item.css">
+  <link rel="stylesheet" href="components/text-icon-item/text-icon-item.css">
+  <link rel="stylesheet" href="components/choice-selector/choice-selector.css">
+  <link rel="stylesheet" href="components/radio-list/radio-list.css">
+  <link rel="stylesheet" href="components/tab/tab.css">
+  <link rel="stylesheet" href="components/tab-bar/tab-bar.css">
+  <link rel="stylesheet" href="components/comparison-tile/comparison-tile.css">
+  <link rel="stylesheet" href="components/price-comparison/price-comparison.css">
+  <link rel="stylesheet" href="components/accordion/accordion.css">
+  <link rel="stylesheet" href="components/segment/segment.css">
+  <link rel="stylesheet" href="components/display-row/display-row.css">
+  <link rel="stylesheet" href="components/dropdown-item/dropdown-item.css">
+  <link rel="stylesheet" href="components/dropdown-list/dropdown-list.css">
+  <link rel="stylesheet" href="components/trustpilot/trustpilot.css">
+  <link rel="stylesheet" href="components/trustpilot-lockup/trustpilot-lockup.css">
+  <link rel="stylesheet" href="components/divider/divider.css">
+  <link rel="stylesheet" href="components/onboarding-steps/onboarding-steps.css">
+  <link rel="stylesheet" href="components/sales-nav/sales-nav.css">
+  <link rel="stylesheet" href="components/vehicle-registration/vehicle-registration.css">
+  <link rel="stylesheet" href="components/detail-card/detail-card.css">
+  <link rel="stylesheet" href="components/discount-code/discount-code.css">
+  <link rel="stylesheet" href="components/date-picker/date-picker.css">
+  <link rel="stylesheet" href="components/notice-toggle/notice-toggle.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -27,12 +64,14 @@
       justify-content: center;
     }
     .header__logo {
+      display: inline-flex;
+      align-items: center;
       color: var(--colour-white);
-      font-family: var(--font-family-base);
-      font-weight: var(--font-weight-bold);
-      font-size: 24px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
+    }
+    .header__logo svg {
+      width: 110px;
+      height: 32px;
+      display: block;
     }
 
     /* ---- Content ---- */
@@ -42,43 +81,8 @@
       padding: 24px 24px 48px;
     }
 
-    /* ---- Search bar ---- */
-    .search-wrapper {
-      position: relative;
-      margin-bottom: 24px;
-    }
-    .search-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      color: var(--colour-grey-60);
-      pointer-events: none;
-      display: flex;
-    }
-    .search-input {
-      width: 100%;
-      height: 48px;
-      padding: 0 16px 0 44px;
-      background: var(--colour-white);
-      border: 1px solid var(--border-primary);
-      border-radius: 12px;
-      font-family: var(--font-family-base);
-      font-size: var(--font-size-body-2);
-      font-weight: var(--font-weight-regular);
-      color: var(--text-primary);
-      outline: none;
-      transition: border-color 200ms ease, box-shadow 200ms ease;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-    .search-input::placeholder { color: var(--colour-grey-60); }
-    .search-input:focus {
-      border-color: var(--border-focus);
-      box-shadow: var(--shadow-focus);
-    }
+    /* ---- Search bar (Design System Search component) ---- */
+    .search-wrapper { margin-bottom: 24px; }
 
     /* ---- Cards list ---- */
     .cards-list {
@@ -90,31 +94,86 @@
     /* ---- Component card ---- */
     .card {
       display: flex;
-      align-items: center;
-      gap: 16px;
+      flex-direction: column;
       background: var(--colour-white);
       border: 1px solid var(--border-primary);
       border-radius: 16px;
-      padding: 16px;
+      overflow: hidden;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
-      transition: box-shadow 200ms ease;
+      transition: box-shadow 200ms ease, transform 200ms ease;
     }
-    .card:hover { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); }
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+    /* Keyboard focus — matches the secondary button's focus state */
+    .card:focus-visible {
+      outline: none;
+      border-color: var(--border-primary);
+      box-shadow: var(--shadow-focus);
+      transform: none;
+    }
 
-    .card__image {
-      width: 104px;
-      height: 104px;
-      border-radius: 8px;
-      background: #e0e0e0;
-      flex-shrink: 0;
-      object-fit: cover;
+    /* Live component preview strip */
+    .card__preview {
+      min-height: 148px;
+      padding: 24px;
+      background: var(--surface-secondary);
+      border-bottom: 1px solid var(--border-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    /* Neutralise cursor/interaction inside previews — the whole card is the link */
+    .card__preview * { cursor: pointer; }
+    .card__preview .btn,
+    .card__preview .input,
+    .card__preview .checkbox,
+    .card__preview .radio,
+    .card__preview .toggle,
+    .card__preview .text-icon-item,
+    .card__preview .radio-list__row,
+    .card__preview .tab-item,
+    .card__preview .comparison-tile,
+    .card__preview .accordion__header,
+    .card__preview .dropdown-item,
+    .card__preview .dropdown-list,
+    .card__preview .sales-nav,
+    .card__preview .veh-reg__field,
+    .card__preview .detail-card,
+    .card__preview .discount-code,
+    .card__preview .discount-code__applied,
+    .card__preview .date-picker,
+    .card__preview .notice-toggle,
+    .card__preview .segment { pointer-events: none; }
+
+    .card__body {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
     }
     .card__text {
       flex: 1;
       min-width: 0;
     }
+
+    /* Icons preview row */
+    .icon-preview {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--icon-glyph-primary);
+    }
+    .icon-preview svg { width: 24px; height: 24px; display: block; }
+
+    /* Alert card preview: use the 16px info icon so it sits better with the text */
+    .card__preview .alert__icon,
+    .card__preview .alert__icon svg { width: 16px; height: 16px; }
     .card__title {
       font-family: var(--font-family-base);
       font-weight: 700;
@@ -128,7 +187,7 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: var(--colour-grey-60, #929195);
+      color: var(--text-disabled);
       margin: 4px 0 0;
     }
     .card__arrow {
@@ -157,24 +216,24 @@
 <body>
 
   <header class="header">
-    <span class="header__logo">Zego</span>
+    <span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span>
   </header>
 
   <main class="content">
 
     <div class="search-wrapper">
-      <svg class="search-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
-        <path d="M10 10l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <input
-        class="search-input"
-        type="search"
-        placeholder="Search for component"
-        id="search"
-        aria-label="Search components"
-        autocomplete="off"
-      >
+      <div class="input-field">
+        <input
+          class="input"
+          type="search"
+          placeholder="Search for component"
+          id="search"
+          aria-label="Search components"
+          autocomplete="off"
+        >
+        <span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span>
+        <button class="input__clear search__clear" type="button" aria-label="Clear search"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+      </div>
     </div>
 
     <div class="cards-list" id="cards-list"></div>
@@ -183,24 +242,604 @@
   </main>
 
   <script>
+    const ARROW_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8984 3.58972C10.703 3.39458 10.703 3.07821 10.8984 2.88308L11.6361 2.14635C11.8315 1.95122 12.1483 1.95122 12.3437 2.14635L21.8081 11.5982C21.8204 11.6105 21.832 11.6233 21.8428 11.6366L21.8537 11.6475C22.0491 11.8426 22.0491 12.159 21.8537 12.3541L12.3418 21.8534C12.1464 22.0485 11.8296 22.0485 11.6342 21.8534L10.8965 21.1166C10.7011 20.9215 10.7011 20.6051 10.8965 20.41L18.3163 13H2.5C2.22386 13 2 12.7762 2 12.5V11.5C2 11.2239 2.22386 11 2.5 11H18.3186L10.8984 3.58972Z" fill="currentColor"/></svg>`;
+
+    const TICK_SVG = `<svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+    // Six real library icons (24×24, currentColor) for the Icons card preview
+    const ICONS_PREVIEW = `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7544 1.46356C11.4834 0.883241 12.5166 0.88324 13.2456 1.46356L22.2456 8.62787C22.7223 9.00732 23 9.58336 23 10.1926V21.5002C23 22.3286 22.3284 23.0002 21.5 23.0002H16C15.1716 23.0002 14.5 22.3286 14.5 21.5002V16.0002H9.5V21.5002C9.5 22.3286 8.82843 23.0002 8 23.0002H2.5C1.67157 23.0002 1 22.3286 1 21.5002V10.1926C1 9.58336 1.27772 9.00732 1.7544 8.62787L10.7544 1.46356ZM21 10.1926L12 3.02832L3 10.1926L3 21.0002H7.5V15.5002C7.5 14.6717 8.17157 14.0002 9 14.0002H15C15.8284 14.0002 16.5 14.6717 16.5 15.5002V21.0002H21V10.1926Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5C1 3.89543 1.89543 3 3 3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5ZM21 5L3 5V21H21V5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21 10L2 10L2 8L21 8V10Z" fill="currentColor"/><path d="M16 1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V4.25C18 4.52614 17.7761 4.75 17.5 4.75H16.5C16.2239 4.75 16 4.52614 16 4.25V1.5Z" fill="currentColor"/><path d="M6 1.5C6 1.22386 6.22386 1 6.5 1H7.5C7.77614 1 8 1.22386 8 1.5V4.25C8 4.52614 7.77614 4.75 7.5 4.75H6.5C6.22386 4.75 6 4.52614 6 4.25V1.5Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M3 3C3 1.89543 3.89543 1 5 1H14.5C14.7761 1 15 1.22386 15 1.5V2.5C15 2.77614 14.7761 3 14.5 3H5.5C5.22386 3 5 3.22386 5 3.5V14.5C5 14.7761 4.77614 15 4.5 15H3.5C3.22386 15 3 14.7761 3 14.5V3Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9 7V21H19V7H9ZM7 6.5C7 5.67157 7.67157 5 8.5 5H19.5C20.3284 5 21 5.67157 21 6.5V21C21 22.1046 20.1046 23 19 23H9C7.89543 23 7 22.1046 7 21V6.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17 11.5C17 11.7761 16.7761 12 16.5 12H11.5C11.2239 12 11 11.7761 11 11.5V10.5C11 10.2239 11.2239 10 11.5 10H16.5C16.7761 10 17 10.2239 17 10.5V11.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17 15.5C17 15.7761 16.7761 16 16.5 16H11.5C11.2239 16 11 15.7761 11 15.5V14.5C11 14.2239 11.2239 14 11.5 14H16.5C16.7761 14 17 14.2239 17 14.5V15.5Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.01543 3.25C7.01543 3.11193 7.12736 3 7.26543 3H16.7004L18.7824 8.72539L22.0267 9.94201C22.6121 10.1616 23 10.7212 23 11.3465V19H19.8293C19.4175 20.1652 18.3062 21 17 21C15.6938 21 14.5825 20.1652 14.1707 19H9.82929C9.41746 20.1652 8.30622 21 7 21C5.69378 21 4.58254 20.1652 4.17071 19H1.25C1.11193 19 1 18.8881 1 18.75V17.25C1 17.1119 1.11193 17 1.25 17H4.17071C4.58254 15.8348 5.69378 15 7 15C8.30622 15 9.41746 15.8348 9.82929 17H14.1707C14.5825 15.8348 15.6938 15 17 15C18.3062 15 19.4175 15.8348 19.8293 17H21V11.693L17.2176 10.2746L15.2996 5H7.26543C7.12736 5 7.01543 4.88807 7.01543 4.75V3.25ZM6 18C6 17.4477 6.44772 17 7 17C7.55228 17 8 17.4477 8 18C8 18.5523 7.55228 19 7 19C6.44772 19 6 18.5523 6 18ZM16 18C16 17.4477 16.4477 17 17 17C17.5523 17 18 17.4477 18 18C18 18.5523 17.5523 19 17 19C16.4477 19 16 18.5523 16 18Z" fill="currentColor"/><path d="M8.25 12.75C8.25 12.8881 8.13807 13 8 13H3.25C3.11193 13 3 12.8881 3 12.75V11.25C3 11.1119 3.11193 11 3.25 11H8C8.13807 11 8.25 11.1119 8.25 11.25V12.75Z" fill="currentColor"/><path d="M10.25 9C10.3881 9 10.5 8.88807 10.5 8.75V7.25C10.5 7.11193 10.3881 7 10.25 7H4.75C4.61193 7 4.5 7.11193 4.5 7.25V8.75C4.5 8.88807 4.61193 9 4.75 9H10.25Z" fill="currentColor"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 14.0939 20.2859 16.0195 19.0866 17.5487C18.7458 17.9833 18.747 18.6134 19.1414 19C19.5358 19.3866 20.1729 19.383 20.5224 18.9553C22.0704 17.0604 23 14.638 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12C1 14.638 1.92964 17.0604 3.47764 18.9553C3.82706 19.383 4.46418 19.3866 4.85857 19C5.25295 18.6134 5.25421 17.9833 4.91339 17.5487C3.71408 16.0195 3 14.0939 3 12Z" fill="currentColor"/><path d="M16.7382 8.38142C16.8002 8.25751 16.6687 8.126 16.5448 8.18796L11.1245 10.8981C9.80585 11.5574 9.5189 13.3139 10.5592 14.3586C11.6019 15.4057 13.3643 15.122 14.0257 13.8006L16.7382 8.38142Z" fill="currentColor"/><path d="M16 22.5C16 22.7761 15.7761 23 15.5 23H8.5C8.22386 23 8 22.7761 8 22.5V21.5C8 21.2239 8.22386 21 8.5 21H15.5C15.7761 21 16 21.2239 16 21.5V22.5Z" fill="currentColor"/></svg>
+    `;
+
     const components = [
       {
         name: "Button",
         description: "Primary, secondary and tertiary button styles with all interactive states.",
-        image: "",
-        page: "components/button/button.html"
+        page: "components/button/button.html",
+        preview: `
+          <button class="btn btn--primary btn--pill">Button<span class="btn__icon">${ARROW_SVG}</span></button>
+          <button class="btn btn--secondary btn--pill">Button</button>
+          <button class="btn btn--tertiary btn--pill">Button</button>
+        `
       },
       {
         name: "Input",
         description: "Text input fields including validation states and helper text.",
-        image: "",
-        page: "components/input/input.html"
+        page: "components/input/input.html",
+        preview: `
+          <div class="input-group" style="width:320px;max-width:100%">
+            <label class="input-label">Label</label>
+            <div class="input-field">
+              <input class="input" type="text" placeholder="Placeholder text" tabindex="-1">
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Search",
+        description: "Search field with a trailing magnifier that swaps to a clear button, plus an error state.",
+        page: "components/search/search.html",
+        preview: `
+          <div class="input-field" style="width:320px;max-width:100%">
+            <input class="input" type="search" placeholder="Search…" tabindex="-1">
+            <span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span>
+          </div>
+        `
+      },
+      {
+        name: "Accordion",
+        description: "Collapsible rows that reveal content, with an optional edit action and error state.",
+        page: "components/accordion/accordion.html",
+        preview: `
+          <details class="accordion" style="width:320px" open>
+            <summary class="accordion__header">
+              <span class="accordion__title">Your cover</span>
+              <svg class="accordion__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="accordion__panel">
+              <div class="display-row"><div class="display-row__main"><p class="display-row__label">Comprehensive cover</p></div><p class="display-row__value">Included</p></div>
+              <div class="display-row"><div class="display-row__main"><p class="display-row__label">Breakdown cover</p></div><p class="display-row__value">£24</p></div>
+            </div>
+          </details>
+        `
+      },
+      {
+        name: "Alert",
+        description: "Inline alert banners in neutral, information, positive, warning and negative states.",
+        page: "components/alert/alert.html",
+        preview: `
+          <div class="alert alert--information alert--bordered" style="max-width:380px">
+            <span class="alert__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 7C11.3096 7 10.75 7.55964 10.75 8.25C10.75 8.94036 11.3096 9.5 12 9.5C12.6904 9.5 13.25 8.94036 13.25 8.25C13.25 7.55964 12.6904 7 12 7Z" fill="currentColor"/>
+                <path d="M13 11.5C13 11.2239 12.7761 11 12.5 11H11.5C11.2239 11 11 11.2239 11 11.5L11 16.5C11 16.7761 11.2239 17 11.5 17L12.5 17C12.7761 17 13 16.7761 13 16.5L13 11.5Z" fill="currentColor"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/>
+              </svg>
+            </span>
+            <div class="alert__content">
+              <p class="alert__title">Information</p>
+              <p class="alert__description">Something you should know about.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Acknowledge Box",
+        description: "Bordered checkbox card for acknowledgements, with active, error and disabled states.",
+        page: "components/acknowledge/acknowledge.html",
+        preview: `
+          <div class="acknowledge" style="max-width:320px">
+            <label class="checkbox">
+              <input class="checkbox__input" type="checkbox" checked tabindex="-1">
+              <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="checkbox__label acknowledge__text">I understand and agree to the terms above.</span>
+            </label>
+            <span class="acknowledge__info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7C11.3096 7 10.75 7.55964 10.75 8.25C10.75 8.94036 11.3096 9.5 12 9.5C12.6904 9.5 13.25 8.94036 13.25 8.25C13.25 7.55964 12.6904 7 12 7Z" fill="currentColor"/><path d="M13 11.5C13 11.2239 12.7761 11 12.5 11H11.5C11.2239 11 11 11.2239 11 11.5L11 16.5C11 16.7761 11.2239 17 11.5 17L12.5 17C12.7761 17 13 16.7761 13 16.5L13 11.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+          </div>
+        `
+      },
+      {
+        name: "Checkbox",
+        description: "Checkbox with checked, hover, focus, disabled and error states in two sizes.",
+        page: "components/checkbox/checkbox.html",
+        preview: `
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox" checked tabindex="-1">
+            <span class="checkbox__box">${TICK_SVG}</span>
+            <span class="checkbox__label">Checked</span>
+          </label>
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox" tabindex="-1">
+            <span class="checkbox__box">${TICK_SVG}</span>
+            <span class="checkbox__label">Default</span>
+          </label>
+          <label class="checkbox checkbox--error">
+            <input class="checkbox__input" type="checkbox" checked tabindex="-1">
+            <span class="checkbox__box">${TICK_SVG}</span>
+            <span class="checkbox__label">Error</span>
+          </label>
+        `
+      },
+      {
+        name: "Radio Button",
+        description: "Single-select radio and check-circle types, with checked, focus, disabled and error states.",
+        page: "components/radio/radio.html",
+        preview: `
+          <label class="radio">
+            <input class="radio__input" type="radio" checked tabindex="-1">
+            <span class="radio__control"></span>
+            <span class="radio__label">Radio</span>
+          </label>
+          <label class="radio radio--check">
+            <input class="radio__input" type="radio" checked tabindex="-1">
+            <span class="radio__control">
+              <svg class="radio__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="radio__label">Check</span>
+          </label>
+        `
+      },
+      {
+        name: "Segment Control",
+        description: "Single-select segmented control with a raised active pill, in three sizes.",
+        page: "components/segment/segment.html",
+        preview: `
+          <div class="segment segment--40" role="tablist">
+            <span class="segment__item segment__item--active">Monthly</span>
+            <span class="segment__item">Annual</span>
+          </div>
+        `
+      },
+      {
+        name: "Tab",
+        description: "Full-width tab bar of 2–5 equal-width tabs with an underline indicator, responsive.",
+        page: "components/tab-bar/tab-bar.html",
+        preview: `
+          <div class="tabs" style="width:320px">
+            <span class="tab-item tab-item--active">Overview</span>
+            <span class="tab-item">Cover</span>
+            <span class="tab-item">Docs</span>
+          </div>
+        `
+      },
+      {
+        name: "Tab Item",
+        description: "Tab-bar item with an underline indicator, in active, hover, focused and disabled states.",
+        page: "components/tab/tab.html",
+        preview: `
+          <div class="tabs">
+            <span class="tab-item tab-item--active">Overview</span>
+            <span class="tab-item">Cover</span>
+            <span class="tab-item">Docs</span>
+          </div>
+        `
+      },
+      {
+        name: "Notice Toggle",
+        description: "State-tinted notice card with a title, description and a toggle switch.",
+        page: "components/notice-toggle/notice-toggle.html",
+        preview: `
+          <div style="width:320px; display:flex; flex-direction:column; gap:12px">
+            <div class="notice-toggle notice-toggle--positive">
+              <div class="notice-toggle__content">
+                <p class="notice-toggle__title">Auto renewal is turned on</p>
+                <p class="notice-toggle__text">Your policy will renew automatically, so you don't need to do anything.</p>
+              </div>
+              <label class="toggle notice-toggle__switch"><input class="toggle__input" type="checkbox" role="switch" checked tabindex="-1"><span class="toggle__track"><span class="toggle__thumb"></span></span></label>
+            </div>
+            <div class="notice-toggle">
+              <div class="notice-toggle__content">
+                <p class="notice-toggle__title">Activate auto renewal?</p>
+                <p class="notice-toggle__text">Renew at the end of your policy to avoid gaps in cover.</p>
+              </div>
+              <label class="toggle notice-toggle__switch"><input class="toggle__input" type="checkbox" role="switch" tabindex="-1"><span class="toggle__track"><span class="toggle__thumb"></span></span></label>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Date Picker",
+        description: "Calendar with month navigation, weekday row and day selection, plus Cancel/Confirm.",
+        page: "components/date-picker/date-picker.html",
+        preview: `
+          <div class="date-picker" data-year="2026" data-month="0" data-today="2026-0-15" data-selected="2026-0-26" style="width:300px; box-shadow:none">
+            <div class="date-picker__header">
+              <button class="btn btn--secondary btn--fab date-picker__nav date-picker__prev" type="button" tabindex="-1" aria-label="Previous month"><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.1018 20.4098C13.2972 20.6049 13.2972 20.9213 13.1018 21.1164L12.3641 21.8532C12.1687 22.0483 11.8519 22.0483 11.6565 21.8532L2.19214 12.4013C2.1798 12.389 2.16824 12.3762 2.15746 12.3629L2.14656 12.3521C1.95117 12.1569 1.95117 11.8406 2.14656 11.6454L11.6585 2.14614C11.8539 1.951 12.1706 1.951 12.366 2.14614L13.1037 2.88286C13.2991 3.078 13.2991 3.39437 13.1037 3.5895L5.68394 10.9995L21.5002 10.9995C21.7764 10.9995 22.0002 11.2233 22.0002 11.4995V12.4995C22.0002 12.7756 21.7764 12.9995 21.5002 12.9995L5.68167 12.9995L13.1018 20.4098Z" fill="currentColor"/></svg></span></button>
+              <p class="date-picker__title">January 2026</p>
+              <button class="btn btn--secondary btn--fab date-picker__nav date-picker__next" type="button" tabindex="-1" aria-label="Next month"><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8984 3.58972C10.703 3.39458 10.703 3.07821 10.8984 2.88308L11.6361 2.14635C11.8315 1.95122 12.1483 1.95122 12.3437 2.14635L21.8081 11.5982C21.8204 11.6105 21.832 11.6233 21.8428 11.6366L21.8537 11.6475C22.0491 11.8426 22.0491 12.159 21.8537 12.3541L12.3418 21.8534C12.1464 22.0485 11.8296 22.0485 11.6342 21.8534L10.8965 21.1166C10.7011 20.9215 10.7011 20.6051 10.8965 20.41L18.3163 13H2.5C2.22386 13 2 12.7762 2 12.5V11.5C2 11.2239 2.22386 11 2.5 11H18.3186L10.8984 3.58972Z" fill="currentColor"/></svg></span></button>
+            </div>
+            <div class="date-picker__weekdays">
+              <span class="date-picker__weekday">M</span><span class="date-picker__weekday">T</span><span class="date-picker__weekday">W</span><span class="date-picker__weekday">T</span><span class="date-picker__weekday">F</span><span class="date-picker__weekday">S</span><span class="date-picker__weekday">S</span>
+            </div>
+            <div class="date-picker__grid"></div>
+          </div>
+        `
+      },
+      {
+        name: "Discount Code",
+        description: "Enter, apply and remove a promo code, with default, applied and error states.",
+        page: "components/discount-code/discount-code.html",
+        preview: `
+          <div style="width:320px; display:flex; flex-direction:column; gap:12px">
+            <div class="discount-code">
+              <p class="discount-code__label">Add a discount code</p>
+              <div class="discount-code__row" style="flex-direction:column">
+                <div class="input-field"><input class="input" type="text" placeholder="Enter discount code" tabindex="-1"></div>
+                <button class="btn btn--secondary btn--rounded discount-code__apply" type="button" style="width:100%">Apply code</button>
+              </div>
+            </div>
+            <div class="alert alert--information alert--bordered discount-code__applied">
+              <span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.02893 5.48853C1.02893 4.6601 1.7005 3.98853 2.52893 3.98853H21.5C22.3284 3.98853 23 4.6601 23 5.48853V9.8198H22C20.8954 9.8198 20 10.7152 20 11.8198C20 12.9244 20.8954 13.8198 22 13.8198H23V18.4999C23 19.3283 22.3284 19.9999 21.5 19.9999H2.52893C1.7005 19.9999 1.02893 19.3283 1.02893 18.4999V13.9942H2.02893C3.1335 13.9942 4.02893 13.0988 4.02893 11.9942C4.02893 10.8896 3.1335 9.99422 2.02893 9.99422H1.02893V5.48853ZM3.02893 5.98853V8.12023C4.75416 8.56428 6.02893 10.1304 6.02893 11.9942C6.02893 13.8581 4.75416 15.4242 3.02893 15.8682V17.9999H21V15.6938C19.2748 15.2497 18 13.6836 18 11.8198C18 9.95596 19.2748 8.38986 21 7.94582V5.98853H3.02893Z" fill="currentColor"/></svg></span>
+              <div class="alert__content"><p class="alert__title">Code ZEGO22 applied!</p><p class="alert__description">You're saving £60.00</p></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Detail Card",
+        description: "Card that manages related fields, switching between a read-only summary and an editable form.",
+        page: "components/detail-card/detail-card.html",
+        preview: `
+          <div class="detail-card" data-view="view" style="width:300px">
+            <div class="detail-card__top">
+              <p class="detail-card__title">Claim #1</p>
+              <div class="detail-card__actions">
+                <span class="detail-card__icon-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/><path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/></svg></span>
+                <span class="detail-card__divider-v"></span>
+                <span class="detail-card__icon-btn"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0634 11.4771L13.5634 7.22714L14.9366 5.77311L19.4366 10.0231L18.0634 11.4771Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19 22.5001C19 22.7763 18.7761 23.0001 18.5 23.0001H13.5C13.2238 23.0001 13 22.7763 13 22.5001V21.5001C13 21.224 13.2238 21.0001 13.5 21.0001H18.5C18.7761 21.0001 19 21.224 19 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M23 22.5001C23 22.7763 22.7761 23.0001 22.5 23.0001H21.5C21.2238 23.0001 21 22.7763 21 22.5001V21.5001C21 21.224 21.2238 21.0001 21.5 21.0001H22.5C22.7761 21.0001 23 21.224 23 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.5675 1.64432C17.3536 0.857233 18.6308 0.862793 19.41 1.65669L22.3711 4.67371C23.1397 5.45682 23.1338 6.71295 22.3579 7.48884L8.32846 21.5184C8.12006 21.7268 7.85487 21.8692 7.56602 21.9278L2.86187 22.8821C1.81029 23.0954 0.881329 22.1678 1.09318 21.1159L2.0072 16.5776C2.06547 16.2883 2.20778 16.0226 2.41632 15.8138L16.5675 1.64432ZM20.9437 6.07463L17.9826 3.05762L3.93805 17.1204L3.20255 20.7722L7.02076 19.9977L20.9437 6.07463Z" fill="currentColor"/></svg></span>
+              </div>
+            </div>
+            <div class="detail-card__view">
+              <div class="display-row"><div class="display-row__main"><p class="display-row__label">Incident date</p></div><p class="display-row__value">13/06/2026</p></div>
+              <div class="display-row"><div class="display-row__main"><p class="display-row__label">Claim value</p></div><p class="display-row__value">£1,436.00</p></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Vehicle Registration",
+        description: "UK number-plate input with a GB country badge and the number-plate typeface.",
+        page: "components/vehicle-registration/vehicle-registration.html",
+        preview: `
+          <div class="veh-reg" style="width:300px">
+            <div class="veh-reg__field">
+              <span class="veh-reg__country">
+                <span class="veh-reg__flag"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><g stroke="#fff" stroke-width="6"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><g stroke="#C8102E" stroke-width="2.5"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg></span>
+                <span class="veh-reg__gb">GB</span>
+                <span class="veh-reg__chevron"><svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </span>
+              <input class="veh-reg__input" type="text" value="SH48 HSA" aria-label="Registration" tabindex="-1">
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Sales Navigation",
+        description: "Onboarding top bar with Zego logo, Trustpilot, a Help/Call-us dropdown and progress steps.",
+        page: "components/sales-nav/sales-nav.html",
+        preview: `
+          <div class="sales-nav" data-expanded="false" style="width:320px; border-radius:12px; overflow:hidden">
+            <div class="sales-nav__header">
+              <div class="sales-nav__brand">
+                <span class="sales-nav__logo"><svg viewBox="0 0 110 32" fill="none" role="img" aria-label="Zego" style="height:26px"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span>
+                <span class="sales-nav__lockup">
+                  <span class="trustpilot trustpilot--green trustpilot--16" role="img" aria-label="Rated 4.5 out of 5 on Trustpilot">
+                    <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                    <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                    <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                    <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                    <span class="trustpilot__star trustpilot__star--half"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                  </span>
+                  <span class="sales-nav__lockup-text">Trustpilot</span>
+                </span>
+              </div>
+              <span class="sales-nav__toggle" style="pointer-events:none">
+                <span class="sales-nav__help-label">Help</span>
+                <span class="sales-nav__toggle-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13v-1a8 8 0 0116 0v1M4 13a2 2 0 012 2v2a2 2 0 01-4 0v-2a2 2 0 012-2zm16 0a2 2 0 012 2v2a2 2 0 01-2 2m0 0a4 4 0 01-4 4h-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </span>
+            </div>
+            <div class="sales-nav__steps">
+              <div class="onboarding-steps onboarding-steps--compact">
+                <div class="onboarding-steps__step onboarding-steps__step--current"><span class="onboarding-steps__label">Vehicle</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
+                <div class="onboarding-steps__step"><span class="onboarding-steps__label">Driver</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
+                <div class="onboarding-steps__step"><span class="onboarding-steps__label">Quote</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
+                <div class="onboarding-steps__step"><span class="onboarding-steps__label">Pay</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Onboarding Steps",
+        description: "Horizontal progress stepper marking the current stage across a multi-step flow.",
+        page: "components/onboarding-steps/onboarding-steps.html",
+        preview: `
+          <div class="onboarding-steps onboarding-steps--compact" style="width:300px">
+            <div class="onboarding-steps__step onboarding-steps__step--complete">
+              <span class="onboarding-steps__label">Quote</span>
+              <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+            </div>
+            <div class="onboarding-steps__step onboarding-steps__step--current">
+              <span class="onboarding-steps__label">Details</span>
+              <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+            </div>
+            <div class="onboarding-steps__step">
+              <span class="onboarding-steps__label">Review</span>
+              <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+            </div>
+            <div class="onboarding-steps__step">
+              <span class="onboarding-steps__label">Pay</span>
+              <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Divider",
+        description: "Content separator in simple, labelled-text and thick styles.",
+        page: "components/divider/divider.html",
+        preview: `
+          <div style="width:300px; display:flex; flex-direction:column; gap:20px">
+            <hr class="divider">
+            <div class="divider-text"><span class="divider-text__label">Text</span></div>
+            <hr class="divider divider--thick">
+          </div>
+        `
+      },
+      {
+        name: "Trustpilot Lockup",
+        description: "Marketing lock-ups pairing the Excellent label, stars and Trustpilot logo across layouts and sizes.",
+        page: "components/trustpilot-lockup/trustpilot-lockup.html",
+        preview: `
+          <div class="trustpilot-lockup trustpilot-lockup--stacked">
+            <span class="trustpilot-lockup__text"><strong>Excellent</strong> - 2,243 reviews</span>
+            <div class="trustpilot trustpilot--green trustpilot--24" role="img" aria-label="Rated 4.5 out of 5 on Trustpilot">
+              <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+              <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+              <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+              <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+              <span class="trustpilot__star trustpilot__star--half"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Trustpilot",
+        description: "Star rating widget from 1 to 5 in half steps, in three sizes, with Trustpilot's colour scale.",
+        page: "components/trustpilot/trustpilot.html",
+        preview: `
+          <div class="trustpilot trustpilot--green" role="img" aria-label="Rated 4.5 out of 5 on Trustpilot">
+            <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+            <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+            <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+            <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+            <span class="trustpilot__star trustpilot__star--half"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+          </div>
+        `
+      },
+      {
+        name: "Dropdown List",
+        description: "Floating menu card that stacks 1–10 Dropdown Items, in text or checkbox style.",
+        page: "components/dropdown-list/dropdown-list.html",
+        preview: `
+          <div class="dropdown-list" style="width:280px">
+            <button class="dropdown-item" type="button"><span class="dropdown-item__label">Car</span></button>
+            <div class="dropdown-item dropdown-item--hover"><span class="dropdown-item__label">Van</span></div>
+            <button class="dropdown-item" type="button"><span class="dropdown-item__label">Motorbike</span></button>
+          </div>
+        `
+      },
+      {
+        name: "Dropdown Item",
+        description: "Selectable menu row with hover and pressed states, plus checkbox, chevron and icon variants.",
+        page: "components/dropdown-item/dropdown-item.html",
+        preview: `
+          <div style="width:300px; background:var(--colour-white); border:1px solid var(--border-primary); border-radius:12px; overflow:hidden">
+            <label class="dropdown-item">
+              <input class="checkbox__input" type="checkbox" checked>
+              <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="dropdown-item__label">Car</span>
+            </label>
+            <div class="dropdown-item dropdown-item--hover" style="border-top:1px solid var(--border-primary)">
+              <span class="dropdown-item__label">Van</span>
+              <svg class="dropdown-item__chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Display Row",
+        description: "Configurable list row with optional icon, support text, value column and trailing action.",
+        page: "components/display-row/display-row.html",
+        preview: `
+          <div style="width:320px">
+            <div class="display-row">
+              <div class="display-row__main"><p class="display-row__label">Breakdown cover</p></div>
+              <p class="display-row__value">£24</p>
+              <span class="display-row__trailing"><svg class="display-row__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0727 12.6309L8.31543 22.2278C8.1293 22.4318 7.81305 22.4463 7.60907 22.2601L6.87038 21.5861C6.6664 21.4 6.65193 21.0837 6.83806 20.8797L15.011 11.9231L6.83806 2.96651C6.65193 2.76253 6.6664 2.44628 6.87038 2.26014L7.60907 1.58609C7.81305 1.39996 8.1293 1.41442 8.31543 1.61841L17.0727 11.2154C17.4385 11.6163 17.4385 12.2299 17.0727 12.6309Z" fill="currentColor"/></svg></span>
+            </div>
+            <div class="display-row">
+              <div class="display-row__main"><p class="display-row__label">Courtesy car</p><p class="display-row__support">While yours is repaired</p></div>
+              <p class="display-row__value">£12</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Multiple Choice Radio",
+        description: "Stacked list of mutually-exclusive radio options with dividers, 1–5 rows.",
+        page: "components/radio-list/radio-list.html",
+        preview: `
+          <fieldset class="radio-list" style="width:300px">
+            <label class="radio-list__row"><span class="radio-list__label">Just me</span><input class="radio__input" type="radio" checked tabindex="-1"><span class="radio__control"></span></label>
+            <label class="radio-list__row"><span class="radio-list__label">2 drivers</span><input class="radio__input" type="radio" tabindex="-1"><span class="radio__control"></span></label>
+          </fieldset>
+        `
+      },
+      {
+        name: "Price Comparison",
+        description: "Titled container presenting one or two price tiles for the purchase journey.",
+        page: "components/price-comparison/price-comparison.html",
+        preview: `
+          <section class="price-comparison" style="max-width:340px;padding:12px;gap:12px">
+            <div class="price-comparison__header">
+              <h2 class="price-comparison__title" style="font-size:20px;line-height:24px">Choose your cover</h2>
+            </div>
+            <div class="price-comparison__tiles">
+              <label class="comparison-tile comparison-tile--active comparison-tile--center">
+                <div class="comparison-tile__header"><span class="comparison-tile__title">Comprehensive</span></div>
+                <div class="comparison-tile__body">
+                  <div class="comparison-tile__price-group">
+                    <p class="comparison-tile__price"><span class="comparison-tile__amount">£182</span><span class="comparison-tile__period">/year</span></p>
+                    <p class="comparison-tile__sub">Pay annually</p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </section>
+        `
+      },
+      {
+        name: "Comparison Tile",
+        description: "Selectable plan/pricing card with a radio, price and states for comparing options.",
+        page: "components/comparison-tile/comparison-tile.html",
+        preview: `
+          <label class="comparison-tile" style="max-width:240px">
+            <div class="comparison-tile__header">
+              <input class="radio__input" type="radio" checked tabindex="-1">
+              <span class="radio__control"></span>
+              <span class="comparison-tile__title">Plus</span>
+            </div>
+            <div class="comparison-tile__body">
+              <div class="comparison-tile__price-group">
+                <p class="comparison-tile__price"><span class="comparison-tile__amount">£180</span><span class="comparison-tile__period">/year</span></p>
+                <p class="comparison-tile__sub">Third party</p>
+              </div>
+              <p class="comparison-tile__support">Breakdown included</p>
+            </div>
+          </label>
+        `
+      },
+      {
+        name: "Multiple Choice Selector",
+        description: "Titled radio group presenting 2–6 selectable options in a row.",
+        page: "components/choice-selector/choice-selector.html",
+        preview: `
+          <fieldset class="choice-selector" style="max-width:340px">
+            <div class="choice-selector__header">
+              <p class="choice-selector__title">Title</p>
+              <p class="choice-selector__paragraph">Paragraph</p>
+            </div>
+            <div class="choice-selector__options">
+              <label class="text-icon-item text-icon-item--inactive">
+                <span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span>
+                <input class="radio__input" type="radio" checked tabindex="-1"><span class="radio__control"></span>
+              </label>
+              <label class="text-icon-item text-icon-item--inactive">
+                <span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span>
+                <input class="radio__input" type="radio" tabindex="-1"><span class="radio__control"></span>
+              </label>
+            </div>
+          </fieldset>
+        `
+      },
+      {
+        name: "Text + Icon Item",
+        description: "Selectable option row with a leading icon, label and trailing radio, in three sizes.",
+        page: "components/text-icon-item/text-icon-item.html",
+        preview: `
+          <label class="text-icon-item text-icon-item--active" style="max-width:300px">
+            <span class="text-icon-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M4 5C4 2.79086 5.79086 1 8 1C10.2091 1 12 2.79086 12 5C12 7.20914 10.2091 9 8 9C5.79086 9 4 7.20914 4 5ZM8 3C6.89543 3 6 3.89543 6 5C6 6.10457 6.89543 7 8 7C9.10457 7 10 6.10457 10 5C10 3.89543 9.10457 3 8 3Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M1 13C1 11.8954 1.89543 11 3 11H13C14.1046 11 15 11.8954 15 13V16C15 19.866 11.866 23 8 23C4.13401 23 1 19.866 1 16V13ZM13 13H3V16C3 18.7614 5.23858 21 8 21C10.7614 21 13 18.7614 13 16V13Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 10.5C18 10.7761 18.2239 11 18.5 11H19.5C19.7761 11 20 10.7761 20 10.5V8H22.5C22.7761 8 23 7.77614 23 7.5V6.5C23 6.22386 22.7761 6 22.5 6H20V3.5C20 3.22386 19.7761 3 19.5 3H18.5C18.2239 3 18 3.22386 18 3.5V6H15.5C15.2239 6 15 6.22386 15 6.5V7.5C15 7.77614 15.2239 8 15.5 8H18V10.5Z" fill="currentColor"/></svg></span>
+            <span class="text-icon-item__text"><span class="text-icon-item__label">Add a driver</span></span>
+            <input class="radio__input" type="radio" checked tabindex="-1">
+            <span class="radio__control"></span>
+          </label>
+        `
+      },
+      {
+        name: "Number Item",
+        description: "Verification-code / OTP cell with inactive, active, focused, error and disabled states.",
+        page: "components/number-item/number-item.html",
+        preview: `
+          <span class="number-item number-item--active">4</span>
+          <span class="number-item number-item--active">8</span>
+          <span class="number-item number-item--focused">2</span>
+          <span class="number-item number-item--inactive"></span>
+        `
+      },
+      {
+        name: "Spinner",
+        description: "Loading-wheel spinner with a tapered rotating arc, in large and small sizes.",
+        page: "components/spinner/spinner.html",
+        preview: `
+          <span class="spinner" role="status" aria-label="Loading"></span>
+          <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+        `
+      },
+      {
+        name: "Status Label",
+        description: "Small badge in information, success, warning, error, inactive and disabled states.",
+        page: "components/status-label/status-label.html",
+        preview: `
+          <span class="status-label status-label--information">Information</span>
+          <span class="status-label status-label--success">Success</span>
+          <span class="status-label status-label--error">Error</span>
+        `
+      },
+      {
+        name: "Toggle",
+        description: "On/off switch in OS and Web styles, with active, inactive and disabled states.",
+        page: "components/toggle/toggle.html",
+        preview: `
+          <label class="toggle">
+            <input class="toggle__input" type="checkbox" role="switch" checked tabindex="-1">
+            <span class="toggle__track"><span class="toggle__thumb"></span></span>
+          </label>
+          <label class="toggle toggle--web">
+            <input class="toggle__input" type="checkbox" role="switch" tabindex="-1">
+            <span class="toggle__track"><span class="toggle__thumb"></span></span>
+          </label>
+        `
+      },
+      {
+        name: "Warning",
+        description: "Pulsing red dot that pings outward — an attention or warning indicator.",
+        page: "components/warning/warning.html",
+        preview: `
+          <span class="warning" role="status" aria-label="Warning">
+            <span class="warning__ring"></span>
+            <span class="warning__dot"></span>
+          </span>
+        `
+      },
+      {
+        name: "Bounce",
+        description: "Scaling-dot bounce animation, used on its own or as a three-dot loading indicator.",
+        page: "components/bounce/bounce.html",
+        preview: `
+          <span class="bounce-dots" role="status" aria-label="Loading">
+            <span class="bounce-dots__dot"></span>
+            <span class="bounce-dots__dot"></span>
+            <span class="bounce-dots__dot"></span>
+          </span>
+        `
+      },
+      {
+        name: "Registration Plate",
+        description: "UK number plate in the plate font, in large, medium and small sizes.",
+        page: "components/plate/plate.html",
+        preview: `<span class="plate">SH48 HSA</span>`
       },
       {
         name: "Icons",
         description: "Full icon library across finance, general, product, social, telematics, and UI categories.",
-        image: "",
-        page: "pages/icons.html"
+        page: "pages/icons.html",
+        preview: `<span class="icon-preview">${ICONS_PREVIEW}</span>`
       }
     ];
 
@@ -215,25 +854,23 @@
         return;
       }
       emptyState.style.display = 'none';
-      items.forEach(({ name, description, image, page }) => {
+      items.forEach(({ name, description, page, preview }) => {
         const card = document.createElement('a');
         card.href = page;
         card.className = 'card';
 
-        const imgEl = image
-          ? `<img class="card__image" src="${image}" alt="${name}">`
-          : `<div class="card__image" aria-hidden="true"></div>`;
-
         card.innerHTML = `
-          ${imgEl}
-          <div class="card__text">
-            <h3 class="card__title">${name}</h3>
-            <p class="card__description">${description}</p>
-          </div>
-          <div class="card__arrow" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          <div class="card__preview" aria-hidden="true">${preview || ''}</div>
+          <div class="card__body">
+            <div class="card__text">
+              <h3 class="card__title">${name}</h3>
+              <p class="card__description">${description}</p>
+            </div>
+            <div class="card__arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         `;
         cardsList.appendChild(card);
@@ -253,6 +890,8 @@
 
     renderCards(components);
   </script>
+  <script src="components/input/input.js"></script>
+  <script src="components/date-picker/date-picker.js"></script>
 
 </body>
 </html>

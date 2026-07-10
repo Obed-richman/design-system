@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="display-row.css">
+  <title>Display Row Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 24px; }
+    .card { max-width: 480px; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 0 24px; }
+  </style>
+</head>
+<body>
+
+  <h1>Display Row</h1>
+  <p class="subtitle">Configurable list row — Zego Design System</p>
+
+  <div class="card">
+    <div class="display-row">
+      <span class="display-row__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span>
+      <div class="display-row__main"><p class="display-row__label">Comprehensive cover</p><p class="display-row__support">Included as standard</p></div>
+      <p class="display-row__value">£182</p>
+    </div>
+
+    <div class="display-row">
+      <div class="display-row__main"><p class="display-row__label">Breakdown cover</p></div>
+      <p class="display-row__value">£24</p>
+      <span class="display-row__trailing"><svg class="display-row__chevron" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0727 12.6309L8.31543 22.2278C8.1293 22.4318 7.81305 22.4463 7.60907 22.2601L6.87038 21.5861C6.6664 21.4 6.65193 21.0837 6.83806 20.8797L15.011 11.9231L6.83806 2.96651C6.65193 2.76253 6.6664 2.44628 6.87038 2.26014L7.60907 1.58609C7.81305 1.39996 8.1293 1.41442 8.31543 1.61841L17.0727 11.2154C17.4385 11.6163 17.4385 12.2299 17.0727 12.6309Z" fill="currentColor"/></svg></span>
+    </div>
+
+    <div class="display-row">
+      <div class="display-row__main"><p class="display-row__label">Courtesy car</p><p class="display-row__support">While yours is repaired</p></div>
+      <span class="display-row__trailing"><button class="btn btn--primary btn--pill" type="button">Add</button></span>
+    </div>
+  </div>
+
+</body>
+</html>

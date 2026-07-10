@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="trustpilot.css">
+  <title>Trustpilot Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    .card { max-width: 420px; background: #fff; border: 1px solid #e5e5e5; border-radius: 16px; padding: 24px; }
+    .tp-line { display: flex; align-items: center; gap: 10px; }
+    .tp-line__score { font-weight: 700; font-size: 18px; }
+    .tp-line__count { color: #737373; font-size: 14px; }
+    .tp-brand { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; margin-top: 16px; }
+    .tp-brand svg { display: block; }
+  </style>
+</head>
+<body>
+
+  <h1>Trustpilot</h1>
+  <p class="subtitle">Star rating — Zego Design System</p>
+
+  <div class="card">
+    <div class="tp-line">
+      <div class="trustpilot trustpilot--green" role="img" aria-label="Rated 4.5 out of 5 on Trustpilot">
+        <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+        <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+        <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+        <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+        <span class="trustpilot__star trustpilot__star--half"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+      </div>
+      <span class="tp-line__score">4.6</span>
+    </div>
+    <p class="tp-line__count" style="margin:8px 0 0">Based on <strong>12,480</strong> reviews</p>
+    <span class="tp-brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z"/></svg>
+      Trustpilot
+    </span>
+  </div>
+
+</body>
+</html>

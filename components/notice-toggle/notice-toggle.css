@@ -1,0 +1,110 @@
+/*
+ * ============================================================
+ * NOTICE TOGGLE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=700-89055
+ *
+ * A state-tinted card with a title + description and a Toggle switch — used to
+ * turn a setting on/off with supporting context (e.g. auto-renewal).
+ *
+ * States: default | information | positive | warning | negative | disabled
+ * Dark mode: works automatically via [data-theme="dark"] (the surface / border
+ * / text tokens flip themselves).
+ *
+ * Composes the Toggle component — its CSS is imported below.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="notice-toggle.css">
+ *
+ *   <div class="notice-toggle notice-toggle--positive">
+ *     <div class="notice-toggle__content">
+ *       <p class="notice-toggle__title">Title</p>
+ *       <p class="notice-toggle__text">Description…</p>
+ *     </div>
+ *     <label class="toggle notice-toggle__switch">
+ *       <input class="toggle__input" type="checkbox" role="switch" checked>
+ *       <span class="toggle__track"><span class="toggle__thumb"></span></span>
+ *     </label>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../toggle/toggle.css';
+
+
+.notice-toggle {
+  /* Default state tokens (overridden per state below) */
+  --nt-surface: var(--surface-primary);
+  --nt-border:  var(--border-primary);
+  --nt-text:    var(--text-primary);
+
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--spacer-16);                /* 16px */
+  width:         100%;
+  max-width:     343px;
+  box-sizing:    border-box;
+  padding:       var(--spacer-16);                /* 16px */
+  border:        var(--border-s) solid var(--nt-border);
+  border-radius: var(--radius-medium);            /* 16px */
+  background:    var(--nt-surface);
+  font-family:   'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+
+.notice-toggle--information {
+  --nt-surface: var(--surface-information-low);
+  --nt-border:  var(--border-information);
+}
+.notice-toggle--positive {
+  --nt-surface: var(--surface-success-low);
+  --nt-border:  var(--border-success-low);
+}
+.notice-toggle--warning {
+  --nt-surface: var(--surface-warning-low);
+  --nt-border:  var(--border-warning-low);
+}
+.notice-toggle--negative {
+  --nt-surface: var(--surface-error-low);
+  --nt-border:  var(--border-error-low);
+}
+.notice-toggle--disabled {
+  --nt-surface: var(--background-disabled);
+  --nt-border:  var(--border-primary);
+  --nt-text:    var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   CONTENT
+   ------------------------------------------------------------ */
+
+.notice-toggle__content {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);                /* 8px */
+}
+.notice-toggle__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--nt-text);
+}
+.notice-toggle__text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--nt-text);
+}
+
+.notice-toggle__switch { flex-shrink: 0; }

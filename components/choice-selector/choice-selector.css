@@ -1,0 +1,109 @@
+/*
+ * ============================================================
+ * MULTIPLE CHOICE SELECTOR COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4225-22956
+ *
+ * A titled radio group: Title + Paragraph over a row of equal-width
+ * Text + Icon Item options (2–6). REUSES the Text + Icon Item (and Radio) —
+ * link radio.css + text-icon-item.css alongside this file.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="../text-icon-item/text-icon-item.css">
+ *   <link rel="stylesheet" href="choice-selector.css">
+ *
+ *   <fieldset class="choice-selector">
+ *     <div class="choice-selector__header">
+ *       <p class="choice-selector__title">Title</p>
+ *       <p class="choice-selector__paragraph">Paragraph</p>
+ *     </div>
+ *     <div class="choice-selector__options">
+ *       <label class="text-icon-item">…option…</label>
+ *       <label class="text-icon-item">…option…</label>
+ *     </div>
+ *     <p class="choice-selector__message">Helper / error message</p>   <!-- optional -->
+ *   </fieldset>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.choice-selector {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);   /* 8px */
+  width:          100%;
+  margin:         0;
+  padding:        0;
+  border:         0;                    /* reset <fieldset> */
+  min-width:      0;
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — Title + Paragraph
+   ------------------------------------------------------------ */
+
+.choice-selector__header {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-xx-small);   /* 4px */
+}
+
+.choice-selector__title {
+  margin:      0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);     /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.choice-selector__paragraph {
+  margin:      0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);         /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   OPTIONS ROW — equal-width Text + Icon Items
+   ------------------------------------------------------------ */
+
+.choice-selector__options {
+  display:     flex;
+  align-items: stretch;
+  gap:         var(--gap-x-small);   /* 8px */
+  width:       100%;
+}
+
+/* Each option shares the row width equally */
+.choice-selector__options .text-icon-item {
+  flex:      1 1 0;
+  min-width: 0;
+  width:     auto;
+}
+
+
+/* ------------------------------------------------------------
+   MESSAGE — optional helper / error text below the row
+   ------------------------------------------------------------ */
+
+.choice-selector__message {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--gap-x-small);
+  margin:      0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+.choice-selector__message--error { color: var(--text-error); }

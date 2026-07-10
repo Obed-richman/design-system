@@ -1,0 +1,99 @@
+@import url('../components/button/button.css');   /* guarantees the back button (.btn) is styled on every page */
+
+/*
+ * ============================================================
+ * SHOWCASE CONTROLS
+ * ============================================================
+ * A floating toolbar for component showcase pages: a Light/Dark theme toggle
+ * (always) and an optional Desktop/Mobile viewport toggle. Injected and wired
+ * by showcase-controls.js.
+ *
+ * Theme  → sets [data-theme] on <html> (tokens flip automatically).
+ * Viewport → sets [data-viewport] on <html>; opt in with
+ *            <html data-sc-viewport> (or <body data-sc-viewport>). The page's
+ *            own CSS reacts to html[data-viewport="mobile"].
+ * ============================================================
+ */
+
+/* Keep page content clear of the floating toolbar */
+.content { padding-bottom: 120px; }
+
+.sc-controls {
+  position:      fixed;
+  bottom:        20px;
+  left:          50%;
+  transform:     translateX(-50%);
+  z-index:       2000;
+  display:       flex;
+  gap:           8px;
+  align-items:   center;
+  padding:       6px;
+  border-radius: var(--radius-round, 9999px);
+  background:    var(--surface-primary);
+  border:        1px solid var(--border-primary);
+  box-shadow:    0 4px 16px rgba(39, 37, 45, 0.18);
+  font-family:   'Modern Era', sans-serif;
+}
+
+.sc-seg {
+  display:       flex;
+  gap:           2px;
+  padding:       2px;
+  border-radius: var(--radius-round, 9999px);
+  background:    var(--surface-secondary);
+}
+.sc-seg__btn {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           6px;
+  margin:        0;
+  padding:       6px 14px;
+  border:        none;
+  border-radius: var(--radius-round, 9999px);
+  background:    transparent;
+  color:         var(--text-primary);
+  font-family:   inherit;
+  font-weight:   var(--font-weight-bold, 700);
+  font-size:     var(--font-size-body-3, 14px);
+  line-height:   1;
+  cursor:        pointer;
+  transition:    background-color 150ms ease;
+}
+.sc-seg__btn[aria-pressed="true"] {
+  background:  var(--surface-active, #08f0f0);
+  color:       var(--text-primary-fixed, #27252d);
+}
+.sc-seg__icon { width: 16px; height: 16px; display: inline-flex; }
+.sc-seg__icon svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   DARK-MODE FIX-UPS for common showcase chrome
+   Component visuals adapt via tokens; these catch the demo-page frames
+   that hard-code white/grey backgrounds so dark mode reads correctly.
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] .variants,
+[data-theme="dark"] .variant,
+[data-theme="dark"] .card,
+[data-theme="dark"] .stage,
+[data-theme="dark"] .panel,
+[data-theme="dark"] .menu,
+[data-theme="dark"] .device,
+[data-theme="dark"] .checkout,
+[data-theme="dark"] .col--light {
+  background:    var(--surface-primary);
+  border-color:  var(--border-primary);
+}
+[data-theme="dark"] .back-btn {
+  background:   var(--surface-primary);
+  border-color: var(--border-primary);
+  color:        var(--text-primary);
+}
+[data-theme="dark"] .component-header__description,
+[data-theme="dark"] .variant-group__label,
+[data-theme="dark"] .variant__label,
+[data-theme="dark"] .col__label,
+[data-theme="dark"] .subtitle {
+  color: var(--text-disabled);
+}

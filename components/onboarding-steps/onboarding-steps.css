@@ -1,0 +1,119 @@
+/*
+ * ============================================================
+ * ONBOARDING STEPS COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-14449
+ *
+ * A horizontal progress stepper (e.g. Quote → Details → Review → Payment).
+ * Each step is a centred label above a rounded track; a purple segment fills
+ * the track to show progress:
+ *   - upcoming  — disabled label, empty track (default)
+ *   - current   — active label, track half filled  (.--current)
+ *   - complete  — active label, track fully filled  (.--complete)
+ *
+ * Responsive: labels are 18px on desktop and shrink to 14px below 768px.
+ * Add .onboarding-steps--compact to force the small size at any width.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="onboarding-steps.css">
+ *
+ *   <div class="onboarding-steps">
+ *     <div class="onboarding-steps__step onboarding-steps__step--current">
+ *       <span class="onboarding-steps__label">Quote</span>
+ *       <span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>
+ *     </div>
+ *     …
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.onboarding-steps {
+  display:     flex;
+  gap:         var(--gap-medium);                /* 16px */
+  align-items: flex-start;
+  width:       100%;
+  box-sizing:  border-box;
+  font-family: 'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STEP
+   ------------------------------------------------------------ */
+
+.onboarding-steps__step {
+  --onb-fill: 0%;                                /* segment width */
+  flex:            1 1 0;
+  min-width:       0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             var(--gap-xx-small);          /* 4px */
+}
+
+.onboarding-steps__step--current  { --onb-fill: 50%; }
+.onboarding-steps__step--complete { --onb-fill: 100%; }
+
+
+/* ------------------------------------------------------------
+   LABEL
+   ------------------------------------------------------------ */
+
+.onboarding-steps__label {
+  width:       100%;
+  text-align:  center;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-disabled);             /* upcoming */
+}
+
+.onboarding-steps__step--current  .onboarding-steps__label,
+.onboarding-steps__step--complete .onboarding-steps__label {
+  color: var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   TRACK + FILL
+   ------------------------------------------------------------ */
+
+.onboarding-steps__track {
+  width:         100%;
+  height:        4px;
+  border-radius: var(--radius-round);
+  background:    var(--surface-tertiary-high);
+  overflow:      hidden;
+}
+
+.onboarding-steps__fill {
+  display:       block;
+  width:         var(--onb-fill);
+  height:        100%;
+  border-radius: var(--radius-round);
+  background:    var(--brand-2-medium);          /* purple */
+  transition:    width 250ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   COMPACT / RESPONSIVE
+   ------------------------------------------------------------ */
+
+.onboarding-steps--compact { gap: var(--gap-x-small); }   /* 8px */
+.onboarding-steps--compact .onboarding-steps__label {
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+}
+
+@media (max-width: 768px) {
+  .onboarding-steps { gap: var(--gap-x-small); } /* 8px */
+  .onboarding-steps__label {
+    font-size:   var(--font-size-subtitle-3);    /* 14px */
+    line-height: var(--line-height-subtitle-3);
+  }
+}

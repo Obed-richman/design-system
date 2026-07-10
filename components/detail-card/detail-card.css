@@ -1,0 +1,214 @@
+/*
+ * ============================================================
+ * DETAIL CARD COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57915-6058
+ *
+ * Displays and manages a set of related fields in one card, switching between
+ * a read-only summary (View) and an editable form (Edit). A tinted header
+ * carries the title and the delete / edit actions.
+ *
+ * Composes existing components: Input, Multiple Choice Selector (+ Text + Icon
+ * Item / Radio), Button, Display Row and Divider, and icons from /icons
+ * (delete, edit, chevron-down). Their CSS is imported below; interactivity
+ * (Yes/No radios, etc.) uses the reused components' own behaviour.
+ *
+ * Views: .detail-card--edit (form) · .detail-card--view (summary)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="detail-card.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../input/input.css';
+@import '../radio/radio.css';
+@import '../text-icon-item/text-icon-item.css';
+@import '../choice-selector/choice-selector.css';
+@import '../button/button.css';
+@import '../display-row/display-row.css';
+@import '../divider/divider.css';
+@import '../dropdown-list/dropdown-list.css';
+
+
+.detail-card {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  max-width:      375px;
+  box-sizing:     border-box;
+  background:     var(--surface-primary);         /* white */
+  border-radius:  var(--radius-small);            /* 8px */
+  font-family:    'Modern Era', sans-serif;
+}
+/* Note: no overflow:hidden here — the Incident type dropdown needs to overflow
+   the card. The header rounds its own top corners instead (see __top). */
+
+/* ------------------------------------------------------------
+   VIEW SWITCHING — [data-view="edit" | "view"]
+   The card holds both an edit section and a view section; the attribute
+   decides which is shown. Save switches to view, the pencil back to edit
+   (see detail-card.js).
+   ------------------------------------------------------------ */
+.detail-card[data-view="view"] .detail-card__edit { display: none; }
+.detail-card[data-view="edit"] .detail-card__view { display: none; }
+/* The pencil + its divider only appear in view mode */
+.detail-card:not([data-view="view"]) .detail-card__view-action { display: none; }
+
+.detail-card__edit {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-20);               /* 20px */
+  padding:        var(--spacer-20) 0;             /* 20px top & bottom */
+}
+
+
+/* ------------------------------------------------------------
+   HEADER
+   ------------------------------------------------------------ */
+
+.detail-card__top {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-24);                /* 24px */
+  padding:       var(--spacer-20);                /* 20px */
+  background:    var(--surface-tertiary-medium);   /* #f2ede9 */
+  border-radius: var(--radius-small) var(--radius-small) 0 0;  /* round top corners */
+}
+
+.detail-card__title {
+  flex:           1;
+  min-width:      0;
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4);       /* 20px */
+  line-height:    24px;
+  letter-spacing: -0.4px;
+  color:          var(--text-primary);
+}
+
+.detail-card__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-12);                  /* 12px */
+  flex-shrink: 0;
+}
+.detail-card__icon-btn {
+  display:     inline-flex;
+  width:       24px;
+  height:      24px;
+  padding:     0;
+  margin:      0;
+  border:      none;
+  background:  none;
+  color:       var(--icon-glyph-primary);
+  cursor:      pointer;
+}
+.detail-card__icon-btn svg { display: block; width: 100%; height: 100%; }
+.detail-card__divider-v {
+  width:      var(--border-s);
+  height:     24px;
+  background: var(--border-primary);
+}
+
+
+/* ------------------------------------------------------------
+   EDIT — form body
+   ------------------------------------------------------------ */
+
+.detail-card__content {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-20);               /* 20px */
+  padding:        0 var(--spacer-16);             /* 16px sides */
+}
+
+.detail-card__field {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);                /* 8px */
+}
+.detail-card__label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+.detail-card__support {
+  margin:      -4px 0 0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+/* Incident date — native month picker (MM / YYYY). Show the calendar
+   affordance and grey the format hint while empty. */
+.detail-card__date { -webkit-appearance: none; appearance: none; }
+.detail-card__date:not(:focus):in-range::-webkit-datetime-edit,
+.detail-card__date::-webkit-datetime-edit-fields-wrapper { color: var(--text-primary); }
+.detail-card__date::-webkit-calendar-picker-indicator {
+  margin-left: var(--spacer-8);
+  cursor:      pointer;
+  opacity:     0.55;
+}
+.detail-card__date::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+
+/* Select — a DS Input field with a trailing chevron (icons/chevron-down.svg)
+   that opens the Dropdown List component 4px below on click. */
+.detail-card__chevron {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+  transition:  transform 150ms ease;
+}
+.detail-card__chevron svg { display: block; width: 100%; height: 100%; }
+
+.detail-card__select { position: relative; }
+.detail-card__select-trigger,
+.detail-card__select-trigger .input { cursor: pointer; }
+.detail-card__select--open .detail-card__select-trigger { border-color: var(--border-active); }
+.detail-card__select--open .detail-card__chevron { transform: rotate(180deg); }
+
+.detail-card__select-menu {
+  position: absolute;
+  top:      calc(100% + var(--spacer-4));         /* 4px below the input */
+  left:     0;
+  right:    0;
+  z-index:  30;
+  display:  none;
+}
+.detail-card__select--open .detail-card__select-menu { display: block; }
+
+/* The "Your fault?" question reuses the Multiple Choice Selector + Text +
+   Icon Item components directly — no bespoke tile styles needed here. */
+
+
+/* ------------------------------------------------------------
+   EDIT — footer buttons
+   ------------------------------------------------------------ */
+
+.detail-card__buttons {
+  display: flex;
+  gap:     var(--spacer-16);                      /* 16px */
+  padding: 0 var(--spacer-20);                    /* 20px sides */
+}
+.detail-card__buttons .btn { flex: 1; }
+
+
+/* ------------------------------------------------------------
+   VIEW — display rows
+   ------------------------------------------------------------ */
+
+.detail-card__view {
+  display:        flex;
+  flex-direction: column;
+  padding:        0 var(--spacer-16);
+}
+/* In this context the row label is regular weight and the value is bold */
+.detail-card__view .display-row__label { font-weight: var(--font-weight-regular); }
+.detail-card__view .display-row:first-of-type { border-top: none; }

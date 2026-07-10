@@ -1,0 +1,111 @@
+/*
+ * ============================================================
+ * ACKNOWLEDGE BOX COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=678-15065
+ *
+ * A bordered "checkbox card": REUSES the Checkbox component plus a body of
+ * text and a trailing info icon. The box border mirrors the checkbox state.
+ * Link checkbox.css alongside this file.
+ *
+ * States:
+ *   default | hover | focus | active (checked) | error | disabled
+ *   (border: primary → active on hover/focus/checked → error; muted when disabled)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../checkbox/checkbox.css">
+ *   <link rel="stylesheet" href="acknowledge.css">
+ *
+ *   <div class="acknowledge">
+ *     <label class="checkbox">
+ *       <input class="checkbox__input" type="checkbox">
+ *       <span class="checkbox__box"><svg class="checkbox__tick" …></svg></span>
+ *       <span class="checkbox__label acknowledge__text">I understand …</span>
+ *     </label>
+ *     <span class="acknowledge__info"><svg>…info…</svg></span>
+ *   </div>
+ *
+ *   <!-- Error: add .acknowledge--error (+ .checkbox--error) -->
+ *   <!-- Disabled: add .acknowledge--disabled (+ .checkbox--disabled + disabled attr) -->
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   BOX
+   ------------------------------------------------------------ */
+
+.acknowledge {
+  display:          flex;
+  align-items:      flex-start;
+  gap:              var(--gap-x-small);          /* 8px */
+  padding:          var(--gap-medium);           /* 16px */
+  border:           var(--border-m) solid var(--border-primary);
+  border-radius:    var(--radius-medium);        /* 16px */
+  background-color: var(--surface-primary);
+  transition:       border-color 150ms ease, box-shadow 150ms ease;
+}
+
+/* The checkbox fills the row; align it to the top of the wrapping text */
+.acknowledge .checkbox {
+  flex:        1;
+  align-items: flex-start;
+}
+
+/* Text is Body 3 (14px), not the checkbox's default 16px */
+.acknowledge__text {
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);        /* 20px */
+}
+
+/* Trailing info icon */
+.acknowledge__info {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.acknowledge__info svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   STATES  (box border mirrors the checkbox)
+   Force-state helpers (--hover / --focus) render states statically.
+   ------------------------------------------------------------ */
+
+.acknowledge:hover,
+.acknowledge--hover,
+.acknowledge:focus-within,
+.acknowledge--focus,
+.acknowledge:has(.checkbox__input:checked) {
+  border-color: var(--border-active);
+}
+
+.acknowledge:focus-within,
+.acknowledge--focus {
+  box-shadow: var(--shadow-focus);
+}
+
+/* Error — red border wins over hover/focus/checked */
+.acknowledge--error,
+.acknowledge--error:hover,
+.acknowledge--error:focus-within,
+.acknowledge--error.acknowledge--hover,
+.acknowledge--error.acknowledge--focus,
+.acknowledge--error:has(.checkbox__input:checked) {
+  border-color: var(--border-error);
+}
+
+/* Disabled — muted grey border + text, no interaction */
+.acknowledge--disabled,
+.acknowledge--disabled:hover,
+.acknowledge--disabled:has(.checkbox__input:checked) {
+  border-color: var(--border-primary);
+  box-shadow:   none;
+  cursor:       not-allowed;
+}
+.acknowledge--disabled .acknowledge__text { color: var(--text-disabled); }
+.acknowledge--disabled .acknowledge__info { color: var(--icon-glyph-disabled); }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../radio/radio.css">
+  <link rel="stylesheet" href="radio-list.css">
+  <title>Multiple Choice Radio Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 32px; max-width: 340px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Multiple Choice Radio</h1>
+  <p class="subtitle">Stacked radio list — Zego Design System · the list below is live (pick one)</p>
+
+  <section>
+    <h2>How many drivers?</h2>
+    <fieldset class="radio-list">
+      <label class="radio-list__row"><span class="radio-list__label">Just me</span><input class="radio__input" type="radio" name="drivers" checked><span class="radio__control"></span></label>
+      <label class="radio-list__row"><span class="radio-list__label">2 drivers</span><input class="radio__input" type="radio" name="drivers"><span class="radio__control"></span></label>
+      <label class="radio-list__row"><span class="radio-list__label">3 drivers</span><input class="radio__input" type="radio" name="drivers"><span class="radio__control"></span></label>
+      <label class="radio-list__row"><span class="radio-list__label">4 drivers</span><input class="radio__input" type="radio" name="drivers"><span class="radio__control"></span></label>
+      <label class="radio-list__row radio-list__row--disabled"><span class="radio-list__label">5+ drivers</span><input class="radio__input" type="radio" name="drivers" disabled><span class="radio__control"></span></label>
+    </fieldset>
+  </section>
+
+</body>
+</html>

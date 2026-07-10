@@ -2,32 +2,33 @@ import figma, { html } from "@figma/code-connect/html";
 
 /**
  * Code Connect — Text Input
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2066-311180
+ * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2489-15197
  *
- * Hover / Focused are handled by CSS; Placeholder / Hint are content states.
- * ("Dissabled" is a typo in the Figma component — mapped to the correct class.)
+ * Default / Placeholder are content states (no class). Hover / Focused come
+ * from real pseudo-classes in production; the --hover / --focused modifiers
+ * force them for static rendering, so the State property maps to those.
  */
 
 figma.connect(
-  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2066-311180",
+  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2489-15197",
   {
     props: {
       state: figma.enum("State", {
         Default: "",
         Placeholder: "",
-        Hover: "",
-        Focused: "",
+        Hover: "input-field--hover",
+        Focused: "input-field--focused",
         Error: "input-field--error",
         Valid: "input-field--valid",
-        Hint: "",
-        Dissabled: "input-field--disabled",
+        Hint: "input-field--hint",
+        Disabled: "input-field--disabled",
       }),
     },
     example: ({ state }) =>
       html`<div class="input-group">
-  <label class="input-label">Label</label>
+  <label class="input-label" for="input">Label</label>
   <div class="input-field ${state}">
-    <input class="input" type="text" placeholder="Placeholder text" />
+    <input class="input" id="input" type="text" placeholder="Input" />
   </div>
 </div>`,
   }

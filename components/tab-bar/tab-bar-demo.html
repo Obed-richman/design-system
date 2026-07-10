@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../tab/tab.css">
+  <link rel="stylesheet" href="tab-bar.css">
+  <title>Tab Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 32px; max-width: 508px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 12px; }
+    .panel { padding: 24px 0; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <h1>Tab</h1>
+  <p class="subtitle">Tab bar — Zego Design System · the bar below is live (click a tab)</p>
+
+  <section>
+    <h2>Live</h2>
+    <div class="tabs" role="tablist" id="bar">
+      <button class="tab-item tab-item--active" role="tab" aria-selected="true">Overview</button>
+      <button class="tab-item" role="tab" aria-selected="false">Cover</button>
+      <button class="tab-item" role="tab" aria-selected="false">Documents</button>
+    </div>
+    <p class="panel" id="panel">Overview panel</p>
+  </section>
+
+  <section>
+    <h2>5 tabs</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab-item tab-item--active" role="tab" aria-selected="true">One</button>
+      <button class="tab-item" role="tab" aria-selected="false">Two</button>
+      <button class="tab-item" role="tab" aria-selected="false">Three</button>
+      <button class="tab-item" role="tab" aria-selected="false">Four</button>
+      <button class="tab-item" role="tab" aria-selected="false">Five</button>
+    </div>
+  </section>
+
+  <!-- tab-bar.js handles the active/inactive switching for every role="tablist" bar -->
+  <script src="tab-bar.js"></script>
+  <script>
+    // Just update the panel text; tab-bar.js already toggles the active tab.
+    document.getElementById('bar').addEventListener('click', function (e) {
+      const tab = e.target.closest('.tab-item');
+      if (!tab || tab.disabled) return;
+      document.getElementById('panel').textContent = tab.textContent + ' panel';
+    });
+  </script>
+
+</body>
+</html>

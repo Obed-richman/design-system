@@ -1,0 +1,136 @@
+/*
+ * ============================================================
+ * DATE PICKER COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-11422
+ *
+ * A calendar in a floating card: month navigation (‹ Month YYYY ›), a weekday
+ * row, a date grid, and Cancel / Confirm actions. A day can be today (outlined)
+ * or selected (aqua). Navigation and selection are handled by date-picker.js.
+ *
+ * Composes existing components: Button (nav FABs + Cancel/Confirm). Icons come
+ * from /icons (arrow-left, arrow-right).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="date-picker.css">
+ *   <script src="date-picker.js" defer></script>
+ *
+ *   <div class="date-picker" data-year="2026" data-month="0"
+ *        data-today="2026-0-15" data-selected="2026-0-26"> … </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../button/button.css';
+
+
+.date-picker {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px */
+  width:          100%;
+  max-width:      376px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);               /* 16px */
+  background:     var(--surface-primary);
+  border-radius:  var(--radius-medium);           /* 16px */
+  box-shadow:     0 2px 6px rgba(39, 37, 45, 0.05),
+                  0 4px 16px rgba(39, 37, 45, 0.10);
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — prev · Month YYYY · next
+   ------------------------------------------------------------ */
+
+.date-picker__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--gap-small);                  /* 12px */
+}
+.date-picker__title {
+  flex:        1;
+  min-width:   0;
+  margin:      0;
+  text-align:  center;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+.date-picker__nav .btn__icon { width: 16px; height: 16px; }
+
+
+/* ------------------------------------------------------------
+   WEEKDAYS + GRID
+   ------------------------------------------------------------ */
+
+.date-picker__weekdays,
+.date-picker__grid {
+  display:               grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.date-picker__grid { gap: var(--spacer-4); }      /* 4px */
+
+.date-picker__weekday {
+  text-align:  center;
+  padding:     var(--spacer-8) 0;                 /* 8px */
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   DAY CELL
+   ------------------------------------------------------------ */
+
+.date-picker__day {
+  aspect-ratio:    1 / 1;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  padding:         0;
+  border:          var(--border-m) solid transparent;   /* 2px, keeps size stable */
+  border-radius:   var(--radius-small);           /* 8px */
+  background:      transparent;
+  color:           var(--text-primary);
+  font-family:     inherit;
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-2);       /* 16px */
+  cursor:          pointer;
+  transition:      background-color 120ms ease, border-color 120ms ease;
+}
+.date-picker__day:hover:not(:disabled):not(.date-picker__day--selected) {
+  background: var(--surface-secondary);
+}
+
+/* Empty leading cells before the 1st */
+.date-picker__day--empty { visibility: hidden; cursor: default; }
+
+/* Today — outlined */
+.date-picker__day--today { border-color: var(--border-primary); }
+
+/* Selected — aqua surface + border */
+.date-picker__day--selected {
+  background:    var(--surface-focus);            /* #cefdfd */
+  border-color:  var(--border-active);            /* #05cfcf */
+}
+
+/* Disabled / other-month */
+.date-picker__day:disabled { color: var(--text-disabled); cursor: not-allowed; }
+
+
+/* ------------------------------------------------------------
+   FOOTER OPTION ROW (reuses Text + Icon Item) + ACTIONS
+   ------------------------------------------------------------ */
+
+.date-picker__actions {
+  display: flex;
+  gap:     var(--gap-medium);                     /* 16px */
+}
+.date-picker__actions .btn { flex: 1; }

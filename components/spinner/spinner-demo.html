@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spinner — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="spinner.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--background-page);
+      color: var(--text-primary);
+      font-family: var(--font-family-base);
+      padding: 32px;
+    }
+    h1 { font-size: var(--font-size-title-4); margin: 0 0 24px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .cell {
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-medium);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: var(--colour-white);
+    }
+    .cell--dark { background: var(--brand-3-high); border-color: transparent; }
+    .cell__label {
+      font-size: var(--font-size-body-3);
+      color: var(--colour-grey-60);
+    }
+    .cell--dark .cell__label { color: var(--colour-grey-40); }
+    .loading-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      height: 120px;
+      border: 1px dashed var(--border-primary);
+      border-radius: var(--radius-medium);
+      color: var(--text-secondary);
+      font-size: var(--font-size-body-3);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Spinner — Loading-wheel</h1>
+
+  <div class="grid">
+    <div class="cell">
+      <span class="spinner" role="status" aria-label="Loading"></span>
+      <span class="cell__label">24 (Large)</span>
+    </div>
+    <div class="cell">
+      <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+      <span class="cell__label">16 (Small)</span>
+    </div>
+    <div class="cell cell--dark" data-theme="dark">
+      <span class="spinner" role="status" aria-label="Loading"></span>
+      <span class="cell__label">24 · on dark</span>
+    </div>
+    <div class="cell cell--dark" data-theme="dark">
+      <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+      <span class="cell__label">16 · on dark</span>
+    </div>
+    <div class="cell cell--dark">
+      <span class="spinner spinner--inverse" role="status" aria-label="Loading"></span>
+      <span class="cell__label">--inverse (forced white)</span>
+    </div>
+  </div>
+
+  <!-- In context -->
+  <div class="grid">
+    <div class="cell" style="align-items:stretch">
+      <button class="btn btn--primary btn--pill" aria-busy="true" style="justify-content:center">
+        <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+        Loading…
+      </button>
+      <span class="cell__label">Inside a button</span>
+    </div>
+    <div class="cell" style="grid-column: span 2; align-items:stretch">
+      <div class="loading-block">
+        <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+        Loading content…
+      </div>
+      <span class="cell__label">Block placeholder</span>
+    </div>
+  </div>
+
+</body>
+</html>

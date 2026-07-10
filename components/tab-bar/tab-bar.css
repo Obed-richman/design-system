@@ -1,0 +1,42 @@
+/*
+ * ============================================================
+ * TAB (tab bar) COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4224-21570
+ *
+ * A full-width tab bar that lays out 2–5 equal-width Tab Items over a
+ * baseline track. REUSES the Tab Item — link tab.css alongside this file.
+ * The Tab Item is responsive, so the bar is compact below 768px automatically.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../tab/tab.css">
+ *   <link rel="stylesheet" href="tab-bar.css">
+ *
+ *   <div class="tabs" role="tablist">
+ *     <button class="tab-item tab-item--active" role="tab" aria-selected="true">Item</button>
+ *     <button class="tab-item" role="tab" aria-selected="false">Item</button>
+ *   </div>
+ *
+ *   Selection behaviour: include tab-bar.js — clicking a tab activates it and
+ *   deactivates the previously-active one.
+ *   <script src="tab-bar.js"></script>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.tabs {
+  display:       flex;
+  align-items:   stretch;
+  width:         100%;
+  border-bottom: var(--border-s) solid var(--border-primary);   /* baseline track */
+}
+
+/* Each tab shares the bar width equally, with centred label */
+.tabs .tab-item {
+  flex:       1 1 0;
+  min-width:  0;
+  text-align: center;
+}

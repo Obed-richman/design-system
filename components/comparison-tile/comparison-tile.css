@@ -1,0 +1,207 @@
+/*
+ * ============================================================
+ * COMPARISON TILE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6477-174868
+ *
+ * A selectable plan/pricing card: a coloured frame + header band (radio + title)
+ * over a white body (price, sub text, support text). REUSES the Radio for the
+ * header control — link radio.css alongside this file.
+ *
+ * States (frame colour + radio):
+ *   inactive (default) | hover | active (checked) | disabled
+ *
+ * The price uses the responsive Title 1 token, so the tile is compact below
+ * 768px automatically (matching the Figma Desktop/Mobile breakpoints).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="comparison-tile.css">
+ *
+ *   <label class="comparison-tile">
+ *     <div class="comparison-tile__header">
+ *       <input class="radio__input" type="radio" name="plan">
+ *       <span class="radio__control"></span>
+ *       <span class="comparison-tile__title">Title</span>
+ *     </div>
+ *     <div class="comparison-tile__body">
+ *       <div class="comparison-tile__price-group">
+ *         <p class="comparison-tile__price"><span class="comparison-tile__amount">£XXX</span><span class="comparison-tile__period">/year</span></p>
+ *         <p class="comparison-tile__sub">Sub text</p>
+ *       </div>
+ *       <p class="comparison-tile__support">Support text</p>
+ *     </div>
+ *   </label>
+ *
+ *   Group selection: tiles sharing a radio `name` are single-select. Include
+ *   comparison-tile.js so selecting one clears the previously-active tile's
+ *   --active class (the frame also updates via :has(.radio__input:checked)).
+ *   <script src="comparison-tile.js"></script>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   TILE (coloured frame)
+   ------------------------------------------------------------ */
+
+.comparison-tile {
+  --tile-frame:     var(--border-primary);        /* inactive frame colour */
+
+  display:          flex;
+  flex-direction:   column;
+  width:            100%;
+  box-sizing:       border-box;
+  padding:          0 var(--spacer-4) var(--spacer-4);   /* top flush, 4px sides + bottom */
+  background-color: var(--tile-frame);
+  border-radius:    var(--radius-large);          /* 24px */
+  cursor:           pointer;
+  font-family:      'Modern Era', sans-serif;
+  transition:       background-color 150ms ease, box-shadow 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — radio + title (sits on the frame colour)
+   ------------------------------------------------------------ */
+
+.comparison-tile__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--gap-medium);                 /* 16px */
+  padding:     var(--gap-medium) var(--spacer-20);/* 16px 20px */
+}
+
+.comparison-tile__title {
+  flex:        1;
+  min-width:   0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);       /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+/* Optional "best value" style badge */
+.comparison-tile__badge {
+  flex-shrink:      0;
+  display:          inline-flex;
+  align-items:      center;
+  height:           24px;
+  padding:          0 var(--gap-small);           /* 12px */
+  border-radius:    var(--radius-round);
+  background-color: var(--surface-information-low);
+  color:            var(--text-link-pressed);
+  font-weight:      var(--font-weight-bold);
+  font-size:        var(--font-size-body-3);      /* 14px */
+  line-height:      var(--line-height-body-3);
+  white-space:      nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   BODY — white price card
+   ------------------------------------------------------------ */
+
+.comparison-tile__body {
+  display:          flex;
+  flex-direction:   column;
+  gap:              var(--gap-medium);            /* 16px */
+  padding:          var(--spacer-20);             /* 20px */
+  background-color: var(--surface-primary);
+  /* inner radius = outer radius − frame width, so it nests cleanly */
+  border-radius:    calc(var(--radius-large) - var(--spacer-4));   /* 20px */
+}
+
+.comparison-tile__price-group {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-xx-small);            /* 4px */
+}
+
+.comparison-tile__price {
+  margin:      0;
+  display:     flex;
+  align-items: flex-end;
+}
+
+.comparison-tile__amount {
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-1);       /* 48px → 40px on mobile (responsive) */
+  line-height:    var(--line-height-title-1);
+  letter-spacing: var(--letter-spacing-tight);
+  color:          var(--text-primary);
+}
+
+.comparison-tile__period {
+  margin-left:    var(--gap-xx-small);            /* 4px */
+  padding-bottom: 4px;                            /* baseline-align with the amount */
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-subtitle-1);    /* 18px */
+  line-height:    var(--line-height-subtitle-1);
+  color:          var(--text-primary);
+}
+
+.comparison-tile__sub {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);       /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+.comparison-tile__support {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ALIGNMENT — centred variant (e.g. a single price card)
+   ------------------------------------------------------------ */
+
+.comparison-tile--center .comparison-tile__title { text-align: center; }
+.comparison-tile--center .comparison-tile__body,
+.comparison-tile--center .comparison-tile__price-group { align-items: center; }
+.comparison-tile--center .comparison-tile__price { justify-content: center; }
+.comparison-tile--center .comparison-tile__sub,
+.comparison-tile--center .comparison-tile__support { text-align: center; }
+
+
+/* ------------------------------------------------------------
+   STATES  (frame colour mirrors selection)
+   ------------------------------------------------------------ */
+
+/* Hover — light aqua frame + focus glow, aqua radio */
+.comparison-tile:hover,
+.comparison-tile--hover {
+  --tile-frame: var(--surface-focus);
+  box-shadow:   var(--shadow-focus);
+}
+.comparison-tile:hover .radio__control,
+.comparison-tile--hover .radio__control { border-color: var(--border-active); }
+
+/* Keyboard focus */
+.comparison-tile:focus-within,
+.comparison-tile--focused { box-shadow: var(--shadow-focus); }
+
+/* Active — bright aqua frame; radio checked shows the aqua dot (from radio.css) */
+.comparison-tile:has(.radio__input:checked),
+.comparison-tile--active { --tile-frame: var(--brand-1-medium); }
+
+/* Disabled — grey frame, muted content */
+.comparison-tile--disabled {
+  --tile-frame: var(--background-disabled);
+  box-shadow:   none;
+  cursor:       not-allowed;
+}
+.comparison-tile--disabled .comparison-tile__title,
+.comparison-tile--disabled .comparison-tile__amount,
+.comparison-tile--disabled .comparison-tile__period,
+.comparison-tile--disabled .comparison-tile__sub,
+.comparison-tile--disabled .comparison-tile__support { color: var(--text-disabled); }

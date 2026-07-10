@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="tab.css">
+  <title>Tab Item Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #f8f8f8; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #737373; font-size: 14px; margin: 0 0 32px; }
+    section { margin-bottom: 32px; }
+    h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #A0A0A0; margin: 0 0 12px; }
+    .panel { padding: 24px 0; font-size: 14px; color: #27252d; }
+  </style>
+</head>
+<body>
+
+  <h1>Tab Item</h1>
+  <p class="subtitle">Tab bar — Zego Design System · the bar below is live (click a tab)</p>
+
+  <section>
+    <h2>Live tab bar</h2>
+    <div class="tabs" role="tablist" id="bar">
+      <button class="tab-item tab-item--active" role="tab" aria-selected="true">Overview</button>
+      <button class="tab-item" role="tab" aria-selected="false">Cover</button>
+      <button class="tab-item" role="tab" aria-selected="false">Documents</button>
+      <button class="tab-item" role="tab" aria-selected="false" disabled>Claims</button>
+    </div>
+    <p class="panel" id="panel">Overview panel</p>
+  </section>
+
+  <section>
+    <h2>Mobile</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab-item tab-item--mobile tab-item--active" role="tab" aria-selected="true">Overview</button>
+      <button class="tab-item tab-item--mobile" role="tab" aria-selected="false">Cover</button>
+      <button class="tab-item tab-item--mobile" role="tab" aria-selected="false">Documents</button>
+    </div>
+  </section>
+
+  <script>
+    const bar = document.getElementById('bar');
+    const panel = document.getElementById('panel');
+    bar.addEventListener('click', function (e) {
+      const tab = e.target.closest('.tab-item');
+      if (!tab || tab.disabled) return;
+      bar.querySelectorAll('.tab-item').forEach(function (t) {
+        t.classList.remove('tab-item--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('tab-item--active');
+      tab.setAttribute('aria-selected', 'true');
+      panel.textContent = tab.textContent + ' panel';
+    });
+  </script>
+
+</body>
+</html>

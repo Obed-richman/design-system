@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Card — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="detail-card.css">
+  <script src="detail-card.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo { display: inline-flex; align-items: center; color: var(--colour-white); }
+    .header__logo svg { width: 110px; height: 32px; display: block; }
+    .content { max-width: 876px; margin: 0 auto; padding: 24px 24px 48px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-family: var(--font-family-base); font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); color: var(--text-primary); margin: 0; }
+    .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .stage { background: var(--background-tertiary); border-radius: 16px; padding: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+    .col__label { font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 0 0 12px; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span>
+  </header>
+
+  <main class="content">
+
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+
+    <div class="component-header">
+      <h1 class="component-header__name">Detail Card</h1>
+      <p class="component-header__description">Editable form &amp; read-only summary — press <strong>Save</strong> to switch to view, the <strong>pencil</strong> to edit again</p>
+    </div>
+
+    <div class="stage">
+      <div>
+        <p class="col__label">Starts in Edit → Save</p>
+        <div id="card-a"></div>
+      </div>
+      <div>
+        <p class="col__label">Starts in View → pencil</p>
+        <div id="card-b"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    var TRASH = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/><path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/></svg>';
+    var PENCIL = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0634 11.4771L13.5634 7.22714L14.9366 5.77311L19.4366 10.0231L18.0634 11.4771Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19 22.5001C19 22.7763 18.7761 23.0001 18.5 23.0001H13.5C13.2238 23.0001 13 22.7763 13 22.5001V21.5001C13 21.224 13.2238 21.0001 13.5 21.0001H18.5C18.7761 21.0001 19 21.224 19 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M23 22.5001C23 22.7763 22.7761 23.0001 22.5 23.0001H21.5C21.2238 23.0001 21 22.7763 21 22.5001V21.5001C21 21.224 21.2238 21.0001 21.5 21.0001H22.5C22.7761 21.0001 23 21.224 23 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.5675 1.64432C17.3536 0.857233 18.6308 0.862793 19.41 1.65669L22.3711 4.67371C23.1397 5.45682 23.1338 6.71295 22.3579 7.48884L8.32846 21.5184C8.12006 21.7268 7.85487 21.8692 7.56602 21.9278L2.86187 22.8821C1.81029 23.0954 0.881329 22.1678 1.09318 21.1159L2.0072 16.5776C2.06547 16.2883 2.20778 16.0226 2.41632 15.8138L16.5675 1.64432ZM20.9437 6.07463L17.9826 3.05762L3.93805 17.1204L3.20255 20.7722L7.02076 19.9977L20.9437 6.07463Z" fill="currentColor"/></svg>';
+    var CHEVRON = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg>';
+
+    function row(label, value) {
+      return '<div class="display-row"><div class="display-row__main"><p class="display-row__label">' + label
+        + '</p></div><p class="display-row__value">' + value + '</p></div>';
+    }
+    function option(label) {
+      return '<button class="dropdown-item" type="button" role="option"><span class="dropdown-item__label">' + label + '</span></button>';
+    }
+    function faultTile(label, name) {
+      return '<label class="text-icon-item text-icon-item--inactive">'
+        + '<span class="text-icon-item__text"><span class="text-icon-item__label">' + label + '</span></span>'
+        + '<input class="radio__input" type="radio" name="' + name + '">'
+        + '<span class="radio__control"></span></label>';
+    }
+
+    function card(view, uid) {
+      var name = 'fault-' + uid;
+      return '<div class="detail-card" data-view="' + view + '">'
+        + '<div class="detail-card__top">'
+        +   '<p class="detail-card__title">Claim #1</p>'
+        +   '<div class="detail-card__actions">'
+        +     '<button class="detail-card__icon-btn" type="button" aria-label="Delete claim">' + TRASH + '</button>'
+        +     '<span class="detail-card__divider-v detail-card__view-action"></span>'
+        +     '<button class="detail-card__icon-btn detail-card__view-action" type="button" data-dc-edit aria-label="Edit claim">' + PENCIL + '</button>'
+        +   '</div>'
+        + '</div>'
+
+        + '<div class="detail-card__edit">'
+        +   '<div class="detail-card__content">'
+        +     '<div class="detail-card__field"><p class="detail-card__label">Incident date?</p>'
+        +       '<div class="input-field"><input class="input detail-card__date" type="month" aria-label="Incident date"></div></div>'
+        +     '<div class="detail-card__field"><p class="detail-card__label">Incident type?</p>'
+        +       '<div class="detail-card__select">'
+        +         '<div class="input-field detail-card__select-trigger" role="combobox" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Incident type">'
+        +           '<input class="input" type="text" placeholder="Select" readonly>'
+        +           '<span class="detail-card__chevron">' + CHEVRON + '</span>'
+        +         '</div>'
+        +         '<div class="dropdown-list detail-card__select-menu" role="listbox">'
+        +           option('SP30') + option('SP50') + option('CU80') + option('DR10') + option('Bump / minor')
+        +         '</div>'
+        +       '</div></div>'
+        +     '<fieldset class="choice-selector"><div class="choice-selector__header"><p class="choice-selector__title">Your fault?</p></div>'
+        +       '<div class="choice-selector__options">' + faultTile('Yes', name) + faultTile('No', name) + '</div></fieldset>'
+        +     '<div class="detail-card__field"><p class="detail-card__label">Claim value?</p>'
+        +       '<p class="detail-card__support">Use your best estimate if you’re not sure.</p>'
+        +       '<div class="input-field"><input class="input" type="text" placeholder="£" aria-label="Claim value"></div></div>'
+        +   '</div>'
+        +   '<hr class="divider">'
+        +   '<div class="detail-card__buttons">'
+        +     '<button class="btn btn--secondary btn--pill" type="button" data-dc-cancel>Cancel</button>'
+        +     '<button class="btn btn--tertiary btn--pill" type="button" data-dc-save>Save</button>'
+        +   '</div>'
+        + '</div>'
+
+        + '<div class="detail-card__view">'
+        +   row('Incident date', '13/06/2026') + row('Incident type', 'SP30')
+        +   row('Responsibility', 'At-fault') + row('Claim value', '£1,436.00')
+        + '</div>'
+
+        + '</div>';
+    }
+
+    document.getElementById('card-a').innerHTML = card('edit', 'a');
+    document.getElementById('card-b').innerHTML = card('view', 'b');
+  </script>
+
+</body>
+</html>

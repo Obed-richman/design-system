@@ -1,0 +1,71 @@
+/*
+ * ============================================================
+ * DIVIDER COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=19-2157
+ *
+ * Separates content, sections or information within a layout. Three types:
+ *   - Simple  — a thin 1px border (default)
+ *   - Text    — a thin border with a centred label
+ *   - Thick   — a 4px border, for clear / distinctive separation
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="divider.css">
+ *
+ *   <hr class="divider">
+ *   <hr class="divider divider--thick">
+ *
+ *   <div class="divider-text"><span class="divider-text__label">Text</span></div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   SIMPLE / THICK — a plain rule
+   ------------------------------------------------------------ */
+
+.divider {
+  width:      100%;
+  height:     var(--border-s);                   /* 1px */
+  margin:     0;
+  border:     none;
+  background: var(--border-primary);
+}
+
+.divider--thick {
+  height:        4px;
+  border-radius: var(--radius-round);            /* rounded ends */
+}
+
+
+/* ------------------------------------------------------------
+   TEXT — line · label · line
+   ------------------------------------------------------------ */
+
+.divider-text {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);                 /* 16px */
+  width:       100%;
+}
+
+.divider-text::before,
+.divider-text::after {
+  content:    "";
+  flex:       1 0 0;
+  min-width:  1px;
+  height:     var(--border-s);                   /* 1px */
+  background: var(--border-primary);
+}
+
+.divider-text__label {
+  flex-shrink: 0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);        /* 20px */
+  color:       var(--text-primary);
+}
