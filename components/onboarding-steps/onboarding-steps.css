@@ -14,6 +14,10 @@
  * Responsive: labels are 18px on desktop and shrink to 14px below 768px.
  * Add .onboarding-steps--compact to force the small size at any width.
  *
+ * Variant: .onboarding-steps--numbered adds a numbered circle (→ tick when
+ * complete) above each label, styled for a navy surface (aqua badge + fill).
+ * Figma: node-id=57549-14026.
+ *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="onboarding-steps.css">
@@ -117,3 +121,54 @@
     line-height: var(--line-height-subtitle-3);
   }
 }
+
+
+/* ------------------------------------------------------------
+   NUMBERED VARIANT — .onboarding-steps--numbered
+   A numbered circle (→ tick when complete) sits above the label. Colours
+   target a navy (brand-3-high) surface: aqua badge/fill, white labels.
+   States reuse --current (active) and --complete (completed); the default
+   step is "incomplete".
+   ------------------------------------------------------------ */
+
+.onboarding-steps--numbered .onboarding-steps__step { gap: var(--gap-x-small); }  /* 8px */
+
+.onboarding-steps__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           28px;
+  height:          28px;
+  border-radius:   var(--radius-round);
+  background:      var(--overlay-light-fixed);   /* translucent white */
+  color:           var(--text-on-color-fixed);   /* white number */
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-3);  /* 14px */
+  line-height:     1;
+}
+.onboarding-steps__badge-tick { display: none; width: 16px; height: 16px; }
+.onboarding-steps__badge-tick svg { display: block; width: 100%; height: 100%; }
+
+/* Active + completed → aqua badge with dark glyph */
+.onboarding-steps--numbered .onboarding-steps__step--current  .onboarding-steps__badge,
+.onboarding-steps--numbered .onboarding-steps__step--complete .onboarding-steps__badge {
+  background: var(--surface-active);             /* aqua */
+  color:      var(--text-primary-fixed);         /* dark */
+}
+/* Completed → swap number for tick */
+.onboarding-steps__step--complete .onboarding-steps__badge-num  { display: none; }
+.onboarding-steps__step--complete .onboarding-steps__badge-tick { display: inline-flex; }
+
+/* On-navy labels: muted white → full white when active/complete */
+.onboarding-steps--numbered .onboarding-steps__label {
+  color:   var(--text-on-color-fixed);
+  opacity: 0.5;
+}
+.onboarding-steps--numbered .onboarding-steps__step--current  .onboarding-steps__label,
+.onboarding-steps--numbered .onboarding-steps__step--complete .onboarding-steps__label {
+  opacity: 1;
+}
+
+/* On-navy track + aqua fill */
+.onboarding-steps--numbered .onboarding-steps__track { background: var(--overlay-light-fixed); }
+.onboarding-steps--numbered .onboarding-steps__fill  { background: var(--surface-active); }

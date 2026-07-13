@@ -1,0 +1,189 @@
+/*
+ * ============================================================
+ * TRUSTPILOT REVIEWS COMPONENT  (Trustpilot Widget)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6500-186188
+ *
+ * A social-proof section: a title, a carousel of customer review cards (each
+ * with a Trustpilot star rating, a headline, the review body and the
+ * reviewer's name), and a Trustpilot rating lockup.
+ *
+ * Composition — this file @imports and reuses:
+ *   - Trustpilot        (.trustpilot star tiles)
+ *   - Trustpilot Lockup (.trustpilot-logo star + wordmark)
+ *   - Pagination        (mobile carousel dots)
+ *   - Button            (.btn--fab desktop nav arrows)
+ *
+ * Responsive: desktop shows several cards with prev/next arrows; below 768px
+ * it becomes a one-card snap carousel with a pagination indicator.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="trustpilot-reviews.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../trustpilot/trustpilot.css';
+@import '../trustpilot-lockup/trustpilot-lockup.css';
+@import '../pagination/pagination.css';
+@import '../button/button.css';
+
+
+.tp-reviews {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-40);
+  width:          100%;
+  box-sizing:     border-box;
+  padding-bottom: var(--spacer-32);
+  background:     var(--background-primary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   HEADING
+   ------------------------------------------------------------ */
+
+.tp-reviews__head {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);
+  max-width:      516px;
+  text-align:     center;
+}
+
+.tp-reviews__title {
+  margin:         0;
+  font-weight:    var(--font-weight-medium);     /* 500 */
+  font-size:      var(--font-size-title-3);      /* 32px */
+  line-height:    var(--line-height-title-3);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+
+.tp-reviews__subtitle {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   CAROUSEL
+   ------------------------------------------------------------ */
+
+.tp-reviews__carousel {
+  display:     flex;
+  align-items: center;
+  gap:         var(--gap-large);                 /* 24px */
+  width:       100%;
+  max-width:   1020px;
+}
+
+.tp-reviews__track {
+  display:          flex;
+  gap:              var(--gap-x-large);          /* 32px */
+  flex:             1 1 auto;
+  overflow-x:       auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width:  none;
+  -webkit-overflow-scrolling: touch;
+}
+.tp-reviews__track::-webkit-scrollbar { display: none; }
+
+.tp-reviews__nav { flex: 0 0 auto; }             /* desktop prev/next arrows */
+
+
+/* ------------------------------------------------------------
+   REVIEW CARD
+   ------------------------------------------------------------ */
+
+.tp-review {
+  display:         flex;
+  flex-direction:  column;
+  gap:             var(--spacer-16);
+  flex:            0 0 270px;
+  box-sizing:      border-box;
+  padding:         var(--gap-large);             /* 24px */
+  border-radius:   var(--radius-large);          /* 24px */
+  background:      var(--background-tertiary);
+  scroll-snap-align: center;
+}
+
+.tp-review__review {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.tp-review__title,
+.tp-review__body {
+  margin:      0;
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+.tp-review__title { font-weight: var(--font-weight-bold); }
+.tp-review__body  { font-weight: var(--font-weight-regular); }
+
+.tp-review__name {
+  margin:      0;
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-primary);
+}
+.tp-review__name a { color: inherit; text-decoration: underline; }
+
+
+/* ------------------------------------------------------------
+   RATING LOCKUP LINE
+   ------------------------------------------------------------ */
+
+.tp-reviews__rating {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             var(--spacer-8);
+  max-width:       516px;
+  text-align:      center;
+}
+.tp-reviews__rating-text {
+  margin:      0;
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  font-weight: var(--font-weight-regular);
+  color:       var(--text-primary);
+}
+.tp-reviews__rating-text strong { font-weight: var(--font-weight-bold); }
+.tp-reviews__rating .trustpilot-logo__star { width: 22px; height: 22px; }
+
+
+/* ------------------------------------------------------------
+   PAGINATION (mobile only)
+   ------------------------------------------------------------ */
+
+.tp-reviews__pagination {
+  display:         none;
+  justify-content: center;
+  width:           100%;
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .tp-reviews { gap: var(--spacer-16); }
+  .tp-reviews__title { font-size: 28px; line-height: 32px; }
+  .tp-reviews .tp-reviews__nav { display: none; }  /* swap arrows for dots */
+  .tp-reviews__carousel { gap: 0; }
+  .tp-reviews__track { gap: var(--spacer-12); padding-inline: 6%; }
+  .tp-review { flex: 0 0 88%; padding: var(--spacer-20); }
+  .tp-reviews__pagination { display: flex; }
+}

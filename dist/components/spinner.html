@@ -1,0 +1,43 @@
+<!-- Spinner — Zego Design System
+     Paste into a page that loads dist/zego-ds.css + dist/zego-ds.js. -->
+
+<div class="grid">
+  <div class="cell">
+    <span class="spinner" role="status" aria-label="Loading"></span>
+    <span class="cell__label">24 (Large)</span>
+  </div>
+  <div class="cell">
+    <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+    <span class="cell__label">16 (Small)</span>
+  </div>
+  <div class="cell cell--dark">
+    <span class="spinner" role="status" aria-label="Loading"></span>
+    <span class="cell__label">24 · on dark</span>
+  </div>
+  <div class="cell cell--dark">
+    <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+    <span class="cell__label">16 · on dark</span>
+  </div>
+  <div class="cell cell--dark">
+    <span class="spinner spinner--inverse" role="status" aria-label="Loading"></span>
+    <span class="cell__label">--inverse (forced white)</span>
+  </div>
+</div>
+
+<!-- In context -->
+<div class="grid">
+  <div class="cell" style="align-items:stretch">
+    <button class="btn btn--primary btn--pill" aria-busy="true" style="justify-content:center">
+      <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+      Loading…
+    </button>
+    <span class="cell__label">Inside a button</span>
+  </div>
+  <div class="cell" style="grid-column: span 2; align-items:stretch">
+    <div class="loading-block">
+      <span class="spinner spinner--16" role="status" aria-label="Loading"></span>
+      Loading content…
+    </div>
+    <span class="cell__label">Block placeholder</span>
+  </div>
+</div>

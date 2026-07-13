@@ -1,0 +1,54 @@
+/*
+ * ============================================================
+ * PAGINATION INDICATOR COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=844-19892
+ *
+ * A row of dots showing progress through a small set of steps/slides. The
+ * current dot is aqua; the rest are grey. Works with any number of dots
+ * (Figma ships 2 / 3 / 4).
+ *
+ * Each dot is an 8px circle centred in a 24px slot, so dots sit 24px apart.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="pagination.css">
+ *
+ *   <div class="pagination" role="tablist" aria-label="Progress">
+ *     <span class="pagination__dot pagination__dot--active"></span>
+ *     <span class="pagination__dot"></span>
+ *     <span class="pagination__dot"></span>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.pagination {
+  display:     inline-flex;
+  align-items: center;
+  height:      24px;
+}
+
+.pagination__dot {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           24px;
+  height:          24px;
+  flex:            0 0 auto;
+}
+
+.pagination__dot::before {
+  content:       '';
+  width:         var(--spacer-8);                /* 8px */
+  height:        var(--spacer-8);
+  border-radius: var(--radius-round);
+  background:    var(--background-disabled);     /* inactive */
+  transition:    background 150ms ease;
+}
+
+.pagination__dot--active::before {
+  background: var(--surface-active);             /* aqua */
+}

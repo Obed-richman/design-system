@@ -1,0 +1,57 @@
+/*
+ * ============================================================
+ * AGGREGATOR PARTNERS COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=5698-430872
+ *
+ * A navy panel showing comparison / aggregator partner logos in white — a
+ * trust strip ("compare us on…"). Each partner sits in a .partner slot.
+ *
+ * NOTE: the marks below are typographic stand-ins for the real brand logos
+ * (third-party assets). Drop each brand's official white SVG into its
+ * .partner slot in production.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="aggregator-partners.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.partners {
+  display:               grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  align-items:           center;
+  justify-items:         center;
+  gap:                   48px 32px;
+  padding:               48px;
+  box-sizing:            border-box;
+  background:            var(--brand-3-high);      /* navy #00166c */
+  border-radius:         var(--radius-large);      /* 24px */
+  color:                 var(--icon-glyph-on-color); /* white */
+  font-family:           'Modern Era', sans-serif;
+}
+
+/* One logo slot — loads a white brand SVG from /assets/partners.
+   Paths are relative to THIS stylesheet, so they resolve the same from any
+   page (component pages, demos, index, prototypes). To use a real logo, just
+   replace the file in /assets/partners keeping the same name. */
+.partner {
+  display:             block;
+  width:               100%;
+  max-width:           180px;
+  height:              40px;
+  background-repeat:   no-repeat;
+  background-position: center;
+  background-size:     contain;
+}
+
+.partner--ctm         { height: 30px; background-image: url('../../assets/partners/comparethemarket.svg'); }
+.partner--gocompare   { height: 20px; background-image: url('../../assets/partners/gocompare.svg'); }
+.partner--confused    { height: 30px; background-image: url('../../assets/partners/confused.svg'); }
+.partner--quotezone   { height: 42px; background-image: url('../../assets/partners/quotezone.svg'); }
+.partner--msm         { height: 58px; max-width: 190px; background-image: url('../../assets/partners/moneysupermarket.svg'); }
+.partner--insuremy    { height: 52px; max-width: 190px; background-image: url('../../assets/partners/insuremy4less.svg'); }
+.partner--drivescore  { height: 26px; background-image: url('../../assets/partners/drivescore.svg'); }

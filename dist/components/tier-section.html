@@ -1,0 +1,51 @@
+<!-- Tier Section — Zego Design System
+     Paste into a page that loads dist/zego-ds.css + dist/zego-ds.js. -->
+
+<section class="tier-section">
+  <p class="tier-section__title">Choose your cover level</p>
+
+  <div class="segment segment--40" role="tablist" aria-label="Billing period">
+    <button class="segment__item" role="tab" aria-selected="false" data-period="annual">Pay annual</button>
+    <button class="segment__item segment__item--active" role="tab" aria-selected="true" data-period="monthly">Pay monthly</button>
+  </div>
+
+  <div class="tier-section__body">
+    <div class="tier-section__included">
+      <p class="tier-section__included-title">All policies include these as standard</p>
+      <div class="tier-section__included-grid">
+        <div class="tier-card__feature"><span class="tier-card__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1Z" fill="#00E660"/><path d="M10.49 13.56l4.62-4.62a.4.4 0 0 1 .57 0l.71.71a.4.4 0 0 1 0 .57l-5.67 5.67a.4.4 0 0 1-.57 0l-2.54-2.54a.4.4 0 0 1 0-.57l.7-.7a.4.4 0 0 1 .57 0l1.61 1.48Z" fill="currentColor"/></svg></span><span class="tier-card__feature-text">Windscreen cover</span></div>
+        <div class="tier-card__feature"><span class="tier-card__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1Z" fill="#00E660"/><path d="M10.49 13.56l4.62-4.62a.4.4 0 0 1 .57 0l.71.71a.4.4 0 0 1 0 .57l-5.67 5.67a.4.4 0 0 1-.57 0l-2.54-2.54a.4.4 0 0 1 0-.57l.7-.7a.4.4 0 0 1 .57 0l1.61 1.48Z" fill="currentColor"/></svg></span><span class="tier-card__feature-text">24/7 claims line</span></div>
+        <div class="tier-card__feature"><span class="tier-card__feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1Z" fill="#00E660"/><path d="M10.49 13.56l4.62-4.62a.4.4 0 0 1 .57 0l.71.71a.4.4 0 0 1 0 .57l-5.67 5.67a.4.4 0 0 1-.57 0l-2.54-2.54a.4.4 0 0 1 0-.57l.7-.7a.4.4 0 0 1 .57 0l1.61 1.48Z" fill="currentColor"/></svg></span><span class="tier-card__feature-text">EU cover</span></div>
+      </div>
+    </div>
+
+    <div class="tier-section__tiers">
+      <div class="tier-card" data-tier-group="cover">
+        <div class="tier-card__header"><p class="tier-card__title">Essential</p><div class="tier-card__inner"><p class="tier-card__price" data-monthly="71.45">£71.45</p><button class="tier-card__select" type="button" data-label="Select" data-selected-label="Essential selected">Select</button></div></div>
+      </div>
+      <div class="tier-card tier-card--core" data-tier-group="cover">
+        <div class="tier-card__header"><p class="tier-card__title">Core</p><div class="tier-card__inner"><p class="tier-card__price" data-monthly="102.67">£102.67</p><button class="tier-card__select" type="button" data-label="Select" data-selected-label="Core selected">Select</button></div></div>
+      </div>
+      <div class="tier-card tier-card--max tier-card--active" data-tier-group="cover">
+        <div class="tier-card__header"><p class="tier-card__title">Max</p><div class="tier-card__inner"><p class="tier-card__price" data-monthly="129.08">£129.08</p><button class="tier-card__select" type="button" data-label="Select" data-selected-label="Max selected">Max selected</button></div></div>
+      </div>
+      <div class="tier-card tier-card--electric" data-tier-group="cover">
+        <div class="tier-card__header"><p class="tier-card__title">Electric</p><div class="tier-card__inner"><p class="tier-card__price" data-monthly="129.08">£129.08</p><button class="tier-card__select" type="button" data-label="Select" data-selected-label="Electric selected">Select</button></div></div>
+      </div>
+    </div>
+
+    <div class="tier-section__pagination">
+      <div class="pagination" role="tablist" aria-label="Cover tier">
+        <span class="pagination__dot pagination__dot--active" role="tab" aria-selected="true"></span>
+        <span class="pagination__dot" role="tab" aria-selected="false"></span>
+        <span class="pagination__dot" role="tab" aria-selected="false"></span>
+        <span class="pagination__dot" role="tab" aria-selected="false"></span>
+      </div>
+    </div>
+
+    <div class="tier-section__docs">
+      <div class="display-row"><div class="display-row__main"><p class="display-row__label">Policy wording</p></div><span class="display-row__trailing"><button class="btn btn--secondary btn--small btn--pill" type="button">Download</button></span></div>
+      <div class="display-row"><div class="display-row__main"><p class="display-row__label">Insurance product information document</p></div><span class="display-row__trailing"><button class="btn btn--secondary btn--small btn--pill" type="button">Download</button></span></div>
+    </div>
+  </div>
+</section>

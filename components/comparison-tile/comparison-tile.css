@@ -177,18 +177,18 @@
    STATES  (frame colour mirrors selection)
    ------------------------------------------------------------ */
 
-/* Hover — light aqua frame + focus glow, aqua radio */
+/* Hover — light aqua frame + active-colour glow ring, aqua radio */
 .comparison-tile:hover,
 .comparison-tile--hover {
   --tile-frame: var(--surface-focus);
-  box-shadow:   var(--shadow-focus);
+  box-shadow:   0 0 0 var(--border-focused) var(--border-active);
 }
 .comparison-tile:hover .radio__control,
 .comparison-tile--hover .radio__control { border-color: var(--border-active); }
 
 /* Keyboard focus */
 .comparison-tile:focus-within,
-.comparison-tile--focused { box-shadow: var(--shadow-focus); }
+.comparison-tile--focused { box-shadow: 0 0 0 var(--border-focused) var(--border-active); }
 
 /* Active — bright aqua frame; radio checked shows the aqua dot (from radio.css) */
 .comparison-tile:has(.radio__input:checked),

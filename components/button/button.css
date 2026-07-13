@@ -138,6 +138,18 @@
 
 
 /* ------------------------------------------------------------
+   SIZE — Small
+   Compact (≈32px) button for inline actions like list-row tags.
+   ------------------------------------------------------------ */
+
+.btn--small {
+  padding:     var(--spacer-4) var(--gap-small);   /* 4px 12px */
+  font-size:   var(--font-size-subtitle-3);        /* 14px */
+  line-height: var(--line-height-subtitle-3);
+}
+
+
+/* ------------------------------------------------------------
    HIERARCHY — Primary
    Background: Brand Aqua | Text: Black Fixed
    ------------------------------------------------------------ */

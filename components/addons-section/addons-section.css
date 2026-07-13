@@ -1,0 +1,83 @@
+/*
+ * ============================================================
+ * ADD-ONS SECTION COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58329-40421
+ *
+ * The "Optional extras" section from the quote page: a title, a short intro
+ * and a grid of Extra Cover add-on cards (Breakdown, Vehicle replacement,
+ * NCD, Legal expenses…). Sits in a soft beige panel.
+ *
+ * Composition — this file @imports and reuses:
+ *   - Extra Cover (each add-on card; add extra-cover.js for the Add/Remove toggle)
+ *   - Button (via Extra Cover)
+ *
+ * Responsive: two cards per row on desktop; one per row below 768px.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="addons-section.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../extra-cover/extra-cover.css';
+
+
+.addons {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-24);
+  width:          100%;
+  max-width:      876px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-24);
+  border-radius:  var(--radius-x-large);         /* 32px */
+  background:     var(--background-tertiary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+.addons__head {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);
+  max-width:      516px;
+  text-align:     center;
+}
+.addons__title {
+  margin:         0;
+  font-weight:    var(--font-weight-medium);     /* 500 */
+  font-size:      var(--font-size-title-3);      /* 32px */
+  line-height:    var(--line-height-title-3);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+.addons__subtitle {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+.addons__cards {
+  display:    flex;
+  flex-wrap:  wrap;
+  gap:        var(--spacer-16);
+  width:      100%;
+  align-items: stretch;
+}
+/* Two cards per row on desktop — override the card's standalone max-width */
+.addons__cards > .extra-cover { flex: 1 1 360px; max-width: none; }
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .addons { padding: var(--spacer-24) var(--spacer-24) var(--spacer-8); border-radius: var(--radius-large); }
+  .addons__title { font-size: 28px; line-height: 32px; }
+  .addons__cards > .extra-cover { flex: 1 1 100%; }
+}

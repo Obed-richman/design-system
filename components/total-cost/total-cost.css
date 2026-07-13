@@ -1,0 +1,128 @@
+/*
+ * ============================================================
+ * TOTAL COST COMPONENT  (checkout footer button)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6501-18244
+ *
+ * The footer used at the bottom of the purchase journey to confirm and
+ * continue. Two variants:
+ *   - Total   — shows "Total cost" + the price, then the primary Continue CTA
+ *   - Continue/Confirm — an optional info Alert, a terms Acknowledge box and a
+ *                        fair-notice line above the Continue CTA
+ *
+ * Composition — this file @imports and reuses:
+ *   - Button      (Continue CTA)
+ *   - Alert       (recalculation notice)
+ *   - Acknowledge (terms-of-business checkbox box)
+ *
+ * The content column is capped at 516px and centred; a top divider separates
+ * it from the page. Below 768px the padding tightens and the title steps down.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="total-cost.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../button/button.css';
+@import '../alert/alert.css';
+@import '../acknowledge/acknowledge.css';
+
+
+.total-cost {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  width:          100%;
+  box-sizing:     border-box;
+  padding:        var(--spacer-20) var(--spacer-20) var(--spacer-48);
+  border-top:     var(--border-s) solid var(--border-primary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+.total-cost__content {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-20);
+  width:          100%;
+  max-width:      516px;
+}
+
+
+/* ------------------------------------------------------------
+   TOTAL PRICE ROW
+   ------------------------------------------------------------ */
+
+.total-cost__total {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  width:           100%;
+}
+
+.total-cost__label {
+  margin:         0;
+  font-weight:    var(--font-weight-medium);     /* 500 */
+  font-size:      var(--font-size-title-4);      /* 24px */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+
+.total-cost__price-group {
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-end;
+  text-align:     right;
+}
+.total-cost__price {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4);      /* 24px */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+.total-cost__sub {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   CTA + FAIR NOTICE
+   ------------------------------------------------------------ */
+
+.total-cost__cta { width: 100%; }
+
+.total-cost__notice {
+  margin:      0;
+  text-align:  center;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+.total-cost__notice a,
+.total-cost__notice strong {
+  color:       var(--text-link);                 /* purple */
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .total-cost { padding: var(--spacer-16) var(--spacer-16) var(--spacer-40); }
+  .total-cost__label,
+  .total-cost__price { font-size: var(--font-size-title-4-mobile, 20px); line-height: 24px; }
+}

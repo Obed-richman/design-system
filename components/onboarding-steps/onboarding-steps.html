@@ -23,6 +23,8 @@
     .variant { background: var(--background-tertiary); border-radius: 16px; padding: 32px; }
     .variant__label { font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 0 0 20px; }
     .variant__inner { max-width: 516px; margin: 0 auto; }
+    .variant--navy { background: var(--brand-3-high); }
+    .variant--navy .variant__label { color: rgba(255,255,255,0.55); }
     /* Mobile viewport toggle → narrower frame + compact steps */
     html[data-viewport="mobile"] .variant__inner { max-width: 343px; }
     html[data-viewport="mobile"] .onboarding-steps { gap: var(--gap-x-small); }
@@ -46,7 +48,7 @@
 
     <div class="component-header">
       <h1 class="component-header__name">Onboarding Steps</h1>
-      <p class="component-header__description">Progress stepper × Breakpoint × Stage — Zego Design System</p>
+      <p class="component-header__description">Progress stepper &amp; numbered variant × Breakpoint × Stage — Zego Design System</p>
     </div>
 
     <div class="variants" id="variants"></div>
@@ -70,16 +72,35 @@
       return '<div class="onboarding-steps' + (compact ? ' onboarding-steps--compact' : '') + '">' + inner + '</div>';
     }
 
-    function variant(label, innerCls, content) {
-      return '<div class="variant"><p class="variant__label">' + label + '</p>'
+    var TICK = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    // Numbered variant (on navy): numbered circle → tick when complete
+    function numberedStepper(currentIndex) {
+      var inner = STEPS.map(function (label, i) {
+        var mod = i < currentIndex ? ' onboarding-steps__step--complete'
+                : i === currentIndex ? ' onboarding-steps__step--current'
+                : '';
+        return '<div class="onboarding-steps__step' + mod + '">'
+          + '<span class="onboarding-steps__badge"><span class="onboarding-steps__badge-num">' + (i + 1) + '</span>'
+          + '<span class="onboarding-steps__badge-tick">' + TICK + '</span></span>'
+          + '<span class="onboarding-steps__label">' + label + '</span>'
+          + '<span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span>'
+          + '</div>';
+      }).join('');
+      return '<div class="onboarding-steps onboarding-steps--numbered">' + inner + '</div>';
+    }
+
+    function variant(label, innerCls, content, navy) {
+      return '<div class="variant' + (navy ? ' variant--navy' : '') + '"><p class="variant__label">' + label + '</p>'
         + '<div class="' + innerCls + '">' + content + '</div></div>';
     }
 
     document.getElementById('variants').innerHTML = [
-      variant('Stage = Quote', 'variant__inner', stepper(0, false)),
-      variant('Stage = Details', 'variant__inner', stepper(1, false)),
-      variant('Stage = Review', 'variant__inner', stepper(2, false)),
-      variant('Stage = Payment', 'variant__inner', stepper(3, false))
+      variant('Progress · Stage = Quote', 'variant__inner', stepper(0, false)),
+      variant('Progress · Stage = Review', 'variant__inner', stepper(2, false)),
+      variant('Numbered · Stage = Quote', 'variant__inner', numberedStepper(0), true),
+      variant('Numbered · Stage = Details', 'variant__inner', numberedStepper(1), true),
+      variant('Numbered · Stage = Payment (all done)', 'variant__inner', numberedStepper(4), true)
     ].join('');
   </script>
 

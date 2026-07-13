@@ -1,0 +1,228 @@
+/*
+ * ============================================================
+ * TIER CARD COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58313-27894
+ *
+ * A selectable coverage/pricing tier card: a blue tier header (name + price +
+ * a select button) over a list of feature rows. Each feature row shows an
+ * availability icon (tick = included, cross = not included), a label, and an
+ * optional trailing info icon.
+ *
+ * States:
+ *   Default          — grey border, white body
+ *   Active (chosen)  — aqua border, focus-tinted body, "… selected" button
+ *   (add .tier-card--active)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="tier-card.css">
+ *
+ *   <div class="tier-card">
+ *     <div class="tier-card__header">
+ *       <p class="tier-card__title">Essential</p>
+ *       <div class="tier-card__inner">
+ *         <p class="tier-card__price">£71.45</p>
+ *         <button class="tier-card__select" type="button">Essential</button>
+ *       </div>
+ *     </div>
+ *     <div class="tier-card__features">
+ *       <div class="tier-card__feature">
+ *         <span class="tier-card__feature-icon">…tick svg…</span>
+ *         <span class="tier-card__feature-text">Feature</span>
+ *         <span class="tier-card__feature-info">…info svg…</span>
+ *       </div>
+ *       <div class="tier-card__feature tier-card__feature--off">…cross…</div>
+ *     </div>
+ *   </div>
+ *
+ * Group selection: give sibling cards a shared data-tier-group and include
+ * tier-card.js — clicking a card's button makes it the single active card.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* ------------------------------------------------------------
+   CARD
+   ------------------------------------------------------------ */
+
+.tier-card {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  box-sizing:     border-box;
+  border:         var(--border-m) solid var(--border-primary);
+  border-radius:  var(--radius-medium);
+  background:     var(--surface-primary);
+  overflow:       hidden;
+  font-family:    'Modern Era', sans-serif;
+}
+
+.tier-card--active {
+  border:     var(--border-m) solid var(--border-active);
+  background: var(--surface-focus);
+}
+
+
+/* ------------------------------------------------------------
+   HEADER  (blue band → name, price, select button)
+   ------------------------------------------------------------ */
+
+.tier-card__header {
+  display:            flex;
+  flex-direction:     column;
+  align-items:        center;
+  gap:                var(--spacer-12);
+  padding-top:        var(--spacer-12);
+  border-bottom:      var(--border-l) solid var(--border-primary);
+  background:         var(--tier-head-bg, var(--surface-information-low));
+}
+
+.tier-card__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);     /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--tier-head-text, var(--text-primary));
+}
+
+/* Header colour ramp (used when several tiers sit side by side) */
+.tier-card--core     { --tier-head-bg: var(--surface-information); }
+.tier-card--max      { --tier-head-bg: var(--brand-2-medium); --tier-head-text: var(--text-on-color-fixed); }
+.tier-card--electric { --tier-head-bg: var(--brand-2-high);   --tier-head-text: var(--text-on-color-fixed); }
+
+.tier-card__inner {
+  display:            flex;
+  flex-direction:     column;
+  gap:                var(--spacer-12);
+  width:              100%;
+  box-sizing:         border-box;
+  padding:            var(--spacer-12) var(--spacer-16) var(--spacer-16);
+  border-radius:      var(--radius-medium) var(--radius-medium) 0 0;
+  background:         var(--surface-primary);
+}
+
+.tier-card--active .tier-card__inner  { background: var(--surface-focus); }
+.tier-card--active .tier-card__header { border-bottom-color: var(--border-active); }
+
+.tier-card__price {
+  margin:         0;
+  text-align:     center;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-3);      /* 32px */
+  line-height:    var(--line-height-title-3);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   SELECT BUTTON
+   ------------------------------------------------------------ */
+
+.tier-card__select {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--gap-x-small);
+  width:           100%;
+  box-sizing:      border-box;
+  padding:         var(--gap-small) var(--spacer-16);
+  border:          var(--border-m) solid var(--border-secondary);
+  border-radius:   var(--radius-small);           /* 8px */
+  background:      var(--surface-primary);
+  color:           var(--text-primary);
+  font-family:     inherit;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-body-2);      /* 16px */
+  line-height:     var(--line-height-body-2);
+  cursor:          pointer;
+  transition:      border-color 150ms ease, background 150ms ease;
+}
+.tier-card__select:hover { border-color: var(--border-active); }
+
+.tier-card--active .tier-card__select {
+  border: var(--border-m) solid var(--border-active);
+}
+
+
+/* ------------------------------------------------------------
+   FEATURES
+   ------------------------------------------------------------ */
+
+.tier-card__features { display: flex; flex-direction: column; }
+
+.tier-card__feature {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           var(--spacer-12);
+  padding:       var(--spacer-12);
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+.tier-card__feature:last-child { border-bottom: none; }
+
+.tier-card__feature-icon,
+.tier-card__feature-info {
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  margin-top:  var(--spacer-4);
+}
+.tier-card__feature-icon svg,
+.tier-card__feature-info svg { display: block; width: 100%; height: 100%; }
+
+/* Included tick: green disc, white glyph (tick.svg glyph is currentColor) */
+.tier-card__feature-icon { color: var(--colour-white); }
+
+/* Trailing info icon: muted */
+.tier-card__feature-info { color: var(--icon-glyph-pressed); margin-left: auto; }
+
+.tier-card__feature-text {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+/* Not-included row: muted text */
+.tier-card__feature--off .tier-card__feature-text { color: var(--text-pressed); }
+
+
+/* ------------------------------------------------------------
+   EXTENDED FEATURE LIST
+   The list grows to fit any number of rows. Rows can be a plain feature
+   (icon + text [+ info]), a subheading, or an add-on (text + trailing meta,
+   e.g. "Add for £5/month").
+   ------------------------------------------------------------ */
+
+/* Subheading between groups of rows (e.g. "Optional add-ons") */
+.tier-card__subhead {
+  margin:        0;
+  padding:       var(--spacer-12) var(--spacer-12) var(--spacer-4);
+  border-top:    var(--border-s) solid var(--border-primary);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-3);    /* 14px */
+  line-height:   var(--line-height-subtitle-3);
+  color:         var(--text-pressed);
+}
+/* The row above a subheading already draws a divider — avoid doubling it */
+.tier-card__feature + .tier-card__subhead { border-top: none; }
+
+/* Meta text on a row, e.g. an add-on price ("Add for £5/month") */
+.tier-card__feature-meta {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-link);                 /* purple */
+}
+
+/* Add-on row: no leading icon; name over price so it fits narrow cards */
+.tier-card__feature--addon {
+  flex-direction: column;
+  align-items:    flex-start;
+  gap:            var(--spacer-4);
+}

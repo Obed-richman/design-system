@@ -1,0 +1,167 @@
+/*
+ * ============================================================
+ * EXTRA COVER COMPONENT  (add-on card)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6486-71681
+ *
+ * A selectable add-on card: a coloured icon badge, title + description with a
+ * "Read more" link, an optional IPID document tile, and a footer with the
+ * price and an Add button. When added it shows an "Added" badge and the button
+ * flips to a confirmed state.
+ *
+ * Reuses Button (.btn — Add / Download) and DS icons (breakdown, documents,
+ * add, tick). Link button.css alongside this file.
+ *
+ * States: default | .extra-cover--added (add extra-cover.js for the toggle)
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../button/button.css">
+ *   <link rel="stylesheet" href="extra-cover.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.extra-cover {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  max-width:      603px;
+  box-sizing:     border-box;
+  border-radius:  var(--radius-medium);          /* 16px */
+  background:     var(--background-primary);
+  border:         var(--border-s) solid var(--border-primary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   CONTENT
+   ------------------------------------------------------------ */
+
+.extra-cover__content {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  padding:        var(--spacer-20) var(--spacer-16) var(--spacer-16);
+}
+
+.extra-cover__top {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+}
+
+/* Coloured icon badge */
+.extra-cover__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-small);          /* 8px */
+  background:      var(--brand-2-low);            /* light purple */
+  color:           var(--brand-3-high);           /* navy glyph */
+}
+.extra-cover__badge svg { display: block; width: 24px; height: 24px; }
+
+/* "Added" pill — hidden until the card is added */
+.extra-cover__added {
+  display:       none;
+  align-items:   center;
+  flex:          0 0 auto;
+  padding:       2px var(--spacer-8);
+  border-radius: var(--radius-round);
+  background:    var(--surface-focus);
+  border:        var(--border-s) solid var(--border-active);
+  color:         var(--text-link-on-dark);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-4);    /* 12px */
+  line-height:   var(--line-height-subtitle-4);
+}
+.extra-cover--added .extra-cover__added { display: inline-flex; }
+
+.extra-cover__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+.extra-cover__desc {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+.extra-cover__link {
+  color:           var(--text-link);             /* purple */
+  text-decoration: underline;
+  cursor:          pointer;
+}
+
+
+/* ------------------------------------------------------------
+   IPID DOCUMENT TILE
+   ------------------------------------------------------------ */
+
+.extra-cover__tile {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       var(--spacer-12) var(--spacer-16);
+  border:        var(--border-s) solid var(--border-primary);
+  border-radius: var(--radius-small);            /* 8px */
+}
+.extra-cover__tile-icon {
+  flex:  0 0 auto;
+  width: 24px;
+  height: 24px;
+  color: var(--icon-glyph-primary);
+}
+.extra-cover__tile-icon svg { display: block; width: 100%; height: 100%; }
+.extra-cover__tile-label {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER  (price + Add)
+   ------------------------------------------------------------ */
+
+.extra-cover__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  width:           100%;
+  box-sizing:      border-box;
+  padding:         var(--spacer-16);
+  border-top:      var(--border-s) solid var(--border-primary);
+}
+.extra-cover__price {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+/* Add button: plus + "Add" by default, minus + "Remove" when added (label set in JS) */
+.extra-cover .extra-cover__add-minus { display: none; }
+.extra-cover--added .extra-cover__add-plus  { display: none; }
+.extra-cover--added .extra-cover__add-minus { display: inline-flex; }

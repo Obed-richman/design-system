@@ -1,0 +1,180 @@
+/*
+ * ============================================================
+ * TIER SECTION COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58323-28325
+ *
+ * A full "choose your cover" pricing section: a title, a billing Segment
+ * (annual / monthly), a card of standard included features, a row of Tier
+ * Cards (one colour per tier), and a list of downloadable policy documents.
+ *
+ * Composition — this file @imports and reuses:
+ *   - Segment      (billing toggle)
+ *   - Tier Card    (each plan; --core/--max/--electric colour the header)
+ *   - Display Row  (document list)
+ *   - Button       (Download tags, .btn--small)
+ *
+ * Responsive: tiers sit side by side and the included-features grid is 3-up on
+ * desktop; below 768px the tiers stack and the grid collapses to one column.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="tier-section.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../segment/segment.css';
+@import '../tier-card/tier-card.css';
+@import '../display-row/display-row.css';
+@import '../button/button.css';
+@import '../pagination/pagination.css';
+
+
+.tier-section {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-32);
+  width:          100%;
+  max-width:      876px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-24);
+  border-radius:  var(--radius-large);           /* 24px */
+  background:     var(--background-tertiary);
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Optional header wrapper — pairs the title with a subtitle at a tight gap */
+.tier-section__head {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-12);
+  max-width:      516px;
+  text-align:     center;
+}
+
+.tier-section__title {
+  margin:         0;
+  max-width:      516px;
+  text-align:     center;
+  font-weight:    var(--font-weight-medium);     /* 500 */
+  font-size:      var(--font-size-title-3);      /* 32px */
+  line-height:    var(--line-height-title-3);
+  letter-spacing: -0.02em;
+  color:          var(--text-primary);
+}
+
+.tier-section__subtitle {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-1);      /* 18px (Body 1) */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+/* Everything below the toggle shares a 16px rhythm */
+.tier-section__body {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+}
+
+
+/* ------------------------------------------------------------
+   INCLUDED FEATURES CARD
+   ------------------------------------------------------------ */
+
+.tier-section__included {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-16);
+  width:          100%;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16) 0;
+  border-radius:  var(--radius-medium);          /* 16px */
+  background:     var(--surface-primary);
+}
+
+.tier-section__included-title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+.tier-section__included-grid {
+  display:               grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap:            var(--spacer-24);
+  width:                 100%;
+  box-sizing:            border-box;
+  padding:               0 var(--spacer-16);
+}
+/* Reuses .tier-card__feature rows inside the grid; drop their side padding
+   so the columns align to the grid gaps. */
+.tier-section__included-grid .tier-card__feature { padding-left: 0; padding-right: 0; }
+
+
+/* ------------------------------------------------------------
+   TIERS ROW
+   ------------------------------------------------------------ */
+
+.tier-section__tiers {
+  display:     flex;
+  align-items: stretch;
+  gap:         var(--gap-x-small);               /* 8px */
+  width:       100%;
+}
+.tier-section__tiers > .tier-card { flex: 1 1 0; min-width: 0; }
+
+/* Carousel pagination — only shown on the mobile scroller */
+.tier-section__pagination {
+  display:         none;
+  justify-content: center;
+  width:           100%;
+}
+
+
+/* ------------------------------------------------------------
+   DOCUMENTS LIST (Display Rows + Download tags)
+   ------------------------------------------------------------ */
+
+.tier-section__docs {
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       0 var(--spacer-16);
+  border-radius: var(--radius-medium);
+  background:    var(--background-primary);
+}
+/* Drop the outer edges — keep only the divider between rows */
+.tier-section__docs .display-row:first-child { border-top: none; }
+.tier-section__docs .display-row:last-child  { border-bottom: none; }
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .tier-section { padding: var(--spacer-16); gap: var(--spacer-24); }
+  .tier-section__included-grid { grid-template-columns: 1fr; column-gap: 0; }
+
+  /* Tiers become a snap-scrolling carousel — one card centred, neighbours peek */
+  .tier-section__tiers {
+    gap:                 var(--spacer-12);
+    overflow-x:          auto;
+    scroll-snap-type:    x mandatory;
+    padding-inline:      9%;
+    scrollbar-width:     none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tier-section__tiers::-webkit-scrollbar { display: none; }
+  .tier-section__tiers > .tier-card { flex: 0 0 82%; scroll-snap-align: center; }
+
+  .tier-section__pagination { display: flex; }
+}

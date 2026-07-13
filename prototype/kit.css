@@ -17,6 +17,7 @@
 /* Components */
 @import url('../components/accordion/accordion.css');
 @import url('../components/acknowledge/acknowledge.css');
+@import url('../components/addons-section/addons-section.css');
 @import url('../components/alert/alert.css');
 @import url('../components/bounce/bounce.css');
 @import url('../components/button/button.css');
@@ -30,10 +31,13 @@
 @import url('../components/divider/divider.css');
 @import url('../components/dropdown-item/dropdown-item.css');
 @import url('../components/dropdown-list/dropdown-list.css');
+@import url('../components/extra-cover/extra-cover.css');
 @import url('../components/input/input.css');
 @import url('../components/notice-toggle/notice-toggle.css');
 @import url('../components/number-item/number-item.css');
+@import url('../components/onboarding-header/onboarding-header.css');
 @import url('../components/onboarding-steps/onboarding-steps.css');
+@import url('../components/pagination/pagination.css');
 @import url('../components/plate/plate.css');
 @import url('../components/price-comparison/price-comparison.css');
 @import url('../components/radio-list/radio-list.css');
@@ -46,8 +50,13 @@
 @import url('../components/tab-bar/tab-bar.css');
 @import url('../components/tab/tab.css');
 @import url('../components/text-icon-item/text-icon-item.css');
+@import url('../components/tier-card/tier-card.css');
+@import url('../components/tier-section/tier-section.css');
 @import url('../components/toggle/toggle.css');
+@import url('../components/top-nav/top-nav.css');
+@import url('../components/total-cost/total-cost.css');
 @import url('../components/trustpilot-lockup/trustpilot-lockup.css');
+@import url('../components/trustpilot-reviews/trustpilot-reviews.css');
 @import url('../components/trustpilot/trustpilot.css');
 @import url('../components/vehicle-registration/vehicle-registration.css');
 @import url('../components/warning/warning.css');

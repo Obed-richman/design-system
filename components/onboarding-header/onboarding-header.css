@@ -1,0 +1,94 @@
+/*
+ * ============================================================
+ * ONBOARDING HEADER COMPONENT  (Onboarding steps / v1)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-14386
+ *
+ * A navy page-header banner: the numbered step indicator on top, then a large
+ * title + optional subtitle, and (on the first stage) an aggregator logo and
+ * registration plate. One per onboarding stage (Quote / Details / Review /
+ * Payment).
+ *
+ * Composes: Onboarding Steps (--numbered), the aggregator partner logo
+ * (.partner) and the registration Plate (.plate). Their CSS is imported below.
+ *
+ * Responsive: centred with a large title on desktop; left-aligned with a
+ * smaller title below 768px.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="onboarding-header.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../onboarding-steps/onboarding-steps.css';
+@import '../aggregator-partners/aggregator-partners.css';
+@import '../plate/plate.css';
+
+
+.onboarding-header {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-large);               /* 24px */
+  width:          100%;
+  box-sizing:     border-box;
+  padding:        48px 24px;
+  background:     var(--brand-3-high);            /* navy */
+  color:          var(--text-on-color-fixed);     /* white */
+  text-align:     center;
+  font-family:    'Modern Era', sans-serif;
+}
+
+.onboarding-header__steps { width: 100%; max-width: 516px; }
+
+.onboarding-header__body {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-small);               /* 12px */
+  max-width:      876px;
+}
+
+.onboarding-header__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-2);       /* 40px */
+  line-height:    var(--line-height-title-2);
+  letter-spacing: -0.03em;
+}
+
+.onboarding-header__subtitle {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+}
+
+/* Quote-stage meta: aggregator logo + reg plate */
+.onboarding-header__meta {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-small);
+  margin-top:     var(--spacer-4);
+}
+.onboarding-header__meta .partner { height: 22px; }
+
+
+/* ------------------------------------------------------------
+   MOBILE
+   ------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .onboarding-header      { align-items: flex-start; text-align: left; padding: 24px 16px; gap: var(--gap-medium); }
+  .onboarding-header__body { align-items: flex-start; }
+  .onboarding-header__meta { align-items: flex-start; }
+  .onboarding-header__steps { max-width: 343px; }
+  .onboarding-header__title {
+    font-weight: var(--font-weight-medium);       /* 500 */
+    font-size:   var(--font-size-title-3);        /* 28px */
+    line-height: var(--line-height-title-3);
+  }
+}

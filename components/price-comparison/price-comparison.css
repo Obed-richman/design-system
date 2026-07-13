@@ -36,6 +36,7 @@
   align-items:      center;
   gap:              var(--spacer-20);            /* 20px */
   width:            100%;
+  max-width:        876px;
   box-sizing:       border-box;
   padding:          var(--spacer-20);            /* 20px */
   border-radius:    var(--radius-x-large);       /* 32px */
