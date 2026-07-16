@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="components/extra-cover/extra-cover.css">
   <link rel="stylesheet" href="components/addons-section/addons-section.css">
   <link rel="stylesheet" href="components/total-cost/total-cost.css">
+  <link rel="stylesheet" href="components/product-card/product-card.css">
   <link rel="stylesheet" href="components/accordion/accordion.css">
   <link rel="stylesheet" href="components/segment/segment.css">
   <link rel="stylesheet" href="components/display-row/display-row.css">
@@ -166,6 +167,7 @@
     .card__preview .extra-cover,
     .card__preview .addons,
     .card__preview .total-cost,
+    .card__preview .product-card,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -861,6 +863,29 @@
                 <span class="tier-card__feature-text">Courtesy car</span>
               </div>
             </div>
+          </div>
+        `
+      },
+      {
+        name: "Product Card",
+        description: "Insurance product option with a badge, Best value tag, benefit bullets and a rewards banner; resting and active states.",
+        page: "components/product-card/product-card.html",
+        preview: `
+          <div class="product-card product-card--active" style="max-width:300px">
+            <div class="product-card__header" style="padding:16px;gap:10px">
+              <div class="product-card__top">
+                <span class="product-card__badge" style="width:40px;height:40px"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 5C1 3.89543 1.89543 3 3 3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5ZM21 5L3 5V21H21V5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21 10L2 10L2 8L21 8V10Z" fill="currentColor"/><path d="M16 1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V4.25C18 4.52614 17.7761 4.75 17.5 4.75H16.5C16.2239 4.75 16 4.52614 16 4.25V1.5Z" fill="currentColor"/><path d="M6 1.5C6 1.22386 6.22386 1 6.5 1H7.5C7.77614 1 8 1.22386 8 1.5V4.25C8 4.52614 7.77614 4.75 7.5 4.75H6.5C6.22386 4.75 6 4.52614 6 4.25V1.5Z" fill="currentColor"/></svg></span>
+                <span class="product-card__tag">Best value</span>
+              </div>
+              <div>
+                <h3 class="product-card__title" style="font-size:18px;line-height:22px">Telematics</h3>
+                <p class="product-card__subtitle" style="font-size:14px;line-height:20px">Get up to £60 a year in rewards</p>
+              </div>
+            </div>
+            <div class="product-card__banner"><div class="product-card__banner-inner">
+              <p class="product-card__banner-text">Drive well. Pay less. Get rewards.</p>
+              <div class="product-card__rewards"><span class="product-card__reward" style="background:#232f3e"></span><span class="product-card__reward" style="background:#ff8000"></span><span class="product-card__reward" style="background:#00704a"></span></div>
+            </div></div>
           </div>
         `
       },
