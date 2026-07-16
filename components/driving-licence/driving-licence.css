@@ -81,17 +81,13 @@
 }
 
 .driving-licence__photo {
-  flex:            0 0 auto;
-  display:         flex;
-  align-items:     flex-end;
-  justify-content: center;
-  width:           60px;
-  height:          72px;
-  overflow:        hidden;
-  border-radius:   var(--radius-x-small);        /* 4px */
-  background:      var(--background-primary);     /* white */
+  flex:          0 0 auto;
+  width:         60px;
+  height:        72px;
+  overflow:      hidden;
+  border-radius: var(--radius-x-small);          /* 4px */
 }
-.driving-licence__photo svg { display: block; width: 46px; height: 58px; color: #b9a7c9; }
+.driving-licence__photo svg { display: block; width: 100%; height: 100%; }
 
 .driving-licence__details {
   display:        flex;
