@@ -1,0 +1,96 @@
+/*
+ * ============================================================
+ * BULLET POINTS COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57577-22634
+ *
+ * A vertical list of tick bullet rows, e.g. a list of product benefits. Each
+ * row is a green tick + text; rows can optionally carry a support line and a
+ * trailing info icon, and the whole list can have a title.
+ *
+ * Reuses the DS green tick glyph (icons/tick.svg — green disc + white check).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="bullet-points.css">
+ *
+ *   <div class="bullet-points">
+ *     <div class="bullet-point">
+ *       <span class="bullet-point__icon">…tick svg…</span>
+ *       <span class="bullet-point__text">Bullet point</span>
+ *     </div>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.bullet-points {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-large);              /* 24px */
+  font-family:    'Modern Era', sans-serif;
+}
+
+.bullet-points__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);      /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   BULLET ROW
+   ------------------------------------------------------------ */
+
+.bullet-point {
+  display:     flex;
+  align-items: center;
+  gap:         var(--gap-medium);                /* 16px */
+}
+/* Top-align the tick when a row wraps or carries a support line */
+.bullet-point--support { align-items: flex-start; }
+
+.bullet-point__icon {
+  flex:   0 0 auto;
+  width:  24px;
+  height: 24px;
+  color:  var(--colour-white);                   /* white check on the green disc */
+}
+.bullet-point__icon svg { display: block; width: 100%; height: 100%; }
+
+.bullet-point__main {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-xx-small);           /* 4px */
+  min-width:      0;
+}
+.bullet-point__row {
+  display:     flex;
+  align-items: center;
+  gap:         var(--gap-x-small);               /* 8px */
+}
+.bullet-point__text {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+.bullet-point__support {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-pressed);              /* muted */
+}
+
+/* Trailing info icon */
+.bullet-point__info {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--icon-glyph-pressed);
+}
+.bullet-point__info svg { display: block; width: 100%; height: 100%; }
