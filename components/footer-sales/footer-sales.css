@@ -1,0 +1,112 @@
+/*
+ * ============================================================
+ * SALES FOOTER COMPONENT  (footer / Sales)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57975-13692
+ *
+ * A navy marketing footer for the sales journey: a brand accent strip, a
+ * Trustpilot lockup, a grid of trust/service points (icon + label), dividers,
+ * and the legal small-print.
+ *
+ * Composition — this file @imports and reuses:
+ *   - Trustpilot        (.trustpilot stars)
+ *   - Trustpilot Lockup (Excellent + stars + Trustpilot)
+ *   - Divider           (section separators)
+ *
+ * On its navy surface the reused text/dividers are tinted for contrast.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="footer-sales.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../trustpilot/trustpilot.css';
+@import '../trustpilot-lockup/trustpilot-lockup.css';
+@import '../divider/divider.css';
+
+
+.footer-sales {
+  width:       100%;
+  box-sizing:  border-box;
+  overflow:    hidden;
+  padding-bottom: var(--spacer-32);
+  background:  var(--brand-3-high);              /* navy */
+  color:       var(--text-on-color-fixed);       /* white */
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* Brand accent strip (swap for the brand graphic if you have it) */
+.footer-sales__brand {
+  height:     12px;
+  width:      100%;
+  background: linear-gradient(90deg, var(--brand-3-high) 0%, #12efd4 55%, #a458ff 78%, #fcff5f 100%);
+}
+
+.footer-sales__container {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-20);
+  width:          100%;
+  max-width:      640px;
+  box-sizing:     border-box;
+  margin:         0 auto;
+  padding:        var(--spacer-32) var(--spacer-16) 0;
+  text-align:     center;
+}
+
+/* Trustpilot lockup on navy → white text */
+.footer-sales .trustpilot-lockup__label,
+.footer-sales .trustpilot-lockup__text { color: var(--text-on-color-fixed); }
+
+/* Dividers on navy → translucent white */
+.footer-sales .divider { background: var(--overlay-light-fixed); }
+
+
+/* ------------------------------------------------------------
+   SERVICE / TRUST POINTS
+   ------------------------------------------------------------ */
+
+.footer-sales__points {
+  display:               grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap:            var(--spacer-20);
+  row-gap:               var(--spacer-16);
+  width:                 100%;
+}
+.footer-sales__point {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  text-align:  left;
+}
+.footer-sales__point-icon {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--text-on-color-fixed);
+}
+.footer-sales__point-icon svg { display: block; width: 100%; height: 100%; }
+.footer-sales__point-text {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-on-color-fixed);
+}
+
+
+/* ------------------------------------------------------------
+   LEGAL SMALL-PRINT
+   ------------------------------------------------------------ */
+
+.footer-sales__legal {
+  margin:      0;
+  width:       100%;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-subtitle-4);      /* 12px */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-on-color-fixed);
+  text-align:  left;
+}

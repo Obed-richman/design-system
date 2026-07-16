@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="components/dropdown-list/dropdown-list.css">
   <link rel="stylesheet" href="components/trustpilot/trustpilot.css">
   <link rel="stylesheet" href="components/trustpilot-lockup/trustpilot-lockup.css">
+  <link rel="stylesheet" href="components/footer-sales/footer-sales.css">
   <link rel="stylesheet" href="components/trustpilot-reviews/trustpilot-reviews.css">
   <link rel="stylesheet" href="components/divider/divider.css">
   <link rel="stylesheet" href="components/onboarding-steps/onboarding-steps.css">
@@ -170,6 +171,7 @@
     .card__preview .total-cost,
     .card__preview .product-card,
     .card__preview .bullet-points,
+    .card__preview .footer-sales,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -735,6 +737,31 @@
               </div>
               <div class="tp-review__review"><p class="tp-review__title">Helpful customer service</p><p class="tp-review__body">Amaju helped me through the process easily. Top quality from start to finish.</p></div>
               <p class="tp-review__name"><a href="#">yared mamo</a> - 6 days ago</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Sales Footer",
+        description: "Navy marketing footer with a Trustpilot lockup, trust points and legal small-print.",
+        page: "components/footer-sales/footer-sales.html",
+        preview: `
+          <div class="footer-sales" style="max-width:320px;padding-bottom:16px">
+            <div class="footer-sales__brand"></div>
+            <div class="footer-sales__container" style="padding:16px 16px 0;gap:12px">
+              <div class="trustpilot-lockup">
+                <span class="trustpilot-lockup__label">Excellent</span>
+                <div class="trustpilot trustpilot--green trustpilot--16" role="img" aria-label="Rated 4.5 out of 5 on Trustpilot">
+                  <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                  <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                  <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                  <span class="trustpilot__star trustpilot__star--full"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                  <span class="trustpilot__star trustpilot__star--half"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1.5l2.955 6.363 6.795.79-5.02 4.64 1.35 6.707L12 17.1l-6.08 3.4 1.35-6.707-5.02-4.64 6.795-.79L12 1.5z" fill="currentColor"/></svg></span>
+                </div>
+                <span class="trustpilot-lockup__text">Trustpilot</span>
+              </div>
+              <hr class="divider">
+              <p class="footer-sales__legal">Zego is a trading name of Extracover Limited, authorised and regulated by the FCA.</p>
             </div>
           </div>
         `
