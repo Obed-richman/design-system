@@ -1,0 +1,124 @@
+/*
+ * ============================================================
+ * DRIVING LICENCE COMPONENT  (Licence reference illustration)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58083-6751
+ *
+ * A stylised UK driving-licence card used as a reference/illustration — e.g.
+ * to show a customer where their licence number sits (field 5, highlighted).
+ * Not an input; purely illustrative.
+ *
+ * Reuses the UK flag asset (assets/flags/uk.svg).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="driving-licence.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.driving-licence {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);
+  width:          279px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-12) var(--spacer-16);
+  border:         1.5px solid #cab8e5;           /* lilac border */
+  border-radius:  var(--radius-small);           /* 8px */
+  background:     #e5d1e8;                        /* lilac card */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   HEADER
+   ------------------------------------------------------------ */
+
+.driving-licence__header {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  width:       100%;
+}
+.driving-licence__country {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   18px;
+  line-height: 1;
+}
+.driving-licence__title {
+  flex:        1 1 auto;
+  min-width:   0;
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   14px;
+  line-height: 1;
+}
+.driving-licence__flag {
+  flex:          0 0 auto;
+  width:         16px;
+  height:        16px;
+  border-radius: 2px;
+  overflow:      hidden;
+}
+.driving-licence__flag img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+
+/* ------------------------------------------------------------
+   BODY  (photo + details)
+   ------------------------------------------------------------ */
+
+.driving-licence__body {
+  display:        flex;
+  align-items:    flex-start;
+  gap:            var(--spacer-16);
+  padding-bottom: var(--spacer-20);
+  width:          100%;
+}
+
+.driving-licence__photo {
+  flex:            0 0 auto;
+  display:         flex;
+  align-items:     flex-end;
+  justify-content: center;
+  width:           60px;
+  height:          72px;
+  overflow:        hidden;
+  border-radius:   var(--radius-x-small);        /* 4px */
+  background:      var(--background-primary);     /* white */
+}
+.driving-licence__photo svg { display: block; width: 46px; height: 58px; color: #b9a7c9; }
+
+.driving-licence__details {
+  display:        flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dl-field {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  font-weight: var(--font-weight-medium);
+  font-size:   10px;
+  line-height: 16px;
+  color:       var(--text-primary);
+}
+.dl-field__num   { width: 16px; flex: 0 0 auto; opacity: 0.7; }
+.dl-field__label { opacity: 0.7; white-space: nowrap; }
+/* Issued-date rows sit at reduced emphasis */
+.dl-field--muted { opacity: 0.5; }
+.dl-field--dates { gap: var(--spacer-8); }
+
+/* Field 5 — the licence number, highlighted */
+.dl-field__number { display: flex; align-items: center; gap: var(--spacer-4); }
+.dl-field__chip {
+  padding:       0 var(--spacer-4);
+  border-radius: var(--radius-x-small);
+  background:    var(--brand-4-medium);          /* yellow highlight */
+  white-space:   nowrap;
+}

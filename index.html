@@ -56,6 +56,7 @@
   <link rel="stylesheet" href="components/notice-toggle/notice-toggle.css">
   <link rel="stylesheet" href="components/top-nav/top-nav.css">
   <link rel="stylesheet" href="components/aggregator-partners/aggregator-partners.css">
+  <link rel="stylesheet" href="components/driving-licence/driving-licence.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -172,6 +173,7 @@
     .card__preview .product-card,
     .card__preview .bullet-points,
     .card__preview .footer-sales,
+    .card__preview .driving-licence,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -1142,6 +1144,30 @@
             <img src="assets/flags/spain.svg" width="32" height="32" alt="">
             <img src="assets/flags/italy.svg" width="32" height="32" alt="">
           </span>
+        `
+      },
+      {
+        name: "Driving Licence",
+        description: "Reference illustration of a UK driving licence, highlighting where the licence number sits (field 5).",
+        page: "components/driving-licence/driving-licence.html",
+        preview: `
+          <div class="driving-licence" style="width:240px">
+            <div class="driving-licence__header">
+              <span class="driving-licence__country">UK</span>
+              <span class="driving-licence__title">DRIVING LICENCE</span>
+              <span class="driving-licence__flag"><img src="assets/flags/uk.svg" width="16" height="16" alt=""></span>
+            </div>
+            <div class="driving-licence__body">
+              <div class="driving-licence__photo"><svg viewBox="0 0 46 58" fill="currentColor" aria-hidden="true"><path d="M23 30c7.18 0 13-5.82 13-13S30.18 4 23 4 10 9.82 10 17s5.82 13 13 13Z"/><path d="M23 34C11.4 34 2 42.06 2 52v6h42v-6c0-9.94-9.4-18-21-18Z"/></svg></div>
+              <div class="driving-licence__details">
+                <div class="dl-field"><span class="dl-field__num">1.</span><span class="dl-field__label">SURNAME</span></div>
+                <div class="dl-field"><span class="dl-field__num">2.</span><span class="dl-field__label">FIRST NAME(S)</span></div>
+                <div class="dl-field"><span class="dl-field__num">3.</span><span class="dl-field__label">DATE OF BIRTH</span></div>
+                <div class="dl-field dl-field--muted"><span class="dl-field__num">4b.</span><span class="dl-field__label">##.##.##</span></div>
+                <div class="dl-field"><span class="dl-field__num">5.</span><span class="dl-field__number"><span class="dl-field__chip">SURNA123456A34BT</span><span class="dl-field__label">##</span></span></div>
+              </div>
+            </div>
+          </div>
         `
       }
     ];
