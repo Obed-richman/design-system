@@ -14,17 +14,13 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58313-27894",
   {
-    props: {
-      active: figma.enum("State", { Default: "", Active: " tier-card--active" }),
-      name: figma.string("Tier name"),
-    },
-    example: ({ active, name }) =>
-      html`<div class="tier-card${active}">
+    example: () =>
+      html`<div class="tier-card">
   <div class="tier-card__header">
-    <p class="tier-card__title">${name}</p>
+    <p class="tier-card__title">Essential</p>
     <div class="tier-card__inner">
       <p class="tier-card__price">£71.45</p>
-      <button class="tier-card__select" type="button" data-label="${name}">${name}</button>
+      <button class="tier-card__select" type="button" data-label="Essential">Essential</button>
     </div>
   </div>
   <div class="tier-card__features">

@@ -12,11 +12,8 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6501-18244",
   {
-    props: {
-      property: figma.enum("property", { Total: "total", Default: "default" }),
-    },
-    example: ({ property }) =>
-      html`<div class="total-cost" data-variant="${property}">
+    example: () =>
+      html`<div class="total-cost" data-variant="total">
   <div class="total-cost__content">
     <!-- Total variant -->
     <div class="total-cost__total">

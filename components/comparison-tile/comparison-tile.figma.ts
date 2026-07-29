@@ -2,36 +2,22 @@ import figma, { html } from "@figma/code-connect/html";
 
 /**
  * Code Connect — Comparison Tile
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6477-174868
+ * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=7925-200961
  *
  * A selectable plan card. Reuses the Radio for the header control — link
  * radio.css + comparison-tile.css. The price uses the responsive Title 1
- * token, so Desktop/Mobile is handled automatically. Hover comes from the
- * real pseudo-class; the --hover / --active modifiers force states statically.
- * ("Dissabled" is a typo in the Figma component's State property.)
+ * token, so Desktop/Mobile is handled automatically. Hover / active come from
+ * the real pseudo-class and the --hover / --active modifiers at runtime.
+ * Mapped to the "Comparison tile/Desktop" component set.
  */
 
 figma.connect(
-  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6477-174868",
+  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=7925-200961",
   {
-    props: {
-      box: figma.enum("State", {
-        Inactive: "",
-        Hover: "comparison-tile--hover",
-        Active: "",
-        Dissabled: "comparison-tile--disabled",
-      }),
-      checked: figma.enum("State", {
-        Active: "checked",
-        Inactive: "",
-        Hover: "",
-        Dissabled: "",
-      }),
-    },
-    example: ({ box, checked }) =>
-      html`<label class="comparison-tile ${box}">
+    example: () =>
+      html`<label class="comparison-tile">
   <div class="comparison-tile__header">
-    <input class="radio__input" type="radio" name="plan" ${checked} />
+    <input class="radio__input" type="radio" name="plan" />
     <span class="radio__control"></span>
     <span class="comparison-tile__title">Title</span>
   </div>

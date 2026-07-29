@@ -16,10 +16,7 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57549-14386",
   {
-    props: {
-      title: figma.string("Title"),
-    },
-    example: ({ title }) =>
+    example: () =>
       html`<div class="onboarding-header">
   <div class="onboarding-header__steps">
     <div class="onboarding-steps onboarding-steps--numbered">
@@ -46,7 +43,7 @@ figma.connect(
     </div>
   </div>
   <div class="onboarding-header__body">
-    <h2 class="onboarding-header__title">${title}</h2>
+    <h2 class="onboarding-header__title">Let's find your best price</h2>
     <div class="onboarding-header__meta">
       <span class="partner partner--gocompare" role="img" aria-label="GoCompare"></span>
       <span class="plate">SH48 HSA</span>

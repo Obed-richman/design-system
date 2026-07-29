@@ -9,6 +9,6 @@
     "figma:unpublish": "figma connect unpublish"
   },
   "devDependencies": {
-    "@figma/code-connect": "^1.0.0"
+    "@figma/code-connect": "^1.5.0"
   }
 }

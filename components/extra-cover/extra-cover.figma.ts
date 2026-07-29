@@ -15,11 +15,8 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6486-71681",
   {
-    props: {
-      added: figma.enum("added", { "true": " extra-cover--added", "false": "" }),
-    },
-    example: ({ added }) =>
-      html`<div class="extra-cover${added}">
+    example: () =>
+      html`<div class="extra-cover">
   <div class="extra-cover__content">
     <div class="extra-cover__top">
       <span class="extra-cover__badge"><!-- breakdown icon --></span>

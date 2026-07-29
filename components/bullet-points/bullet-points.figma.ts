@@ -12,11 +12,6 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57577-22634",
   {
-    props: {
-      title: figma.boolean("title"),
-      supportText: figma.boolean("supportText"),
-      rightIcon: figma.boolean("rightIcon"),
-    },
     example: () =>
       html`<div class="bullet-points">
   <p class="bullet-points__title">Title</p>

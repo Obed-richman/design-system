@@ -17,12 +17,9 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58323-28325",
   {
-    props: {
-      title: figma.string("Title"),
-    },
-    example: ({ title }) =>
+    example: () =>
       html`<section class="tier-section">
-  <p class="tier-section__title">${title}</p>
+  <p class="tier-section__title">Choose your cover level</p>
 
   <div class="segment segment--40" role="tablist" aria-label="Billing period">
     <button class="segment__item" role="tab" aria-selected="false">Pay annual</button>

@@ -13,11 +13,8 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57761-3983",
   {
-    props: {
-      active: figma.enum("state", { Resting: "", Active: " product-card--active" }),
-    },
-    example: ({ active }) =>
-      html`<div class="product-card${active}">
+    example: () =>
+      html`<div class="product-card">
   <div class="product-card__header">
     <div class="product-card__top">
       <span class="product-card__badge"><!-- annual/calendar icon --></span>

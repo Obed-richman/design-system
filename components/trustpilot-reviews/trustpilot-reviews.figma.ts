@@ -16,10 +16,6 @@ import figma, { html } from "@figma/code-connect/html";
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6500-186188",
   {
-    props: {
-      title: figma.boolean("title"),
-      lockup: figma.boolean("lockup"),
-    },
     example: () =>
       html`<section class="tp-reviews">
   <div class="tp-reviews__head">
