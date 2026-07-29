@@ -1903,6 +1903,78 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
+   STATE — Destructive
+   For irreversible actions (delete, remove). A state overlay that
+   combines with a hierarchy: Primary (solid red fill), Tertiary
+   (red outline) or Text (red label). Colours use the --*-error
+   tokens, so they flip correctly in dark mode.
+
+   <button class="btn btn--primary btn--pill btn--destructive">Delete</button>
+   <button class="btn btn--tertiary btn--pill btn--destructive">Delete</button>
+   <button class="btn btn--tertiary btn--text btn--destructive">Delete</button>
+   ------------------------------------------------------------ */
+
+/* Primary — solid red fill, white label */
+.btn--primary.btn--destructive {
+  background-color: var(--surface-error);         /* Red 50 */
+  border-color:     transparent;
+  color:            var(--text-on-color-fixed);   /* White */
+}
+.btn--primary.btn--destructive:hover,
+.btn--primary.btn--destructive.btn--hover {
+  background-color: var(--colour-red-60);
+}
+.btn--primary.btn--destructive:active,
+.btn--primary.btn--destructive.btn--pressed {
+  background-color: var(--colour-red-70);
+}
+
+/* Tertiary — transparent with a red outline and red label */
+.btn--tertiary.btn--destructive {
+  background-color: transparent;
+  border-color:     var(--border-error);          /* Red 60 */
+  color:            var(--text-error);             /* Red 70 */
+}
+.btn--tertiary.btn--destructive:hover,
+.btn--tertiary.btn--destructive.btn--hover {
+  background-color: var(--surface-error-low);      /* Red 10 tint */
+}
+.btn--tertiary.btn--destructive:active,
+.btn--tertiary.btn--destructive.btn--pressed {
+  background-color: var(--surface-error-low);
+  border-color:     var(--border-error);
+  color:            var(--text-error);
+}
+
+/* Text style — red label only, no fill or border */
+.btn--text.btn--destructive {
+  background: transparent;
+  border:     none;
+  color:      var(--text-error);
+}
+.btn--text.btn--destructive:hover,
+.btn--text.btn--destructive.btn--hover,
+.btn--text.btn--destructive:active,
+.btn--text.btn--destructive.btn--pressed {
+  color: var(--colour-red-80);
+}
+
+/* Disabled destructive falls back to the standard disabled treatment */
+.btn--destructive:disabled,
+.btn--destructive.btn--disabled {
+  background-color: var(--background-disabled);
+  border-color:     transparent;
+  color:            var(--text-disabled);
+  cursor:           not-allowed;
+  pointer-events:   none;
+}
+.btn--text.btn--destructive:disabled,
+.btn--text.btn--destructive.btn--disabled {
+  background-color: transparent;
+}
+
+
+/* ------------------------------------------------------------
    LOADING STATE
    Spinner replaces/overlays button content
    ------------------------------------------------------------ */
@@ -1922,6 +1994,19 @@ body { font-family: var(--font-family-base); }
   position: absolute;
   inset:    0;
   margin:   auto;
+}
+
+/* The loading spinner takes the button's label colour (which is hidden while
+   loading) so it stays legible on every variant. In light mode every variant
+   has a dark label, so the dark wheel is correct. */
+.btn--loading .spinner { color: var(--text-primary-fixed); }
+
+/* Dark mode — Secondary & Tertiary buttons sit on the dark page surface with a
+   white label, so their loading spinner uses the dark-mode (white) wheel.
+   Primary keeps the dark wheel: its aqua fill is unchanged in dark mode. */
+[data-theme="dark"] .btn--secondary.btn--loading .spinner,
+[data-theme="dark"] .btn--tertiary.btn--loading .spinner {
+  color: var(--text-on-color-fixed);
 }
 
 
@@ -5331,9 +5416,13 @@ body { font-family: var(--font-family-base); }
  * SPINNER (Loading-wheel) COMPONENT
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=9639-436
+ * Dark mode:     https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=9647-49295
  *
  * A rotating wheel with a tapered arc that fades from an opaque
  * head to a transparent tail (angular / conic gradient in Figma).
+ * The dark-mode wheel is the same shape rendered white; the colour
+ * flips automatically with the theme (see COLOUR below). Loading
+ * buttons pick the matching wheel per variant — see button.css.
  *
  * Variants:
  *   Size   — 24 (large, default) | 16 (small, .spinner--16)

@@ -35,6 +35,7 @@ figma.connect(
         Focused: "btn--focused",
         Dissabled: "btn--disabled",
         Loading: "btn--loading",
+        Destructive: "btn--destructive",
       }),
     },
     example: ({ hierarchy, style, state }) =>

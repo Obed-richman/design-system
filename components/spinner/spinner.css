@@ -3,9 +3,13 @@
  * SPINNER (Loading-wheel) COMPONENT
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=9639-436
+ * Dark mode:     https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=9647-49295
  *
  * A rotating wheel with a tapered arc that fades from an opaque
  * head to a transparent tail (angular / conic gradient in Figma).
+ * The dark-mode wheel is the same shape rendered white; the colour
+ * flips automatically with the theme (see COLOUR below). Loading
+ * buttons pick the matching wheel per variant — see button.css.
  *
  * Variants:
  *   Size   — 24 (large, default) | 16 (small, .spinner--16)
