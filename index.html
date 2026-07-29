@@ -57,6 +57,7 @@
   <link rel="stylesheet" href="components/top-nav/top-nav.css">
   <link rel="stylesheet" href="components/aggregator-partners/aggregator-partners.css">
   <link rel="stylesheet" href="components/driving-licence/driving-licence.css">
+  <link rel="stylesheet" href="components/marketing-banner/marketing-banner.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -174,6 +175,7 @@
     .card__preview .bullet-points,
     .card__preview .footer-sales,
     .card__preview .driving-licence,
+    .card__preview .marketing-banner,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -1167,6 +1169,23 @@
                 <div class="dl-field"><span class="dl-field__num">5.</span><span class="dl-field__number"><span class="dl-field__chip">SURNA123456A34BT</span><span class="dl-field__label">##</span></span></div>
               </div>
             </div>
+          </div>
+        `
+      },
+      {
+        name: "Marketing Banner",
+        description: "Promotional banner for feature announcements and nudges — horizontal or vertical, with an optional action button.",
+        page: "components/marketing-banner/marketing-banner.html",
+        preview: `
+          <div class="marketing-banner" style="width:300px">
+            <div class="marketing-banner__content">
+              <div class="marketing-banner__text">
+                <p class="marketing-banner__title">Earn rewards for good driving</p>
+                <p class="marketing-banner__paragraph">Drive well and get up to £60 a year back.</p>
+              </div>
+              <button class="btn btn--secondary btn--pill btn--small" type="button">Learn more</button>
+            </div>
+            <div class="marketing-banner__image"></div>
           </div>
         `
       }
