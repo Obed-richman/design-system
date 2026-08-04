@@ -2,7 +2,7 @@ import figma, { html } from "@figma/code-connect/html";
 
 /**
  * Code Connect — Driving Licence
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58083-6751
+ * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58083-6752
  *
  * A reference illustration of a UK driving licence. Purely illustrative — used
  * to show a customer where their licence number sits (field 5 is highlighted in
@@ -10,7 +10,7 @@ import figma, { html } from "@figma/code-connect/html";
  */
 
 figma.connect(
-  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58083-6751",
+  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58083-6752",
   {
     example: () =>
       html`<div class="driving-licence">

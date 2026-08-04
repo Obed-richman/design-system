@@ -2,19 +2,23 @@ import figma, { html } from "@figma/code-connect/html";
 
 /**
  * Code Connect — Sales Footer (footer / Sales)
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57975-13692
+ * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59381-8290
  *
- * Navy marketing footer: brand accent strip, a Trustpilot lockup, a grid of
+ * Navy marketing footer: brand accent strip, a Trustpilot lockup, a row of
  * trust/service points and the legal small-print. Reuses Trustpilot,
  * Trustpilot Lockup and Divider (tinted white on the navy surface).
+ *
+ * The "Breakpoint" variant is deliberately not mapped: one set of markup covers
+ * both, and footer-sales.css switches the service points from 2 across to 4
+ * across with a container query at 768px.
  */
 
 figma.connect(
-  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57975-13692",
+  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59381-8290",
   {
     example: () =>
       html`<div class="footer-sales">
-  <div class="footer-sales__brand"></div>
+  <div class="footer-sales__brand"><!-- brand strip svg (1440×12, pinned right) --></div>
   <div class="footer-sales__container">
     <div class="trustpilot-lockup">
       <span class="trustpilot-lockup__label">Excellent</span>
@@ -25,10 +29,10 @@ figma.connect(
     <hr class="divider">
 
     <div class="footer-sales__points">
-      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- customer-service --></span><span class="footer-sales__point-text">UK based call centres</span></div>
-      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- ncd --></span><span class="footer-sales__point-text">FCA regulated</span></div>
-      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- replace-refresh --></span><span class="footer-sales__point-text">24/7 claims support</span></div>
-      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- lock --></span><span class="footer-sales__point-text">Secure checkout</span></div>
+      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- icons/customer-service.svg --></span><span class="footer-sales__point-text">UK based call centres</span></div>
+      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- icons/ncd.svg --></span><span class="footer-sales__point-text">FCA regulated</span></div>
+      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- icons/replace-refresh.svg --></span><span class="footer-sales__point-text">24/7 claims support</span></div>
+      <div class="footer-sales__point"><span class="footer-sales__point-icon"><!-- icons/lock.svg --></span><span class="footer-sales__point-text">Secure checkout</span></div>
     </div>
 
     <hr class="divider">

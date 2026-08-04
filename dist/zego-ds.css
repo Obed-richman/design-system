@@ -3802,11 +3802,18 @@ body { font-family: var(--font-family-base); }
  * ============================================================
  * SALES FOOTER COMPONENT  (footer / Sales)
  * ============================================================
- * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57975-13692
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59381-8290
  *
- * A navy marketing footer for the sales journey: a brand accent strip, a
- * Trustpilot lockup, a grid of trust/service points (icon + label), dividers,
+ * A navy marketing footer for the sales journey: the brand accent strip, a
+ * Trustpilot lockup, a row of trust/service points (icon + label), dividers,
  * and the legal small-print.
+ *
+ * Breakpoints (Figma "Breakpoint" variant) — a container query, so the footer
+ * reacts to its own width rather than the viewport's and lays out correctly
+ * inside a card preview or device frame on a wide screen:
+ *   Mobile  (<768px) — service points 2 across, on two rows.
+ *   Desktop (≥768px) — service points 4 across, on one row.
+ * Everything else is shared; the content box caps at 1200px either way.
  *
  * Composition — this file @imports and reuses:
  *   - Trustpilot        (.trustpilot stars)
@@ -3825,21 +3832,47 @@ body { font-family: var(--font-family-base); }
 
 
 .footer-sales {
-  width:       100%;
-  box-sizing:  border-box;
-  overflow:    hidden;
+  width:          100%;
+  box-sizing:     border-box;
+  overflow:       hidden;
   padding-bottom: var(--spacer-32);
-  background:  var(--brand-3-high);              /* navy */
-  color:       var(--text-on-color-fixed);       /* white */
-  font-family: 'Modern Era', sans-serif;
+  background:     var(--brand-3-high);            /* navy */
+  color:          var(--text-on-color-fixed);     /* white */
+  font-family:    'Modern Era', sans-serif;
+  container-type: inline-size;                    /* see the breakpoints above */
 }
 
-/* Brand accent strip (swap for the brand graphic if you have it) */
+
+/* ------------------------------------------------------------
+   BRAND ACCENT STRIP
+   The 12px band of brand art along the top edge. Figma exports one asset per
+   breakpoint, but both are the same right-anchored flourish over a yellow
+   base — so the art is inlined once at its native 1440px width and pinned to
+   the right, which reproduces either breakpoint at any width: the flourish
+   keeps its true size and angle instead of being squashed, and the yellow
+   base covers anything wider than the art.
+   ------------------------------------------------------------ */
+
 .footer-sales__brand {
-  height:     12px;
+  position:   relative;
   width:      100%;
-  background: linear-gradient(90deg, var(--brand-3-high) 0%, #12efd4 55%, #a458ff 78%, #fcff5f 100%);
+  height:     12px;
+  overflow:   hidden;
+  background: #fcff5f;                            /* brand yellow — base of the art */
 }
+.footer-sales__brand svg {
+  position: absolute;
+  top:      0;
+  right:    0;
+  display:  block;
+  width:    1440px;
+  height:   12px;
+}
+
+
+/* ------------------------------------------------------------
+   CONTAINER
+   ------------------------------------------------------------ */
 
 .footer-sales__container {
   display:        flex;
@@ -3847,7 +3880,7 @@ body { font-family: var(--font-family-base); }
   align-items:    center;
   gap:            var(--spacer-20);
   width:          100%;
-  max-width:      640px;
+  max-width:      calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
   box-sizing:     border-box;
   margin:         0 auto;
   padding:        var(--spacer-32) var(--spacer-16) 0;
@@ -3864,13 +3897,17 @@ body { font-family: var(--font-family-base); }
 
 /* ------------------------------------------------------------
    SERVICE / TRUST POINTS
+   Two across on mobile, four across on desktop. Glyphs, in Figma order: Social /
+   Customer Service, General / Fully Comprehensive (icons/ncd.svg — the repo
+   names the shield-and-tick differently from Figma), UI / Replace Refresh, and
+   General / NCD (icons/lock.svg — likewise the padlock).
    ------------------------------------------------------------ */
 
 .footer-sales__points {
   display:               grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap:            var(--spacer-20);
-  row-gap:               var(--spacer-16);
+  row-gap:               var(--gap-medium);      /* 16px */
   width:                 100%;
 }
 .footer-sales__point {
@@ -3888,8 +3925,8 @@ body { font-family: var(--font-family-base); }
 .footer-sales__point-icon svg { display: block; width: 100%; height: 100%; }
 .footer-sales__point-text {
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-subtitle-3);      /* 14px */
-  line-height: var(--line-height-subtitle-3);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);        /* 20px */
   color:       var(--text-on-color-fixed);
 }
 
@@ -3902,10 +3939,22 @@ body { font-family: var(--font-family-base); }
   margin:      0;
   width:       100%;
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-subtitle-4);      /* 12px */
-  line-height: var(--line-height-subtitle-4);
+  font-size:   var(--font-size-body-4);          /* 12px */
+  line-height: var(--line-height-body-4);        /* 16px */
   color:       var(--text-on-color-fixed);
   text-align:  left;
+}
+
+
+/* ------------------------------------------------------------
+   DESKTOP — service points on one row
+   ------------------------------------------------------------ */
+
+@container (min-width: 768px) {
+  .footer-sales__points {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap:            var(--gap-medium);    /* 16px */
+  }
 }
 
 
