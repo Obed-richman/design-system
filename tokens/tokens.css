@@ -34,6 +34,23 @@
    Primitive colours + semantic (Mode: Light/Dark) mirror
    the Figma Variables panel (source of truth).
    Dark mode is explicit via [data-theme="dark"].
+
+   Last checked against Figma variables: 2026-07-31. Updates applied:
+   • Primitives — Blue/Green/Orange/Red 40·30·20·10 tints refreshed
+     (+ derived alphas red-20-40, green-30-30).
+   • Semantics — surface-success → Green 60; border-error → Red 70;
+     border-warning-low → Orange 20; background-secondary-fixed → Grey 20;
+     overlay-light-fixed → White 40; overlay-dark-low → Black 80 @20%;
+     overlay-dark-fixed → Black 80 @40%.
+   • New tokens — rating/* (driver-score); surface *-low-fixed +
+     brand-2-low(-fixed) + brand-3-high; border brand-2-low/medium;
+     icon-glyph error/warning/success -medium·-high·-low, brand-2-*,
+     brand-3-high(-fixed), tertiary. (Mode-independent, like their siblings.)
+   • Dark mode: the Figma MCP resolves variables in LIGHT mode only (even
+     Dark-mode component variants read light), so dark values can't be
+     machine-read here. Verified the primitive tint changes touch no dark
+     override (dark uses steps 60–100 + specific alphas), so no dark edits
+     were required. Re-verify dark via the Variables REST API when syncing.
    ============================================ */
 
 body { font-family: var(--font-family-base); }
@@ -74,10 +91,10 @@ body { font-family: var(--font-family-base); }
   --colour-orange-70-10:  #D688001A;
   --colour-orange-60:     #F59B00;
   --colour-orange-50:     #FFB029;
-  --colour-orange-40:     #FBC362;
-  --colour-orange-30:     #F9D494;
-  --colour-orange-20:     #FAE3BD;
-  --colour-orange-10:     #FBF1E0;
+  --colour-orange-40:     #FBC86E;
+  --colour-orange-30:     #FADEAC;
+  --colour-orange-20:     #FBEACE;
+  --colour-orange-10:     #FCF6EB;
 
   /* --- Red --- */
   --colour-red-100:    #670303;
@@ -89,11 +106,11 @@ body { font-family: var(--font-family-base); }
   --colour-red-60:     #EB0000;
   --colour-red-50:     #FF2525;
   --colour-red-50-40:  #FF252566;
-  --colour-red-40:     #FB5454;
-  --colour-red-30:     #FA8282;
-  --colour-red-20:     #FCACAC;
-  --colour-red-20-40:  #FCACAC66;
-  --colour-red-10:     #FDD7D7;
+  --colour-red-40:     #FE6B6B;
+  --colour-red-30:     #FEA9A9;
+  --colour-red-20:     #FED8D8;
+  --colour-red-20-40:  #FED8D866;
+  --colour-red-10:     #FEE9E9;
 
   /* --- Ecru --- */
   --colour-ecru-10:  #FDFCFB;
@@ -147,10 +164,10 @@ body { font-family: var(--font-family-base); }
   --colour-blue-70:     #0887C3;
   --colour-blue-60:     #099FE5;
   --colour-blue-50:     #1CB0F6;
-  --colour-blue-40:     #49C0F8;
-  --colour-blue-30:     #77D0FA;
-  --colour-blue-20:     #A4DFFB;
-  --colour-blue-10:     #D2EFFD;
+  --colour-blue-40:     #73CEF9;
+  --colour-blue-30:     #A9E1FC;
+  --colour-blue-20:     #C7EBFD;
+  --colour-blue-10:     #E7F7FE;
 
   /* --- Green --- */
   --colour-green-100:    #025123;
@@ -161,11 +178,11 @@ body { font-family: var(--font-family-base); }
   --colour-green-70-50:  #05B14C80;
   --colour-green-60:     #05CC58;
   --colour-green-50:     #00E660;
-  --colour-green-40:     #23F97D;
-  --colour-green-30:     #5FF89F;
-  --colour-green-30-30:  #5FF89F4D;
-  --colour-green-20:     #96F8BF;
-  --colour-green-10:     #CEFAE0;
+  --colour-green-40:     #6EFBA9;
+  --colour-green-30:     #ABFBCD;
+  --colour-green-30-30:  #ABFBCD4D;
+  --colour-green-20:     #CDFCE1;
+  --colour-green-10:     #EAFDF2;
 
   /* --- Navy (blue family) --- */
   --colour-navy-100:   #00134C;
@@ -320,7 +337,7 @@ body { font-family: var(--font-family-base); }
   --background-inverse-fixed:   var(--colour-black-80);
   --background-disabled:        var(--colour-grey-50);
   --background-primary-fixed:   var(--colour-white);
-  --background-secondary-fixed: var(--colour-grey-30);
+  --background-secondary-fixed: var(--colour-grey-20);
   --background-tertiary-fixed:  var(--colour-ecru-20);
   --background-page:            var(--colour-grey-20);   /* app shell — not a Figma token */
 
@@ -339,13 +356,21 @@ body { font-family: var(--font-family-base); }
   --surface-active:             var(--colour-aqua-50);
   --surface-focus:              var(--colour-aqua-10);
   --surface-information:        var(--colour-blue-50);
-  --surface-success:            var(--colour-green-50);
+  --surface-success:            var(--colour-green-60);
   --surface-warning:            var(--colour-orange-50);
   --surface-error:              var(--colour-red-50);
   --surface-error-low:          var(--colour-red-10);
   --surface-warning-low:        var(--colour-orange-10);
   --surface-success-low:        var(--colour-green-10);
   --surface-information-low:    var(--colour-blue-10);
+  /* fixed (mode-independent) status + brand surfaces — new in Figma */
+  --surface-error-low-fixed:    var(--colour-red-10);
+  --surface-warning-low-fixed:  var(--colour-orange-10);
+  --surface-success-low-fixed:  var(--colour-green-10);
+  --surface-information-fixed:  var(--colour-blue-10);
+  --surface-brand-2-low:        var(--colour-purple-10);
+  --surface-brand-2-low-fixed:  var(--colour-purple-10);
+  --surface-brand-3-high:       var(--colour-navy-90);
 
   /* --- border --- */
   --border-primary:             var(--colour-grey-50);
@@ -358,14 +383,16 @@ body { font-family: var(--font-family-base); }
   --border-active:              var(--colour-aqua-60);
   --border-success:             var(--colour-green-70);
   --border-success-low:         var(--colour-green-20);
-  --border-error:               var(--colour-red-60);
+  --border-error:               var(--colour-red-70);
   --border-error-low:           var(--colour-red-20);
   --border-warning:             var(--colour-orange-70);
-  --border-warning-low:         var(--colour-orange-30);
+  --border-warning-low:         var(--colour-orange-20);
   --border-information:         var(--colour-blue-70);
   --border-information-low:     var(--colour-blue-20);
   --border-brand-1:             var(--colour-aqua-50);
   --border-brand-2:             var(--colour-purple-50);
+  --border-brand-2-low:         var(--colour-purple-20);   /* new in Figma */
+  --border-brand-2-medium:      var(--colour-purple-70);   /* new in Figma */
   --border-brand-3:             var(--colour-navy-50);
   --border-brand-4:             var(--colour-yellow-50);
 
@@ -383,15 +410,22 @@ body { font-family: var(--font-family-base); }
   --brand-4-medium: var(--colour-yellow-50);
   --brand-4-low:    var(--colour-yellow-10);
 
+  /* --- rating (driver score) — new in Figma --- */
+  --rating-excellent: var(--colour-green-50);    /* #00E660 */
+  --rating-great:     var(--colour-lime-50);      /* #AAFF64 */
+  --rating-good:      var(--colour-yellow-50);    /* #FCFF5F */
+  --rating-improving: var(--colour-orange-50);    /* #FFB029 */
+  --rating-risk:      var(--colour-red-50);        /* #FF2525 */
+
   /* --- overlay --- */
   --overlay-light-high:   var(--colour-white-80);
   --overlay-light-medium: var(--colour-white-40);
   --overlay-light-low:    var(--colour-white-30);
-  --overlay-light-fixed:  var(--colour-white-20);
-  --overlay-dark-fixed:   var(--colour-black-80-20);
+  --overlay-light-fixed:  var(--colour-white-40);
+  --overlay-dark-fixed:   var(--colour-black-80-40);
   --overlay-dark-high:    var(--colour-black-80-80);
   --overlay-dark-medium:  var(--colour-black-80-30);
-  --overlay-dark-low:     var(--colour-black-80-30);
+  --overlay-dark-low:     var(--colour-black-80-20);
 
   /* --- icon / glyph --- */
   --icon-glyph-primary:          var(--colour-black-80);
@@ -400,13 +434,29 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-disabled:         var(--colour-grey-70);
   --icon-glyph-pressed:          var(--colour-grey-80);
   --icon-glyph-on-color-pressed: var(--colour-grey-60);
-  --icon-glyph-error:            var(--colour-red-70);
-  --icon-glyph-warning:          var(--colour-orange-70);
-  --icon-glyph-success:          var(--colour-green-70);
+  --icon-glyph-error:            var(--colour-red-70);      /* = error-medium (kept as alias) */
+  --icon-glyph-warning:          var(--colour-orange-70);   /* = warning-medium (kept as alias) */
+  --icon-glyph-success:          var(--colour-green-70);    /* = success-medium (kept as alias) */
   --icon-glyph-information:      var(--colour-blue-70);
   --icon-glyph-active:           var(--colour-aqua-60);
   --icon-glyph-primary-fixed:    var(--colour-black-80);
   --icon-glyph-on-color-fixed:   var(--colour-white);
+  /* status scale + brand glyphs — new in Figma */
+  --icon-glyph-error-medium:       var(--colour-red-70);
+  --icon-glyph-error-high:         var(--colour-red-90);
+  --icon-glyph-error-low:          var(--colour-red-20);
+  --icon-glyph-warning-medium:     var(--colour-orange-70);
+  --icon-glyph-warning-high:       var(--colour-orange-90);
+  --icon-glyph-warning-low:        var(--colour-orange-20);
+  --icon-glyph-success-medium:     var(--colour-green-70);
+  --icon-glyph-success-high:       var(--colour-green-90);
+  --icon-glyph-success-low:        var(--colour-green-20);
+  --icon-glyph-tertiary:           var(--colour-ecru-20);
+  --icon-glyph-brand-2-high:       var(--colour-purple-90);
+  --icon-glyph-brand-2-medium:     var(--colour-purple-50);
+  --icon-glyph-brand-2-low:        var(--colour-purple-20);
+  --icon-glyph-brand-3-high:       var(--colour-navy-90);
+  --icon-glyph-brand-3-high-fixed: var(--colour-navy-90);
 
   /* --- icon / link --- */
   --icon-link-default:         var(--colour-purple-90);

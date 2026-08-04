@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bottom Nav — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="bottom-nav.css">
+  <style>
+    body { margin: 0; padding: 24px; background: var(--background-page); font-family: var(--font-family-base); }
+    .phone { max-width: 390px; margin: 0 auto; border: 1px solid var(--border-primary); border-radius: 16px; overflow: hidden; }
+  </style>
+  <script src="bottom-nav.js" defer></script>
+</head>
+<body>
+
+  <!-- Click a tab to make it active (its icon fills). -->
+  <div class="phone">
+    <nav class="bottom-nav">
+      <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page">
+        <span class="bottom-nav__icon">
+          <span class="bottom-nav__glyph bottom-nav__glyph--line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1.01)"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.7544 0.43524C10.4834 -0.14508 11.5166 -0.14508 12.2456 0.43524L21.2456 7.59955C21.7223 7.979 22 8.55504 22 9.16431V20.4718C22 21.3003 21.3284 21.9718 20.5 21.9718H15C14.1716 21.9718 13.5 21.3003 13.5 20.4718V14.9718H8.5V20.4718C8.5 21.3003 7.82843 21.9718 7 21.9718H1.5C0.671572 21.9718 0 21.3003 0 20.4718V9.16431C0 8.55504 0.277718 7.979 0.754396 7.59955L9.7544 0.43524ZM20 9.16431L11 2L2 9.16431L2 19.9718H6.5V14.4718C6.5 13.6434 7.17157 12.9718 8 12.9718H14C14.8284 12.9718 15.5 13.6434 15.5 14.4718V19.9718H20V9.16431Z" fill="currentColor"/></g></svg></span>
+          <span class="bottom-nav__glyph bottom-nav__glyph--fill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.2456 0.435798C11.5166 -0.145266 10.4834 -0.145266 9.7544 0.435798L0.754396 7.60929C0.277718 7.98923 0 8.56601 0 9.17605V20.4981C0 21.3276 0.671572 22 1.5 22H7C7.82843 22 8.5 21.3276 8.5 20.4981V14.991H13.5V20.4981C13.5 21.3276 14.1716 22 15 22H20.5C21.3284 22 22 21.3276 22 20.4981V9.17605C22 8.566 21.7223 7.98923 21.2456 7.60929L12.2456 0.435798Z" fill="currentColor"/></g></svg></span>
+        </span>
+        <span class="bottom-nav__label">Home</span>
+      </a>
+      <a class="bottom-nav__item" href="#">
+        <span class="bottom-nav__icon">
+          <span class="bottom-nav__glyph bottom-nav__glyph--line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path d="M10.5 6C10.2239 6 10 6.22386 10 6.5V15.5C10 15.7761 10.2239 16 10.5 16H11.5C11.7761 16 12 15.7761 12 15.5V6.5C12 6.22386 11.7761 6 11.5 6H10.5Z" fill="currentColor"/><path d="M6 12C6 11.7239 6.22386 11.5 6.5 11.5H7.5C7.77614 11.5 8 11.7239 8 12V15.5C8 15.7761 7.77614 16 7.5 16H6.5C6.22386 16 6 15.7761 6 15.5V12Z" fill="currentColor"/><path d="M14.5 8C14.2239 8 14 8.22386 14 8.5V15.5C14 15.7761 14.2239 16 14.5 16H15.5C15.7761 16 16 15.7761 16 15.5V8.5C16 8.22386 15.7761 8 15.5 8H14.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C2.23858 0 0 2.23858 0 5V17C0 19.7614 2.23858 22 5 22H17C19.7614 22 22 19.7614 22 17V5C22 2.23858 19.7614 0 17 0H5ZM2 5C2 3.34315 3.34315 2 5 2H17C18.6569 2 20 3.34315 20 5V17C20 18.6569 18.6569 20 17 20H5C3.34315 20 2 18.6569 2 17V5Z" fill="currentColor"/></g></svg></span>
+          <span class="bottom-nav__glyph bottom-nav__glyph--fill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5C0 2.23858 2.23858 0 5 0H17C19.7614 0 22 2.23858 22 5V17C22 19.7614 19.7614 22 17 22H5C2.23858 22 0 19.7614 0 17V5ZM10.5 6C10.2239 6 10 6.22386 10 6.5V15.5C10 15.7761 10.2239 16 10.5 16H11.5C11.7761 16 12 15.7761 12 15.5V6.5C12 6.22386 11.7761 6 11.5 6H10.5ZM6 12C6 11.7239 6.22386 11.5 6.5 11.5H7.5C7.77614 11.5 8 11.7239 8 12V15.5C8 15.7761 7.77614 16 7.5 16H6.5C6.22386 16 6 15.7761 6 15.5V12ZM14.5 8C14.2239 8 14 8.22386 14 8.5V15.5C14 15.7761 14.2239 16 14.5 16H15.5C15.7761 16 16 15.7761 16 15.5V8.5C16 8.22386 15.7761 8 15.5 8H14.5Z" fill="currentColor"/></g></svg></span>
+        </span>
+        <span class="bottom-nav__label">Insights</span>
+      </a>
+      <a class="bottom-nav__item" href="#">
+        <span class="bottom-nav__icon">
+          <span class="bottom-nav__glyph bottom-nav__glyph--line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path d="M13 9.5C13 9.77614 12.7761 10 12.5 10H5.5C5.22386 10 5 9.77614 5 9.5V8.5C5 8.22386 5.22386 8 5.5 8H12.5C12.7761 8 13 8.22386 13 8.5V9.5Z" fill="currentColor"/><path d="M10.5 14C10.7761 14 11 13.7761 11 13.5V12.5C11 12.2239 10.7761 12 10.5 12H5.5C5.22386 12 5 12.2239 5 12.5V13.5C5 13.7761 5.22386 14 5.5 14H10.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.895431 0.89543 0 2 0H10.4737C11.2548 0 12.005 0.304584 12.565 0.849015L17.0912 5.24955C17.6722 5.81439 18 6.59023 18 7.40053V20C18 21.1046 17.1046 22 16 22H2C0.895431 22 0 21.1046 0 20V2ZM10.4737 2L2 2V20L16 20V7.40053C16 7.13043 15.8907 6.87182 15.6971 6.68354L11.1708 2.28301C10.9842 2.10153 10.7341 2 10.4737 2Z" fill="currentColor"/></g></svg></span>
+          <span class="bottom-nav__glyph bottom-nav__glyph--fill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.895431 0.89543 0 2 0H10.4737C11.2548 0 12.005 0.304584 12.565 0.849015L17.0912 5.24955C17.6722 5.81439 18 6.59023 18 7.40053V20C18 21.1046 17.1046 22 16 22H2C0.895431 22 0 21.1046 0 20V2ZM13 9.5C13 9.77614 12.7761 10 12.5 10H5.5C5.22386 10 5 9.77614 5 9.5V8.5C5 8.22386 5.22386 8 5.5 8H12.5C12.7761 8 13 8.22386 13 8.5V9.5ZM11 13.5C11 13.7761 10.7761 14 10.5 14H5.5C5.22386 14 5 13.7761 5 13.5V12.5C5 12.2239 5.22386 12 5.5 12H10.5C10.7761 12 11 12.2239 11 12.5V13.5Z" fill="currentColor"/></g></svg></span>
+        </span>
+        <span class="bottom-nav__label">Policies</span>
+      </a>
+      <a class="bottom-nav__item" href="#">
+        <span class="bottom-nav__icon">
+          <span class="bottom-nav__glyph bottom-nav__glyph--line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.12,1.12)"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.22406 1.09568C9.96927 -0.374338 12.0729 -0.362655 12.8017 1.11555L21.5603 18.8794C22.2157 20.2086 21.2484 21.7639 19.7665 21.7639H2.00262C0.511013 21.7639 -0.455702 20.19 0.218748 18.8596L9.22406 1.09568ZM11.0079 2L2.00262 19.7639H19.7665L11.0079 2Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.3745 14.7639C10.0984 14.7639 9.87452 14.5197 9.87452 14.2184L9.87452 9.30935C9.87452 9.00811 10.0984 8.7639 10.3745 8.7639H11.3745C11.6507 8.7639 11.8745 9.00811 11.8745 9.30935V14.2184C11.8745 14.5197 11.6507 14.7639 11.3745 14.7639H10.3745Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.3745 17.7639C10.0984 17.7639 9.87452 17.5604 9.87452 17.3093L9.87452 16.2184C9.87452 15.9674 10.0984 15.7639 10.3745 15.7639H11.3745C11.6507 15.7639 11.8745 15.9674 11.8745 16.2184V17.3093C11.8745 17.5604 11.6507 17.7639 11.3745 17.7639H10.3745Z" fill="currentColor"/></g></svg></span>
+          <span class="bottom-nav__glyph bottom-nav__glyph--fill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.9375 1.12765C12.201 -0.366589 10.075 -0.378398 9.32191 1.10756L0.221068 19.0642C-0.460537 20.409 0.516434 22 2.02387 22H19.9762C21.4738 22 22.4513 20.4278 21.7891 19.0843L12.9375 1.12765ZM10.4846 14.9241C10.2055 14.9241 9.97927 14.6772 9.97927 14.3727V9.41036C9.97927 9.10585 10.2055 8.85899 10.4846 8.85899H11.4952C11.7743 8.85899 12.0005 9.10585 12.0005 9.41036V14.3727C12.0005 14.6772 11.7743 14.9241 11.4952 14.9241H10.4846ZM10.4846 17.9566C10.2055 17.9566 9.97927 17.7509 9.97927 17.4971V16.3944C9.97927 16.1406 10.2055 15.9349 10.4846 15.9349H11.4952C11.7743 15.9349 12.0005 16.1406 12.0005 16.3944V17.4971C12.0005 17.7509 11.7743 17.9566 11.4952 17.9566H10.4846Z" fill="currentColor"/></g></svg></span>
+        </span>
+        <span class="bottom-nav__label">Claims</span>
+      </a>
+      <a class="bottom-nav__item" href="#">
+        <span class="bottom-nav__icon">
+          <span class="bottom-nav__glyph bottom-nav__glyph--line"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,3)"><path fill-rule="evenodd" clip-rule="evenodd" d="M22 1.5C22 1.77614 21.7761 2 21.5 2H4.5C4.22386 2 4 1.77614 4 1.5V0.5C4 0.223858 4.22386 0 4.5 0H21.5C21.7761 0 22 0.223858 22 0.5V1.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 9.5C22 9.77614 21.7761 10 21.5 10H0.5C0.223858 10 0 9.77614 0 9.5V8.5C0 8.22386 0.223857 8 0.5 8H21.5C21.7761 8 22 8.22386 22 8.5V9.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 17.5C22 17.7761 21.7761 18 21.5 18H4.5C4.22386 18 4 17.7761 4 17.5V16.5C4 16.2239 4.22386 16 4.5 16H21.5C21.7761 16 22 16.2239 22 16.5V17.5Z" fill="currentColor"/></g></svg></span>
+          <span class="bottom-nav__glyph bottom-nav__glyph--fill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(0,0)"><path d="M6 2C5.44772 2 5 2.44772 5 3V5C5 5.55228 5.44772 6 6 6H22C22.5523 6 23 5.55228 23 5V3C23 2.44772 22.5523 2 22 2H6Z" fill="currentColor"/><path d="M1 11C1 10.4477 1.44772 10 2 10H22C22.5523 10 23 10.4477 23 11V13C23 13.5523 22.5523 14 22 14H2C1.44772 14 1 13.5523 1 13V11Z" fill="currentColor"/><path d="M5 19C5 18.4477 5.44772 18 6 18H22C22.5523 18 23 18.4477 23 19V21C23 21.5523 22.5523 22 22 22H6C5.44772 22 5 21.5523 5 21V19Z" fill="currentColor"/></g></svg></span>
+        </span>
+        <span class="bottom-nav__label">More</span>
+      </a>
+    </nav>
+  </div>
+
+</body>
+</html>

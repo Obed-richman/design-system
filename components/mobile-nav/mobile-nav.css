@@ -1,0 +1,184 @@
+/*
+ * ============================================================
+ * MOBILE TOP NAV  (in-app mobile chrome)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2646-7040
+ *
+ * The top chrome for the mobile app: an OS status bar (time + signal / wifi /
+ * battery), a nav bar with left & right toolbar slots (e.g. a profile avatar
+ * and a rewards pill), and an optional page title. A "stacked" variant renders
+ * the modal / web-view header — a drag grabber above a rounded sheet with a
+ * close control.
+ *
+ * NOT the desktop platform header — that's Top Navigation (top-nav).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="mobile-nav.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.mobile-nav {
+  width:       375px;
+  max-width:   100%;
+  box-sizing:  border-box;
+  background:  var(--background-primary);
+  color:       var(--text-primary);
+  font-family: 'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS BAR
+   ------------------------------------------------------------ */
+
+.mobile-nav__status {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  height:          44px;
+  padding:         0 var(--spacer-20) 0 var(--spacer-24);
+  box-sizing:      border-box;
+}
+.mobile-nav__time {
+  font-weight: var(--font-weight-bold);
+  font-size:   15px;
+  letter-spacing: -0.2px;
+}
+.mobile-nav__glyphs {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-4);
+  color:       var(--icon-glyph-primary);
+}
+.mobile-nav__glyphs svg { display: block; }
+
+
+/* ------------------------------------------------------------
+   NAV BAR  (left / right toolbar slots)
+   ------------------------------------------------------------ */
+
+.mobile-nav__bar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  min-height:      48px;
+  padding:         0 var(--spacer-16);
+  box-sizing:      border-box;
+}
+.mobile-nav__slot {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+}
+.mobile-nav__slot--right { justify-content: flex-end; }
+
+
+/* Profile avatar button — a bordered circle holding a 24px glyph */
+.mobile-nav__avatar {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           40px;
+  height:          40px;
+  padding:         0;
+  border:          var(--border-m) solid var(--border-on-light);
+  border-radius:   var(--radius-round);
+  background:      transparent;
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.mobile-nav__avatar svg { display: block; width: 22px; height: 22px; }
+
+
+/* Rewards pill — hexagon glyph + points balance */
+.mobile-nav__rewards {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacer-8);
+  height:        40px;
+  padding:       0 var(--spacer-16);
+  border:        var(--border-m) solid var(--border-on-light);
+  border-radius: var(--radius-round);
+  background:    transparent;
+  color:         var(--text-primary);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-3);   /* 14 / 20 */
+  line-height:   var(--line-height-subtitle-3);
+  cursor:        pointer;
+}
+.mobile-nav__rewards svg { display: block; width: 20px; height: 20px; }
+
+
+/* ------------------------------------------------------------
+   PAGE TITLE  (optional)
+   ------------------------------------------------------------ */
+
+.mobile-nav__title {
+  padding: var(--spacer-8) var(--spacer-16) 0;
+}
+.mobile-nav__title h1,
+.mobile-nav__title p {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4);      /* 20 */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.4px;
+}
+
+
+/* ------------------------------------------------------------
+   STACKED — modal / web-view header
+   A drag grabber sits above a rounded sheet with a close control.
+   Put .mobile-stack over your scrim; the sheet is the modal top.
+   ------------------------------------------------------------ */
+
+.mobile-stack {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  width:           375px;
+  max-width:       100%;
+  box-sizing:      border-box;
+  font-family:     'Modern Era', sans-serif;
+}
+
+.mobile-stack__grabber {
+  width:                  311px;
+  max-width:              calc(100% - 32px);
+  height:                 16px;
+  border-top-left-radius: var(--radius-medium);   /* 16px */
+  border-top-right-radius: var(--radius-medium);
+  background:             var(--overlay-light-medium);
+}
+
+.mobile-stack__sheet {
+  display:                 flex;
+  align-items:             center;
+  justify-content:         flex-end;
+  width:                   100%;
+  box-sizing:              border-box;
+  padding:                 var(--spacer-16) var(--spacer-16) 0;
+  background:              var(--background-primary);
+  border-top-left-radius:  var(--radius-x-large);  /* 32px */
+  border-top-right-radius: var(--radius-x-large);
+}
+
+.mobile-stack__close {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  padding:         0;
+  border:          none;
+  border-radius:   var(--radius-round);
+  background:      var(--surface-secondary);
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.mobile-stack__close svg { display: block; width: 20px; height: 20px; }
+.mobile-stack__close--bare { background: transparent; }

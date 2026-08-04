@@ -20,6 +20,7 @@
 @import url('../components/addons-section/addons-section.css');
 @import url('../components/alert/alert.css');
 @import url('../components/bounce/bounce.css');
+@import url('../components/bottom-nav/bottom-nav.css');
 @import url('../components/bullet-points/bullet-points.css');
 @import url('../components/button/button.css');
 @import url('../components/checkbox/checkbox.css');
@@ -37,6 +38,8 @@
 @import url('../components/footer-sales/footer-sales.css');
 @import url('../components/input/input.css');
 @import url('../components/marketing-banner/marketing-banner.css');
+@import url('../components/mobile-nav/mobile-nav.css');
+@import url('../components/tooltip/tooltip.css');
 @import url('../components/notice-toggle/notice-toggle.css');
 @import url('../components/number-item/number-item.css');
 @import url('../components/onboarding-header/onboarding-header.css');

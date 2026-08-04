@@ -92,6 +92,9 @@
   height:      16px;
   flex-shrink: 0;
 }
+/* Size the icon glyph to the box so SVGs render consistently even when the
+   <svg> itself carries no width/height (only a viewBox). */
+.btn__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------

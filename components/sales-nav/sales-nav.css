@@ -5,15 +5,36 @@
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57538-15188
  *
  * The onboarding / sales top bar: Zego logo + Trustpilot lock-up on the left,
- * a Help pill on the right, and the Onboarding Steps stepper beneath. Pressing
- * Help expands a "Call us" dropdown (phone number + opening hours) and swaps
- * the pill to Close.
+ * a Help pill on the right, and the Onboarding Steps stepper. Pressing Help
+ * expands a dropdown of contact options and swaps the pill to Close.
  *
- * Reuses Trustpilot stars and Onboarding Steps — link trustpilot.css and
- * onboarding-steps.css. Interactivity is handled by sales-nav.js.
+ * Breakpoints (Figma "Breakpoint" variant):
+ *   Mobile  (<1024px) — 72px header row (logo + Help pill), stepper on a
+ *                       second row below.
+ *   Desktop (≥1024px) — one 72px row: logo left and Help pill right inside a
+ *                       1200px container, stepper centred on the viewport
+ *                       (588px) and bottom-aligned in the same row.
+ * The dropdown is right-aligned to the Help pill at both breakpoints.
+ *
+ * Dropdown rows — "Call us" is always present. Figma's Chat / Customer ID /
+ * Log out booleans map to optional extra rows; add or drop the markup:
+ *   .sales-nav__row              — icon + title + subtitle (Call us, Chat)
+ *   .sales-nav__row--hours       — adds bottom padding for the hours box
+ *   .sales-nav__action           — quote reference + copy button
+ *   .sales-nav__row--button      — full-width button row (Log out)
+ * Rows are separated automatically by a 1px rule.
+ *
+ * Other Figma booleans:
+ *   .sales-nav--border  — 1px divider along the bottom edge ("Border")
+ *   drop .sales-nav__lockup to hide Trustpilot ("Trustpilot")
+ *   drop .sales-nav__steps to hide the stepper ("Steps")
+ *
+ * Reuses Trustpilot stars, Onboarding Steps and Button — link trustpilot.css,
+ * onboarding-steps.css and button.css. Interactivity: sales-nav.js.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../button/button.css">
  *   <link rel="stylesheet" href="../trustpilot/trustpilot.css">
  *   <link rel="stylesheet" href="../onboarding-steps/onboarding-steps.css">
  *   <link rel="stylesheet" href="sales-nav.css">
@@ -22,28 +43,43 @@
  */
 
 @import '../tokens/tokens.css';
+@import '../button/button.css';
 @import '../trustpilot/trustpilot.css';
 @import '../onboarding-steps/onboarding-steps.css';
 
 
 .sales-nav {
-  position:    relative;
-  width:       100%;
-  box-sizing:  border-box;
-  background:  var(--background-tertiary);        /* #f8f5f3 */
-  font-family: 'Modern Era', sans-serif;
+  position:       relative;
+  width:          100%;
+  box-sizing:     border-box;
+  background:     var(--background-tertiary);     /* #f8f5f3 */
+  font-family:    'Modern Era', sans-serif;
+
+  /* The breakpoint below is a container query, so the bar reacts to its own
+     width rather than the viewport's — it lays out correctly inside a narrow
+     column or a device frame on a wide screen. On mobile the two grid rows
+     stack exactly as block flow would; desktop overlaps them into one row. */
+  container-type: inline-size;
+  display:        grid;
+  grid-template-columns: 1fr;
 }
+
+/* "Border" boolean — hairline along the bottom edge */
+.sales-nav--border { border-bottom: var(--border-s) solid var(--border-primary); }
 
 
 /* ------------------------------------------------------------
    HEADER ROW
+   Logo + Trustpilot lock-up on the left, Help pill on the right,
+   both vertically centred in a 72px row.
    ------------------------------------------------------------ */
 
 .sales-nav__header {
   position:        relative;
   z-index:         2;
+  box-sizing:      border-box;
   display:         flex;
-  align-items:     flex-start;
+  align-items:     center;
   justify-content: space-between;
   gap:             var(--gap-medium);
   padding:         var(--spacer-12) var(--spacer-16) 0;   /* 12 top · 16 sides */
@@ -74,41 +110,30 @@
 
 /* ------------------------------------------------------------
    HELP / CLOSE PILL
+   A Tertiary Pill Button (transparent fill, Border/On-light outline) — the
+   markup composes on .btn.btn--tertiary.btn--pill.btn--small so hover, pressed
+   and focus states come from button.css. Only the 32px box and the Help ⇄ Close
+   swap live here.
    ------------------------------------------------------------ */
 
 .sales-nav__toggle {
-  display:       inline-flex;
-  align-items:   center;
-  gap:           var(--spacer-4);                /* 4px */
-  padding:       6px 12px;
-  margin:        0;
-  border:        var(--border-s) solid var(--border-on-light);
-  border-radius: var(--radius-round);
-  background:    transparent;
-  color:         var(--text-primary);
-  font-family:   'Modern Era', sans-serif;
-  font-weight:   var(--font-weight-bold);
-  font-size:     var(--font-size-body-3);        /* 14px */
-  line-height:   var(--line-height-body-3);
-  cursor:        pointer;
-  white-space:   nowrap;
-  transition:    background-color 150ms ease;
+  padding:     5px 10px 5px 14px;                /* → 32px tall, icon 10px from the edge */
+  flex-shrink: 0;
 }
-.sales-nav__toggle:hover { background: rgba(39, 37, 45, 0.05); }
-.sales-nav__toggle-icon { display: inline-flex; width: 16px; height: 16px; }
-.sales-nav__toggle-icon svg { display: block; width: 100%; height: 100%; }
 
 /* swap Help ⇄ Close labels/icons based on state */
 .sales-nav__toggle .sales-nav__close-label,
 .sales-nav__toggle .sales-nav__close-icon { display: none; }
 .sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__help-label,
 .sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__help-icon { display: none; }
-.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-label,
-.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-icon { display: inline-flex; }
+.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-label { display: inline; }
+.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-icon { display: flex; }
 
 
 /* ------------------------------------------------------------
    ONBOARDING STEPS SLOT
+   The slot owns the surrounding box only; label sizing comes from
+   onboarding-steps.css, restated at this component's own breakpoint below.
    ------------------------------------------------------------ */
 
 .sales-nav__steps {
@@ -116,59 +141,70 @@
   justify-content: center;
   padding:         var(--spacer-12) var(--spacer-16);
 }
-.sales-nav__steps .onboarding-steps { max-width: 343px; }
 
 
 /* ------------------------------------------------------------
-   CALL-US DROPDOWN
+   HELP DROPDOWN
+   Right-aligned to the Help pill; rows are separated by a 1px rule.
    ------------------------------------------------------------ */
 
 .sales-nav__panel {
   position:      absolute;
   top:           64px;
-  left:          50%;
-  transform:     translateX(-50%) translateY(-8px);
+  right:         var(--spacer-16);
   z-index:       5;
-  width:         343px;
-  max-width:     calc(100% - 32px);
+  width:         311px;
+  max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
-  background:    var(--surface-primary);          /* white */
+  overflow:      hidden;
+  background:    var(--background-primary);       /* white */
   border-radius: var(--radius-medium);            /* 16px */
-  box-shadow:    0 2px 6px rgba(39, 37, 45, 0.05),
-                 0 4px 16px rgba(39, 37, 45, 0.10);
-  padding:       0 0 var(--spacer-16);
+  box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
   opacity:       0;
   visibility:    hidden;
+  transform:     translateY(-8px);
   transition:    opacity 180ms ease, transform 180ms ease, visibility 180ms;
 }
 .sales-nav[data-expanded="true"] .sales-nav__panel {
   opacity:    1;
   visibility: visible;
-  transform:  translateX(-50%) translateY(0);
+  transform:  translateY(0);
 }
 
-.sales-nav__callus {
+/* 1px rule between consecutive rows */
+.sales-nav__panel > * + * { border-top: var(--border-s) solid var(--border-primary); }
+
+
+/* --- Row: icon + title + subtitle (Call us, Chat with us) --- */
+
+.sales-nav__row { padding: 0 var(--spacer-16); }
+.sales-nav__row--hours { padding-bottom: var(--spacer-16); }
+
+.sales-nav__row-main {
   display:     flex;
   gap:         var(--gap-medium);                /* 16px */
-  align-items: flex-start;
-  padding:     var(--spacer-16) var(--spacer-16) var(--spacer-12);
+  align-items: center;
+  padding:     var(--spacer-16) 0;
 }
-.sales-nav__callus-icon {
+.sales-nav__row-icon {
   flex-shrink: 0;
+  align-self:  flex-start;
   width:       16px;
   height:      16px;
   margin-top:  var(--spacer-4);
   color:       var(--icon-glyph-primary);
 }
-.sales-nav__callus-icon svg { display: block; width: 100%; height: 100%; }
-.sales-nav__callus-title {
+.sales-nav__row-icon svg { display: block; width: 100%; height: 100%; }
+
+.sales-nav__row-text { flex: 1 1 0; min-width: 0; }
+.sales-nav__row-title {
   margin:      0;
   font-weight: var(--font-weight-bold);
   font-size:   var(--font-size-subtitle-2);      /* 16px */
   line-height: var(--line-height-subtitle-2);
   color:       var(--text-primary);
 }
-.sales-nav__callus-number {
+.sales-nav__row-subtitle {
   margin:      2px 0 0;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);          /* 14px */
@@ -176,24 +212,101 @@
   color:       var(--text-pressed);
 }
 
+
+/* --- Opening hours box (Alerts) — sits inside the Call us row --- */
+
 .sales-nav__hours {
-  margin:        0 var(--spacer-16);
-  padding:       var(--spacer-8) var(--spacer-12);
+  padding:       var(--spacer-8) var(--gap-small);   /* 8px 12px */
   background:    var(--surface-tertiary-low);
-  border-radius: var(--radius-x-small);          /* 8px — Radius/Radius-8 */
-  border-radius: 8px;
+  border-radius: var(--radius-small);                /* 8px */
 }
 .sales-nav__hours-title {
   margin:      0 0 var(--spacer-4);
   font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-subtitle-4, 12px); /* 12px */
+  font-size:   var(--font-size-subtitle-4);      /* 12px */
   line-height: 16px;
   color:       var(--text-primary);
 }
 .sales-nav__hours-times {
   margin:      0;
   font-weight: var(--font-weight-regular);
-  font-size:   12px;
+  font-size:   var(--font-size-body-4);          /* 12px */
   line-height: 16px;
   color:       var(--text-primary);
+}
+
+
+/* --- Action: quote reference + copy button ("Customer ID") --- */
+
+.sales-nav__action {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  padding:        var(--spacer-16);
+}
+.sales-nav__action-label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+/* Composes on .btn.btn--secondary.btn--rounded — reference left, copy right */
+.sales-nav__action .btn {
+  width:           100%;
+  justify-content: space-between;
+}
+
+
+/* --- Row: full-width button ("Log out") --- */
+
+.sales-nav__row--button { padding: var(--spacer-16); }
+.sales-nav__row--button .btn { width: 100%; }
+
+
+/* ------------------------------------------------------------
+   MOBILE — stepper on its own row, 14px labels
+   onboarding-steps.css sizes its labels off the viewport, so the bar restates
+   the small size at its own breakpoint to keep the two in step.
+   ------------------------------------------------------------ */
+
+@container (max-width: 1023px) {
+  .sales-nav__steps .onboarding-steps { gap: var(--gap-x-small); }   /* 8px */
+  .sales-nav__steps .onboarding-steps__label {
+    font-size:   var(--font-size-subtitle-3);    /* 14px */
+    line-height: var(--line-height-subtitle-3);
+  }
+}
+
+
+/* ------------------------------------------------------------
+   DESKTOP — single 72px row
+   The header row is capped to a 1200px content box; the stepper is 588px wide,
+   centred and bottom-aligned, sharing the header's grid cell.
+   ------------------------------------------------------------ */
+
+@container (min-width: 1024px) {
+  .sales-nav__header {
+    grid-row:   1;
+    grid-column: 1;
+    align-self: start;
+    width:      100%;
+    max-width:  calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+    margin:     0 auto;
+  }
+
+  .sales-nav__steps {
+    grid-row:   1;
+    grid-column: 1;
+    align-self: end;
+    width:      588px;
+    max-width:  100%;
+    margin:     0 auto;
+    padding:    var(--spacer-12) 0;
+  }
+
+  .sales-nav__panel {
+    top:   62px;
+    width: 320px;
+  }
 }

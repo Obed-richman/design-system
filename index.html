@@ -58,6 +58,9 @@
   <link rel="stylesheet" href="components/aggregator-partners/aggregator-partners.css">
   <link rel="stylesheet" href="components/driving-licence/driving-licence.css">
   <link rel="stylesheet" href="components/marketing-banner/marketing-banner.css">
+  <link rel="stylesheet" href="components/bottom-nav/bottom-nav.css">
+  <link rel="stylesheet" href="components/mobile-nav/mobile-nav.css">
+  <link rel="stylesheet" href="components/tooltip/tooltip.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -176,6 +179,9 @@
     .card__preview .footer-sales,
     .card__preview .driving-licence,
     .card__preview .marketing-banner,
+    .card__preview .bottom-nav,
+    .card__preview .mobile-nav,
+    .card__preview .tooltip,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -578,7 +584,7 @@
       },
       {
         name: "Sales Navigation",
-        description: "Onboarding top bar with Zego logo, Trustpilot, a Help/Call-us dropdown and progress steps.",
+        description: "Onboarding top bar with Zego logo, Trustpilot, a Help dropdown and progress steps. Responsive mobile / desktop layouts.",
         page: "components/sales-nav/sales-nav.html",
         preview: `
           <div class="sales-nav" data-expanded="false" style="width:320px; border-radius:12px; overflow:hidden">
@@ -596,13 +602,13 @@
                   <span class="sales-nav__lockup-text">Trustpilot</span>
                 </span>
               </div>
-              <span class="sales-nav__toggle" style="pointer-events:none">
+              <span class="btn btn--tertiary btn--pill btn--small sales-nav__toggle" style="pointer-events:none">
                 <span class="sales-nav__help-label">Help</span>
-                <span class="sales-nav__toggle-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 13v-1a8 8 0 0116 0v1M4 13a2 2 0 012 2v2a2 2 0 01-4 0v-2a2 2 0 012-2zm16 0a2 2 0 012 2v2a2 2 0 01-2 2m0 0a4 4 0 01-4 4h-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="btn__icon sales-nav__toggle-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.00213C12.0829 1.00071 12.1663 1 12.25 1V1.00856C19.0739 1.24348 23.1632 6.2782 22.7173 11.4488L22.717 11.4524L22.121 18.0894L22.1109 18.0885L22.0191 19.4055C21.8839 21.3447 20.4441 23.2081 18.3922 22.9828L18.2643 22.9687C18.2412 22.9661 18.2183 22.9634 18.1955 22.9603C18.1354 22.9859 18.0694 23 18 23H11.5C11.2239 23 11 22.7761 11 22.5V21.5C11 21.2239 11.2239 21 11.5 21H15.6833C15.357 20.3104 15.2076 19.516 15.2614 18.7435L15.481 15.5946C15.6162 13.6555 17.0557 11.7921 19.1075 12.0173L19.2359 12.0314C19.7546 12.0884 20.2154 12.2702 20.6111 12.542L20.7247 11.277L20.7248 11.2753C21.0646 7.32398 17.9135 3.11781 12 3.00243C6.08686 3.1178 2.93585 7.32341 3.27512 11.2745L3.27534 11.277L3.39097 12.5405C3.78621 12.2695 4.24632 12.0883 4.76405 12.0314L4.89249 12.0173C6.94429 11.7921 8.38377 13.6555 8.51899 15.5946L8.73855 18.7435C8.87341 20.6777 7.73363 22.7495 5.73571 22.9687L5.60777 22.9828C3.55592 23.2081 2.11615 21.3447 1.98094 19.4055L1.88057 17.966L1.87913 17.9661L1.2832 11.4541L1.28274 11.4488C0.836796 6.2782 4.92615 1.24348 11.75 1.00856V1C11.8337 1 11.9171 1.00071 12 1.00213ZM5.11081 14.0054L4.98246 14.0195C4.42095 14.0811 3.66749 14.8404 3.75653 16.1174L3.97609 19.2663C4.06477 20.5381 4.88124 21.0502 5.3887 20.9948L5.51713 20.9806C6.07852 20.9191 6.83244 20.1597 6.74339 18.8826L6.52383 15.7338C6.43514 14.4618 5.6183 13.9497 5.11081 14.0054ZM19.0175 14.0195L18.8892 14.0054C18.3817 13.9497 17.5649 14.4618 17.4762 15.7338L17.2566 18.8826C17.1676 20.1597 17.9215 20.9191 18.4829 20.9806L18.6113 20.9948C19.1188 21.0502 19.9352 20.5381 20.0239 19.2663L20.2435 16.1174C20.3325 14.8404 19.579 14.0811 19.0175 14.0195Z" fill="currentColor"/></svg></span>
               </span>
             </div>
             <div class="sales-nav__steps">
-              <div class="onboarding-steps onboarding-steps--compact">
+              <div class="onboarding-steps">
                 <div class="onboarding-steps__step onboarding-steps__step--current"><span class="onboarding-steps__label">Vehicle</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
                 <div class="onboarding-steps__step"><span class="onboarding-steps__label">Driver</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
                 <div class="onboarding-steps__step"><span class="onboarding-steps__label">Quote</span><span class="onboarding-steps__track"><span class="onboarding-steps__fill"></span></span></div>
@@ -1187,6 +1193,60 @@
             </div>
             <div class="marketing-banner__image"></div>
           </div>
+        `
+      },
+      {
+        name: "Bottom Nav",
+        description: "Mobile bottom navigation — icon + label per tab, filled icon for the active tab. Android bar and iOS Liquid Glass variants.",
+        page: "components/bottom-nav/bottom-nav.html",
+        preview: `
+          <nav class="bottom-nav" style="max-width:320px;border-radius:12px;border:1px solid var(--border-primary)">
+            <span class="bottom-nav__item bottom-nav__item--active">
+              <span class="bottom-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.2456 0.435798C11.5166 -0.145266 10.4834 -0.145266 9.7544 0.435798L0.754396 7.60929C0.277718 7.98923 0 8.56601 0 9.17605V20.4981C0 21.3276 0.671572 22 1.5 22H7C7.82843 22 8.5 21.3276 8.5 20.4981V14.991H13.5V20.4981C13.5 21.3276 14.1716 22 15 22H20.5C21.3284 22 22 21.3276 22 20.4981V9.17605C22 8.566 21.7223 7.98923 21.2456 7.60929L12.2456 0.435798Z" fill="currentColor"/></g></svg></span>
+              <span class="bottom-nav__label">Home</span>
+            </span>
+            <span class="bottom-nav__item">
+              <span class="bottom-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path d="M10.5 6C10.2239 6 10 6.22386 10 6.5V15.5C10 15.7761 10.2239 16 10.5 16H11.5C11.7761 16 12 15.7761 12 15.5V6.5C12 6.22386 11.7761 6 11.5 6H10.5Z" fill="currentColor"/><path d="M6 12C6 11.7239 6.22386 11.5 6.5 11.5H7.5C7.77614 11.5 8 11.7239 8 12V15.5C8 15.7761 7.77614 16 7.5 16H6.5C6.22386 16 6 15.7761 6 15.5V12Z" fill="currentColor"/><path d="M14.5 8C14.2239 8 14 8.22386 14 8.5V15.5C14 15.7761 14.2239 16 14.5 16H15.5C15.7761 16 16 15.7761 16 15.5V8.5C16 8.22386 15.7761 8 15.5 8H14.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C2.23858 0 0 2.23858 0 5V17C0 19.7614 2.23858 22 5 22H17C19.7614 22 22 19.7614 22 17V5C22 2.23858 19.7614 0 17 0H5ZM2 5C2 3.34315 3.34315 2 5 2H17C18.6569 2 20 3.34315 20 5V17C20 18.6569 18.6569 20 17 20H5C3.34315 20 2 18.6569 2 17V5Z" fill="currentColor"/></g></svg></span>
+              <span class="bottom-nav__label">Insights</span>
+            </span>
+            <span class="bottom-nav__item">
+              <span class="bottom-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path d="M13 9.5C13 9.77614 12.7761 10 12.5 10H5.5C5.22386 10 5 9.77614 5 9.5V8.5C5 8.22386 5.22386 8 5.5 8H12.5C12.7761 8 13 8.22386 13 8.5V9.5Z" fill="currentColor"/><path d="M10.5 14C10.7761 14 11 13.7761 11 13.5V12.5C11 12.2239 10.7761 12 10.5 12H5.5C5.22386 12 5 12.2239 5 12.5V13.5C5 13.7761 5.22386 14 5.5 14H10.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.895431 0.89543 0 2 0H10.4737C11.2548 0 12.005 0.304584 12.565 0.849015L17.0912 5.24955C17.6722 5.81439 18 6.59023 18 7.40053V20C18 21.1046 17.1046 22 16 22H2C0.895431 22 0 21.1046 0 20V2ZM10.4737 2L2 2V20L16 20V7.40053C16 7.13043 15.8907 6.87182 15.6971 6.68354L11.1708 2.28301C10.9842 2.10153 10.7341 2 10.4737 2Z" fill="currentColor"/></g></svg></span>
+              <span class="bottom-nav__label">Policies</span>
+            </span>
+            <span class="bottom-nav__item">
+              <span class="bottom-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,3)"><path fill-rule="evenodd" clip-rule="evenodd" d="M22 1.5C22 1.77614 21.7761 2 21.5 2H4.5C4.22386 2 4 1.77614 4 1.5V0.5C4 0.223858 4.22386 0 4.5 0H21.5C21.7761 0 22 0.223858 22 0.5V1.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 9.5C22 9.77614 21.7761 10 21.5 10H0.5C0.223858 10 0 9.77614 0 9.5V8.5C0 8.22386 0.223857 8 0.5 8H21.5C21.7761 8 22 8.22386 22 8.5V9.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 17.5C22 17.7761 21.7761 18 21.5 18H4.5C4.22386 18 4 17.7761 4 17.5V16.5C4 16.2239 4.22386 16 4.5 16H21.5C21.7761 16 22 16.2239 22 16.5V17.5Z" fill="currentColor"/></g></svg></span>
+              <span class="bottom-nav__label">More</span>
+            </span>
+          </nav>
+        `
+      },
+      {
+        name: "Mobile Top Nav",
+        description: "In-app mobile chrome — status bar, nav bar with profile and rewards, page title, plus a stacked modal header.",
+        page: "components/mobile-nav/mobile-nav.html",
+        preview: `
+          <div class="mobile-nav" style="width:300px;border:1px solid var(--border-primary);border-radius:16px;overflow:hidden">
+            <div class="mobile-nav__status">
+              <span class="mobile-nav__time">9:41</span>
+              <span class="mobile-nav__glyphs">
+                <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor" aria-hidden="true"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+                <svg width="27" height="13" viewBox="0 0 27 13" fill="none" aria-hidden="true"><rect x="0.75" y="0.75" width="22" height="11.5" rx="3" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.5"/><rect x="2.5" y="2.5" width="14" height="8" rx="1.5" fill="currentColor"/><path d="M24.5 4.3c.9.3 1.5 1.1 1.5 2.2s-.6 1.9-1.5 2.2V4.3Z" fill="currentColor" fill-opacity="0.4"/></svg>
+              </span>
+            </div>
+            <div class="mobile-nav__bar">
+              <div class="mobile-nav__slot"><span class="mobile-nav__avatar"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.25" stroke="currentColor" stroke-width="2"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+              <div class="mobile-nav__slot mobile-nav__slot--right"><span class="mobile-nav__rewards"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.66,0.75)"><path d="M8.43555 1.51341C9.61476 0.829312 11.0698 0.829293 12.249 1.51341L17.791 4.72825C18.9629 5.40809 19.6846 6.6606 19.6846 8.01536V14.4861C19.6846 15.8408 18.9629 17.0933 17.791 17.7732L12.249 20.988C11.0698 21.6721 9.61476 21.6721 8.43555 20.988L2.89355 17.7732C1.72172 17.0933 1 15.8408 1 14.4861V8.01536C1 6.6606 1.72172 5.40809 2.89355 4.72825L8.43555 1.51341Z" stroke="currentColor" stroke-width="2"/></g></svg>0,000</span></div>
+            </div>
+            <div class="mobile-nav__title"><h1>Page title</h1></div>
+          </div>
+        `
+      },
+      {
+        name: "Tooltip",
+        description: "Dark bubble with a directional arrow (up / down / left / right) that points back to its trigger.",
+        page: "components/tooltip/tooltip.html",
+        preview: `
+          <div class="tooltip tooltip--down" style="max-width:240px"><p class="tooltip__text">Drive well and keep your discount for next year.</p></div>
         `
       }
     ];

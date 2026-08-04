@@ -1,0 +1,151 @@
+/*
+ * ============================================================
+ * BOTTOM NAV  (mobile bottom navigation bar + items)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2265-10389
+ *
+ * A mobile bottom navigation bar. Each item is a 24px icon above a 12px bold
+ * label. The active item uses the FILLED icon (swap the SVG) and carries
+ * .bottom-nav__item--active + aria-current; inactive items use the OUTLINE
+ * icon. Colours come from --text-primary, so both states flip automatically
+ * in dark mode.
+ *
+ * Tabs available (outline + filled icon each): Home, Insights, Policies,
+ * Documents, Discover, Claims, Rewards, More.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="bottom-nav.css">
+ *
+ *   <nav class="bottom-nav">
+ *     <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page">
+ *       <span class="bottom-nav__icon"><!-- filled icon --></span>
+ *       <span class="bottom-nav__label">Home</span>
+ *     </a>
+ *     <a class="bottom-nav__item" href="#">
+ *       <span class="bottom-nav__icon"><!-- outline icon --></span>
+ *       <span class="bottom-nav__label">Insights</span>
+ *     </a>
+ *   </nav>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.bottom-nav {
+  display:         flex;
+  align-items:     stretch;
+  justify-content: space-around;
+  gap:             var(--spacer-4);
+  width:           100%;
+  box-sizing:      border-box;
+  padding:         var(--spacer-8) var(--spacer-8);
+  background:      var(--background-primary);
+  border-top:      var(--border-s) solid var(--border-primary);
+  font-family:     'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   ITEM
+   ------------------------------------------------------------ */
+
+.bottom-nav__item {
+  flex:            1 1 0;
+  min-width:       0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             0;
+  padding:         var(--spacer-4) 0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  text-decoration: none;
+  color:           var(--text-primary);
+}
+
+.bottom-nav__item:focus-visible {
+  outline:        none;
+  border-radius:  var(--radius-small);
+  box-shadow:     var(--shadow-focus);
+}
+
+.bottom-nav__icon {
+  display: block;
+  width:   24px;
+  height:  24px;
+  color:   var(--icon-glyph-primary);   /* dark on light, white on dark */
+}
+.bottom-nav__icon svg { display: block; width: 100%; height: 100%; }
+
+/* When an item carries both glyphs (for interactive toggling), show the
+   outline by default and swap to the filled one once the item is active. */
+.bottom-nav__glyph { display: none; width: 100%; height: 100%; }
+.bottom-nav__glyph--line { display: block; }
+.bottom-nav__item--active .bottom-nav__glyph--line { display: none; }
+.bottom-nav__item--active .bottom-nav__glyph--fill { display: block; }
+
+.bottom-nav__label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);   /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+  white-space: nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   ANDROID (default) sits flush with a top border and a safe-area
+   bottom inset. Nothing extra needed beyond the base .bottom-nav.
+   Use --center for a Standard product with only a couple of tabs.
+   ------------------------------------------------------------ */
+
+.bottom-nav--center {
+  justify-content: center;
+  gap:             var(--spacer-32);
+}
+.bottom-nav--center .bottom-nav__item {
+  flex:      0 0 auto;
+  min-width: 62px;
+}
+
+
+/* ------------------------------------------------------------
+   iOS — "Liquid Glass" floating bar
+   No top border; the tabs sit inside a translucent, blurred pill
+   that floats over the content. The active tab gets a soft pill
+   highlight behind it (instead of Android's icon-only fill).
+   ------------------------------------------------------------ */
+
+.bottom-nav--ios {
+  justify-content: center;
+  background:      transparent;
+  border-top:      none;
+  padding:         0 var(--spacer-16) var(--spacer-16);
+}
+
+.bottom-nav__glass {
+  display:                 flex;
+  flex:                    1 1 auto;
+  align-items:             center;
+  justify-content:         space-between;
+  gap:                     var(--spacer-4);
+  padding:                 var(--spacer-4);
+  border-radius:           var(--radius-round);
+  background:              var(--overlay-light-medium);
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  box-shadow:              0 1px 16px rgba(0, 0, 0, 0.08);
+}
+
+.bottom-nav--ios .bottom-nav__item {
+  flex:          1 1 0;
+  padding:       var(--spacer-8) var(--spacer-4);
+  border-radius: var(--radius-round);
+}
+.bottom-nav--ios .bottom-nav__item--active {
+  background: var(--overlay-dark-low);
+}

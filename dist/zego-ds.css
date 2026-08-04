@@ -37,6 +37,23 @@
    Primitive colours + semantic (Mode: Light/Dark) mirror
    the Figma Variables panel (source of truth).
    Dark mode is explicit via [data-theme="dark"].
+
+   Last checked against Figma variables: 2026-07-31. Updates applied:
+   • Primitives — Blue/Green/Orange/Red 40·30·20·10 tints refreshed
+     (+ derived alphas red-20-40, green-30-30).
+   • Semantics — surface-success → Green 60; border-error → Red 70;
+     border-warning-low → Orange 20; background-secondary-fixed → Grey 20;
+     overlay-light-fixed → White 40; overlay-dark-low → Black 80 @20%;
+     overlay-dark-fixed → Black 80 @40%.
+   • New tokens — rating/* (driver-score); surface *-low-fixed +
+     brand-2-low(-fixed) + brand-3-high; border brand-2-low/medium;
+     icon-glyph error/warning/success -medium·-high·-low, brand-2-*,
+     brand-3-high(-fixed), tertiary. (Mode-independent, like their siblings.)
+   • Dark mode: the Figma MCP resolves variables in LIGHT mode only (even
+     Dark-mode component variants read light), so dark values can't be
+     machine-read here. Verified the primitive tint changes touch no dark
+     override (dark uses steps 60–100 + specific alphas), so no dark edits
+     were required. Re-verify dark via the Variables REST API when syncing.
    ============================================ */
 
 body { font-family: var(--font-family-base); }
@@ -77,10 +94,10 @@ body { font-family: var(--font-family-base); }
   --colour-orange-70-10:  #D688001A;
   --colour-orange-60:     #F59B00;
   --colour-orange-50:     #FFB029;
-  --colour-orange-40:     #FBC362;
-  --colour-orange-30:     #F9D494;
-  --colour-orange-20:     #FAE3BD;
-  --colour-orange-10:     #FBF1E0;
+  --colour-orange-40:     #FBC86E;
+  --colour-orange-30:     #FADEAC;
+  --colour-orange-20:     #FBEACE;
+  --colour-orange-10:     #FCF6EB;
 
   /* --- Red --- */
   --colour-red-100:    #670303;
@@ -92,11 +109,11 @@ body { font-family: var(--font-family-base); }
   --colour-red-60:     #EB0000;
   --colour-red-50:     #FF2525;
   --colour-red-50-40:  #FF252566;
-  --colour-red-40:     #FB5454;
-  --colour-red-30:     #FA8282;
-  --colour-red-20:     #FCACAC;
-  --colour-red-20-40:  #FCACAC66;
-  --colour-red-10:     #FDD7D7;
+  --colour-red-40:     #FE6B6B;
+  --colour-red-30:     #FEA9A9;
+  --colour-red-20:     #FED8D8;
+  --colour-red-20-40:  #FED8D866;
+  --colour-red-10:     #FEE9E9;
 
   /* --- Ecru --- */
   --colour-ecru-10:  #FDFCFB;
@@ -150,10 +167,10 @@ body { font-family: var(--font-family-base); }
   --colour-blue-70:     #0887C3;
   --colour-blue-60:     #099FE5;
   --colour-blue-50:     #1CB0F6;
-  --colour-blue-40:     #49C0F8;
-  --colour-blue-30:     #77D0FA;
-  --colour-blue-20:     #A4DFFB;
-  --colour-blue-10:     #D2EFFD;
+  --colour-blue-40:     #73CEF9;
+  --colour-blue-30:     #A9E1FC;
+  --colour-blue-20:     #C7EBFD;
+  --colour-blue-10:     #E7F7FE;
 
   /* --- Green --- */
   --colour-green-100:    #025123;
@@ -164,11 +181,11 @@ body { font-family: var(--font-family-base); }
   --colour-green-70-50:  #05B14C80;
   --colour-green-60:     #05CC58;
   --colour-green-50:     #00E660;
-  --colour-green-40:     #23F97D;
-  --colour-green-30:     #5FF89F;
-  --colour-green-30-30:  #5FF89F4D;
-  --colour-green-20:     #96F8BF;
-  --colour-green-10:     #CEFAE0;
+  --colour-green-40:     #6EFBA9;
+  --colour-green-30:     #ABFBCD;
+  --colour-green-30-30:  #ABFBCD4D;
+  --colour-green-20:     #CDFCE1;
+  --colour-green-10:     #EAFDF2;
 
   /* --- Navy (blue family) --- */
   --colour-navy-100:   #00134C;
@@ -323,7 +340,7 @@ body { font-family: var(--font-family-base); }
   --background-inverse-fixed:   var(--colour-black-80);
   --background-disabled:        var(--colour-grey-50);
   --background-primary-fixed:   var(--colour-white);
-  --background-secondary-fixed: var(--colour-grey-30);
+  --background-secondary-fixed: var(--colour-grey-20);
   --background-tertiary-fixed:  var(--colour-ecru-20);
   --background-page:            var(--colour-grey-20);   /* app shell — not a Figma token */
 
@@ -342,13 +359,21 @@ body { font-family: var(--font-family-base); }
   --surface-active:             var(--colour-aqua-50);
   --surface-focus:              var(--colour-aqua-10);
   --surface-information:        var(--colour-blue-50);
-  --surface-success:            var(--colour-green-50);
+  --surface-success:            var(--colour-green-60);
   --surface-warning:            var(--colour-orange-50);
   --surface-error:              var(--colour-red-50);
   --surface-error-low:          var(--colour-red-10);
   --surface-warning-low:        var(--colour-orange-10);
   --surface-success-low:        var(--colour-green-10);
   --surface-information-low:    var(--colour-blue-10);
+  /* fixed (mode-independent) status + brand surfaces — new in Figma */
+  --surface-error-low-fixed:    var(--colour-red-10);
+  --surface-warning-low-fixed:  var(--colour-orange-10);
+  --surface-success-low-fixed:  var(--colour-green-10);
+  --surface-information-fixed:  var(--colour-blue-10);
+  --surface-brand-2-low:        var(--colour-purple-10);
+  --surface-brand-2-low-fixed:  var(--colour-purple-10);
+  --surface-brand-3-high:       var(--colour-navy-90);
 
   /* --- border --- */
   --border-primary:             var(--colour-grey-50);
@@ -361,14 +386,16 @@ body { font-family: var(--font-family-base); }
   --border-active:              var(--colour-aqua-60);
   --border-success:             var(--colour-green-70);
   --border-success-low:         var(--colour-green-20);
-  --border-error:               var(--colour-red-60);
+  --border-error:               var(--colour-red-70);
   --border-error-low:           var(--colour-red-20);
   --border-warning:             var(--colour-orange-70);
-  --border-warning-low:         var(--colour-orange-30);
+  --border-warning-low:         var(--colour-orange-20);
   --border-information:         var(--colour-blue-70);
   --border-information-low:     var(--colour-blue-20);
   --border-brand-1:             var(--colour-aqua-50);
   --border-brand-2:             var(--colour-purple-50);
+  --border-brand-2-low:         var(--colour-purple-20);   /* new in Figma */
+  --border-brand-2-medium:      var(--colour-purple-70);   /* new in Figma */
   --border-brand-3:             var(--colour-navy-50);
   --border-brand-4:             var(--colour-yellow-50);
 
@@ -386,15 +413,22 @@ body { font-family: var(--font-family-base); }
   --brand-4-medium: var(--colour-yellow-50);
   --brand-4-low:    var(--colour-yellow-10);
 
+  /* --- rating (driver score) — new in Figma --- */
+  --rating-excellent: var(--colour-green-50);    /* #00E660 */
+  --rating-great:     var(--colour-lime-50);      /* #AAFF64 */
+  --rating-good:      var(--colour-yellow-50);    /* #FCFF5F */
+  --rating-improving: var(--colour-orange-50);    /* #FFB029 */
+  --rating-risk:      var(--colour-red-50);        /* #FF2525 */
+
   /* --- overlay --- */
   --overlay-light-high:   var(--colour-white-80);
   --overlay-light-medium: var(--colour-white-40);
   --overlay-light-low:    var(--colour-white-30);
-  --overlay-light-fixed:  var(--colour-white-20);
-  --overlay-dark-fixed:   var(--colour-black-80-20);
+  --overlay-light-fixed:  var(--colour-white-40);
+  --overlay-dark-fixed:   var(--colour-black-80-40);
   --overlay-dark-high:    var(--colour-black-80-80);
   --overlay-dark-medium:  var(--colour-black-80-30);
-  --overlay-dark-low:     var(--colour-black-80-30);
+  --overlay-dark-low:     var(--colour-black-80-20);
 
   /* --- icon / glyph --- */
   --icon-glyph-primary:          var(--colour-black-80);
@@ -403,13 +437,29 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-disabled:         var(--colour-grey-70);
   --icon-glyph-pressed:          var(--colour-grey-80);
   --icon-glyph-on-color-pressed: var(--colour-grey-60);
-  --icon-glyph-error:            var(--colour-red-70);
-  --icon-glyph-warning:          var(--colour-orange-70);
-  --icon-glyph-success:          var(--colour-green-70);
+  --icon-glyph-error:            var(--colour-red-70);      /* = error-medium (kept as alias) */
+  --icon-glyph-warning:          var(--colour-orange-70);   /* = warning-medium (kept as alias) */
+  --icon-glyph-success:          var(--colour-green-70);    /* = success-medium (kept as alias) */
   --icon-glyph-information:      var(--colour-blue-70);
   --icon-glyph-active:           var(--colour-aqua-60);
   --icon-glyph-primary-fixed:    var(--colour-black-80);
   --icon-glyph-on-color-fixed:   var(--colour-white);
+  /* status scale + brand glyphs — new in Figma */
+  --icon-glyph-error-medium:       var(--colour-red-70);
+  --icon-glyph-error-high:         var(--colour-red-90);
+  --icon-glyph-error-low:          var(--colour-red-20);
+  --icon-glyph-warning-medium:     var(--colour-orange-70);
+  --icon-glyph-warning-high:       var(--colour-orange-90);
+  --icon-glyph-warning-low:        var(--colour-orange-20);
+  --icon-glyph-success-medium:     var(--colour-green-70);
+  --icon-glyph-success-high:       var(--colour-green-90);
+  --icon-glyph-success-low:        var(--colour-green-20);
+  --icon-glyph-tertiary:           var(--colour-ecru-20);
+  --icon-glyph-brand-2-high:       var(--colour-purple-90);
+  --icon-glyph-brand-2-medium:     var(--colour-purple-50);
+  --icon-glyph-brand-2-low:        var(--colour-purple-20);
+  --icon-glyph-brand-3-high:       var(--colour-navy-90);
+  --icon-glyph-brand-3-high-fixed: var(--colour-navy-90);
 
   /* --- icon / link --- */
   --icon-link-default:         var(--colour-purple-90);
@@ -1370,6 +1420,157 @@ body { font-family: var(--font-family-base); }
 /* Neutral uses the base defaults (white surface, grey border, dark icon). */
 
 
+/* ==== components/bottom-nav/bottom-nav.css ==== */
+/*
+ * ============================================================
+ * BOTTOM NAV  (mobile bottom navigation bar + items)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2265-10389
+ *
+ * A mobile bottom navigation bar. Each item is a 24px icon above a 12px bold
+ * label. The active item uses the FILLED icon (swap the SVG) and carries
+ * .bottom-nav__item--active + aria-current; inactive items use the OUTLINE
+ * icon. Colours come from --text-primary, so both states flip automatically
+ * in dark mode.
+ *
+ * Tabs available (outline + filled icon each): Home, Insights, Policies,
+ * Documents, Discover, Claims, Rewards, More.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="bottom-nav.css">
+ *
+ *   <nav class="bottom-nav">
+ *     <a class="bottom-nav__item bottom-nav__item--active" href="#" aria-current="page">
+ *       <span class="bottom-nav__icon"><!-- filled icon --></span>
+ *       <span class="bottom-nav__label">Home</span>
+ *     </a>
+ *     <a class="bottom-nav__item" href="#">
+ *       <span class="bottom-nav__icon"><!-- outline icon --></span>
+ *       <span class="bottom-nav__label">Insights</span>
+ *     </a>
+ *   </nav>
+ * ============================================================
+ */
+
+.bottom-nav {
+  display:         flex;
+  align-items:     stretch;
+  justify-content: space-around;
+  gap:             var(--spacer-4);
+  width:           100%;
+  box-sizing:      border-box;
+  padding:         var(--spacer-8) var(--spacer-8);
+  background:      var(--background-primary);
+  border-top:      var(--border-s) solid var(--border-primary);
+  font-family:     'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   ITEM
+   ------------------------------------------------------------ */
+
+.bottom-nav__item {
+  flex:            1 1 0;
+  min-width:       0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             0;
+  padding:         var(--spacer-4) 0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  text-decoration: none;
+  color:           var(--text-primary);
+}
+
+.bottom-nav__item:focus-visible {
+  outline:        none;
+  border-radius:  var(--radius-small);
+  box-shadow:     var(--shadow-focus);
+}
+
+.bottom-nav__icon {
+  display: block;
+  width:   24px;
+  height:  24px;
+  color:   var(--icon-glyph-primary);   /* dark on light, white on dark */
+}
+.bottom-nav__icon svg { display: block; width: 100%; height: 100%; }
+
+/* When an item carries both glyphs (for interactive toggling), show the
+   outline by default and swap to the filled one once the item is active. */
+.bottom-nav__glyph { display: none; width: 100%; height: 100%; }
+.bottom-nav__glyph--line { display: block; }
+.bottom-nav__item--active .bottom-nav__glyph--line { display: none; }
+.bottom-nav__item--active .bottom-nav__glyph--fill { display: block; }
+
+.bottom-nav__label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);   /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+  white-space: nowrap;
+}
+
+
+/* ------------------------------------------------------------
+   ANDROID (default) sits flush with a top border and a safe-area
+   bottom inset. Nothing extra needed beyond the base .bottom-nav.
+   Use --center for a Standard product with only a couple of tabs.
+   ------------------------------------------------------------ */
+
+.bottom-nav--center {
+  justify-content: center;
+  gap:             var(--spacer-32);
+}
+.bottom-nav--center .bottom-nav__item {
+  flex:      0 0 auto;
+  min-width: 62px;
+}
+
+
+/* ------------------------------------------------------------
+   iOS — "Liquid Glass" floating bar
+   No top border; the tabs sit inside a translucent, blurred pill
+   that floats over the content. The active tab gets a soft pill
+   highlight behind it (instead of Android's icon-only fill).
+   ------------------------------------------------------------ */
+
+.bottom-nav--ios {
+  justify-content: center;
+  background:      transparent;
+  border-top:      none;
+  padding:         0 var(--spacer-16) var(--spacer-16);
+}
+
+.bottom-nav__glass {
+  display:                 flex;
+  flex:                    1 1 auto;
+  align-items:             center;
+  justify-content:         space-between;
+  gap:                     var(--spacer-4);
+  padding:                 var(--spacer-4);
+  border-radius:           var(--radius-round);
+  background:              var(--overlay-light-medium);
+  -webkit-backdrop-filter: blur(16px);
+          backdrop-filter: blur(16px);
+  box-shadow:              0 1px 16px rgba(0, 0, 0, 0.08);
+}
+
+.bottom-nav--ios .bottom-nav__item {
+  flex:          1 1 0;
+  padding:       var(--spacer-8) var(--spacer-4);
+  border-radius: var(--radius-round);
+}
+.bottom-nav--ios .bottom-nav__item--active {
+  background: var(--overlay-dark-low);
+}
+
+
 /* ==== components/bounce/bounce.css ==== */
 /*
  * ============================================================
@@ -1648,6 +1849,9 @@ body { font-family: var(--font-family-base); }
   height:      16px;
   flex-shrink: 0;
 }
+/* Size the icon glyph to the box so SVGs render consistently even when the
+   <svg> itself carries no width/height (only a viewBox). */
+.btn__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------
@@ -4068,6 +4272,190 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ==== components/mobile-nav/mobile-nav.css ==== */
+/*
+ * ============================================================
+ * MOBILE TOP NAV  (in-app mobile chrome)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2646-7040
+ *
+ * The top chrome for the mobile app: an OS status bar (time + signal / wifi /
+ * battery), a nav bar with left & right toolbar slots (e.g. a profile avatar
+ * and a rewards pill), and an optional page title. A "stacked" variant renders
+ * the modal / web-view header — a drag grabber above a rounded sheet with a
+ * close control.
+ *
+ * NOT the desktop platform header — that's Top Navigation (top-nav).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="mobile-nav.css">
+ * ============================================================
+ */
+
+.mobile-nav {
+  width:       375px;
+  max-width:   100%;
+  box-sizing:  border-box;
+  background:  var(--background-primary);
+  color:       var(--text-primary);
+  font-family: 'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS BAR
+   ------------------------------------------------------------ */
+
+.mobile-nav__status {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  height:          44px;
+  padding:         0 var(--spacer-20) 0 var(--spacer-24);
+  box-sizing:      border-box;
+}
+.mobile-nav__time {
+  font-weight: var(--font-weight-bold);
+  font-size:   15px;
+  letter-spacing: -0.2px;
+}
+.mobile-nav__glyphs {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-4);
+  color:       var(--icon-glyph-primary);
+}
+.mobile-nav__glyphs svg { display: block; }
+
+
+/* ------------------------------------------------------------
+   NAV BAR  (left / right toolbar slots)
+   ------------------------------------------------------------ */
+
+.mobile-nav__bar {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  min-height:      48px;
+  padding:         0 var(--spacer-16);
+  box-sizing:      border-box;
+}
+.mobile-nav__slot {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+}
+.mobile-nav__slot--right { justify-content: flex-end; }
+
+
+/* Profile avatar button — a bordered circle holding a 24px glyph */
+.mobile-nav__avatar {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           40px;
+  height:          40px;
+  padding:         0;
+  border:          var(--border-m) solid var(--border-on-light);
+  border-radius:   var(--radius-round);
+  background:      transparent;
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.mobile-nav__avatar svg { display: block; width: 22px; height: 22px; }
+
+
+/* Rewards pill — hexagon glyph + points balance */
+.mobile-nav__rewards {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacer-8);
+  height:        40px;
+  padding:       0 var(--spacer-16);
+  border:        var(--border-m) solid var(--border-on-light);
+  border-radius: var(--radius-round);
+  background:    transparent;
+  color:         var(--text-primary);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-3);   /* 14 / 20 */
+  line-height:   var(--line-height-subtitle-3);
+  cursor:        pointer;
+}
+.mobile-nav__rewards svg { display: block; width: 20px; height: 20px; }
+
+
+/* ------------------------------------------------------------
+   PAGE TITLE  (optional)
+   ------------------------------------------------------------ */
+
+.mobile-nav__title {
+  padding: var(--spacer-8) var(--spacer-16) 0;
+}
+.mobile-nav__title h1,
+.mobile-nav__title p {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4);      /* 20 */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.4px;
+}
+
+
+/* ------------------------------------------------------------
+   STACKED — modal / web-view header
+   A drag grabber sits above a rounded sheet with a close control.
+   Put .mobile-stack over your scrim; the sheet is the modal top.
+   ------------------------------------------------------------ */
+
+.mobile-stack {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  width:           375px;
+  max-width:       100%;
+  box-sizing:      border-box;
+  font-family:     'Modern Era', sans-serif;
+}
+
+.mobile-stack__grabber {
+  width:                  311px;
+  max-width:              calc(100% - 32px);
+  height:                 16px;
+  border-top-left-radius: var(--radius-medium);   /* 16px */
+  border-top-right-radius: var(--radius-medium);
+  background:             var(--overlay-light-medium);
+}
+
+.mobile-stack__sheet {
+  display:                 flex;
+  align-items:             center;
+  justify-content:         flex-end;
+  width:                   100%;
+  box-sizing:              border-box;
+  padding:                 var(--spacer-16) var(--spacer-16) 0;
+  background:              var(--background-primary);
+  border-top-left-radius:  var(--radius-x-large);  /* 32px */
+  border-top-right-radius: var(--radius-x-large);
+}
+
+.mobile-stack__close {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  padding:         0;
+  border:          none;
+  border-radius:   var(--radius-round);
+  background:      var(--surface-secondary);
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.mobile-stack__close svg { display: block; width: 20px; height: 20px; }
+.mobile-stack__close--bare { background: transparent; }
+
+
 /* ==== components/notice-toggle/notice-toggle.css ==== */
 /*
  * ============================================================
@@ -5197,15 +5585,36 @@ body { font-family: var(--font-family-base); }
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57538-15188
  *
  * The onboarding / sales top bar: Zego logo + Trustpilot lock-up on the left,
- * a Help pill on the right, and the Onboarding Steps stepper beneath. Pressing
- * Help expands a "Call us" dropdown (phone number + opening hours) and swaps
- * the pill to Close.
+ * a Help pill on the right, and the Onboarding Steps stepper. Pressing Help
+ * expands a dropdown of contact options and swaps the pill to Close.
  *
- * Reuses Trustpilot stars and Onboarding Steps — link trustpilot.css and
- * onboarding-steps.css. Interactivity is handled by sales-nav.js.
+ * Breakpoints (Figma "Breakpoint" variant):
+ *   Mobile  (<1024px) — 72px header row (logo + Help pill), stepper on a
+ *                       second row below.
+ *   Desktop (≥1024px) — one 72px row: logo left and Help pill right inside a
+ *                       1200px container, stepper centred on the viewport
+ *                       (588px) and bottom-aligned in the same row.
+ * The dropdown is right-aligned to the Help pill at both breakpoints.
+ *
+ * Dropdown rows — "Call us" is always present. Figma's Chat / Customer ID /
+ * Log out booleans map to optional extra rows; add or drop the markup:
+ *   .sales-nav__row              — icon + title + subtitle (Call us, Chat)
+ *   .sales-nav__row--hours       — adds bottom padding for the hours box
+ *   .sales-nav__action           — quote reference + copy button
+ *   .sales-nav__row--button      — full-width button row (Log out)
+ * Rows are separated automatically by a 1px rule.
+ *
+ * Other Figma booleans:
+ *   .sales-nav--border  — 1px divider along the bottom edge ("Border")
+ *   drop .sales-nav__lockup to hide Trustpilot ("Trustpilot")
+ *   drop .sales-nav__steps to hide the stepper ("Steps")
+ *
+ * Reuses Trustpilot stars, Onboarding Steps and Button — link trustpilot.css,
+ * onboarding-steps.css and button.css. Interactivity: sales-nav.js.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../button/button.css">
  *   <link rel="stylesheet" href="../trustpilot/trustpilot.css">
  *   <link rel="stylesheet" href="../onboarding-steps/onboarding-steps.css">
  *   <link rel="stylesheet" href="sales-nav.css">
@@ -5215,24 +5624,39 @@ body { font-family: var(--font-family-base); }
 
 
 
+
 .sales-nav {
-  position:    relative;
-  width:       100%;
-  box-sizing:  border-box;
-  background:  var(--background-tertiary);        /* #f8f5f3 */
-  font-family: 'Modern Era', sans-serif;
+  position:       relative;
+  width:          100%;
+  box-sizing:     border-box;
+  background:     var(--background-tertiary);     /* #f8f5f3 */
+  font-family:    'Modern Era', sans-serif;
+
+  /* The breakpoint below is a container query, so the bar reacts to its own
+     width rather than the viewport's — it lays out correctly inside a narrow
+     column or a device frame on a wide screen. On mobile the two grid rows
+     stack exactly as block flow would; desktop overlaps them into one row. */
+  container-type: inline-size;
+  display:        grid;
+  grid-template-columns: 1fr;
 }
+
+/* "Border" boolean — hairline along the bottom edge */
+.sales-nav--border { border-bottom: var(--border-s) solid var(--border-primary); }
 
 
 /* ------------------------------------------------------------
    HEADER ROW
+   Logo + Trustpilot lock-up on the left, Help pill on the right,
+   both vertically centred in a 72px row.
    ------------------------------------------------------------ */
 
 .sales-nav__header {
   position:        relative;
   z-index:         2;
+  box-sizing:      border-box;
   display:         flex;
-  align-items:     flex-start;
+  align-items:     center;
   justify-content: space-between;
   gap:             var(--gap-medium);
   padding:         var(--spacer-12) var(--spacer-16) 0;   /* 12 top · 16 sides */
@@ -5263,41 +5687,30 @@ body { font-family: var(--font-family-base); }
 
 /* ------------------------------------------------------------
    HELP / CLOSE PILL
+   A Tertiary Pill Button (transparent fill, Border/On-light outline) — the
+   markup composes on .btn.btn--tertiary.btn--pill.btn--small so hover, pressed
+   and focus states come from button.css. Only the 32px box and the Help ⇄ Close
+   swap live here.
    ------------------------------------------------------------ */
 
 .sales-nav__toggle {
-  display:       inline-flex;
-  align-items:   center;
-  gap:           var(--spacer-4);                /* 4px */
-  padding:       6px 12px;
-  margin:        0;
-  border:        var(--border-s) solid var(--border-on-light);
-  border-radius: var(--radius-round);
-  background:    transparent;
-  color:         var(--text-primary);
-  font-family:   'Modern Era', sans-serif;
-  font-weight:   var(--font-weight-bold);
-  font-size:     var(--font-size-body-3);        /* 14px */
-  line-height:   var(--line-height-body-3);
-  cursor:        pointer;
-  white-space:   nowrap;
-  transition:    background-color 150ms ease;
+  padding:     5px 10px 5px 14px;                /* → 32px tall, icon 10px from the edge */
+  flex-shrink: 0;
 }
-.sales-nav__toggle:hover { background: rgba(39, 37, 45, 0.05); }
-.sales-nav__toggle-icon { display: inline-flex; width: 16px; height: 16px; }
-.sales-nav__toggle-icon svg { display: block; width: 100%; height: 100%; }
 
 /* swap Help ⇄ Close labels/icons based on state */
 .sales-nav__toggle .sales-nav__close-label,
 .sales-nav__toggle .sales-nav__close-icon { display: none; }
 .sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__help-label,
 .sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__help-icon { display: none; }
-.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-label,
-.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-icon { display: inline-flex; }
+.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-label { display: inline; }
+.sales-nav[data-expanded="true"] .sales-nav__toggle .sales-nav__close-icon { display: flex; }
 
 
 /* ------------------------------------------------------------
    ONBOARDING STEPS SLOT
+   The slot owns the surrounding box only; label sizing comes from
+   onboarding-steps.css, restated at this component's own breakpoint below.
    ------------------------------------------------------------ */
 
 .sales-nav__steps {
@@ -5305,59 +5718,70 @@ body { font-family: var(--font-family-base); }
   justify-content: center;
   padding:         var(--spacer-12) var(--spacer-16);
 }
-.sales-nav__steps .onboarding-steps { max-width: 343px; }
 
 
 /* ------------------------------------------------------------
-   CALL-US DROPDOWN
+   HELP DROPDOWN
+   Right-aligned to the Help pill; rows are separated by a 1px rule.
    ------------------------------------------------------------ */
 
 .sales-nav__panel {
   position:      absolute;
   top:           64px;
-  left:          50%;
-  transform:     translateX(-50%) translateY(-8px);
+  right:         var(--spacer-16);
   z-index:       5;
-  width:         343px;
-  max-width:     calc(100% - 32px);
+  width:         311px;
+  max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
-  background:    var(--surface-primary);          /* white */
+  overflow:      hidden;
+  background:    var(--background-primary);       /* white */
   border-radius: var(--radius-medium);            /* 16px */
-  box-shadow:    0 2px 6px rgba(39, 37, 45, 0.05),
-                 0 4px 16px rgba(39, 37, 45, 0.10);
-  padding:       0 0 var(--spacer-16);
+  box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
   opacity:       0;
   visibility:    hidden;
+  transform:     translateY(-8px);
   transition:    opacity 180ms ease, transform 180ms ease, visibility 180ms;
 }
 .sales-nav[data-expanded="true"] .sales-nav__panel {
   opacity:    1;
   visibility: visible;
-  transform:  translateX(-50%) translateY(0);
+  transform:  translateY(0);
 }
 
-.sales-nav__callus {
+/* 1px rule between consecutive rows */
+.sales-nav__panel > * + * { border-top: var(--border-s) solid var(--border-primary); }
+
+
+/* --- Row: icon + title + subtitle (Call us, Chat with us) --- */
+
+.sales-nav__row { padding: 0 var(--spacer-16); }
+.sales-nav__row--hours { padding-bottom: var(--spacer-16); }
+
+.sales-nav__row-main {
   display:     flex;
   gap:         var(--gap-medium);                /* 16px */
-  align-items: flex-start;
-  padding:     var(--spacer-16) var(--spacer-16) var(--spacer-12);
+  align-items: center;
+  padding:     var(--spacer-16) 0;
 }
-.sales-nav__callus-icon {
+.sales-nav__row-icon {
   flex-shrink: 0;
+  align-self:  flex-start;
   width:       16px;
   height:      16px;
   margin-top:  var(--spacer-4);
   color:       var(--icon-glyph-primary);
 }
-.sales-nav__callus-icon svg { display: block; width: 100%; height: 100%; }
-.sales-nav__callus-title {
+.sales-nav__row-icon svg { display: block; width: 100%; height: 100%; }
+
+.sales-nav__row-text { flex: 1 1 0; min-width: 0; }
+.sales-nav__row-title {
   margin:      0;
   font-weight: var(--font-weight-bold);
   font-size:   var(--font-size-subtitle-2);      /* 16px */
   line-height: var(--line-height-subtitle-2);
   color:       var(--text-primary);
 }
-.sales-nav__callus-number {
+.sales-nav__row-subtitle {
   margin:      2px 0 0;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);          /* 14px */
@@ -5365,26 +5789,103 @@ body { font-family: var(--font-family-base); }
   color:       var(--text-pressed);
 }
 
+
+/* --- Opening hours box (Alerts) — sits inside the Call us row --- */
+
 .sales-nav__hours {
-  margin:        0 var(--spacer-16);
-  padding:       var(--spacer-8) var(--spacer-12);
+  padding:       var(--spacer-8) var(--gap-small);   /* 8px 12px */
   background:    var(--surface-tertiary-low);
-  border-radius: var(--radius-x-small);          /* 8px — Radius/Radius-8 */
-  border-radius: 8px;
+  border-radius: var(--radius-small);                /* 8px */
 }
 .sales-nav__hours-title {
   margin:      0 0 var(--spacer-4);
   font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-subtitle-4, 12px); /* 12px */
+  font-size:   var(--font-size-subtitle-4);      /* 12px */
   line-height: 16px;
   color:       var(--text-primary);
 }
 .sales-nav__hours-times {
   margin:      0;
   font-weight: var(--font-weight-regular);
-  font-size:   12px;
+  font-size:   var(--font-size-body-4);          /* 12px */
   line-height: 16px;
   color:       var(--text-primary);
+}
+
+
+/* --- Action: quote reference + copy button ("Customer ID") --- */
+
+.sales-nav__action {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  padding:        var(--spacer-16);
+}
+.sales-nav__action-label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);      /* 14px */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+/* Composes on .btn.btn--secondary.btn--rounded — reference left, copy right */
+.sales-nav__action .btn {
+  width:           100%;
+  justify-content: space-between;
+}
+
+
+/* --- Row: full-width button ("Log out") --- */
+
+.sales-nav__row--button { padding: var(--spacer-16); }
+.sales-nav__row--button .btn { width: 100%; }
+
+
+/* ------------------------------------------------------------
+   MOBILE — stepper on its own row, 14px labels
+   onboarding-steps.css sizes its labels off the viewport, so the bar restates
+   the small size at its own breakpoint to keep the two in step.
+   ------------------------------------------------------------ */
+
+@container (max-width: 1023px) {
+  .sales-nav__steps .onboarding-steps { gap: var(--gap-x-small); }   /* 8px */
+  .sales-nav__steps .onboarding-steps__label {
+    font-size:   var(--font-size-subtitle-3);    /* 14px */
+    line-height: var(--line-height-subtitle-3);
+  }
+}
+
+
+/* ------------------------------------------------------------
+   DESKTOP — single 72px row
+   The header row is capped to a 1200px content box; the stepper is 588px wide,
+   centred and bottom-aligned, sharing the header's grid cell.
+   ------------------------------------------------------------ */
+
+@container (min-width: 1024px) {
+  .sales-nav__header {
+    grid-row:   1;
+    grid-column: 1;
+    align-self: start;
+    width:      100%;
+    max-width:  calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+    margin:     0 auto;
+  }
+
+  .sales-nav__steps {
+    grid-row:   1;
+    grid-column: 1;
+    align-self: end;
+    width:      588px;
+    max-width:  100%;
+    margin:     0 auto;
+    padding:    var(--spacer-12) 0;
+  }
+
+  .sales-nav__panel {
+    top:   62px;
+    width: 320px;
+  }
 }
 
 
@@ -6601,6 +7102,111 @@ body { font-family: var(--font-family-base); }
 /* Active — colour the rail, not the container */
 .toggle--web .toggle__input:checked + .toggle__track { background-color: transparent; }
 .toggle--web .toggle__input:checked + .toggle__track::before { background-color: var(--surface-success); }
+
+
+/* ==== components/tooltip/tooltip.css ==== */
+/*
+ * ============================================================
+ * TOOLTIP COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2731-5253
+ *
+ * A dark (inverse) bubble with a short message and a directional arrow that
+ * points back to its trigger.
+ *
+ * Direction (which edge the arrow sits on / points toward):
+ *   .tooltip--up | .tooltip--down | .tooltip--left | .tooltip--right
+ * Position along that edge:
+ *   .tooltip--start | (default centre) | .tooltip--end
+ * Optional partner logo above the text: add a .tooltip__partner element.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="tooltip.css">
+ *
+ *   <div class="tooltip tooltip--down">
+ *     <p class="tooltip__text">You can change this later.</p>
+ *   </div>
+ * ============================================================
+ */
+
+.tooltip {
+  position:      relative;
+  display:       inline-block;
+  max-width:     327px;
+  box-sizing:    border-box;
+  padding:       var(--spacer-12) var(--spacer-16);
+  border-radius: var(--radius-small);          /* 8px */
+  background:    var(--background-inverse);      /* #27252d */
+  color:         var(--text-on-color);           /* white */
+  font-family:   'Modern Era', sans-serif;
+  font-weight:   var(--font-weight-regular);
+  font-size:     var(--font-size-body-3);        /* 14 / 20 */
+  line-height:   var(--line-height-body-3);
+}
+
+.tooltip__text { margin: 0; }
+
+/* Optional partner logo, shown above the text */
+.tooltip__partner {
+  display:       block;
+  height:        16px;
+  margin-bottom: var(--spacer-16);
+  color:         var(--text-on-color);
+}
+.tooltip__partner img,
+.tooltip__partner svg { display: block; height: 100%; width: auto; }
+
+
+/* ------------------------------------------------------------
+   ARROW  (a CSS triangle in the bubble colour, 12 × 8)
+   ------------------------------------------------------------ */
+
+.tooltip::after {
+  content:  "";
+  position: absolute;
+  width:    0;
+  height:   0;
+  border:   0 solid transparent;
+}
+
+/* Direction — which edge the arrow is attached to */
+.tooltip--down::after {
+  top:          100%;
+  border-width: 8px 6px 0 6px;
+  border-color: var(--background-inverse) transparent transparent transparent;
+}
+.tooltip--up::after {
+  bottom:       100%;
+  border-width: 0 6px 8px 6px;
+  border-color: transparent transparent var(--background-inverse) transparent;
+}
+.tooltip--right::after {
+  left:         100%;
+  border-width: 6px 0 6px 8px;
+  border-color: transparent transparent transparent var(--background-inverse);
+}
+.tooltip--left::after {
+  right:        100%;
+  border-width: 6px 8px 6px 0;
+  border-color: transparent var(--background-inverse) transparent transparent;
+}
+
+/* Position along the edge — up/down arrows move horizontally … */
+.tooltip--up::after,
+.tooltip--down::after { left: 50%; transform: translateX(-50%); }
+.tooltip--up.tooltip--start::after,
+.tooltip--down.tooltip--start::after { left: 20px; transform: none; }
+.tooltip--up.tooltip--end::after,
+.tooltip--down.tooltip--end::after { left: auto; right: 20px; transform: none; }
+
+/* … left/right arrows move vertically */
+.tooltip--left::after,
+.tooltip--right::after { top: 50%; transform: translateY(-50%); }
+.tooltip--left.tooltip--start::after,
+.tooltip--right.tooltip--start::after { top: 16px; transform: none; }
+.tooltip--left.tooltip--end::after,
+.tooltip--right.tooltip--end::after { top: auto; bottom: 16px; transform: none; }
 
 
 /* ==== components/top-nav/top-nav.css ==== */

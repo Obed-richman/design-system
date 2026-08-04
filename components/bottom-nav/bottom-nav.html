@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bottom Nav — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="bottom-nav.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo { display: inline-flex; align-items: center; color: var(--colour-white); }
+    .header__logo svg { width: 110px; height: 32px; display: block; }
+    .content { max-width: 876px; margin: 0 auto; padding: 24px 24px 96px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-family: var(--font-family-base); font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); color: var(--text-primary); margin: 0; }
+    .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .variants { background: var(--colour-white); border-radius: 16px; border: 1px solid var(--border-primary); padding: 40px 24px; display: flex; flex-direction: column; gap: 40px; }
+    [data-theme="dark"] .variants { background: var(--surface-primary); }
+    .variant-group__label { font-family: var(--font-family-base); font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 0 0 16px; }
+    .phone { max-width: 390px; border: 1px solid var(--border-primary); border-radius: 16px; overflow: hidden; }
+    [data-theme="dark"] .phone { border-color: var(--border-on-color); }
+    .barwrap { border: 1px solid var(--border-primary); border-radius: 12px; overflow: hidden; }
+    [data-theme="dark"] .barwrap { border-color: var(--border-on-color); }
+    /* Mock content backdrop so the iOS glass blur/translucency reads */
+    .ios-stage { position: relative; max-width: 390px; border-radius: 16px; overflow: hidden; padding-top: 140px; background: linear-gradient(140deg, #08f0f0 0%, #4b059f 55%, #fcff5f 100%); }
+    .ios-stage .bottom-nav { position: relative; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+  <script src="bottom-nav.js" defer></script>
+</head>
+<body>
+
+  <header class="header">
+    <span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span>
+  </header>
+
+  <main class="content">
+
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+
+    <div class="component-header">
+      <h1 class="component-header__name">Bottom Nav</h1>
+      <p class="component-header__description">Mobile bottom navigation — 24px icon + 12px label, filled icon for the active tab — Zego Design System</p>
+    </div>
+
+    <div class="variants">
+      <div>
+        <p class="variant-group__label">Bar (Home active)</p>
+        <div class="phone"><nav class="bottom-nav" id="bar"></nav></div>
+      </div>
+      <div>
+        <p class="variant-group__label">iOS — Liquid Glass (Home active)</p>
+        <div class="ios-stage"><nav class="bottom-nav bottom-nav--ios"><div class="bottom-nav__glass" id="barIos"></div></nav></div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // 24×24 currentColor icons, outline (line) + filled (fill) per tab
+    var ICONS = {
+      Home: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1.01)"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.7544 0.43524C10.4834 -0.14508 11.5166 -0.14508 12.2456 0.43524L21.2456 7.59955C21.7223 7.979 22 8.55504 22 9.16431V20.4718C22 21.3003 21.3284 21.9718 20.5 21.9718H15C14.1716 21.9718 13.5 21.3003 13.5 20.4718V14.9718H8.5V20.4718C8.5 21.3003 7.82843 21.9718 7 21.9718H1.5C0.671572 21.9718 0 21.3003 0 20.4718V9.16431C0 8.55504 0.277718 7.979 0.754396 7.59955L9.7544 0.43524ZM20 9.16431L11 2L2 9.16431L2 19.9718H6.5V14.4718C6.5 13.6434 7.17157 12.9718 8 12.9718H14C14.8284 12.9718 15.5 13.6434 15.5 14.4718V19.9718H20V9.16431Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.2456 0.435798C11.5166 -0.145266 10.4834 -0.145266 9.7544 0.435798L0.754396 7.60929C0.277718 7.98923 0 8.56601 0 9.17605V20.4981C0 21.3276 0.671572 22 1.5 22H7C7.82843 22 8.5 21.3276 8.5 20.4981V14.991H13.5V20.4981C13.5 21.3276 14.1716 22 15 22H20.5C21.3284 22 22 21.3276 22 20.4981V9.17605C22 8.566 21.7223 7.98923 21.2456 7.60929L12.2456 0.435798Z" fill="currentColor"/></g></svg>'
+      },
+      Insights: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path d="M10.5 6C10.2239 6 10 6.22386 10 6.5V15.5C10 15.7761 10.2239 16 10.5 16H11.5C11.7761 16 12 15.7761 12 15.5V6.5C12 6.22386 11.7761 6 11.5 6H10.5Z" fill="currentColor"/><path d="M6 12C6 11.7239 6.22386 11.5 6.5 11.5H7.5C7.77614 11.5 8 11.7239 8 12V15.5C8 15.7761 7.77614 16 7.5 16H6.5C6.22386 16 6 15.7761 6 15.5V12Z" fill="currentColor"/><path d="M14.5 8C14.2239 8 14 8.22386 14 8.5V15.5C14 15.7761 14.2239 16 14.5 16H15.5C15.7761 16 16 15.7761 16 15.5V8.5C16 8.22386 15.7761 8 15.5 8H14.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5 0C2.23858 0 0 2.23858 0 5V17C0 19.7614 2.23858 22 5 22H17C19.7614 22 22 19.7614 22 17V5C22 2.23858 19.7614 0 17 0H5ZM2 5C2 3.34315 3.34315 2 5 2H17C18.6569 2 20 3.34315 20 5V17C20 18.6569 18.6569 20 17 20H5C3.34315 20 2 18.6569 2 17V5Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 5C0 2.23858 2.23858 0 5 0H17C19.7614 0 22 2.23858 22 5V17C22 19.7614 19.7614 22 17 22H5C2.23858 22 0 19.7614 0 17V5ZM10.5 6C10.2239 6 10 6.22386 10 6.5V15.5C10 15.7761 10.2239 16 10.5 16H11.5C11.7761 16 12 15.7761 12 15.5V6.5C12 6.22386 11.7761 6 11.5 6H10.5ZM6 12C6 11.7239 6.22386 11.5 6.5 11.5H7.5C7.77614 11.5 8 11.7239 8 12V15.5C8 15.7761 7.77614 16 7.5 16H6.5C6.22386 16 6 15.7761 6 15.5V12ZM14.5 8C14.2239 8 14 8.22386 14 8.5V15.5C14 15.7761 14.2239 16 14.5 16H15.5C15.7761 16 16 15.7761 16 15.5V8.5C16 8.22386 15.7761 8 15.5 8H14.5Z" fill="currentColor"/></g></svg>'
+      },
+      Policies: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path d="M13 9.5C13 9.77614 12.7761 10 12.5 10H5.5C5.22386 10 5 9.77614 5 9.5V8.5C5 8.22386 5.22386 8 5.5 8H12.5C12.7761 8 13 8.22386 13 8.5V9.5Z" fill="currentColor"/><path d="M10.5 14C10.7761 14 11 13.7761 11 13.5V12.5C11 12.2239 10.7761 12 10.5 12H5.5C5.22386 12 5 12.2239 5 12.5V13.5C5 13.7761 5.22386 14 5.5 14H10.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.895431 0.89543 0 2 0H10.4737C11.2548 0 12.005 0.304584 12.565 0.849015L17.0912 5.24955C17.6722 5.81439 18 6.59023 18 7.40053V20C18 21.1046 17.1046 22 16 22H2C0.895431 22 0 21.1046 0 20V2ZM10.4737 2L2 2V20L16 20V7.40053C16 7.13043 15.8907 6.87182 15.6971 6.68354L11.1708 2.28301C10.9842 2.10153 10.7341 2 10.4737 2Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.895431 0.89543 0 2 0H10.4737C11.2548 0 12.005 0.304584 12.565 0.849015L17.0912 5.24955C17.6722 5.81439 18 6.59023 18 7.40053V20C18 21.1046 17.1046 22 16 22H2C0.895431 22 0 21.1046 0 20V2ZM13 9.5C13 9.77614 12.7761 10 12.5 10H5.5C5.22386 10 5 9.77614 5 9.5V8.5C5 8.22386 5.22386 8 5.5 8H12.5C12.7761 8 13 8.22386 13 8.5V9.5ZM11 13.5C11 13.7761 10.7761 14 10.5 14H5.5C5.22386 14 5 13.7761 5 13.5V12.5C5 12.2239 5.22386 12 5.5 12H10.5C10.7761 12 11 12.2239 11 12.5V13.5Z" fill="currentColor"/></g></svg>'
+      },
+      Documents: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.89543 0.895431 0 2 0H11.5C11.7761 0 12 0.223858 12 0.5V1.5C12 1.77614 11.7761 2 11.5 2H2.5C2.22386 2 2 2.22386 2 2.5V13.5C2 13.7761 1.77614 14 1.5 14H0.5C0.223858 14 0 13.7761 0 13.5V2Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M6 6V20H16V6H6ZM4 5.5C4 4.67157 4.67157 4 5.5 4H16.5C17.3284 4 18 4.67157 18 5.5V20C18 21.1046 17.1046 22 16 22H6C4.89543 22 4 21.1046 4 20V5.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14 10.5C14 10.7761 13.7761 11 13.5 11H8.5C8.22386 11 8 10.7761 8 10.5V9.5C8 9.22386 8.22386 9 8.5 9H13.5C13.7761 9 14 9.22386 14 9.5V10.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14 14.5C14 14.7761 13.7761 15 13.5 15H8.5C8.22386 15 8 14.7761 8 14.5V13.5C8 13.2239 8.22386 13 8.5 13H13.5C13.7761 13 14 13.2239 14 13.5V14.5Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(3,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 2C0 0.89543 0.895431 0 2 0H11.5C11.7761 0 12 0.223858 12 0.5V1.5C12 1.77614 11.7761 2 11.5 2H2.5C2.22386 2 2 2.22386 2 2.5V13.5C2 13.7761 1.77614 14 1.5 14H0.5C0.223858 14 0 13.7761 0 13.5V2Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 4C4.67157 4 4 4.67157 4 5.5V20C4 21.1046 4.89543 22 6 22H16C17.1046 22 18 21.1046 18 20V5.5C18 4.67157 17.3284 4 16.5 4H5.5ZM14 10.5C14 10.7761 13.7761 11 13.5 11H8.5C8.22386 11 8 10.7761 8 10.5V9.5C8 9.22386 8.22386 9 8.5 9H13.5C13.7761 9 14 9.22386 14 9.5V10.5ZM14 14.5C14 14.7761 13.7761 15 13.5 15H8.5C8.22386 15 8 14.7761 8 14.5V13.5C8 13.2239 8.22386 13 8.5 13H13.5C13.7761 13 14 13.2239 14 13.5V14.5Z" fill="currentColor"/></g></svg>'
+      },
+      Discover: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0963 1C5.52028 1 1 5.52028 1 11.0963C1 16.6724 5.52028 21.1926 11.0963 21.1926C13.5207 21.1926 15.7455 20.3381 17.486 18.9138L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L18.9138 17.486C20.3381 15.7455 21.1926 13.5207 21.1926 11.0963C21.1926 5.52028 16.6724 1 11.0963 1ZM3.01926 11.0963C3.01926 6.63548 6.63548 3.01926 11.0963 3.01926C15.5572 3.01926 19.1734 6.63548 19.1734 11.0963C19.1734 15.5572 15.5572 19.1734 11.0963 19.1734C6.63548 19.1734 3.01926 15.5572 3.01926 11.0963Z" fill="currentColor"/><path d="M11.7383 10.1752C11.9462 9.96661 12.0538 9.67862 12.0588 9.36355C12.0581 8.81243 11.6482 8.36912 10.9947 8.36912C10.6106 8.36912 10.3345 8.48893 10.1539 8.67677C9.97221 8.86582 9.86687 9.14501 9.86687 9.50129C9.86687 9.62586 9.74863 9.71648 9.62834 9.68408L8.45992 9.36945C8.37337 9.34614 8.31503 9.26533 8.32014 9.17585C8.4008 7.76516 9.49195 6.80538 10.9735 6.80538C12.5192 6.80538 13.6802 7.87302 13.6802 9.31251C13.6802 10.3615 13.0883 11.297 11.9275 11.6764L11.9275 12.106C11.9275 12.3151 11.758 12.4846 11.5489 12.4846H10.7725C10.5634 12.4846 10.3939 12.315 10.3939 12.1059L10.3939 10.8744C10.3939 10.6834 10.5488 10.5286 10.7398 10.5286C11.2085 10.5286 11.5315 10.3826 11.7383 10.1752Z" fill="currentColor"/><path d="M12.0977 14.1883C12.0977 14.7111 11.6739 15.1348 11.1511 15.1348C10.6284 15.1348 10.2046 14.7111 10.2046 14.1883C10.2046 13.6656 10.6284 13.2418 11.1511 13.2418C11.6739 13.2418 12.0977 13.6656 12.0977 14.1883Z" fill="currentColor"/></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0963 1C5.52028 1 1 5.52028 1 11.0963C1 16.6724 5.52028 21.1926 11.0963 21.1926C13.5207 21.1926 15.7455 20.3381 17.486 18.9138L21.4243 22.8521C21.6215 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L18.9138 17.486C20.3381 15.7455 21.1926 13.5207 21.1926 11.0963C21.1926 5.52028 16.6724 1 11.0963 1ZM12.0588 9.36355C12.0538 9.67862 11.9462 9.96661 11.7383 10.1752C11.5315 10.3826 11.2085 10.5286 10.7398 10.5286C10.5488 10.5286 10.3939 10.6834 10.3939 10.8744L10.3939 12.1059C10.3939 12.315 10.5634 12.4846 10.7725 12.4846H11.5489C11.758 12.4846 11.9275 12.3151 11.9275 12.106L11.9275 11.6764C13.0883 11.297 13.6802 10.3615 13.6802 9.31251C13.6802 7.87302 12.5192 6.80538 10.9734 6.80538C9.49195 6.80538 8.40079 7.76516 8.32014 9.17585C8.31502 9.26533 8.37336 9.34614 8.45991 9.36945L9.62833 9.68408C9.74862 9.71648 9.86686 9.62586 9.86686 9.50129C9.86686 9.14501 9.97221 8.86582 10.1539 8.67678C10.3345 8.48893 10.6106 8.36912 10.9947 8.36912C11.6482 8.36912 12.0581 8.81243 12.0588 9.36355ZM11.1511 15.1348C11.6739 15.1348 12.0977 14.7111 12.0977 14.1883C12.0977 13.6656 11.6739 13.2418 11.1511 13.2418C10.6284 13.2418 10.2046 13.6656 10.2046 14.1883C10.2046 14.7111 10.6284 15.1348 11.1511 15.1348Z" fill="currentColor"/></svg>'
+      },
+      Claims: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.12,1.12)"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.22406 1.09568C9.96927 -0.374338 12.0729 -0.362655 12.8017 1.11555L21.5603 18.8794C22.2157 20.2086 21.2484 21.7639 19.7665 21.7639H2.00262C0.511013 21.7639 -0.455702 20.19 0.218748 18.8596L9.22406 1.09568ZM11.0079 2L2.00262 19.7639H19.7665L11.0079 2Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.3745 14.7639C10.0984 14.7639 9.87452 14.5197 9.87452 14.2184L9.87452 9.30935C9.87452 9.00811 10.0984 8.7639 10.3745 8.7639H11.3745C11.6507 8.7639 11.8745 9.00811 11.8745 9.30935V14.2184C11.8745 14.5197 11.6507 14.7639 11.3745 14.7639H10.3745Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.3745 17.7639C10.0984 17.7639 9.87452 17.5604 9.87452 17.3093L9.87452 16.2184C9.87452 15.9674 10.0984 15.7639 10.3745 15.7639H11.3745C11.6507 15.7639 11.8745 15.9674 11.8745 16.2184V17.3093C11.8745 17.5604 11.6507 17.7639 11.3745 17.7639H10.3745Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,1)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.9375 1.12765C12.201 -0.366589 10.075 -0.378398 9.32191 1.10756L0.221068 19.0642C-0.460537 20.409 0.516434 22 2.02387 22H19.9762C21.4738 22 22.4513 20.4278 21.7891 19.0843L12.9375 1.12765ZM10.4846 14.9241C10.2055 14.9241 9.97927 14.6772 9.97927 14.3727V9.41036C9.97927 9.10585 10.2055 8.85899 10.4846 8.85899H11.4952C11.7743 8.85899 12.0005 9.10585 12.0005 9.41036V14.3727C12.0005 14.6772 11.7743 14.9241 11.4952 14.9241H10.4846ZM10.4846 17.9566C10.2055 17.9566 9.97927 17.7509 9.97927 17.4971V16.3944C9.97927 16.1406 10.2055 15.9349 10.4846 15.9349H11.4952C11.7743 15.9349 12.0005 16.1406 12.0005 16.3944V17.4971C12.0005 17.7509 11.7743 17.9566 11.4952 17.9566H10.4846Z" fill="currentColor"/></g></svg>'
+      },
+      Rewards: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.66,0.75)"><path d="M8.43555 1.51341C9.61476 0.829312 11.0698 0.829293 12.249 1.51341L17.791 4.72825C18.9629 5.40809 19.6846 6.6606 19.6846 8.01536V14.4861C19.6846 15.8408 18.9629 17.0933 17.791 17.7732L12.249 20.988C11.0698 21.6721 9.61476 21.6721 8.43555 20.988L2.89355 17.7732C1.72172 17.0933 1 15.8408 1 14.4861V8.01536C1 6.6606 1.72172 5.40809 2.89355 4.72825L8.43555 1.51341Z" stroke="currentColor" stroke-width="2"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.66,0.75)"><path d="M8.43555 1.51341C9.61476 0.829312 11.0698 0.829293 12.249 1.51341L17.791 4.72825C18.9629 5.40809 19.6846 6.6606 19.6846 8.01536V14.4861C19.6846 15.8408 18.9629 17.0933 17.791 17.7732L12.249 20.988C11.0698 21.6721 9.61476 21.6721 8.43555 20.988L2.89355 17.7732C1.72172 17.0933 1 15.8408 1 14.4861V8.01536C1 6.6606 1.72172 5.40809 2.89355 4.72825L8.43555 1.51341Z" fill="currentColor" stroke="currentColor" stroke-width="2"/></g></svg>'
+      },
+      More: {
+        line: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1,3)"><path fill-rule="evenodd" clip-rule="evenodd" d="M22 1.5C22 1.77614 21.7761 2 21.5 2H4.5C4.22386 2 4 1.77614 4 1.5V0.5C4 0.223858 4.22386 0 4.5 0H21.5C21.7761 0 22 0.223858 22 0.5V1.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 9.5C22 9.77614 21.7761 10 21.5 10H0.5C0.223858 10 0 9.77614 0 9.5V8.5C0 8.22386 0.223857 8 0.5 8H21.5C21.7761 8 22 8.22386 22 8.5V9.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 17.5C22 17.7761 21.7761 18 21.5 18H4.5C4.22386 18 4 17.7761 4 17.5V16.5C4 16.2239 4.22386 16 4.5 16H21.5C21.7761 16 22 16.2239 22 16.5V17.5Z" fill="currentColor"/></g></svg>',
+        fill: '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(0,0)"><path d="M6 2C5.44772 2 5 2.44772 5 3V5C5 5.55228 5.44772 6 6 6H22C22.5523 6 23 5.55228 23 5V3C23 2.44772 22.5523 2 22 2H6Z" fill="currentColor"/><path d="M1 11C1 10.4477 1.44772 10 2 10H22C22.5523 10 23 10.4477 23 11V13C23 13.5523 22.5523 14 22 14H2C1.44772 14 1 13.5523 1 13V11Z" fill="currentColor"/><path d="M5 19C5 18.4477 5.44772 18 6 18H22C22.5523 18 23 18.4477 23 19V21C23 21.5523 22.5523 22 22 22H6C5.44772 22 5 21.5523 5 21V19Z" fill="currentColor"/></g></svg>'
+      }
+    };
+    var TABS = ['Home','Insights','Policies','Documents','Discover','Claims','Rewards','More'];
+
+    // Each item carries BOTH glyphs; CSS shows the outline, or the fill when active.
+    function item(tab, active) {
+      return '<a class="bottom-nav__item' + (active ? ' bottom-nav__item--active' : '') + '" href="#"'
+        + (active ? ' aria-current="page"' : '') + '>'
+        + '<span class="bottom-nav__icon">'
+        +   '<span class="bottom-nav__glyph bottom-nav__glyph--line">' + ICONS[tab].line + '</span>'
+        +   '<span class="bottom-nav__glyph bottom-nav__glyph--fill">' + ICONS[tab].fill + '</span>'
+        + '</span>'
+        + '<span class="bottom-nav__label">' + tab + '</span></a>';
+    }
+
+    // Working bar — Home active, three others (click to switch)
+    document.getElementById('bar').innerHTML =
+      item('Home',true) + item('Insights',false) + item('Policies',false)
+      + item('Claims',false);
+
+    // iOS Liquid Glass — Sense product (Home active)
+    document.getElementById('barIos').innerHTML =
+      item('Home',true) + item('Insights',false)
+      + item('Policies',false) + item('Claims',false);
+  </script>
+
+</body>
+</html>
