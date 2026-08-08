@@ -1,0 +1,68 @@
+/*
+ * ============================================================
+ * OPTIONAL INPUT COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59168-694126
+ *
+ * Captures a value while offering an escape hatch for when the answer isn't
+ * known or doesn't apply: a text input, an "or" divider, and a dismissal
+ * checkbox beneath it. Ticking the box disables the field.
+ *
+ * Variants
+ *   Box ticked — No (default) | Yes. Driven at runtime by optional-input.js,
+ *   which disables the input and adds .input-field--disabled when the box is
+ *   checked. Mark it up pre-ticked with `checked` + `disabled` and the script
+ *   keeps them in step.
+ *
+ * Composes existing components — no styles are duplicated here:
+ *   - Text Input  (.input-group / .input-label / .input-field / .input)
+ *   - Divider     (.divider-text with a label)
+ *   - Checkbox    (.checkbox)
+ * Link input.css, divider.css and checkbox.css alongside this file, plus
+ * input.js (for the optional MM / YYYY mask) and optional-input.js.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="optional-input.css">
+ *   <script src="../input/input.js" defer></script>
+ *   <script src="optional-input.js" defer></script>
+ *
+ *   <div class="optional-input">
+ *     <div class="input-group">
+ *       <label class="input-label input-label--title" for="purchased">When was the vehicle purchased?</label>
+ *       <div class="input-field">
+ *         <input class="input" id="purchased" type="text" placeholder="MM / YYYY"
+ *                data-mask="mm/yyyy" inputmode="numeric">
+ *       </div>
+ *     </div>
+ *     <div class="divider-text"><span class="divider-text__label">or</span></div>
+ *     <label class="checkbox">
+ *       <input class="checkbox__input" type="checkbox">
+ *       <span class="checkbox__box">…tick svg…</span>
+ *       <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+ *     </label>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../input/input.css';
+@import '../divider/divider.css';
+@import '../checkbox/checkbox.css';
+
+
+.optional-input {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);              /* 12px */
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   Every colour comes from the composed components, all of which resolve
+   through mode-aware tokens, so there is nothing to override here.
+   ------------------------------------------------------------ */

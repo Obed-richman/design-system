@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi licence — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Taxi licence
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=6260-94582
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8042-105791
+
+       Last page of the Driver step, and the point where the licence branch closes:
+       both a UK driver and an EU driver arrive here, so it sits in the slot AFTER
+       the branch rather than in either arm — see STEPS in journey.js. -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Tell us about your Taxi licence</h1>
+      <p class="proto__lead">We&#39;ll use these details to get you an accurate quote.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <!-- Segmented MM / YYYY, refused if in the future — a licence you already
+           hold can't have been issued tomorrow. -->
+      <div class="input-group" data-required-error="Enter the date you got your licence.">
+        <span class="input-label input-label--title" id="taxi-when-label">When did you get your taxi licence?</span>
+        <div role="group" aria-labelledby="taxi-when-label" class="input-field input-date"
+             data-date-max="today"
+             data-date-error="The date you got your licence can&#39;t be in the future.">
+          <input class="input input-date__part input-date__part--month" id="taxi-month"
+                 type="text" placeholder="MM" aria-label="Licence month"
+                 inputmode="numeric" maxlength="2" autocomplete="off">
+          <span class="input-date__separator" aria-hidden="true">/</span>
+          <input class="input input-date__part input-date__part--year" id="taxi-year"
+                 type="text" placeholder="YYYY" aria-label="Licence year"
+                 inputmode="numeric" maxlength="4" autocomplete="off">
+        </div>
+      </div>
+
+      <!-- London leads, then A-Z, in a scrolling list — the same shape the
+           dialling-code and offence-code lists use. Typeable, so a long list can
+           be narrowed instead of scrolled. -->
+      <div class="input-group input-select" data-select data-select-filter
+           data-required-error="Select your licence issuing district.">
+        <span class="input-label input-label--title" id="taxi-district-label">Licence issuing district</span>
+        <div class="input-field">
+          <input class="input input-select__value" type="text" placeholder="Select"
+                 id="taxi-district" role="combobox" aria-expanded="false"
+                 aria-controls="taxi-district-list" aria-labelledby="taxi-district-label" autocomplete="off">
+          <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="dropdown-list dropdown-list--scroll input-select__list" id="taxi-district-list" role="listbox" aria-labelledby="taxi-district-label" hidden>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">London</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Aberdeen</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Aberdeenshire</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Adur</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Allerdale</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Amber Valley</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Arun</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Ashfield</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Ashford</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Barnsley</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Basildon</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Basingstoke and Deane</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bath and North East Somerset</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bedford</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Birmingham</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Blackburn with Darwen</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Blackpool</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bolton</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bournemouth, Christchurch and Poole</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bradford</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Brighton and Hove</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bristol</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Bury</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Calderdale</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cambridge</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cardiff</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Carlisle</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Chelmsford</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cheltenham</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cheshire East</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cheshire West and Chester</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Chesterfield</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Chichester</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Colchester</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Cornwall</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Coventry</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Crawley</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Derby</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Doncaster</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Dudley</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Durham</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Edinburgh</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Glasgow</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leeds</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leicester</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Liverpool</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Manchester</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Newcastle upon Tyne</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Nottingham</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Sheffield</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Wolverhampton</span></button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

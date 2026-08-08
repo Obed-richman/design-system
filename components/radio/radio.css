@@ -75,6 +75,7 @@
 
 .radio__control {
   --radio-size: 20px;                              /* Large */
+  --radio-dot:  8px;                               /* both sizes — see below */
   box-sizing:      border-box;
   position:        relative;
   flex-shrink:     0;
@@ -89,13 +90,22 @@
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
-/* Filled dot (Radio type) — centred, hidden until checked */
+/* Filled dot (Radio type) — centred, hidden until checked.
+   8px in BOTH sizes: Figma draws the indicator at a fixed size and only changes
+   the ring around it, so the dot fills 40% of the 20px control and 50% of the
+   16px one. It was a percentage, which looks equivalent but isn't — a flex
+   item's percentage width resolves against the container's content box, and the
+   2px border has already taken 4px off that. 40% of 20px was rendering 6.4px,
+   and 40% of the small control just 4.8px. */
 .radio__control::after {
   content:       '';
-  width:         40%;
-  height:        40%;
+  width:         var(--radio-dot);
+  height:        var(--radio-dot);
   border-radius: var(--radius-round);
-  background:    var(--border-active);   /* Aqua 60 */
+  /* Figma binds the fill to surface/primary-hover, not border/active — the same
+     Aqua 60 in light, but they part company in dark (border/active steps to
+     Aqua 80 there, the dot doesn't). */
+  background:    var(--surface-primary-hover);
   opacity:       0;
   transition:    opacity 120ms ease;
 }
@@ -157,7 +167,11 @@
 .radio--error .radio__control::after { background: var(--icon-glyph-error); }
 .radio--error .radio__tick { color: var(--icon-glyph-error); }
 
-/* Disabled — grey fill, border + indicator */
+/* Disabled — grey fill, border + indicator, the same for both Types whether or
+   not it's checked. Figma currently leaves Type=Radio / Checked=False on
+   surface/primary (white) while every other disabled cell is
+   background/disabled; that split was raised and resolved in favour of the grey
+   everywhere, so Figma is the side that needs updating. */
 .radio--disabled { cursor: not-allowed; }
 .radio--disabled .radio__control,
 .radio--disabled .radio__input:checked + .radio__control {

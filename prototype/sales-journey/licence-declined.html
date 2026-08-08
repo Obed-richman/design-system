@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Licence declined — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Injects the Sales Navigation + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Kickout - NI licence decline
+       https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-283855
+
+       Same message as the general decline, but a different way out: this one
+       offers Go back, because a licence answer is something you might have
+       mis-tapped, where the general decline is a verdict on the whole quote.
+
+       A dead end, not a step: data-exit keeps it out of the flow, so journey.js
+       leaves off the Back control and doesn't advance the stepper. It's reached
+       from an answer carrying data-exit-to — here "Yes" on the modified-vehicle
+       question in vehicle-details.html. -->
+  <main class="proto" data-step="vehicle" data-exit>
+
+    <div class="proto__exit">
+      <img class="proto__exit-art" src="quote-declined-illustration.svg" alt="" width="72" height="72">
+
+      <div class="proto__intro">
+        <h1 class="proto__title">Sorry, we can&#39;t offer you a quote this time</h1>
+        <p class="proto__lead">We&#39;ve reviewed your details, and we&#39;re not able to offer a quote. If anything changes in the future, please come back and try again.</p>
+      </div>
+
+      <!-- Back to the question, so a mis-tapped answer can be corrected -->
+      <a class="btn btn--primary btn--pill btn--block" href="licence-type.html">Go back</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

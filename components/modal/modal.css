@@ -1,0 +1,214 @@
+/*
+ * ============================================================
+ * MODAL COMPONENT
+ * ============================================================
+ * A panel over a scrim that interrupts the page to ask something that cannot be
+ * asked in place — most often "are you sure?" before an action destroys work.
+ *
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57921-5638
+ *
+ * Breakpoints (Figma "Breakpoint" variant):
+ *   Mobile  — 16px sides, the close in a 48px band above the title, Title 4+
+ *   Desktop — 32px sides, the close 16 from the top, Title 3
+ *
+ * The component is a CONTAINER: a close, a title, and a slot for whatever the
+ * dialogue is about. 003 fills its desktop example with Bullet Points; the
+ * actions below are a slot too (Figma's hidden "Buttons & Text Link").
+ *
+ * USE IT SPARINGLY. A modal takes the whole screen away, so it earns its place
+ * only when the answer changes what happens next and the question cannot wait.
+ * A message that merely informs belongs in a Global Alert; a question about one
+ * field belongs beside that field.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../button/button.css">
+ *   <link rel="stylesheet" href="modal.css">
+ *   <script src="modal.js"></script>
+ *
+ *   <div class="modal overlay overlay--darker" id="discard" hidden>
+ *     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="discard-title">
+ *       <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg>…</svg></button>
+ *       <h2 class="modal__title" id="discard-title">Discard what you've added?</h2>
+ *       <p class="modal__body">…</p>
+ *       <div class="modal__actions">
+ *         <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button">Discard</button>
+ *         <button class="btn btn--secondary btn--pill btn--block" type="button" data-modal-close>Cancel</button>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ *   Open it with a trigger — <button data-modal-open="discard"> — or from script:
+ *   Modal.open('discard'). Backdrop click and Escape close it; see modal.js.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../button/button.css';
+@import '../overlay/overlay.css';
+
+
+/* ------------------------------------------------------------
+   SCRIM
+   Covers the viewport and dims what is behind, which is what makes the panel
+   read as "answer this first" rather than as another thing on the page.
+
+   Fixed, and mounted on <body> by modal.js — an ancestor with container-type,
+   contain or a transform would become the containing block and pin this inside
+   a card. Same trap the Global Alert has to avoid.
+
+   The wash is the OVERLAY component's Darker variant — the strongest of its
+   three, because a dialogue is the one case where the page behind has to stop
+   looking like something you can still use. Composed as a class on the same
+   element rather than a nested sheet: two fixed full-screen boxes to keep in
+   step is one more than the job needs.
+   ------------------------------------------------------------ */
+
+.modal {
+  position:        fixed;
+  inset:           0;
+  z-index:         300;                        /* over the Global Alert's 200 */
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  /* Spacer-16 either side, which is what leaves a 375px panel at Frame/Container
+     (343) on a 375 phone — the width 003 draws the mobile variant at. */
+  padding:         var(--spacer-16);
+  box-sizing:      border-box;
+}
+
+.modal[hidden] { display: none; }
+
+/* Restated at (0,2,0) so it cannot lose to Overlay's own z-index.
+
+   Both rules are (0,1,0), so which one wins is decided by order — and the order
+   differs by how the CSS is loaded. Linking modal.css puts overlay.css first (it
+   imports it), so .modal wins; the prototype kit and dist/ concatenate every
+   component alphabetically, which puts overlay AFTER modal and dropped the whole
+   dialogue to z-index 200 — level with the Global Alert instead of over it.
+   Specificity settles it either way. */
+.modal.overlay { z-index: 300; }
+
+
+/* ------------------------------------------------------------
+   PANEL
+   ------------------------------------------------------------ */
+
+.modal__panel {
+  position:       relative;
+  box-sizing:     border-box;
+  width:          100%;
+  /* Frame/Screen, which is 375 below 768 and 1440 above it — the desktop cap in
+     the media query below is what actually applies there. */
+  max-width:      var(--frame-screen);
+  max-height:     100%;
+  overflow-y:     auto;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);            /* title → content */
+  /* The top inset clears the close, which sits in a band of its own above the
+     title rather than beside it. Measured off the mobile variant: a 48px band,
+     then Spacer-12 before the title. */
+  padding:        60px var(--spacer-16) var(--spacer-16);
+  background:     var(--surface-primary);
+  border-radius:  var(--radius-x-large);       /* 32px */
+  box-shadow:     var(--shadow-dropdown);
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* The panel takes focus on open so a screen reader lands in the dialogue rather
+   than at the top of the page. That focus is programmatic and the panel is not
+   a control, so it shows no ring — the title and the scrim already say where you
+   are. Controls inside keep their own focus styles. */
+.modal__panel:focus { outline: none; }
+
+/* Desktop steps the padding out and the title up, and caps the panel at the 516
+   003 draws it at — a dialogue stops growing where it stops being comfortable to
+   read rather than following the page's frame. */
+@media (min-width: 768px) {
+  .modal__panel {
+    max-width: 516px;
+    gap:       var(--spacer-24);
+    padding:   var(--spacer-48) var(--spacer-32) var(--spacer-32);
+  }
+}
+
+
+/* ------------------------------------------------------------
+   CLOSE
+   The dismissal of last resort. The actions below are the real answer, so this
+   sits quiet: a neutral disc rather than anything that competes with them.
+   ------------------------------------------------------------ */
+
+.modal__close {
+  position:        absolute;
+  top:             var(--spacer-8);            /* centred in the 48px band */
+  right:           var(--spacer-16);
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  padding:         0;
+  border:          none;
+  border-radius:   var(--radius-round);
+  background:      var(--overlay-dark-medium);  /* #27252d @ 30% */
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.modal__close:hover { background: var(--overlay-dark-high); }
+.modal__close svg   { display: block; width: 16px; height: 16px; }
+
+@media (min-width: 768px) {
+  .modal__close { top: var(--spacer-16); right: var(--spacer-32); }
+}
+
+
+/* ------------------------------------------------------------
+   CONTENT
+   ------------------------------------------------------------ */
+
+/* The title CROSSES type steps rather than scaling within one: Mobile/Title 4+
+   on small screens and Desktop/Title 3 on large, which is the pair 003 uses for a
+   screen heading. That is why it can't be a typography utility class — each of
+   those tracks a single step across breakpoints. The close has a band of its own
+   above, so the title needs no room made for it. */
+.modal__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4-plus);
+  line-height:    var(--line-height-title-4-plus);
+  letter-spacing: var(--letter-spacing-tight);   /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .modal__title {
+    font-size:   var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+  }
+}
+
+.modal__body {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);        /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ACTIONS
+   Figma's "Buttons & Text Link" slot, which ships hidden — a modal doesn't have
+   to end in buttons. Stacked and full width at every size: these are a decision,
+   not a toolbar, and side by side invites the reflex tap on the one that
+   destroys work.
+   ------------------------------------------------------------ */
+
+.modal__actions {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-small);            /* 12px */
+  margin-top:     var(--gap-x-small);          /* 8px — a beat before deciding */
+}

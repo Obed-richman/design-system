@@ -44,7 +44,7 @@
   gap:              var(--gap-x-small);          /* 8px */
   padding:          var(--gap-medium);           /* 16px */
   border:           var(--border-m) solid var(--border-primary);
-  border-radius:    var(--radius-medium);        /* 16px */
+  border-radius:    var(--radius-small);         /* 8px — Radius-8, what 003 binds */
   background-color: var(--surface-primary);
   transition:       border-color 150ms ease, box-shadow 150ms ease;
 }
@@ -109,3 +109,19 @@
 }
 .acknowledge--disabled .acknowledge__text { color: var(--text-disabled); }
 .acknowledge--disabled .acknowledge__info { color: var(--icon-glyph-disabled); }
+
+
+/* ------------------------------------------------------------
+   INLINE LINK
+   The consent copy carries a link out to the policy it refers to. There is no
+   shared link class in the system — Alert, Extra Cover and Stepper each define
+   their own — so this follows the same shape: text/link, underlined. Bold here
+   because it sits inside a run of body copy and has to be findable in it, which
+   is how the sales frames draw it.
+   ------------------------------------------------------------ */
+
+.acknowledge__link {
+  font-weight:     var(--font-weight-bold);
+  color:           var(--text-link);
+  text-decoration: underline;
+}

@@ -1,0 +1,153 @@
+/*
+ * ============================================================
+ * ADDRESS LOOKUP COMPONENT
+ * ============================================================
+ * Figma source: Sales Journey — Ideation / "Driver details" states
+ * (Address search dropdown · Address populated · Address edit)
+ *
+ * A UK address captured in three moves:
+ *
+ *   1. SEARCH   a postcode field with a trailing search glyph. Searching opens a
+ *               Dropdown List of matching addresses — each a two-line row — with
+ *               a final "Enter address manually" row.
+ *   2. CHOSEN   the picked address shown back as a bordered summary with an Edit
+ *               action under a rule.
+ *   3. MANUAL   line 1, line 2, city and postcode, with a Save address action.
+ *
+ * Only one of the three is in the DOM flow at a time. All three are in the markup
+ * and toggled by `hidden`, so the field works with JS off (it opens on the manual
+ * form) and nothing has to be built at runtime.
+ *
+ * Composes Text Input, Dropdown List, Dropdown Item, Divider and Button — link
+ * those alongside this file. Behaviour is in address-lookup.js.
+ *
+ * NOTE: 003 has a **Row List** component (key 11cbcd7d8dc64a74d22095d0f33abe1d…)
+ * which is what the Figma frame uses for the CHOSEN summary. It isn't in this
+ * repo yet, so the summary below is built to match the frame rather than to that
+ * component's API. Worth re-basing once Row List is ported — see KNOWN-ISSUES.
+ *
+ * Usage: see address-lookup.html, or the Driver details screen in the prototype.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../input/input.css';
+@import '../dropdown-item/dropdown-item.css';
+@import '../dropdown-list/dropdown-list.css';
+@import '../divider/divider.css';
+
+
+.address-lookup {
+  position:   relative;                /* anchors the floating results list */
+  width:      100%;
+  min-width:  0;
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* The three stages, and the label that sits above all of them */
+.address-lookup__stage[hidden] { display: none; }
+
+.address-lookup__title {
+  display:     block;
+  margin:      0 0 var(--gap-x-small);   /* 8px */
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   1. SEARCH
+   ------------------------------------------------------------ */
+
+/* A real button so the search is reachable by keyboard and by click, with the
+   UA's button chrome stripped back to just the glyph */
+.address-lookup__glyph {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  padding:     0;
+  border:      none;
+  background:  none;
+  cursor:      pointer;
+  color:       var(--icon-glyph-primary);
+}
+.address-lookup__glyph svg { display: block; width: 100%; height: 100%; }
+
+/* Results float so the questions below don't get shoved down as they open */
+.address-lookup__results {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+.address-lookup__results[hidden] { display: none; }
+
+/* A result row is two lines: the address, then where it is. The Dropdown Item
+   centres a single label, so the stack overrides that to start-aligned. */
+.address-lookup__result { align-items: flex-start; }
+.address-lookup__result-text {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  text-align:     left;
+}
+.address-lookup__result-sub {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+/* The last row is an escape hatch, not an address — chevron, no sub-line */
+.address-lookup__manual-link .dropdown-item__label { flex: 1; }
+.address-lookup__chevron {
+  flex-shrink: 0;
+  width:       7px;
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+}
+.address-lookup__chevron svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   2. CHOSEN — the address read back, with an Edit action
+   ------------------------------------------------------------ */
+
+.address-lookup__summary {
+  box-sizing:     border-box;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px */
+  padding:        var(--spacer-16);
+  border:         var(--border-s) solid var(--border-primary);
+  border-radius:  var(--radius-small);            /* 8px */
+}
+
+.address-lookup__lines {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.address-lookup__summary .btn { width: 100%; }
+
+
+/* ------------------------------------------------------------
+   3. MANUAL — the four fields and Save
+   ------------------------------------------------------------ */
+
+.address-lookup__manual {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px between fields */
+}
+.address-lookup__manual .btn { width: 100%; }

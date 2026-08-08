@@ -1,0 +1,483 @@
+/*
+ * Sales journey — page scaffold
+ * Only the surrounding page; every component comes from ../kit.css and every
+ * dimension comes from a design token (see tokens/tokens.css).
+ *
+ * Widths follow the Figma "Frames" scale:
+ *   --frame-wrapper  main bounding area   (343 mobile / 1200 desktop)
+ *   --frame-content  a single content col (311 mobile /  588 desktop)
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin:          0;
+  min-height:      100vh;
+  display:         flex;
+  flex-direction:  column;
+  background:      var(--background-tertiary);
+  color:           var(--text-primary);
+  font-family:     var(--font-family-base);
+}
+
+
+/* ------------------------------------------------------------
+   SCREEN CANVAS
+   Default screens are a single content column; add .proto--wrapper for
+   screens that use the full wrapper (e.g. the split image + form layout).
+
+   MOBILE (the default below) — the canvas hugs its content, inset 20 above and
+   32 below. DESKTOP — it grows instead, so the footer sits at the foot of the
+   viewport, with roomier padding and clearance for the floating toolbar.
+
+   Every desktop override is written as `html:not([data-viewport="mobile"])` so
+   the toolbar's Mobile preview frame keeps the mobile rules even though it sits
+   on a wide viewport. That also keeps the mobile values in one place.
+   ------------------------------------------------------------ */
+
+.proto {
+  flex:            0 0 auto;            /* hug the content */
+  width:           100%;
+  /* The split layout below queries this element's width, not the viewport's,
+     so it also collapses inside the toolbar's narrow Mobile preview frame. */
+  container-type:  inline-size;
+  /* + gutters so the content box itself is exactly one frame wide.
+     Mobile fills the wrapper (343); on desktop the column narrows to one
+     content frame (588). Figma's mobile content frame (311) is the width
+     *inside* a card's padding, not the page column. */
+  max-width:       calc(var(--frame-wrapper) + 2 * var(--spacer-16));
+  margin:          0 auto;
+  padding:         var(--spacer-20) var(--spacer-16) var(--spacer-32);
+  display:         flex;
+  flex-direction:  column;
+  gap:             var(--gap-large);
+}
+
+.proto--wrapper { max-width: calc(var(--frame-wrapper) + 2 * var(--spacer-16)); }
+
+/* The canvas no longer stretches, so hand the spare height to the footer to
+   keep it at the bottom on short screens. */
+body > .footer-sales { margin-top: auto; }
+
+@media (min-width: 768px) {
+  html:not([data-viewport="mobile"]) .proto {
+    flex:      1 0 auto;
+    padding:   var(--spacer-32) var(--spacer-16) var(--spacer-96);
+    max-width: calc(var(--frame-content) + 2 * var(--spacer-16));
+  }
+
+  /* No block padding on the split layout. Both panels already inset their own
+     content by --spacer-32, so an outer pad would double it at the top; at the
+     bottom it would leave a band of dead background above the footer and stop
+     the media panel stretching into it. (The toolbar overlays the footer here,
+     so it needs no clearance either.) */
+  /* Must restate the wrapper width here: the .proto rule above is more
+     specific than the bare .proto--wrapper class, so without this the split
+     layout gets capped at one content frame and its 1024px container query
+     never fires — which silently drops the media panel. */
+  html:not([data-viewport="mobile"]) .proto--wrapper {
+    padding-block: 0;
+    max-width:     calc(var(--frame-wrapper) + 2 * var(--spacer-16));
+  }
+
+  html:not([data-viewport="mobile"]) body > .footer-sales { margin-top: 0; }
+}
+
+/* The toolbar's Mobile toggle narrows the whole page, chrome included — the
+   nav and footer size themselves off their own width (container queries), so
+   they switch to their mobile layouts too. --proto-device is the Figma mobile
+   Screen size; it has to be a fixed length because --frame-screen follows the
+   viewport, not this preview frame. */
+:root { --proto-device: 375px; }
+
+html[data-viewport="mobile"] .proto,
+html[data-viewport="mobile"] > body > .sales-nav,
+html[data-viewport="mobile"] > body > .footer-sales {
+  max-width: var(--proto-device);
+  margin:    0 auto;
+}
+
+
+/* ------------------------------------------------------------
+   BACK CONTROL
+   Injected at the top of every screen by journey.js (and dropped on the first
+   screen, which has nowhere to go back to). Shrink-wrapped so it doesn't
+   stretch across the canvas like the other flex children.
+   ------------------------------------------------------------ */
+
+.proto__back { align-self: flex-start; }
+
+
+/* ------------------------------------------------------------
+   INTRO TEXT — one rule for every screen
+   The heading crosses type steps rather than scaling within one: Title 3 on
+   desktop, Title 4 on mobile. tokens/typography.css classes each track a
+   single step across breakpoints, so this can't be a utility class.
+   ------------------------------------------------------------ */
+
+/* A centred stack. align-items keeps children shrink-wrapped so inline chips
+   (e.g. a Registration Plate) hug their text instead of stretching. */
+.proto__intro {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-12);
+  text-align:     center;
+}
+.proto__intro > * { margin: 0; max-width: 100%; }
+
+/* Mobile first: Title 4+ (the step Figma pairs with Desktop Title 3) */
+.proto__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4-plus);
+  line-height:    var(--line-height-title-4-plus);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.proto__lead {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-1);          /* 18px */
+  line-height: var(--line-height-body-1);
+  color:       var(--text-primary);
+}
+
+/* Desktop: step up to Title 3.
+   Queried against the canvas width, not the viewport, so the Mobile preview
+   frame gets the mobile step too. 480px is the hinge between a mobile column
+   (~343-375px) and a desktop one (620px narrow / 1232px wrapper) — it can't be
+   a token because container queries only accept literal lengths. */
+@container (min-width: 480px) {
+  .proto__title {
+    font-size:   var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+  }
+}
+
+
+/* ------------------------------------------------------------
+   SPLIT LAYOUT — media panel beside the form
+   Figma splits the wrapper into two equal content columns with a
+   --spacer-24 gutter (588 + 24 + 588 = 1200 = --frame-wrapper), so equal
+   fractions reproduce it without pinning either column to a fixed width.
+   Below the wrapper width the panel stacks above the form.
+   ------------------------------------------------------------ */
+
+/* Fills the page like Figma's flex-1 wrapper: the form column stays vertically
+   centred and the media panel stretches to match. Safe to grow because the
+   photo is taken out of flow below, so it can't inflate the row itself. */
+.proto__split {
+  flex:          1 1 auto;
+  display:       grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap:           var(--spacer-24);
+  align-items:   stretch;
+}
+
+@container (min-width: 1024px) {
+  .proto__split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Media panel — desktop only. The mobile design drops the photo, so the panel
+   is hidden below the split breakpoint and the form takes the whole width.
+   In the split, the image is taken out of flow and pinned to the panel (inset
+   top and bottom by --spacer-32, matching the form panel) so the FORM column
+   decides the row height and
+   the photo crops to fit — otherwise the portrait source would set the height. */
+.proto__media { display: none; }
+
+@container (min-width: 1024px) {
+  .proto__media {
+    display:    block;
+    position:   relative;
+    min-height: 0;
+  }
+  .proto__media img {
+    position:      absolute;
+    top:           var(--spacer-32);
+    left:          0;
+    width:         100%;
+    /* An explicit height — top/bottom insets don't size a replaced element,
+       its intrinsic height would win and re-inflate the row. */
+    height:        calc(100% - 2 * var(--spacer-32));
+    object-fit:    cover;
+    border-radius: var(--radius-small);
+  }
+}
+
+
+/* Form panel — vertically centred against the media panel. On mobile the
+   canvas already provides the block padding, so the panel adds none. */
+.proto__pane {
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             var(--spacer-24);
+}
+
+@media (min-width: 768px) {
+  html:not([data-viewport="mobile"]) .proto__pane { padding-block: var(--spacer-32); }
+}
+
+
+/* ------------------------------------------------------------
+   CARD — a white panel holding Display Rows (Figma's "List")
+   ------------------------------------------------------------ */
+
+/* 16 all round on mobile, 32 all round on desktop — same 480px canvas hinge as
+   the intro heading above. */
+.proto__card {
+  background:    var(--surface-primary);
+  border-radius: var(--radius-medium);
+  padding:       var(--spacer-16);
+}
+
+@container (min-width: 480px) {
+  .proto__card { padding: var(--spacer-32); }
+}
+
+/* Form card — stacked fields. Kept off the base .proto__card because the
+   display-row variant relies on normal flow to collapse its 1px rules. */
+/* Questions sit Spacer-20 apart on mobile and Spacer-24 on desktop — the
+   "loose relationship" step either side of the breakpoint, so the questions
+   read as separate without drifting apart on a small screen. Queried on the
+   container, like the card padding it sits inside. */
+.proto__card--form {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-20);
+}
+@container (min-width: 480px) {
+  .proto__card--form { gap: var(--spacer-24); }
+}
+
+/* The first and last rows sit against the card edge, so drop their outer rule.
+   A Display Row carries a rule on BOTH edges and a -1px bottom margin to collapse
+   it into the next row's top rule, so the stack needs the outer two removed or
+   they draw against the card's own edge.
+
+   Scoped to .display-row on purpose. This was written as a bare `> :last-child`,
+   which reached anything that happened to sit last in a card — it was eating the
+   bottom border off the Personal details card on uk-licence.html, which read as
+   the card being clipped. Keep the element name in the selector: a rule about
+   Display Rows should only ever match Display Rows. */
+.proto__card > .display-row:first-child { border-top: 0; }
+.proto__card > .display-row:last-child  { border-bottom: 0; margin-bottom: 0; }
+
+/* A footnote below the rows, separated by the same rule */
+.proto__card-note {
+  padding-top: var(--spacer-16);
+  border-top:  var(--border-s) solid var(--border-primary);
+}
+
+
+/* ------------------------------------------------------------
+   PAIRED ACTIONS
+   Mobile: stacked full-width with the PRIMARY action on top. column-reverse
+   does that while leaving the markup in secondary-then-primary order, which is
+   the order the desktop row reads left to right.
+   Desktop: side by side, equal width.
+   ------------------------------------------------------------ */
+
+.proto__buttons {
+  display:        flex;
+  flex-direction: column-reverse;
+  gap:            var(--spacer-16);
+}
+
+@media (min-width: 768px) {
+  html:not([data-viewport="mobile"]) .proto__buttons {
+    flex-direction: row;
+    gap:            var(--spacer-20);
+  }
+  /* Equal halves — only in the row layout; in a column a flex-basis of 0 would
+     collapse the buttons instead of widening them. */
+  html:not([data-viewport="mobile"]) .proto__buttons .btn { flex: 1 1 0; min-width: 0; }
+}
+
+
+/* ------------------------------------------------------------
+   STEP ACTIONS
+   ------------------------------------------------------------ */
+
+.proto__actions { display: flex; gap: var(--gap-small); align-items: center; }
+.proto__actions .btn--primary { flex: 1 1 auto; }
+
+/* A dashed drop zone marking where to paste real screen content. Delete these
+   as each screen gets built out. */
+.proto__todo {
+  padding:       var(--spacer-24) var(--spacer-16);
+  border:        var(--border-s) dashed var(--border-primary);
+  border-radius: var(--radius-medium);
+  text-align:    center;
+  font-size:     var(--font-size-body-3);
+  line-height:   var(--line-height-body-3);
+  color:         var(--text-pressed);
+}
+.proto__todo code { font-family: ui-monospace, monospace; font-size: var(--font-size-body-4); }
+
+
+/* ------------------------------------------------------------
+   EXIT SCREEN (kickout)
+   A dead end rather than a step: illustration, message, one way out. Figma's
+   Kickout frame stacks them 32px apart in the 588 content column, top-aligned
+   under the screen's own 32px top padding.
+   ------------------------------------------------------------ */
+
+.proto__exit {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-32);
+  width:          100%;
+}
+
+.proto__exit-art { display: block; width: 72px; height: 72px; }
+
+
+/* ------------------------------------------------------------
+   OPT-INS
+   A pair of Acknowledge boxes reads as one block, so they sit Spacer-8 apart —
+   closer than the Spacer-20/24 between questions, which is what tells you they
+   belong together rather than being two more things to answer.
+   ------------------------------------------------------------ */
+
+.proto__optins {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);   /* 8px */
+}
+
+
+/* ------------------------------------------------------------
+   CTA BLOCK — a primary action with small print under it
+   Figma builds this with a Total Cost instance that has no price in it, which
+   is a container borrowed for its layout rather than a total of anything. Built
+   as what it is: the action, then the note it needs to carry.
+
+   Nothing uses it yet — the DVLA note it was written for moves to the next
+   screen. Kept rather than deleted because that screen is next; if it turns out
+   not to need it, delete this block rather than leaving it to rot.
+   ------------------------------------------------------------ */
+
+.proto__cta {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--gap-medium);      /* 16px */
+  width:          100%;
+}
+
+.proto__cta-note {
+  margin:      0;
+  text-align:  center;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);   /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+.proto__cta-note a {
+  font-weight:     var(--font-weight-bold);
+  color:           var(--text-link);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   SCREEN-LEVEL ALERT — the Global Alert component, sized to this journey
+   For a fault that belongs to the screen rather than to a field — a DVLA lookup
+   that didn't match or a licence number too short to check, where there is no
+   single field to hang the message on. Raised by journey.js through
+   GlobalAlert.show() and retracted as soon as anything is edited.
+
+   The component owns the floating, the stack, the close and the states — see
+   components/global-alert. All that is left here is WIDTH, because only this
+   journey knows where its own content column is.
+
+   Width mirrors the CANVAS block at the top of this file, side padding and all,
+   so the banner's edges land on the card's edges rather than overhanging it by
+   the canvas gutter. Kept as a copy of that block's sizing rather than something
+   cleverer because a fixed element can't inherit another element's width — if
+   the canvas widths change, change them here too.
+   ------------------------------------------------------------ */
+
+.global-alert {
+  max-width: calc(var(--frame-wrapper) + 2 * var(--spacer-16));        /* 375 */
+}
+
+@media (min-width: 768px) {
+  html:not([data-viewport="mobile"]) .global-alert {
+    max-width: calc(var(--frame-content) + 2 * var(--spacer-16));      /* 620 */
+  }
+}
+
+/* Follows the preview frame, like the canvas and chrome above */
+html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
+
+
+/* ------------------------------------------------------------
+   INFORMATION ALERT SIZING — the journey's treatment of an inline alert
+   The "please note" aside inside a form card. Bordered, because the border is
+   what separates it from the white card behind it, and Radius/Radius-8, a level
+   below the Radius/Radius-16 the cards use.
+
+   The screen-level banner is sized THE SAME WAY but not from here — those values
+   are the Global Alert component's own, since that component is new and these are
+   its defaults rather than an override of anything. If one of the two changes,
+   change the other: they should read alike.
+
+   Written here rather than in alert.css because it is this journey's treatment
+   of the alert, not a change to the component — the DS default stays 16px
+   radius, 14px copy, a 24px glyph. If the same treatment gets drawn on other
+   surfaces, promote it to a component modifier instead of copying this block.
+
+   Nothing here steps at the 480px hinge the rest of the journey uses, which is
+   deliberate: an alert is the one thing on a screen that should read the same
+   everywhere, and a message the user has to take in is no less important on a
+   phone. Body 2 is the same 16/24 the questions already use on both widths, so
+   an alert sits level with them rather than shrinking beside them.
+
+   ------------------------------------------------------------ */
+
+.proto .alert--information { border-radius: var(--radius-small); }   /* 8px */
+
+/* Body 2 copy with the glyph stepped DOWN to 16px — beside 16/24 text a 24px
+   glyph competes with the sentence it belongs to. Spacer-4 above it sits the
+   glyph on the first line's cap height rather than its ascender; box-sizing is
+   spelled out so the 4px stays real padding above a 16px glyph whatever reset
+   is in play. */
+.proto .alert--information .alert__description {
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);        /* 24px */
+}
+
+.proto .alert--information .alert__icon {
+  box-sizing:  content-box;
+  width:       16px;
+  height:      16px;
+  padding-top: var(--spacer-4);
+}
+.proto .alert--information .alert__icon svg { width: 16px; height: 16px; }
+
+/* ------------------------------------------------------------
+   CONVICTIONS — a list of Detail Cards you add to
+   The cards sit Spacer-20/24 apart, the same rhythm questions inside a card
+   already use, so a conviction reads as one more question rather than a new
+   section. "Add a conviction" then sits a step further out, because it acts on
+   the whole list rather than belonging to the card above it.
+   ------------------------------------------------------------ */
+
+.proto__convictions {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-20);
+}
+@container (min-width: 480px) {
+  .proto__convictions { gap: var(--spacer-24); }
+}
+
+.proto__add { margin-top: var(--spacer-20); }
+@container (min-width: 480px) {
+  .proto__add { margin-top: var(--spacer-24); }
+}

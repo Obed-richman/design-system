@@ -1,0 +1,132 @@
+/*
+ * ============================================================
+ * GLOBAL ALERT COMPONENT
+ * ============================================================
+ * A floating stack of messages pinned to the top of the viewport, for faults and
+ * confirmations that belong to the SCREEN rather than to a field — a lookup that
+ * didn't match, a save that failed, a change that went through. Anything with a
+ * field to hang it on belongs on that field instead; this is what's left.
+ *
+ * Not in Figma yet — see KNOWN-ISSUES 3.15. Grown out of the screen-level alert
+ * built for the sales journey, which is now a consumer of this rather than its
+ * own implementation.
+ *
+ * SHAPE
+ * The block is the STACK. Each message inside it is a plain design-system Alert,
+ * so this component adds no colours of its own — the three states map onto Alert:
+ *
+ *   Error    → .alert--negative
+ *   Warning  → .alert--warning
+ *   Success  → .alert--positive
+ *
+ * DEPENDS ON Alert for the message itself (alert.css) and on alert.js for the
+ * close button, which is that component's own behaviour. global-alert.js adds
+ * only what the stack owns: raising, the two-deep cap, and the timer that
+ * retires a Success on its own.
+ *
+ * Usage — one line, no markup needed; the stack is created on first use:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../alert/alert.css">
+ *   <link rel="stylesheet" href="global-alert.css">
+ *   <script src="../alert/alert.js"></script>
+ *   <script src="global-alert.js"></script>
+ *
+ *   GlobalAlert.show({ state: 'error', message: 'That didn't work.' });
+ *
+ * Or place the stack yourself and put Alerts in it — CSS alone is enough:
+ *   <div class="global-alert" data-global-alert>
+ *     <div class="alert alert--negative alert--bordered"> … </div>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../alert/alert.css';
+
+
+/* ------------------------------------------------------------
+   THE STACK
+   Fixed, so it stays put while the page scrolls. The fault is usually found by
+   pressing something at the BOTTOM of a screen, and a message in the flow at the
+   top would be off-screen at the moment it appears — the button would just seem
+   not to work.
+
+   Careful where this is mounted: an ancestor with `container-type`, `contain` or
+   a transform becomes the containing block for fixed descendants, and the stack
+   would pin to that instead of the viewport. global-alert.js mounts it on <body>
+   for exactly this reason.
+   ------------------------------------------------------------ */
+
+.global-alert {
+  position:       fixed;
+  z-index:        200;
+  top:            var(--gap-medium);        /* 16px */
+  left:           0;
+  right:          0;
+  margin-inline:  auto;
+  box-sizing:     border-box;
+  padding-inline: var(--gap-medium);
+  max-width:      calc(var(--frame-content) + 2 * var(--gap-medium));
+
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);       /* 8px between stacked messages */
+
+  /* The container spans the width even when empty, so it must never intercept a
+     click meant for the page. The messages themselves take pointer events back. */
+  pointer-events: none;
+}
+
+.global-alert > * { pointer-events: auto; }
+
+
+/* ------------------------------------------------------------
+   THE MESSAGES
+   Radius/Radius-8 rather than the Alert default 16: this reads as a notification
+   over the page, not a card in it. The DS elevation lifts it off what it covers —
+   without a shadow a fixed panel looks like part of the layout underneath.
+   ------------------------------------------------------------ */
+
+.global-alert .alert {
+  border-radius: var(--radius-small);       /* 8px */
+  box-shadow:    var(--shadow-dropdown);
+}
+
+/* Body 2 copy with 16px glyphs either side of it. Bigger copy than Alert's inline
+   default because this is the only thing on screen asking to be read, and SMALLER
+   glyphs because beside 16/24 text a 24px glyph competes with the sentence it
+   belongs to — and a 24px × makes dismissing the message look like the main thing
+   on offer. Spacer-4 above the leading glyph sits it on the first line's cap
+   height rather than its ascender; box-sizing is spelled out so the 4px stays real
+   padding above a 16px glyph whatever reset is in play.
+
+   These are the component's own values, not an override of Alert — a floating
+   message is a different job from a note inside a card, which is what Alert's
+   defaults are drawn for. */
+.global-alert .alert__description {
+  font-size:   var(--font-size-body-2);     /* 16px */
+  line-height: var(--line-height-body-2);   /* 24px */
+}
+
+.global-alert .alert__icon {
+  box-sizing:  content-box;
+  width:       16px;
+  height:      16px;
+  padding-top: var(--spacer-4);
+}
+.global-alert .alert__icon svg { width: 16px; height: 16px; }
+
+.global-alert .alert__close        { width: 16px; height: 16px; }
+.global-alert .alert__close svg    { width: 16px; height: 16px; }
+
+/* Retiring — global-alert.js fades before it removes, so a message leaving on a
+   timer doesn't just blink out. Kept in CSS so the duration is visible here and
+   respects the reduced-motion rule below. */
+.global-alert .alert {
+  transition: opacity 150ms ease;
+}
+.global-alert .alert[data-leaving] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .global-alert .alert { transition: none; }
+}

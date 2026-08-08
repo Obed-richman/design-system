@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK licence — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / UK Driving licence
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-273786
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7977-384358
+       Reached from the licence-type question when the licence is UK and not
+       Northern Ireland — see BRANCHING in journey.js -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">What&#39;s your licence number?</h1>
+      <p class="proto__lead">It&#39;s the 16 characters on the front of your licence, on line 5.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <div class="alert alert--information alert--bordered">
+        <span class="alert__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7C11.3096 7 10.75 7.55964 10.75 8.25C10.75 8.94036 11.3096 9.5 12 9.5C12.6904 9.5 13.25 8.94036 13.25 8.25C13.25 7.55964 12.6904 7 12 7Z" fill="currentColor"/> <path d="M13 11.5C13 11.2239 12.7761 11 12.5 11H11.5C11.2239 11 11 11.2239 11 11.5L11 16.5C11 16.7761 11.2239 17 11.5 17L12.5 17C12.7761 17 13 16.7761 13 16.5L13 11.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+        <div class="alert__content">
+          <p class="alert__description">Please make sure all your personal details match your driving licence.</p>
+        </div>
+      </div>
+
+      <!-- data-journey-licence marks the field for the DVLA logic in journey.js:
+           the five-character head start on the way in, the completeness check and
+           the surname check on Continue, and the trailing tick below once all 16
+           are there. The count is the instruction restated as progress. -->
+      <div class="input-group" data-required-error="Enter your driving licence number.">
+        <label class="input-label input-label--title" for="licence-number">Driving licence number</label>
+        <div class="input-field">
+          <input class="input" id="licence-number" type="text" maxlength="16"
+                 data-journey-licence
+                 data-counter="licence-count" autocomplete="off" spellcheck="false"
+                 style="text-transform:uppercase">
+          <!-- icons/tick.svg — tones painted from tokens, see input.css.
+               Revealed by .input-field--valid once the number is complete. -->
+          <span class="input__status" role="img" aria-label="Licence number complete">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path class="input__status-disc" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z"/>
+              <path class="input__status-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z"/>
+            </svg>
+          </span>
+        </div>
+        <p class="input-counter" id="licence-count">0 of 16</p>
+      </div>
+
+      <!-- The DS Driving Licence card, showing where line 5 is -->
+        <div class="driving-licence">
+        <div class="driving-licence__header">
+        <span class="driving-licence__country">UK</span>
+        <span class="driving-licence__title">DRIVING LICENCE</span>
+        <span class="driving-licence__flag"><img src="../../assets/flags/uk.svg" width="16" height="16" alt="UK flag"></span>
+        </div>
+        <div class="driving-licence__body">
+        <div class="driving-licence__photo">
+        <svg viewBox="0 0 60 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g clip-path="url(#dl-clip0)"><path d="M0 4C0 1.79086 1.79086 0 4 0H56C58.2091 0 60 1.79086 60 4V68C60 70.2091 58.2091 72 56 72H4C1.79086 72 0 70.2091 0 68V4Z" fill="white"/><g clip-path="url(#dl-clip1)"><path d="M22.9506 51.098C22.9506 51.098 22.5572 52.7511 18.2298 52.0902C13.9025 51.4292 9.5737 47.2607 9.05016 42.4983C8.52662 37.736 9.90202 36.8095 9.90202 36.8095C9.90202 36.8095 5.14136 34.0822 6.88649 26.8939C8.55324 20.0293 15.0398 19.0805 15.0398 19.0805C15.0398 19.0805 14.5932 14.8448 19.5357 12.2532C24.9338 9.42296 29.0497 12.4651 29.0497 12.4651C29.0497 12.4651 31.1675 6.4435 38.9511 7.04029C48.4768 7.76986 49.1808 18.0212 49.1808 18.0212C49.1808 18.0212 53.8838 18.9924 54.0317 26.4015C54.1707 33.3362 50.2294 34.4925 50.2294 34.4925C50.2294 34.4925 55.9336 42.5625 51.7379 48.1201C47.5421 53.6776 40.5246 51.8246 40.5246 51.8246L22.9506 51.0965V51.098Z" fill="#736469"/><path d="M21.9014 59.8305L22.2948 51.6277C22.2948 51.6277 19.8679 48.9809 19.4094 46.931C18.9509 44.881 18.8193 44.0858 18.8193 44.0858C18.8193 44.0858 15.0155 44.0201 13.9019 40.5797C12.7883 37.1392 14.3604 34.9564 15.6722 34.4939C16.984 34.0314 18.2958 34.4939 18.2958 34.4939L17.509 28.2098C17.509 28.2098 19.0175 24.174 19.476 24.1084C19.9344 24.0427 40.6557 20.6679 40.6557 20.6679L45.5731 25.4302C45.5731 25.4302 46.4915 29.3332 46.5566 29.5973C46.6216 29.8614 45.9014 34.6252 45.9014 34.6252C45.9014 34.6252 48.3283 34.0956 49.3769 35.7502C50.4254 37.4048 49.7703 41.439 47.9349 42.8281C46.0996 44.2171 45.1146 43.6218 45.1146 43.6218C45.1146 43.6218 44.5896 46.731 43.2127 48.9138C41.8358 51.0965 40.524 51.8246 40.524 51.8246V60.3587L36.1301 64.5928L31.4094 66.1803L26.032 64.7256L21.8349 61.3523L21.8999 59.8305H21.9014Z" fill="#E5D3D3"/><path d="M36.1974 55.6635C36.1974 55.6635 32.2634 57.4493 28.7214 56.3244C25.1794 55.1995 22.2955 51.6277 22.2955 51.6277L21.9805 58.1894C23.0142 58.34 24.4281 58.4758 26.361 58.5743C34.2304 58.9711 36.1974 55.6635 36.1974 55.6635Z" fill="#D8C0C0"/><path d="M29.8447 36.347C29.8447 33.5982 27.6358 31.3698 24.9111 31.3698C22.1863 31.3698 19.9773 33.5982 19.9773 36.347C19.9773 39.0958 22.1863 41.3241 24.9111 41.3241C27.6358 41.3241 29.8446 39.0958 29.8447 36.347ZM30.732 36.347C30.732 39.5902 28.1259 42.2193 24.9111 42.2193C21.6962 42.2193 19.09 39.5902 19.09 36.347C19.09 33.1038 21.6962 30.4746 24.9111 30.4746C28.1259 30.4746 30.732 33.1038 30.732 36.347Z" fill="#736469"/><path d="M44.0223 36.347C44.0223 33.5982 41.8135 31.3698 39.0887 31.3698C36.3639 31.3698 34.1549 33.5982 34.1549 36.347C34.155 39.0958 36.3639 41.3241 39.0887 41.3241C41.8134 41.3241 44.0223 39.0958 44.0223 36.347ZM44.9096 36.347C44.9096 39.5902 42.3035 42.2193 39.0887 42.2193C35.8738 42.2193 33.2676 39.5902 33.2676 36.347C33.2676 33.1038 35.8738 30.4746 39.0887 30.4746C42.3035 30.4746 44.9096 33.1038 44.9096 36.347Z" fill="#736469"/><path d="M31.9986 33.8718C33.1886 33.8718 34.1533 34.8451 34.1533 36.0456H33.2659C33.2659 35.3395 32.6986 34.767 31.9986 34.767C31.2986 34.767 30.7311 35.3395 30.7311 36.0456H29.8438C29.8438 34.8451 30.8085 33.8718 31.9986 33.8718Z" fill="#736469"/><path d="M18.295 34.4939C18.295 34.4939 17.7049 31.3519 18.4917 29.4168C19.2784 27.4817 20.0164 26.6387 20.0164 26.6387C20.0164 26.6387 19.9173 27.4325 22.4759 27.334C25.0344 27.2355 25.4263 26.1926 25.4263 26.1926C25.4263 26.1926 26.9023 29.1691 32.2131 27.4325C37.5239 25.6958 36.1973 22.1733 36.1973 22.1733C36.1973 22.1733 36.7874 22.5701 38.6568 22.8178C40.5262 23.0655 40.9196 22.6194 40.9196 22.6194C40.9196 22.6194 43.6097 24.1337 44.8535 28.7215C46.0973 33.3093 45.9021 34.6252 45.9021 34.6252L48.0006 31.3504L45.7882 21.0304L39.8873 17.5571L31.7029 18.7477L22.921 20.6664L17.1177 24.4038L16.0352 27.5787L16.4285 30.9192L17.6087 32.8379L18.2979 34.491L18.295 34.4939Z" fill="#736469"/><path d="M2.49199 66.9755C2.49199 66.9755 6.75425 63.8006 12.3934 61.882C18.0325 59.9633 21.9014 58.8383 21.9014 58.8383C21.9014 58.8383 27.7372 63.5351 28.7207 64.1303C29.7042 64.7256 31.6712 66.049 34.2948 63.8663C36.9184 61.6835 40.7873 58.5743 40.7873 58.5743C40.7873 58.5743 50.7538 61.2867 54.2292 62.7756C57.7047 64.2646 59.4099 66.1818 59.4099 66.1818L60 72.6644L50.2302 80.0735L26.9519 81C26.9519 81 5.24723 79.7438 4.98546 79.3469C4.72369 78.95 0 71.4738 0 71.4738L2.49199 66.9755Z" fill="#4E4141"/></g></g><defs><clipPath id="dl-clip0"><path d="M0 4C0 1.79086 1.79086 0 4 0H56C58.2091 0 60 1.79086 60 4V68C60 70.2091 58.2091 72 56 72H4C1.79086 72 0 70.2091 0 68V4Z" fill="white"/></clipPath><clipPath id="dl-clip1"><rect width="60" height="74" fill="white" transform="translate(0 7)"/></clipPath></defs></svg>
+        </div>
+        <div class="driving-licence__details">
+        <div class="dl-field"><span class="dl-field__num">1.</span><span class="dl-field__label">SURNAME</span></div>
+        <div class="dl-field"><span class="dl-field__num">2.</span><span class="dl-field__label">FIRST NAME(S)</span></div>
+        <div class="dl-field"><span class="dl-field__num">3.</span><span class="dl-field__label">DATE OF BIRTH</span></div>
+        <div class="dl-field dl-field--muted"><span class="dl-field__num">4a.</span><span class="dl-field__label">##.##.##</span><span class="dl-field__label">4c. DVLA</span></div>
+        <div class="dl-field dl-field--muted"><span class="dl-field__num">4b.</span><span class="dl-field__label">##.##.##</span></div>
+        <div class="dl-field"><span class="dl-field__num">5.</span><span class="dl-field__number"><span class="dl-field__chip">SURNA123456A34BT</span><span class="dl-field__label">##</span></span></div>
+        </div>
+        </div>
+        </div>
+
+      <div class="detail-card detail-card--fluid">
+        <div class="detail-card__top">
+          <p class="detail-card__title">Personal details</p>
+        </div>
+        <div class="detail-card__content">
+
+          <!-- Carried from the driver-details screen; see journey.js -->
+          <div class="input-group input-select" data-select
+               data-required-error="Select your title.">
+            <span class="input-label input-label--title" id="dl-title-label">Title</span>
+            <div class="input-field">
+              <input class="input input-select__value" type="text" readonly placeholder="Select"
+                     id="dl-title" data-journey-value="title"
+                     role="combobox" aria-expanded="false"
+                     aria-controls="dl-title-list" aria-labelledby="dl-title-label" autocomplete="off">
+              <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+            </div>
+            <div class="dropdown-list input-select__list" id="dl-title-list" role="listbox" aria-labelledby="dl-title-label" hidden>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mr</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mrs</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Miss</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Ms</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mx</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Dr</span></button>
+            </div>
+          </div>
+
+          <div class="input-group" data-required-error="Enter your first name(s).">
+            <label class="input-label input-label--title" for="dl-first">First name(s)</label>
+            <div class="input-field">
+              <input class="input" id="dl-first" type="text" data-journey-value="first-names" autocomplete="given-name">
+            </div>
+          </div>
+
+          <div class="input-group" data-required-error="Enter your surname.">
+            <label class="input-label input-label--title" for="dl-surname">Surname</label>
+            <div class="input-field">
+              <input class="input" id="dl-surname" type="text" data-journey-value="surname" autocomplete="family-name">
+            </div>
+          </div>
+
+          <!-- Segmented, the same as every other date in the journey, and each
+               part carries over from the driver screen -->
+          <div class="input-group" data-required-error="Enter your date of birth.">
+            <span class="input-label input-label--title" id="dl-dob-label">Date of birth</span>
+            <div class="input-field input-date" role="group" aria-labelledby="dl-dob-label"
+                 data-date-max="today"
+                 data-date-error="Your date of birth can&#39;t be in the future.">
+              <input class="input input-date__part input-date__part--day" id="dl-dob-day"
+                     type="text" placeholder="DD" aria-label="Day of birth"
+                     inputmode="numeric" maxlength="2" data-journey-value="dob-day">
+              <span class="input-date__separator" aria-hidden="true">/</span>
+              <input class="input input-date__part input-date__part--month" id="dl-dob-month"
+                     type="text" placeholder="MM" aria-label="Month of birth"
+                     inputmode="numeric" maxlength="2" data-journey-value="dob-month">
+              <span class="input-date__separator" aria-hidden="true">/</span>
+              <input class="input input-date__part input-date__part--year" id="dl-dob-year"
+                     type="text" placeholder="YYYY" aria-label="Year of birth"
+                     inputmode="numeric" maxlength="4" data-journey-value="dob-year">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="proto__cta">
+      <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+      <p class="proto__cta-note">We securely check your licence details with the DVLA to confirm your driving record and calculate an accurate price in line with our <a href="#">privacy notice</a>.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>

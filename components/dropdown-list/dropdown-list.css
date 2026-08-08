@@ -53,6 +53,13 @@
   overflow-y:  auto;
 }
 
+/* Children keep their own height and the list scrolls instead of squashing them.
+   Rows are safe either way — their padding and text set a min-content height that
+   flex won't shrink past — but anything with no content of its own, like a Divider
+   separating a common block from the rest of an A-Z, collapses to nothing without
+   this. Scoped to the direct children so it stops at the row. */
+.dropdown-list > * { flex-shrink: 0; }
+
 
 /* ------------------------------------------------------------
    SCROLL BAR — decorative track + thumb (top-right)

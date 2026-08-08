@@ -39,7 +39,9 @@
   box-sizing:     border-box;
   overflow:       hidden;
   padding-bottom: var(--spacer-32);
-  background:     var(--brand-3-high);            /* navy */
+  /* Mode-aware navy: stays Navy 90 in light and steps to Black 70 in dark,
+     unlike --brand-3-high which is the fixed brand navy in both. */
+  background:     var(--surface-brand-3-high);
   color:          var(--text-on-color-fixed);     /* white */
   font-family:    'Modern Era', sans-serif;
   container-type: inline-size;                    /* see the breakpoints above */
@@ -83,7 +85,7 @@
   align-items:    center;
   gap:            var(--spacer-20);
   width:          100%;
-  max-width:      calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+  max-width:      calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
   box-sizing:     border-box;
   margin:         0 auto;
   padding:        var(--spacer-32) var(--spacer-16) 0;

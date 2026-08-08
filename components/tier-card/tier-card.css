@@ -174,7 +174,7 @@
 .tier-card__feature-info svg { display: block; width: 100%; height: 100%; }
 
 /* Included tick: green disc, white glyph (tick.svg glyph is currentColor) */
-.tier-card__feature-icon { color: var(--colour-white); }
+.tier-card__feature-icon { color: var(--icon-glyph-on-color-fixed); }
 
 /* Trailing info icon: muted */
 .tier-card__feature-info { color: var(--icon-glyph-pressed); margin-left: auto; }

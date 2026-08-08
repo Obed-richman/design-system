@@ -12,6 +12,11 @@
  *   default | hover (--hover) | focused (--focused) | error (--error) | disabled (--disabled)
  * An optional message row sits below; add .veh-reg--error to colour it red.
  *
+ * Valid (--valid) is an addition, not a Figma variant — the component has no
+ * Valid state in 003. It reveals the trailing tick in .veh-reg__status and
+ * leaves the border alone, so a field being filled in keeps its focus ring
+ * instead of dropping to the lighter valid border mid-type.
+ *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="vehicle-registration.css">
@@ -26,6 +31,9 @@
  *       <input class="veh-reg__input" type="text" value="SH48 HSA" aria-label="Registration">
  *     </div>
  *   </div>
+ *
+ * Length validation (tick when complete, error message when not) is opt-in —
+ * see vehicle-registration.js.
  * ============================================================
  */
 
@@ -41,6 +49,12 @@
   box-sizing:     border-box;
   font-family:    'Modern Era', sans-serif;
 }
+
+/* Fluid — drop the cap above and fill the column instead. Desktop layouts give
+   the field a whole content column, which is wider than the mobile cap.
+   For the plain "GB"-only badge (no country picker) just omit the
+   .veh-reg__flag and .veh-reg__chevron elements — no modifier needed. */
+.veh-reg--fluid { max-width: none; }
 
 
 /* ------------------------------------------------------------
@@ -95,7 +109,16 @@
   box-shadow:   var(--shadow-focus);
 }
 
-.veh-reg__field--error { border-color: var(--border-error); }
+/* Error — red border, and it stays red with the caret in the field. The hover
+   and focus pseudo-classes above are (0,2,0), so the bare --error class would
+   lose to them; restating it against both is how input.css handles the same
+   clash. Figma's Error state has no focus ring, hence box-shadow: none. */
+.veh-reg__field--error,
+.veh-reg__field--error:hover,
+.veh-reg__field--error:focus-within {
+  border-color: var(--border-error);
+  box-shadow:   none;
+}
 
 
 /* ------------------------------------------------------------
@@ -159,6 +182,28 @@
   appearance:     none;
 }
 .veh-reg__input::placeholder { color: var(--text-disabled); }
+
+
+/* ------------------------------------------------------------
+   TRAILING STATUS — validation tick
+   The DS Tick glyph (icons/tick.svg) as a trailing icon, shown once the field
+   holds a complete registration. The slot keeps its 24px whether or not the
+   tick is showing, so the plate number doesn't jump sideways on the keystroke
+   that completes it. Its two tones are painted from tokens rather than the
+   icon file's own fills, which are still on the pre-update green.
+   ------------------------------------------------------------ */
+
+.veh-reg__status {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  visibility:  hidden;      /* space is reserved; the tick is not shown yet */
+}
+.veh-reg__field--valid .veh-reg__status { visibility: visible; }
+.veh-reg__status svg { display: block; width: 100%; height: 100%; }
+
+.veh-reg__status-disc  { fill: var(--surface-success); }        /* green disc */
+.veh-reg__status-glyph { fill: var(--text-on-color-fixed); }    /* white tick */
 
 
 /* ------------------------------------------------------------

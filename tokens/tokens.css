@@ -70,6 +70,7 @@ body { font-family: var(--font-family-base); }
   --colour-aqua-100:   #055555;
   --colour-aqua-90:    #047373;
   --colour-aqua-90-20: #04737333;
+  --colour-aqua-90-10: #0473731A;
   --colour-aqua-80:    #059292;
   --colour-aqua-70:    #08B0B0;
   --colour-aqua-60:    #05CFCF;
@@ -84,6 +85,7 @@ body { font-family: var(--font-family-base); }
   /* --- Orange --- */
   --colour-orange-100:    #6B4400;
   --colour-orange-100-30: #6B44004D;
+  --colour-orange-100-10: #6B44001A;
   --colour-orange-90:     #8C5900;
   --colour-orange-80:     #B06F00;
   --colour-orange-80-80:  #B06F00CC;
@@ -99,6 +101,7 @@ body { font-family: var(--font-family-base); }
   /* --- Red --- */
   --colour-red-100:    #670303;
   --colour-red-100-30: #6703034D;
+  --colour-red-100-10: #6703031A;
   --colour-red-90:     #880303;
   --colour-red-80:     #AB0606;
   --colour-red-70:     #D00909;
@@ -205,8 +208,10 @@ body { font-family: var(--font-family-base); }
   --colour-purple-100-20: #39067633;
   --colour-purple-90:     #4B059F;
   --colour-purple-90-20:  #4B059F33;
+  --colour-purple-90-50:  #4B059F80;
   --colour-purple-80:     #5F06C9;
   --colour-purple-70:     #750BF3;
+  --colour-purple-70-10:  #750BF31A;
   --colour-purple-60:     #892BFA;
   --colour-purple-50:     #A458FF;
   --colour-purple-50-40:  #A458FF66;
@@ -301,10 +306,10 @@ body { font-family: var(--font-family-base); }
   --spacer-4:   4px;  --spacer-8:   8px;  --spacer-12:  12px; --spacer-16:  16px;
   --spacer-20:  20px; --spacer-24:  24px; --spacer-32:  32px; --spacer-40:  40px;
   --spacer-48:  48px;
-  --spacer-64:  32px; --spacer-80:  32px; --spacer-94:  48px; --spacer-192: 24px;
+  --spacer-64:  32px; --spacer-80:  32px; --spacer-96:  48px; --spacer-192: 24px;
 
   /* Frame (mobile) */
-  --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 327px;
+  --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 311px;
 
   /* Icon sizes */
   --icon-size-3xs: 12px; --icon-size-xxs: 16px; --icon-size-xs: 24px; --icon-size-s: 32px;
@@ -314,8 +319,8 @@ body { font-family: var(--font-family-base); }
 @media (min-width: 768px) {
   :root {
     /* Spacer (desktop) — only the large steps differ from mobile */
-    --spacer-64: 64px; --spacer-80: 80px; --spacer-94: 96px; --spacer-192: 192px;
-    --frame-screen: 1440px; --frame-wrapper: 1056px; --frame-container: 876px; --frame-content: 516px;
+    --spacer-64: 64px; --spacer-80: 80px; --spacer-96: 96px; --spacer-192: 192px;
+    --frame-screen: 1440px; --frame-wrapper: 1200px; --frame-container: 996px; --frame-content: 588px;
   }
 }
 
@@ -358,7 +363,7 @@ body { font-family: var(--font-family-base); }
   --surface-information:        var(--colour-blue-50);
   --surface-success:            var(--colour-green-60);
   --surface-warning:            var(--colour-orange-50);
-  --surface-error:              var(--colour-red-50);
+  --surface-error:              var(--colour-red-60);
   --surface-error-low:          var(--colour-red-10);
   --surface-warning-low:        var(--colour-orange-10);
   --surface-success-low:        var(--colour-green-10);
@@ -369,6 +374,13 @@ body { font-family: var(--font-family-base); }
   --surface-success-low-fixed:  var(--colour-green-10);
   --surface-information-fixed:  var(--colour-blue-10);
   --surface-brand-2-low:        var(--colour-purple-10);
+  /* NOT CONFIRMED — surface/brand-1-low and brand-4-low exist as Figma
+     variables but are not placed on the colour documentation frame, so their
+     light values can't be read through the MCP. These mirror brand/N-low,
+     which is how the readable surface/brand-2-low behaves (both #EDE0FE).
+     Confirm against Figma — see KNOWN-ISSUES.md. */
+  --surface-brand-1-low:        var(--colour-aqua-10);
+  --surface-brand-4-low:        var(--colour-yellow-10);
   --surface-brand-2-low-fixed:  var(--colour-purple-10);
   --surface-brand-3-high:       var(--colour-navy-90);
 
@@ -411,7 +423,7 @@ body { font-family: var(--font-family-base); }
   --brand-4-low:    var(--colour-yellow-10);
 
   /* --- rating (driver score) — new in Figma --- */
-  --rating-excellent: var(--colour-green-50);    /* #00E660 */
+  --rating-excellent: var(--colour-green-60);    /* #05CC58 */
   --rating-great:     var(--colour-lime-50);      /* #AAFF64 */
   --rating-good:      var(--colour-yellow-50);    /* #FCFF5F */
   --rating-improving: var(--colour-orange-50);    /* #FFB029 */
@@ -459,7 +471,7 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-brand-3-high-fixed: var(--colour-navy-90);
 
   /* --- icon / link --- */
-  --icon-link-default:         var(--colour-purple-90);
+  --icon-link-primary:         var(--colour-purple-90);
   --icon-link-pressed:         var(--colour-purple-70);
   --icon-link-on-dark:         var(--colour-aqua-50);
   --icon-link-on-dark-pressed: var(--colour-aqua-40);
@@ -501,6 +513,9 @@ body { font-family: var(--font-family-base); }
   --background-tertiary:  var(--colour-black-80);
   --background-inverse:   var(--colour-white);
   --background-disabled:  var(--colour-black-80);
+  --background-primary-fixed:   var(--colour-white);
+  --background-secondary-fixed: var(--colour-grey-20);
+  --background-tertiary-fixed:  var(--colour-ecru-20);
   --background-page:      var(--colour-black-90);
 
   /* surface */
@@ -508,14 +523,27 @@ body { font-family: var(--font-family-base); }
   --surface-secondary:         var(--colour-white-20);
   --surface-secondary-hover:   var(--colour-white-40);
   --surface-secondary-pressed: var(--colour-grey-90);
+  --surface-tertiary-low:      var(--colour-black-80);
+  --surface-tertiary-medium:   var(--colour-black-70);
+  --surface-tertiary-high:     var(--colour-black-60);
   --surface-inverse:           var(--colour-white-80);
   --surface-active:            var(--colour-aqua-80);
   --surface-focus:             var(--colour-aqua-90-20);
   --surface-success:           var(--colour-green-80);
-  --surface-error-low:         var(--colour-red-70-10);
-  --surface-warning-low:       var(--colour-orange-70-10);
+  --surface-error-low:         var(--colour-red-100-10);
+  --surface-error:             var(--colour-red-70);
+  --surface-error-low-fixed:   var(--colour-red-10);
+  --surface-warning-low:       var(--colour-orange-100-10);
+  --surface-warning:           var(--colour-orange-70);
+  --surface-warning-low-fixed: var(--colour-orange-10);
   --surface-success-low:       var(--colour-green-100-30);
+  --surface-success-low-fixed: var(--colour-green-10);
   --surface-information-low:   var(--colour-blue-90-20);
+  --surface-information-fixed: var(--colour-blue-10);   /* Figma: surface/information-fixed (no "low") */
+  --surface-brand-1-low:            var(--colour-aqua-90-10);
+  --surface-brand-2-low:            var(--colour-purple-70-10);
+  --surface-brand-3-high:           var(--colour-black-70);
+  --surface-brand-4-low:            var(--colour-yellow-90-20);
 
   /* border */
   --border-primary:         var(--colour-black-60);
@@ -529,6 +557,9 @@ body { font-family: var(--font-family-base); }
   --border-error-low:       var(--colour-red-90);
   --border-warning-low:     var(--colour-orange-90);
   --border-information-low: var(--colour-blue-90);
+  --border-brand-2-low:     var(--colour-purple-70-10);
+  --border-brand-2-medium:  var(--colour-purple-70);
+  --border-on-light-fixed:  var(--colour-black-80);
 
   /* overlay */
   --overlay-light-high:   var(--colour-black-80-80);
@@ -542,10 +573,24 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-primary:     var(--colour-white);
   --icon-glyph-on-color:    var(--colour-black-80);
   --icon-glyph-information: var(--colour-blue-60);
-  --icon-link-default:      var(--colour-purple-70);
+  --icon-glyph-error-low:   var(--colour-red-70-10);
+  --icon-glyph-error-high:  var(--colour-red-70);
+  --icon-glyph-warning-high:  var(--colour-orange-70);
+  --icon-glyph-warning-low:  var(--colour-orange-70-10);
+  --icon-glyph-success-high:  var(--colour-green-70);
+  --icon-glyph-brand-2-high:  var(--colour-purple-50);
+  --icon-glyph-brand-2-low:   var(--colour-purple-90-20);
+  --icon-glyph-brand-3-high:  var(--colour-purple-90-50);
+  --icon-link-primary:      var(--colour-purple-70);
+  --icon-glyph-active:      var(--colour-aqua-80); /* aqua-80 is the same as aqua-60 in light mode, but aqua-80 is used in dark mode for active icons */
 
   /* text */
   --text-primary:          var(--colour-white);
+  /* NOT CONFIRMED against Figma (dark modes can't be read — see KNOWN-ISSUES 1.4).
+     Light grey-80 (#68676C) left unchanged in dark measured 2.43:1 on the dark
+     card, under the 4.5:1 AA floor for body copy. grey-60 gives 9.12:1 and is
+     already the dark pressed grey below, so the pair stays consistent. */
+  --text-pressed:          var(--colour-grey-60);
   --text-on-color:         var(--colour-black-80);
   --text-on-color-pressed: var(--colour-grey-60);
   --text-link:             var(--colour-aqua-50);
@@ -556,18 +601,26 @@ body { font-family: var(--font-family-base); }
 }
 
 /* ============================================
-   5. TYPOGRAPHY TOKENS  (unchanged — in sync with Figma)
+   5. TYPOGRAPHY TOKENS
+   Base values are DESKTOP; the @media (max-width: 767px) block at the end of
+   this section overrides the Title/Display steps for mobile. (Note this is the
+   opposite direction to the Size section above, which is mobile-first.)
    ============================================ */
 
 :root {
   --font-family-base:  'Modern Era', sans-serif;
   --font-family-plate: 'UKNumberPlate', monospace;
 
-  --font-size-display:      48px;
+  --font-size-display:      84px;
   --font-size-title-1:      48px;
   --font-size-title-2:      40px;
   --font-size-title-3:      32px;
   --font-size-title-4:      24px;
+  /* Title 4+ — Figma "Title 4+ | Bold", a step between Title 4 and Title 3.
+     Bold only. Desktop 28/32, mobile 24/32 (the line height matches, so only
+     the size is overridden below). Figma pairs mobile Title 4+ with desktop
+     Title 3 for page headings — see the "Text" component. */
+  --font-size-title-4-plus: 28px;
   --font-size-subtitle-1:   18px;
   --font-size-subtitle-2:   16px;
   --font-size-subtitle-3:   14px;
@@ -584,15 +637,16 @@ body { font-family: var(--font-family-base); }
   --font-weight-bold:    700;
   --font-weight-black:   900;
 
-  --line-height-display:      52px;
+  --line-height-display:      84px;
   --line-height-title-1:      52px;
   --line-height-title-2:      44px;
   --line-height-title-3:      36px;
   --line-height-title-4:      28px;
+  --line-height-title-4-plus: 32px;
   --line-height-subtitle-1:   24px;
   --line-height-subtitle-2:   24px;
   --line-height-subtitle-3:   20px;
-  --line-height-subtitle-4:   18px;
+  --line-height-subtitle-4:   16px;
   --line-height-body-1:       24px;
   --line-height-body-2:       24px;
   --line-height-body-3:       20px;
@@ -610,6 +664,7 @@ body { font-family: var(--font-family-base); }
   :root {
     --font-size-display: 48px; --font-size-title-1: 40px; --font-size-title-2: 32px;
     --font-size-title-3: 28px; --font-size-title-4: 20px;
+    --font-size-title-4-plus: 24px;   /* line-height is 32px in both modes */
     --line-height-display: 52px; --line-height-title-1: 44px; --line-height-title-2: 36px;
     --line-height-title-3: 32px; --line-height-title-4: 24px;
   }

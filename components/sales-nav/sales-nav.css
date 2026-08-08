@@ -29,6 +29,11 @@
  *   drop .sales-nav__lockup to hide Trustpilot ("Trustpilot")
  *   drop .sales-nav__steps to hide the stepper ("Steps")
  *
+ * Not a Figma variant:
+ *   .sales-nav--sticky  — holds the bar at the top of the viewport, and grows the
+ *                         same bottom hairline once the page has scrolled. Needs
+ *                         sales-nav.js, which sets [data-scrolled]. See STICKY.
+ *
  * Reuses Trustpilot stars, Onboarding Steps and Button — link trustpilot.css,
  * onboarding-steps.css and button.css. Interactivity: sales-nav.js.
  *
@@ -66,6 +71,33 @@
 
 /* "Border" boolean — hairline along the bottom edge */
 .sales-nav--border { border-bottom: var(--border-s) solid var(--border-primary); }
+
+
+/* ------------------------------------------------------------
+   STICKY — .sales-nav--sticky
+   Holds the bar at the top of the viewport so the logo, the Help pill and the
+   stepper stay reachable down a long screen. Opt-in, because a bar that hides
+   content is only worth it when there is enough content to scroll.
+
+   The hairline appears only once the page HAS scrolled ([data-scrolled], set by
+   sales-nav.js). At rest the bar and the page share a background and want no
+   seam; once content is passing underneath, the line is what says the bar is in
+   front and the page is cut off behind it rather than ending there. Same
+   declaration as the "Border" boolean above, so the two can't drift.
+
+   z-index sits above page content and below the Global Alert's 200 — a message
+   about the screen should never be covered by the screen's own chrome.
+   ------------------------------------------------------------ */
+
+.sales-nav--sticky {
+  position: sticky;
+  top:      0;
+  z-index:  100;
+}
+
+.sales-nav--sticky[data-scrolled] {
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
 
 
 /* ------------------------------------------------------------
@@ -157,7 +189,8 @@
   max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
   overflow:      hidden;
-  background:    var(--background-primary);       /* white */
+  background:    var(--surface-primary);
+  border:        var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
   opacity:       0;
@@ -291,7 +324,7 @@
     grid-column: 1;
     align-self: start;
     width:      100%;
-    max-width:  calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+    max-width:  calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
     margin:     0 auto;
   }
 
@@ -299,7 +332,7 @@
     grid-row:   1;
     grid-column: 1;
     align-self: end;
-    width:      588px;
+    width:      var(--frame-content);
     max-width:  100%;
     margin:     0 auto;
     padding:    var(--spacer-12) 0;

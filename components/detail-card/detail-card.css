@@ -39,9 +39,16 @@
   max-width:      375px;
   box-sizing:     border-box;
   background:     var(--surface-primary);         /* white */
+  border:         var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius:  var(--radius-small);            /* 8px */
   font-family:    'Modern Era', sans-serif;
 }
+
+/* Fluid — drop the 375px cap and fill the column instead. The cap suits the
+   mobile context the card was drawn for, but inside a desktop content column it
+   leaves the card stranded at a third of the width. Same modifier Vehicle
+   Registration uses for the same reason. */
+.detail-card--fluid { max-width: none; }
 /* Note: no overflow:hidden here — the Incident type dropdown needs to overflow
    the card. The header rounds its own top corners instead (see __top). */
 
@@ -120,8 +127,10 @@
 .detail-card__content {
   display:        flex;
   flex-direction: column;
-  gap:            var(--spacer-20);               /* 20px */
-  padding:        0 var(--spacer-16);             /* 16px sides */
+  gap:            var(--spacer-20);               /* 20px between fields */
+  padding:        var(--spacer-20) var(--spacer-16);
+  /* Inset top and bottom too, matching Figma: without it the first field sits
+     flush against the header band and the last against the card's edge. */
 }
 
 .detail-card__field {

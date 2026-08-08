@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EU licence — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / EU Driving licence
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-280982
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8003-386507
+       Reached from the licence-type question when EU licence is chosen —
+       see BRANCHING in journey.js -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Tell us about your licence</h1>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <div class="input-group" data-required-error="Enter your driving licence number.">
+        <label class="input-label input-label--title" for="licence-number">Driving licence number</label>
+        <div class="input-field">
+          <input class="input" id="licence-number" type="text" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+
+      <!-- Where it was issued — Select with a flag per country. The frames show
+           five common countries, a divider, then the full A–Z; only the five are
+           listed here, with the rest to come from a country list.
+
+           Flags come from the design system's flag library (assets/flags/),
+           exported from the 003 Flags component set at Size=Large. Referenced
+           rather than inlined so there is one copy of each, and nothing here
+           clips or rings them — the artwork carries its own rounded corners and
+           padding. See the note on .input-select__flag in input.css. -->
+      <div class="input-group input-select" data-select
+           data-required-error="Select where your licence was issued.">
+        <span class="input-label input-label--title" id="issued-label">Where was your licence issued?</span>
+        <div class="input-field">
+          <input class="input input-select__value" type="text" readonly placeholder="Select"
+                 id="issued" role="combobox" aria-expanded="false"
+                 aria-controls="issued-list" aria-labelledby="issued-label" autocomplete="off">
+          <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="dropdown-list input-select__list" id="issued-list" role="listbox" aria-labelledby="issued-label" hidden>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="input-select__flag"><img src="../../assets/flags/ireland.svg" width="20" height="20" alt=""></span><span class="dropdown-item__label">Ireland</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="input-select__flag"><img src="../../assets/flags/romania.svg" width="20" height="20" alt=""></span><span class="dropdown-item__label">Romania</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="input-select__flag"><img src="../../assets/flags/portugal.svg" width="20" height="20" alt=""></span><span class="dropdown-item__label">Portugal</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="input-select__flag"><img src="../../assets/flags/poland.svg" width="20" height="20" alt=""></span><span class="dropdown-item__label">Poland</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="input-select__flag"><img src="../../assets/flags/spain.svg" width="20" height="20" alt=""></span><span class="dropdown-item__label">Spain</span></button>
+        </div>
+      </div>
+
+      <!-- When they got it — MM / YYYY, refused if in the future -->
+      <div class="input-group" data-required-error="Enter when you got your licence.">
+        <span class="input-label input-label--title" id="got-label">When did you get your licence?</span>
+        <div class="input-field input-date" role="group" aria-labelledby="got-label"
+             data-date-max="today"
+             data-date-error="That date can&#39;t be in the future.">
+          <input class="input input-date__part input-date__part--month" id="got-month"
+                 type="text" placeholder="MM" aria-label="Month you got your licence"
+                 inputmode="numeric" maxlength="2" autocomplete="off">
+          <span class="input-date__separator" aria-hidden="true">/</span>
+          <input class="input input-date__part input-date__part--year" id="got-year"
+                 type="text" placeholder="YYYY" aria-label="Year you got your licence"
+                 inputmode="numeric" maxlength="4" autocomplete="off">
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

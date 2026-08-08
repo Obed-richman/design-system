@@ -76,7 +76,7 @@
 .bounce-dots--8 .bounce-dots__dot { --bounce-dot-size: 8px; }
 
 /* Force white dots on a dark surface without a theme wrapper */
-.bounce-dots--inverse { color: var(--colour-white); }
+.bounce-dots--inverse { color: var(--icon-glyph-on-color-fixed); }
 
 
 /* ------------------------------------------------------------

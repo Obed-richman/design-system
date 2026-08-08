@@ -60,7 +60,8 @@
   height:      24px;
   color:       var(--icon-glyph-primary);
 }
-.text-icon-item__icon svg { display: block; width: 100%; height: 100%; }
+.text-icon-item__icon svg,
+.text-icon-item__icon img { display: block; width: 100%; height: 100%; }
 
 .text-icon-item__text {
   flex:           1;

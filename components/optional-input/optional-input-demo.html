@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optional Input — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../input/input.css">
+  <link rel="stylesheet" href="../divider/divider.css">
+  <link rel="stylesheet" href="../checkbox/checkbox.css">
+  <link rel="stylesheet" href="optional-input.css">
+  <script src="../input/input.js" defer></script>
+  <script src="optional-input.js" defer></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; padding: 24px; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); }
+    section { max-width: 343px; margin: 0 0 40px; }
+    h2 { font-size: var(--font-size-subtitle-1); margin: 0 0 12px; }
+    .label { display: block; font-size: var(--font-size-body-4); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-pressed); margin: 0 0 8px; }
+    .row { margin: 0 0 24px; }
+    .dark { background: var(--brand-3-high); padding: 24px; border-radius: 16px; max-width: 391px; }
+  </style>
+</head>
+<body>
+
+  <section>
+    <h2>Box ticked</h2>
+    <div class="row">
+      <span class="label">No — field active (live: tick the box)</span>
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="d-no-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="d-no-label" class="input-field input-date"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="d-no-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off">
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="d-no-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
+        </div>
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox">
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <span class="label">Yes — field disabled</span>
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="d-yes-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="d-yes-label" class="input-field input-date input-field--disabled"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="d-yes-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off" disabled>
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="d-yes-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off" disabled>
+          </div>
+        </div>
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox" checked>
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Segmented MM / YYYY entry</h2>
+    <div class="row">
+      <span class="label">Digits only. The month advances after two, and a date in the future is refused</span>
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="d-mask-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="d-mask-label" class="input-field input-date"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="d-mask-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off">
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="d-mask-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
+        </div>
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox">
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="dark" data-theme="dark">
+    <h2>Dark mode</h2>
+    <div class="row">
+      <span class="label">No · Yes</span>
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="d-dark-no-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="d-dark-no-label" class="input-field input-date"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="d-dark-no-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off">
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="d-dark-no-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
+        </div>
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox">
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="d-dark-yes-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="d-dark-yes-label" class="input-field input-date input-field--disabled"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="d-dark-yes-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off" disabled>
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="d-dark-yes-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off" disabled>
+          </div>
+        </div>
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox" checked>
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -35,11 +35,26 @@
  *     <p class="input-message input-message--error">Error message</p>
  *   </div>
  *
- *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message -->
+ *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message.
+ *        input-field--valid also reveals a trailing .input__status tick if one is
+ *        in the markup — see the STATUS TICK section. -->
  *   <!-- Disabled: add input-field--disabled and the disabled attribute -->
  *   <!-- Dark mode: add data-theme="dark" to a parent wrapper -->
  *   <!-- Clear button behaviour: include input.js — clicking .input__clear empties the field -->
  *   <script src="input.js"></script>
+ *
+ *   <!-- Segmented MM / YYYY date entry — see the DATE ENTRY section below.
+ *        The question names the pair, so it labels the group rather than either
+ *        half, and each segment carries its own aria-label. -->
+ *   <span class="input-label input-label--title" id="bought-label">When was it bought?</span>
+ *   <div class="input-field input-date" role="group" aria-labelledby="bought-label"
+ *        data-date-max="today" data-date-error="That can't be in the future.">
+ *     <input class="input input-date__part input-date__part--month" inputmode="numeric"
+ *            maxlength="2" placeholder="MM" aria-label="Month">
+ *     <span class="input-date__separator" aria-hidden="true">/</span>
+ *     <input class="input input-date__part input-date__part--year" inputmode="numeric"
+ *            maxlength="4" placeholder="YYYY" aria-label="Year">
+ *   </div>
  * ============================================================
  */
 
@@ -69,6 +84,16 @@
   line-height: var(--line-height-body-3); /* 20px */
   color:       var(--text-primary);
   display:     block;
+}
+
+/* Title — a question-level label, matching the "Title" slot on Figma's Text
+   Input (Subtitle 2, bold 16/24). Use it where the label is the question
+   itself and should sit level with neighbouring question headings; the default
+   above is the smaller field label. */
+.input-label--title {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);   /* 16px */
+  line-height: var(--line-height-subtitle-2); /* 24px */
 }
 
 
@@ -132,11 +157,68 @@
 
 
 /* ------------------------------------------------------------
+   DATE ENTRY — segmented, DD / MM / YYYY or MM / YYYY
+   Figma draws these fields as "MM / YYYY" and "DD / MM / YYYY": grey hints
+   either side of slashes in the primary text colour, and the dev note on the
+   frame asks for segmented behaviour. So a slash is a real element rather than
+   something a mask types into the value — it is on screen before the first digit
+   and never moves, which is what tells you each part wants a fixed number of
+   digits.
+
+   Day and month are fixed boxes so the slashes can't shift as digits replace the
+   hints. Measured in Modern Era 16px: a digit is 1ch (8.90px), "MM" is 2.99ch
+   and "YYYY" is 4.80ch — the hints are wider than the digits they stand for,
+   hence 3ch and a 4.9ch floor. The year then takes the rest of the field so
+   clicking the empty space to its right lands in it, the way a single input did.
+
+   Behaviour (digits only, auto-advance, range limits, future-date check) is in
+   input.js, and the segments are whatever the markup declares.
+   ------------------------------------------------------------ */
+
+.input-date { gap: 0; }            /* the segments space themselves */
+
+.input-date__part {
+  flex:       0 0 auto;
+  width:      3ch;                 /* fits "MM" */
+  text-align: left;
+}
+.input-date__part--year {
+  flex:      1 1 auto;
+  width:     auto;
+  min-width: 4.9ch;                /* fits "YYYY" */
+}
+
+.input-date__separator {
+  flex:        0 0 auto;
+  margin:      0 var(--spacer-4);  /* 4px either side */
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);        /* 16px, matching the segments */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);            /* #27252d — never the hint grey */
+}
+
+/* Disabled greys the slash too, so the whole field reads as one control */
+.input-date.input-field--disabled .input-date__separator,
+.input-date:has(.input:disabled) .input-date__separator { color: var(--text-disabled); }
+
+
+/* ------------------------------------------------------------
    CLEAR BUTTON — trailing (×), shown in focused / error states
    Uses the design-system close glyph (icons/close.svg).
+
+   Shown only when the field is **in error and focused** — not on focus alone.
+   Offering to wipe a field the moment it's touched is noise; offering it while
+   someone is fixing something that's wrong is help. Note this is narrower than
+   003's Text Input, which draws the clear on Focused as well; the component
+   sheet wants the same change (see KNOWN-ISSUES).
+
+   A component that wants it on different terms still can — Discount Code reveals
+   it once the field has content, and that rule out-specifies this one.
    ------------------------------------------------------------ */
 
 .input__clear {
+  display:     none;
   flex-shrink: 0;
   width:       20px;
   height:      20px;
@@ -148,12 +230,74 @@
 }
 .input__clear svg { display: block; width: 20px; height: 20px; }
 
+.input-field--error:focus-within .input__clear,
+.input-field--error.input-field--focused .input__clear { display: inline-flex; }
+
+
+/* ------------------------------------------------------------
+   SUPPORTING TEXT — under the label, above the field
+   For the sentence a label can't carry: what a DVLA code looks like, what to do
+   when you aren't sure. Sits between the two so it is read before the field
+   rather than after it, which is what a hint under the field would be.
+
+   Body 3 on text/pressed, the same treatment supporting text under a question
+   gets in Multiple Choice Selector — the two say the same kind of thing.
+   ------------------------------------------------------------ */
+
+.input-support {
+  margin:      0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   STATUS TICK — trailing, shown in the valid state
+   The DS Tick glyph (icons/tick.svg) as a trailing icon, revealed by
+   .input-field--valid. This is the visual the documented `valid` state was
+   missing: the state existed as a border colour, with nothing to say WHAT was
+   valid about it.
+
+   16px, not the 24px an icon slot usually gets. Inside a field the tick is a
+   confirmation sitting beside the value, not an action competing with it, and at
+   24px it read as the louder of the two. The slot keeps its width whether or not
+   the tick shows, so the value doesn't jump sideways on the keystroke that
+   completes it. Its two tones are painted from tokens rather than the icon file's
+   own fills, so it follows the theme.
+
+   Same treatment Vehicle Registration already gives its own field, though that
+   one predates this, keeps its own copy under .veh-reg__status and is still at
+   24px — the plate is bigger type, so it carries the larger glyph. Worth
+   collapsing into this if the reg field is ever refactored onto Text Input.
+
+   NOTE 003 draws no tick on Text Input, so this is an addition rather than a
+   variant — see KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+.input__status {
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  visibility:  hidden;         /* space reserved; the tick is not shown yet */
+}
+.input-field--valid .input__status { visibility: visible; }
+.input__status svg { display: block; width: 100%; height: 100%; }
+
+.input__status-disc  { fill: var(--surface-success); }        /* green disc */
+.input__status-glyph { fill: var(--text-on-color-fixed); }    /* white tick */
+
 
 /* ------------------------------------------------------------
    MESSAGE — below the field (error / valid / hint)
    ------------------------------------------------------------ */
 
 .input-message {
+  margin:      0;                         /* a <p> here would otherwise take the
+                                             UA's 1em, pushing the message 22px
+                                             off the field where Figma has 8 */
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);   /* 14px */
@@ -165,6 +309,210 @@
 .input-message--error { color: var(--text-error); }   /* #d00909 */
 .input-message--valid { color: var(--text-primary); } /* dark — no green in this design */
 .input-message--hint  { color: var(--text-primary); }
+
+/* ------------------------------------------------------------
+   SELECT — a field that opens a Dropdown List
+   Figma builds its dropdowns as a Text Input with a UI / Chevron Small on the
+   right and a Dropdown List 8px below it, so this composes rather than invents:
+   link dropdown-list.css and dropdown-item.css alongside this file.
+
+   The value carrier is a readonly text input, not a div. That way it is
+   focusable and keyboard-reachable for free, "Select" comes from the DS
+   placeholder (and so is text-disabled without another rule), and anything that
+   reads .input values — form serialisation, the prototype's required-field
+   gate — sees it like any other field. readonly stops typing into it.
+
+   Behaviour (open, pick, close, Escape, arrow keys) is in input.js.
+   ------------------------------------------------------------ */
+
+.input-select { position: relative; }        /* anchors the floating list */
+
+/* The whole field opens the list, so the caret would be a lie */
+.input-select .input-field,
+.input-select__value { cursor: pointer; }
+
+.input-select__chevron {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       7px;                          /* the glyph's own 7×12, rotated */
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+  transform:   rotate(90deg);                /* points down when closed */
+  transition:  transform 150ms ease;
+}
+.input-select__chevron svg { display: block; width: 100%; height: 100%; }
+
+.input-select[data-open="true"] .input-select__chevron { transform: rotate(-90deg); }
+
+/* The list floats, so the field below it doesn't get shoved down as it opens */
+.input-select__list {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));    /* 8px under the field */
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+
+/* A flag in a select row, the same 20px lockup the phone list uses.
+
+   NOTHING clips or rings the flag here. The design system's Flags component draws
+   each one as a rounded square already inset from its own box — a 24px flag with a
+   4px corner inside a 28px frame — so the shape and the padding belong to the
+   artwork. This used to clip to --radius-round, which cropped those corners off
+   and turned a tricolour into an unreadable disc; a rectangular clip or ring on
+   the box would be no better, because it would trace the frame rather than the
+   flag inside it. Size the box, load the asset, leave it alone. */
+.input-select__flag {
+  flex-shrink: 0;
+  width:       20px;
+  height:      20px;
+}
+.input-select__flag svg,
+.input-select__flag img { display: block; width: 100%; height: 100%; }
+
+/* Chosen row — the tick reads as "this is the current value" */
+.input-select__list .dropdown-item[aria-selected="true"] {
+  background-color: var(--surface-secondary);
+}
+
+
+/* ------------------------------------------------------------
+   PHONE — a country-code prefix inside the field
+   Figma draws the mobile field as one bordered box with a tinted panel on the
+   left holding the dialling code and a chevron, and the number typed in the
+   white area beside it. Opening the panel drops a Dropdown List of countries,
+   each a flag, a muted code and a name.
+
+   The panel is a button, not a select: it has to sit flush inside the field's
+   border with its own fill, which a native control can't be made to do without
+   fighting it. The chosen code goes into a hidden input so the number and its
+   code read back as two values.
+
+   Link dropdown-list.css and dropdown-item.css alongside this file.
+   Behaviour is in input.js.
+   ------------------------------------------------------------ */
+
+.input-phone {
+  position:      relative;
+  padding-left:  0;                     /* the prefix panel runs to the edge */
+  gap:           0;
+  overflow:      visible;               /* the list escapes the field */
+}
+
+.input-phone__prefix {
+  flex-shrink:   0;
+  align-self:    stretch;
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacer-8);
+  margin:        calc(-1 * var(--gap-small)) 0;   /* fill the field's height */
+  padding:       0 var(--spacer-16);
+  border:        none;
+  border-radius: var(--radius-small) 0 0 var(--radius-small);
+  background:    var(--surface-tertiary-medium);  /* #f2ede9 */
+  cursor:        pointer;
+  font-family:   'Modern Era', sans-serif;
+}
+
+.input-phone__code {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.input-phone__chevron {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       7px;
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+  transform:   rotate(90deg);
+  transition:  transform 150ms ease;
+}
+.input-phone__chevron svg { display: block; width: 100%; height: 100%; }
+.input-phone[data-open="true"] .input-phone__chevron { transform: rotate(-90deg); }
+
+/* The number sits in the white area beside the panel */
+.input-phone .input { padding-left: var(--gap-medium); }
+
+.input-phone__list {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+.input-phone__list[hidden] { display: none; }
+
+/* Same lockup, same reasoning as .input-select__flag above */
+.input-phone__flag {
+  flex-shrink: 0;
+  width:       20px;
+  height:      20px;
+}
+.input-phone__flag svg,
+.input-phone__flag img { display: block; width: 100%; height: 100%; }
+
+/* The dialling code sits back from the country it belongs to */
+.input-phone__row-code {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   COUNTER — characters typed, against the length expected
+   Sits under the field, right-aligned, in the muted text colour. Used where the
+   expected length is itself the instruction ("the 16 characters on the front of
+   your licence") so the count is progress, not a scold — it stays neutral at
+   every value rather than turning red near the limit.
+   ------------------------------------------------------------ */
+
+.input-counter {
+  margin:      0;
+  align-self:  flex-end;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);   /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   ERROR GLYPH — the DS warning icon on error messages
+   Figma draws the Multiple Choice Selector's Messages row as a 16px
+   Tooltips / Warning, 8px from the text and nudged 2px down so it sits
+   optically centred on a 20px line; the Vehicle Registration error row is the
+   same lock-up. Text Input's Error variant has no icon in Figma yet — added
+   here by request, so 003 is the side that needs updating.
+
+   Rendered as a masked ::before rather than as markup, so every error message
+   gets it — the ones components build at runtime and the static ones in the
+   demos — without editing a single instance. The glyph is a data URI, not a
+   file path, so it sidesteps the url()-over-file:// problem, and the mask draws
+   in currentColor so it follows --text-error into dark mode.
+   ------------------------------------------------------------ */
+
+.input-message--error {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--gap-x-small);       /* 8px, icon to text */
+}
+.input-message--error::before {
+  content:     '';
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  margin-top:  2px;                      /* centres it on the 20px line */
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+}
+
 
 
 /* ------------------------------------------------------------
@@ -183,6 +531,26 @@
 .input-field--focused {
   border-color: var(--border-active);
   box-shadow:   var(--shadow-focus);
+}
+
+/* Open — a field whose dropdown is showing takes the active border and keeps it
+   for as long as the list is open.
+
+   Focus alone isn't enough here. A Select's value input is readonly and the phone
+   prefix is a <button>, so :focus-within comes and goes as the pointer moves and
+   the field can end up looking at rest while a menu hangs off it — the two read as
+   unrelated. The border is what ties the open list back to the field it belongs
+   to. Same rule Detail Card's select already applies to itself.
+
+   Not the focus ring, though: the list is the thing to look at now, and a glowing
+   field would compete with it.
+
+   `--error` is excluded rather than restated after, because these selectors are
+   (0,3,0) and would otherwise out-specify the (0,1,0) error rule below — an
+   unanswered required field would lose its red the moment you opened it. */
+[data-select][data-open="true"] .input-field:not(.input-field--error),
+.input-field[data-phone][data-open="true"]:not(.input-field--error) {
+  border-color: var(--border-active);
 }
 
 /* Error — red border (keeps red border on focus, no aqua ring) */
@@ -228,6 +596,19 @@
 
 [data-theme="dark"] .input-field:hover,
 [data-theme="dark"] .input-field:focus-within { border-color: var(--border-active); }
+
+/* The base dark rule above is (0,2,0), so it out-specifies the plain state
+   classes and was flattening error / valid / hint back to the default border in
+   dark — an error message with no red field to point at. Restated at the same
+   weight; hover and focus already were. */
+[data-theme="dark"] .input-field--error,
+[data-theme="dark"] .input-field--error:hover,
+[data-theme="dark"] .input-field--error:focus-within {
+  border-color: var(--border-error);
+  box-shadow:   none;
+}
+[data-theme="dark"] .input-field--valid,
+[data-theme="dark"] .input-field--hint { border-color: var(--border-primary); }
 
 [data-theme="dark"] .input-field--disabled,
 [data-theme="dark"] .input-field:has(.input:disabled) {

@@ -24,6 +24,7 @@
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>
+  <script src="vehicle-registration.js" defer></script>
 </head>
 <body>
 
@@ -45,20 +46,51 @@
 
     <div class="variants" id="variants"></div>
 
+    <!-- Live: the opt-in length validation from vehicle-registration.js -->
+    <div class="component-header" style="margin-top:40px">
+      <h2 class="component-header__name">Length validation</h2>
+      <p class="component-header__description">Type into the field. The tick appears on the 7th character; a wrong length surfaces the error when you leave the field or press Find vehicle.</p>
+    </div>
+
+    <div class="variants" style="grid-template-columns:1fr">
+      <div class="veh-reg" id="live-reg"
+           data-veh-reg
+           data-length="7"
+           data-error-required="Vehicle registration is required."
+           data-error-invalid="We couldn&#39;t find your vehicle. Please check the registration number and try again.">
+        <div class="veh-reg__field">
+          <span class="veh-reg__country"><span class="veh-reg__gb">GB</span></span>
+          <input class="veh-reg__input" type="text" placeholder="SH48 HSA" aria-label="Registration" autocomplete="off">
+          <span class="veh-reg__status" role="img" aria-label="Registration complete">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path class="veh-reg__status-disc" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z"/>
+              <path class="veh-reg__status-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <button class="btn btn--primary btn--pill" type="button" data-veh-reg-submit="#live-reg" style="justify-self:start">Find vehicle</button>
+    </div>
+
   </main>
 
   <script>
-    var FLAG = '<span class="veh-reg__flag"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
-      + '<rect width="60" height="30" fill="#012169"/>'
-      + '<g stroke="#fff" stroke-width="6"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g>'
-      + '<g stroke="#C8102E" stroke-width="2.5"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g>'
-      + '<rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/>'
-      + '<rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/>'
-      + '</svg></span>';
+    var FLAG = '<span class="veh-reg__flag"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"> <g clip-path="url(#flag-uk-clip)"> <g transform="translate(-16 -14)"><rect width="36" height="24" transform="translate(8 12)" fill="#FF4E4E"/> <g id="Clip path group"> <mask id="flag-uk-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="12" width="48" height="24"> <g id="s"> <path id="Vector" d="M2 12L2 36L50 36L50 12L2 12Z" fill="white"/> </g> </mask> <g mask="url(#flag-uk-mask)"> <g id="Group"> <path id="Vector_2" d="M1.99902 12.0001L1.99902 36.0001L49.999 36.0001L49.999 12.0001L1.99902 12.0001Z" fill="#001E6D"/> <path id="Vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M20.6325 24.0001L0.925781 14.1468L3.07241 9.85352L25.9991 21.3169L48.9258 9.85352L51.0724 14.1468L31.3657 24.0001L51.0724 33.8535L48.9258 38.1468L25.9991 26.6834L3.07241 38.1468L0.925781 33.8535L20.6325 24.0001Z" fill="white"/> <g id="Clip path group_2"> <mask id="mask1_4394_29934" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="1" y="12" width="49" height="25"> <g id="t"> <path id="Vector_3" d="M25.999 24.0001L49.999 24.0001V36.0001L25.999 24.0001ZM25.999 24.0001L25.999 36.0001L1.99902 36.0001L25.999 24.0001ZM25.999 24.0001L1.99902 24.0001L1.99902 12.0001L25.999 24.0001ZM25.999 24.0001L25.999 12.0001L49.999 12.0001L25.999 24.0001Z" fill="white"/> </g> </mask> <g mask="url(#mask1_4394_29934)"> <path id="Vector (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd" d="M22.421 24.0001L1.2832 13.4312L2.71429 10.569L25.9987 22.2113L49.2832 10.569L50.7143 13.4312L29.5765 24.0001L50.7143 34.569L49.2832 37.4312L25.9987 25.789L2.71429 37.4312L1.2832 34.569L22.421 24.0001Z" fill="#C8102E"/> </g> </g> <path id="Vector (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd" d="M21.999 20.0001L21.999 12.0001L29.999 12.0001L29.999 20.0001L49.999 20.0001L49.999 28.0001L29.999 28.0001L29.999 36.0001L21.999 36.0001L21.999 28.0001L1.99902 28.0001L1.99902 20.0001L21.999 20.0001Z" fill="white"/> <path id="Vector (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd" d="M23.599 21.6001L23.599 12.0001L28.399 12.0001L28.399 21.6001L49.999 21.6001L49.999 26.4001L28.399 26.4001L28.399 36.0001H23.599L23.599 26.4001L1.99902 26.4001L1.99902 21.6001L23.599 21.6001Z" fill="#C8102E"/> </g> </g> </g></g> </g> <defs><clipPath id="flag-uk-clip"><rect width="20" height="20" rx="2" fill="white"/></clipPath></defs> </svg></span>';
     var CHEVRON = '<span class="veh-reg__chevron"><svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-    var WARN = '<span class="veh-reg__message-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 7v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.1" fill="currentColor"/></svg></span>';
+    /* icons/warning.svg — the circled "!" Figma shows on the Error state */
+    var WARN = '<span class="veh-reg__message-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+      + '<path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/>'
+      + '<path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/>'
+      + '<path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/>'
+      + '</svg></span>';
 
-    // o: { fieldMod, value, placeholder, message, error }
+    /* icons/tick.svg — tones painted from tokens, see vehicle-registration.css */
+    var TICK = '<span class="veh-reg__status" role="img" aria-label="Registration complete"><svg viewBox="0 0 24 24" fill="none">'
+      + '<path class="veh-reg__status-disc" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z"/>'
+      + '<path class="veh-reg__status-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z"/>'
+      + '</svg></span>';
+
+    // o: { fieldMod, value, placeholder, message, error, status }
     function field(o) {
       o = o || {};
       var inputAttrs = 'class="veh-reg__input" type="text" aria-label="Registration"';
@@ -69,6 +101,7 @@
         + '<div class="veh-reg__field' + (o.fieldMod || '') + '">'
         +   '<span class="veh-reg__country">' + FLAG + '<span class="veh-reg__gb">GB</span>' + CHEVRON + '</span>'
         +   '<input ' + inputAttrs + '>'
+        +   (o.status ? TICK : '')
         + '</div>'
         + (o.message ? '<div class="veh-reg__message">' + WARN + '<p class="veh-reg__message-text">' + o.message + '</p></div>' : '')
         + '</div>';
@@ -80,6 +113,8 @@
       ['Hover',       field({ value: 'SH48 HSA', fieldMod: ' veh-reg__field--hover' })],
       ['Focus',       field({ value: 'SH48 HSA', fieldMod: ' veh-reg__field--focused' })],
       ['Error',       field({ value: 'SH48 HSA', fieldMod: ' veh-reg__field--error', error: true, message: 'Messaging' })],
+      /* Valid is a repo addition — 003 has no Valid variant. See the CSS header. */
+      ['Valid',       field({ value: 'SH48 HSA', fieldMod: ' veh-reg__field--valid', status: true })],
       ['Disabled',    field({ value: 'SH48 HSA', fieldMod: ' veh-reg__field--disabled' })]
     ];
     document.getElementById('variants').innerHTML = rows.map(function (r) {

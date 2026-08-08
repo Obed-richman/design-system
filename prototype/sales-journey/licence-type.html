@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving licence type — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/conditional-selector/conditional-selector.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Driving licence type
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-283770
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7975-381980
+       Fourth page of the Driver step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">What type of driving licence do you have?</h1>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <!-- Vertical options. Picking UK reveals the Northern Ireland question,
+           which is inside the list so it sits under the option it belongs to —
+           conditional-selector.js finds the panel wherever it is. -->
+      <div class="conditional-selector">
+        <fieldset class="choice-selector choice-selector--vertical">
+          <div class="choice-selector__options">
+
+            <label class="text-icon-item text-icon-item--inactive">
+              <span class="text-icon-item__icon"><img src="../../assets/flags/uk.svg" width="24" height="24" alt=""></span>
+              <span class="text-icon-item__text"><span class="text-icon-item__label">UK licence</span></span>
+              <input class="radio__input" type="radio" name="licence" data-reveals>
+              <span class="radio__control"></span>
+            </label>
+
+            <div class="conditional-selector__panel" hidden>
+              <fieldset class="choice-selector">
+                <div class="choice-selector__header">
+                  <p class="choice-selector__title">Was your licence issued in Northern Ireland?</p>
+                </div>
+                <div class="choice-selector__options">
+                  <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="ni-licence" data-goes-to="licence-declined.html"><span class="radio__control"></span></label>
+                  <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="ni-licence" data-goes-to="uk-licence.html"><span class="radio__control"></span></label>
+                </div>
+              </fieldset>
+            </div>
+
+            <label class="text-icon-item text-icon-item--inactive">
+              <span class="text-icon-item__icon"><img src="../../assets/flags/licence-eu.svg" width="24" height="24" alt=""></span>
+              <span class="text-icon-item__text"><span class="text-icon-item__label">EU licence</span></span>
+              <input class="radio__input" type="radio" name="licence" data-goes-to="eu-licence.html">
+              <span class="radio__control"></span>
+            </label>
+
+          </div>
+        </fieldset>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

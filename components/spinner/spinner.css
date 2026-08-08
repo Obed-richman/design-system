@@ -73,7 +73,7 @@
    (the base spinner already flips to white under [data-theme="dark"])
    ------------------------------------------------------------ */
 
-.spinner--inverse { color: var(--colour-white); }
+.spinner--inverse { color: var(--icon-glyph-on-color-fixed); }
 
 
 /* ------------------------------------------------------------

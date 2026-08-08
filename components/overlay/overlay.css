@@ -1,0 +1,56 @@
+/*
+ * ============================================================
+ * OVERLAY COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2482-5095
+ *
+ * A wash over the whole screen. It does one job: take the page out of play so
+ * whatever sits on top of it is plainly the thing to deal with. Modal puts a
+ * dialogue over one; a drawer or an image viewer would do the same.
+ *
+ * Variants (Figma "Colour"):
+ *   Light Overlay   .overlay--light    overlay/light-low     white @ 30%
+ *   Dark Overlay    .overlay--dark     overlay/dark-low      #27252d @ 20%
+ *   Darker Overlay  .overlay--darker   overlay/dark-medium   #27252d @ 30%
+ *
+ * Figma's Breakpoint variant is only the frame it is drawn at — an overlay is
+ * the viewport at every size, so there is nothing responsive to declare.
+ *
+ * WHICH ONE. Dark for a light page, Light for a dark one, Darker when what sits
+ * on top has to win outright — a modal, where the page behind must stop looking
+ * like something you can still use. All three flip with the theme, so a Light
+ * overlay stays a wash toward the page's own opposite in dark mode rather than
+ * turning into a glare.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="overlay.css">
+ *
+ *   <div class="overlay overlay--dark" hidden></div>
+ *
+ * Nothing here opens or closes it — that belongs to whatever it is covering for.
+ * Modal builds its own scrim from these rules rather than nesting an element.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.overlay {
+  position: fixed;
+  inset:    0;
+  z-index:  200;
+  /* No default colour — a variant is not optional. An overlay with no wash is
+     an invisible sheet over the page that still eats every click. */
+}
+
+.overlay[hidden] { display: none; }
+
+
+/* ------------------------------------------------------------
+   COLOUR
+   ------------------------------------------------------------ */
+
+.overlay--light  { background: var(--overlay-light-low); }    /* white @ 30% */
+.overlay--dark   { background: var(--overlay-dark-low); }     /* #27252d @ 20% */
+.overlay--darker { background: var(--overlay-dark-medium); }  /* #27252d @ 30% */

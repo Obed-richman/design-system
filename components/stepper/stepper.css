@@ -1,0 +1,234 @@
+/*
+ * ============================================================
+ * STEPPER COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59062-963
+ *
+ * A vertical stepper: a status icon in a left-hand rail beside a card of
+ * explanatory content. Use it to walk someone through a sequence where each
+ * step needs more than a label — e.g. what happens after a telematics
+ * assessment. For the horizontal progress bar used in page headers see
+ * Onboarding Steps instead.
+ *
+ * Each step's card can carry a title, a paragraph and any number of outcome
+ * rows (a status glyph + its own title and copy), separated by Dividers.
+ *
+ * Variants
+ *   Type   — Inactive (default) | Active (.stepper__item--active)
+ *            Active outlines the card to draw the eye to the step in play.
+ *
+ * Status icon (Figma "Icon / Status") — set one on .stepper__status-icon:
+ *   .--complete     tick in a ring (icons/correct.svg)
+ *   .--not-started  empty grey ring (drawn in CSS, no asset needed)
+ *   .--active       filled green ring, the step in progress
+ *
+ * Reuses Divider between rows, and the two-tone glyphs icons/tick.svg and
+ * icons/cross-red.svg for row outcomes — link divider.css.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="stepper.css">
+ *
+ *   <div class="stepper">
+ *     <div class="stepper__item stepper__item--active">
+ *       <div class="stepper__status">
+ *         <span class="stepper__status-icon stepper__status-icon--not-started"></span>
+ *       </div>
+ *       <div class="stepper__card">
+ *         <p class="stepper__title">Two potential outcomes:</p>
+ *         <p class="stepper__text">Telematics isn't always the right fit…</p>
+ *         <div class="stepper__row">
+ *           <span class="stepper__row-icon">…tick svg…</span>
+ *           <div class="stepper__row-body">
+ *             <p class="stepper__row-title">Your driver rating's ready</p>
+ *             <p class="stepper__row-text">We've gathered enough data…</p>
+ *           </div>
+ *         </div>
+ *         <hr class="divider">
+ *       </div>
+ *     </div>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../divider/divider.css';
+
+
+.stepper {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);            /* 8px between steps */
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STEP
+   ------------------------------------------------------------ */
+
+.stepper__item {
+  display:     flex;
+  gap:         var(--gap-x-small);               /* 8px */
+  align-items: flex-start;
+  width:       100%;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS RAIL
+   The icon sits in its own column, padded so it lines up with the first line
+   of the card's title rather than the card's top edge.
+   ------------------------------------------------------------ */
+
+.stepper__status {
+  flex:        0 0 auto;
+  display:     flex;
+  align-items: center;
+  padding:     var(--gap-medium) 0;              /* 16px */
+}
+
+.stepper__status-icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  width:           var(--icon-size-xs);          /* 24px */
+  height:          var(--icon-size-xs);
+  flex-shrink:     0;
+}
+.stepper__status-icon svg { display: block; width: 100%; height: 100%; }
+
+/* Complete — tick in a ring */
+.stepper__status-icon--complete { color: var(--icon-glyph-primary); }
+
+/* Not started — an empty ring, drawn rather than imported. Inset so the ring
+   matches the optical size of the 24px glyphs beside it. */
+.stepper__status-icon--not-started::before,
+.stepper__status-icon--active::before {
+  content:       '';
+  display:       block;
+  width:         calc(100% - var(--spacer-4));
+  height:        calc(100% - var(--spacer-4));
+  border-radius: var(--radius-round);
+  box-sizing:    border-box;
+}
+.stepper__status-icon--not-started::before {
+  border: var(--border-s) solid var(--border-secondary);
+}
+
+/* Active — the step in progress */
+.stepper__status-icon--active::before {
+  border:     var(--border-m) solid var(--border-success);
+  background: var(--surface-success);
+}
+
+
+/* ------------------------------------------------------------
+   CARD
+   A transparent border on the resting state so switching to Active doesn't
+   shift the layout.
+   ------------------------------------------------------------ */
+
+.stepper__card {
+  flex:           1 1 0;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px */
+  box-sizing:     border-box;
+  padding:        var(--gap-medium);
+  background:     var(--surface-primary);
+  border:         var(--border-m) solid transparent;
+  border-radius:  var(--radius-medium);           /* 16px */
+}
+
+.stepper__item--active .stepper__card {
+  border-color: var(--border-success-low);
+}
+
+
+/* ------------------------------------------------------------
+   CARD TEXT
+   ------------------------------------------------------------ */
+
+.stepper__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.stepper__text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+/* The title and its paragraph sit closer together than the card's own gap */
+.stepper__title + .stepper__text { margin-top: calc(var(--spacer-4) - var(--gap-medium)); }
+
+/* Inline link — underlined, matching .alert__link. (The Figma mock leaves it
+   underline-free; the design system underlines inline links.) */
+.stepper__link {
+  color:           var(--text-link);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   OUTCOME ROWS
+   ------------------------------------------------------------ */
+
+.stepper__row {
+  display:     flex;
+  gap:         var(--spacer-8);                   /* 8px */
+  align-items: flex-start;
+  width:       100%;
+}
+
+.stepper__row-icon {
+  flex:       0 0 auto;
+  width:      var(--icon-size-xxs);               /* 16px */
+  height:     var(--icon-size-xxs);
+  margin-top: var(--gap-xx-small);                /* 4px — align to the first line */
+  color:      var(--text-on-color-fixed);         /* white glyph on the two-tone disc */
+}
+.stepper__row-icon svg { display: block; width: 100%; height: 100%; }
+
+.stepper__row-body {
+  flex:           1 1 0;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);                /* 4px */
+}
+
+.stepper__row-title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.stepper__row-text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   Every colour above resolves through a mode-aware token, so the card, text,
+   rules and Active outline all follow [data-theme="dark"] with no overrides.
+   The two-tone row glyphs keep their fixed red/green discs by design.
+   ------------------------------------------------------------ */

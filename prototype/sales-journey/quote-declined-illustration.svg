@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none" role="img" aria-label="Information">
+  <!-- Figma: Sales Journey — Ideation / Kickout - Quote declined → "Information"
+       Exported at 72×72; the artboard background and neighbouring frames that
+       came with the node export have been stripped. -->
+<g id="Information">
+<g clip-path="url(#clip0_4394_29934)">
+<g id="Background" clip-path="url(#clip1_4394_29934)">
+<path id="Light Purple" d="M0 0H72V72H0V0Z" fill="#DBBFFD"/>
+</g>
+<g id="AW">
+<circle id="Ellipse 2055" cx="43.2004" cy="35.7248" r="16.8" fill="#A458FF"/>
+<path id="Ellipse 2054" d="M45.6 35.5246C45.6 44.803 38.0784 52.3246 28.8 52.3246C19.5216 52.3246 12 44.803 12 35.5246C12 26.2462 19.5216 18.7246 28.8 18.7246C38.0784 18.7246 45.6 26.2462 45.6 35.5246Z" fill="white"/>
+<g id="Union">
+<path d="M28.1474 28.0244C27.787 28.0244 27.4948 28.3166 27.4948 28.677V29.9821C27.4948 30.3425 27.787 30.6346 28.1474 30.6346H29.4525C29.8129 30.6346 30.105 30.3425 30.105 29.9821V28.677C30.105 28.3166 29.8129 28.0244 29.4525 28.0244H28.1474Z" fill="#00166C"/>
+<path d="M27.4948 35.1938V40.4142H26.1916C25.8312 40.4142 25.5391 40.7064 25.5391 41.0667V42.3719C25.5391 42.7323 25.8312 43.0244 26.1916 43.0244H31.4082C31.7686 43.0244 32.0608 42.7323 32.0608 42.3719V41.0667C32.0608 40.7064 31.7686 40.4142 31.4082 40.4142H30.105V33.2361C30.105 32.8757 29.8129 32.5835 29.4525 32.5835H26.8423C26.4819 32.5835 26.1897 32.8757 26.1897 33.2361V34.5412C26.1897 34.9016 26.4819 35.1938 26.8423 35.1938H27.4948Z" fill="#00166C"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_4394_29934">
+<path d="M0 24C0 10.7452 10.7452 0 24 0H48C61.2548 0 72 10.7452 72 24V48C72 61.2548 61.2548 72 48 72H24C10.7452 72 0 61.2548 0 48V24Z" fill="white"/>
+</clipPath>
+<clipPath id="clip1_4394_29934">
+<rect width="72" height="72" fill="white"/>
+</clipPath>
+</defs>
+</svg>

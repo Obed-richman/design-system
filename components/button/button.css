@@ -14,8 +14,10 @@
  * :focus-visible). Matching force-state modifiers (.btn--hover, .btn--pressed,
  * .btn--focused) render the same look statically for showcase/demo pages.
  *
- * State colour progression (primary): surface-active (default)
+ * State colour progression (primary): brand-1-medium (default)
  *   -> surface-primary-hover (hover) -> surface-primary-pressed (pressed).
+ * brand-1-medium is the brand aqua and is identical in both modes, so the
+ * primary fill no longer darkens in dark mode the way surface-active does.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -127,6 +129,11 @@
   height:      auto;
 }
 
+/* Block — fill the container, for full-width CTAs at the end of a form */
+.btn--block {
+  width: 100%;
+}
+
 
 /* ------------------------------------------------------------
    SIZE — Large
@@ -158,7 +165,7 @@
    ------------------------------------------------------------ */
 
 .btn--primary {
-  background-color: var(--surface-active);   /* Aqua 50 */
+  background-color: var(--brand-1-medium);   /* Brand Aqua — same in both modes */
   border-color:     transparent;
   color:            var(--text-primary-fixed); /* #27252d */
 }
@@ -178,7 +185,7 @@
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
 .btn--primary:focus-visible,
 .btn--primary.btn--focused {
-  background-color: var(--surface-active);
+  background-color: var(--brand-1-medium);
 }
 
 .btn--primary:disabled,
@@ -314,10 +321,9 @@
    Applied when [data-theme="dark"] is on a parent element
    ------------------------------------------------------------ */
 
-[data-theme="dark"] .btn--primary {
-  background-color: var(--surface-active);
-  color:            var(--text-primary-fixed);
-}
+/* Primary needs no dark override: brand-1-medium and text-primary-fixed are
+   both mode-independent, so the base rule already holds. (It previously
+   restated surface-active here, which resolves to a muted Aqua 80 in dark.) */
 
 [data-theme="dark"] .btn--secondary {
   background-color: transparent;

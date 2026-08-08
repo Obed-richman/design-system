@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+  <script src="../../components/date-picker/date-picker.js" defer></script>
+  <script src="../../components/discount-code/discount-code.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from data-step) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <main class="proto" data-step="payment">
+
+    <div>
+      <h1 class="proto__title">Payment</h1>
+      <p class="proto__lead">Your policy starts as soon as this is confirmed.</p>
+    </div>
+
+    <div class="proto__todo">
+      Paste the payment fields and the policy summary here — markup to copy from:<br>
+      <code>../../components/input/input.html</code><br><code>../../components/display-row/display-row.html</code><br><code>../../components/acknowledge/acknowledge.html</code><br><code>../../components/checkbox/checkbox.html</code><br><code>../../components/total-cost/total-cost.html</code>
+    </div>
+
+    <div class="proto__actions">
+      <button class="btn btn--primary btn--pill btn--large" type="button">Pay &amp; get covered</button>
+    </div>
+
+  </main>
+
+</body>
+</html>

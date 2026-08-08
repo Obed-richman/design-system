@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overlay Component</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="overlay.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Modern Era', system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #68676c; font-size: 14px; margin: 0 0 28px; }
+    .card { max-width: 720px; background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; }
+    .cap { font-size: 12px; color: #68676c; margin: 0 0 12px; }
+    /* The swatches show each wash over the same picture of a page. The real
+       component is fixed to the viewport &mdash; unpinned here so all three can be
+       compared side by side. */
+    .swatches { display: flex; flex-wrap: wrap; gap: 16px; }
+    .swatch { position: relative; width: 200px; height: 130px; border-radius: 8px; overflow: hidden;
+              background: repeating-linear-gradient(135deg, #fff 0 14px, #ede9e6 14px 28px); }
+    .swatch .overlay { position: absolute; }
+    .swatch__name { font-size: 12px; color: #68676c; margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+
+  <h1>Overlay</h1>
+  <p class="subtitle">A wash over the whole screen, taking the page out of play &mdash; Zego Design System</p>
+
+  <div class="card">
+    <p class="cap">The three washes, over the same page</p>
+    <div class="swatches">
+      <div>
+        <div class="swatch"><div class="overlay overlay--light"></div></div>
+        <p class="swatch__name">Light &mdash; overlay/light-low</p>
+      </div>
+      <div>
+        <div class="swatch"><div class="overlay overlay--dark"></div></div>
+        <p class="swatch__name">Dark &mdash; overlay/dark-low</p>
+      </div>
+      <div>
+        <div class="swatch"><div class="overlay overlay--darker"></div></div>
+        <p class="swatch__name">Darker &mdash; overlay/dark-medium</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

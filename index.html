@@ -10,12 +10,16 @@
   <link rel="stylesheet" href="components/button/button.css">
   <link rel="stylesheet" href="components/input/input.css">
   <link rel="stylesheet" href="components/alert/alert.css">
+  <link rel="stylesheet" href="components/global-alert/global-alert.css">
+  <link rel="stylesheet" href="components/modal/modal.css">
+  <link rel="stylesheet" href="components/overlay/overlay.css">
   <link rel="stylesheet" href="components/checkbox/checkbox.css">
   <link rel="stylesheet" href="components/spinner/spinner.css">
   <link rel="stylesheet" href="components/radio/radio.css">
   <link rel="stylesheet" href="components/bounce/bounce.css">
   <link rel="stylesheet" href="components/toggle/toggle.css">
   <link rel="stylesheet" href="components/status-label/status-label.css">
+  <link rel="stylesheet" href="components/stepper/stepper.css">
   <link rel="stylesheet" href="components/warning/warning.css">
   <link rel="stylesheet" href="components/search/search.css">
   <link rel="stylesheet" href="components/plate/plate.css">
@@ -23,6 +27,7 @@
   <link rel="stylesheet" href="components/number-item/number-item.css">
   <link rel="stylesheet" href="components/text-icon-item/text-icon-item.css">
   <link rel="stylesheet" href="components/choice-selector/choice-selector.css">
+  <link rel="stylesheet" href="components/conditional-selector/conditional-selector.css">
   <link rel="stylesheet" href="components/radio-list/radio-list.css">
   <link rel="stylesheet" href="components/tab/tab.css">
   <link rel="stylesheet" href="components/tab-bar/tab-bar.css">
@@ -46,6 +51,7 @@
   <link rel="stylesheet" href="components/trustpilot-reviews/trustpilot-reviews.css">
   <link rel="stylesheet" href="components/divider/divider.css">
   <link rel="stylesheet" href="components/onboarding-steps/onboarding-steps.css">
+  <link rel="stylesheet" href="components/optional-input/optional-input.css">
   <link rel="stylesheet" href="components/onboarding-header/onboarding-header.css">
   <link rel="stylesheet" href="components/pagination/pagination.css">
   <link rel="stylesheet" href="components/sales-nav/sales-nav.css">
@@ -362,6 +368,53 @@
         `
       },
       {
+        name: "Overlay",
+        description: "A wash over the whole screen in three strengths, taking the page out of play so what sits on top is plainly the thing to deal with.",
+        page: "components/overlay/overlay.html",
+        preview: `
+          <div style="display:flex;gap:10px;pointer-events:none">
+            <div style="position:relative;width:96px;height:64px;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--surface-primary) 0 12px,var(--surface-tertiary-medium) 12px 24px)"><div class="overlay overlay--light" style="position:absolute"></div></div>
+            <div style="position:relative;width:96px;height:64px;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--surface-primary) 0 12px,var(--surface-tertiary-medium) 12px 24px)"><div class="overlay overlay--dark" style="position:absolute"></div></div>
+            <div style="position:relative;width:96px;height:64px;border-radius:8px;overflow:hidden;background:repeating-linear-gradient(135deg,var(--surface-primary) 0 12px,var(--surface-tertiary-medium) 12px 24px)"><div class="overlay overlay--darker" style="position:absolute"></div></div>
+          </div>
+        `
+      },
+      {
+        name: "Modal",
+        description: "A panel over a scrim for a question that can\u2019t be asked in place \u2014 most often \u201care you sure?\u201d before an action destroys work.",
+        page: "components/modal/modal.html",
+        preview: `
+          <div class="modal__panel" style="position:static;max-width:340px;box-shadow:none;border:1px solid var(--border-primary);pointer-events:none">
+            <button class="modal__close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+            <h2 class="modal__title">Discard what you&#39;ve added?</h2>
+            <p class="modal__body">Changing your answer will discard the details you&#39;ve added.</p>
+            <div class="modal__actions">
+              <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button">Discard</button>
+              <button class="btn btn--secondary btn--pill btn--block" type="button">Cancel</button>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Global Alert",
+        description: "A floating stack of screen-level messages, capped at two \u2014 Error, Warning and Success, each dismissible. Success retires itself.",
+        page: "components/global-alert/global-alert.html",
+        preview: `
+          <div class="global-alert" style="position:static;max-width:380px;padding-inline:0;pointer-events:none">
+            <div class="alert alert--negative alert--bordered">
+              <span class="alert__icon" style="width:16px;height:16px;padding-top:4px;box-sizing:content-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/><path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+              <div class="alert__content"><p class="alert__description" style="font-size:16px;line-height:24px">We couldn&#8217;t match these details. Check them and try again.</p></div>
+              <button class="alert__close" type="button" aria-label="Dismiss" style="width:16px;height:16px"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+            </div>
+            <div class="alert alert--positive alert--bordered">
+              <span class="alert__icon" style="width:16px;height:16px;padding-top:4px;box-sizing:content-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 14.5576L15.9072 9.13697C16.1025 8.94171 16.4191 8.94171 16.6143 9.13697L17.3214 9.84408C17.5167 10.0393 17.5167 10.3559 17.3214 10.5512L10.8513 17.0213C10.656 17.2166 10.3394 17.2166 10.1442 17.0213L6.60355 13.4807C6.40829 13.2854 6.40829 12.9689 6.60355 12.7736L7.29953 12.0776C7.4948 11.8824 7.81138 11.8824 8.00664 12.0776L10.4866 14.5576Z" fill="currentColor"/></svg></span>
+              <div class="alert__content"><p class="alert__description" style="font-size:16px;line-height:24px">Your details have been saved.</p></div>
+              <button class="alert__close" type="button" aria-label="Dismiss" style="width:16px;height:16px"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+            </div>
+          </div>
+        `
+      },
+      {
         name: "Acknowledge Box",
         description: "Bordered checkbox card for acknowledgements, with active, error and disabled states.",
         page: "components/acknowledge/acknowledge.html",
@@ -573,11 +626,85 @@
           <div class="veh-reg" style="width:300px">
             <div class="veh-reg__field">
               <span class="veh-reg__country">
-                <span class="veh-reg__flag"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><g stroke="#fff" stroke-width="6"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><g stroke="#C8102E" stroke-width="2.5"><path d="M0 0 60 30"/><path d="M60 0 0 30"/></g><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg></span>
+                <span class="veh-reg__flag"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"> <g clip-path="url(#flag-uk-clip)"> <g transform="translate(-16 -14)"><rect width="36" height="24" transform="translate(8 12)" fill="#FF4E4E"/> <g id="Clip path group"> <mask id="flag-uk-mask" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="2" y="12" width="48" height="24"> <g id="s"> <path id="Vector" d="M2 12L2 36L50 36L50 12L2 12Z" fill="white"/> </g> </mask> <g mask="url(#flag-uk-mask)"> <g id="Group"> <path id="Vector_2" d="M1.99902 12.0001L1.99902 36.0001L49.999 36.0001L49.999 12.0001L1.99902 12.0001Z" fill="#001E6D"/> <path id="Vector (Stroke)" fill-rule="evenodd" clip-rule="evenodd" d="M20.6325 24.0001L0.925781 14.1468L3.07241 9.85352L25.9991 21.3169L48.9258 9.85352L51.0724 14.1468L31.3657 24.0001L51.0724 33.8535L48.9258 38.1468L25.9991 26.6834L3.07241 38.1468L0.925781 33.8535L20.6325 24.0001Z" fill="white"/> <g id="Clip path group_2"> <mask id="mask1_4394_29934" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="1" y="12" width="49" height="25"> <g id="t"> <path id="Vector_3" d="M25.999 24.0001L49.999 24.0001V36.0001L25.999 24.0001ZM25.999 24.0001L25.999 36.0001L1.99902 36.0001L25.999 24.0001ZM25.999 24.0001L1.99902 24.0001L1.99902 12.0001L25.999 24.0001ZM25.999 24.0001L25.999 12.0001L49.999 12.0001L25.999 24.0001Z" fill="white"/> </g> </mask> <g mask="url(#mask1_4394_29934)"> <path id="Vector (Stroke)_2" fill-rule="evenodd" clip-rule="evenodd" d="M22.421 24.0001L1.2832 13.4312L2.71429 10.569L25.9987 22.2113L49.2832 10.569L50.7143 13.4312L29.5765 24.0001L50.7143 34.569L49.2832 37.4312L25.9987 25.789L2.71429 37.4312L1.2832 34.569L22.421 24.0001Z" fill="#C8102E"/> </g> </g> <path id="Vector (Stroke)_3" fill-rule="evenodd" clip-rule="evenodd" d="M21.999 20.0001L21.999 12.0001L29.999 12.0001L29.999 20.0001L49.999 20.0001L49.999 28.0001L29.999 28.0001L29.999 36.0001L21.999 36.0001L21.999 28.0001L1.99902 28.0001L1.99902 20.0001L21.999 20.0001Z" fill="white"/> <path id="Vector (Stroke)_4" fill-rule="evenodd" clip-rule="evenodd" d="M23.599 21.6001L23.599 12.0001L28.399 12.0001L28.399 21.6001L49.999 21.6001L49.999 26.4001L28.399 26.4001L28.399 36.0001H23.599L23.599 26.4001L1.99902 26.4001L1.99902 21.6001L23.599 21.6001Z" fill="#C8102E"/> </g> </g> </g></g> </g> <defs><clipPath id="flag-uk-clip"><rect width="20" height="20" rx="2" fill="white"/></clipPath></defs> </svg></span>
                 <span class="veh-reg__gb">GB</span>
                 <span class="veh-reg__chevron"><svg viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               </span>
               <input class="veh-reg__input" type="text" value="SH48 HSA" aria-label="Registration" tabindex="-1">
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Stepper",
+        description: "Vertical stepper — a status icon beside a card of explanatory content, with optional outcome rows.",
+        page: "components/stepper/stepper.html",
+        preview: `
+          <div class="stepper" style="max-width:320px">
+            <div class="stepper__item stepper__item--active">
+              <div class="stepper__status">
+                <span class="stepper__status-icon stepper__status-icon--active"></span>
+              </div>
+              <div class="stepper__card">
+                <p class="stepper__title">Two potential outcomes:</p>
+                <p class="stepper__text">Telematics isn't always the right fit.</p>
+              </div>
+            </div>
+            <div class="stepper__item">
+              <div class="stepper__status">
+                <span class="stepper__status-icon stepper__status-icon--not-started"></span>
+              </div>
+              <div class="stepper__card">
+                <p class="stepper__title">Your driver rating</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Optional Input",
+        description: "A field with an escape hatch — input, \u201cor\u201d divider and a dismissal checkbox that disables it. Includes a MM / YYYY mask.",
+        page: "components/optional-input/optional-input.html",
+        preview: `
+          <div class="optional-input" style="max-width:300px">
+            <div class="input-group">
+              <label class="input-label input-label--title" for="p-oi">When was the vehicle purchased?</label>
+              <div class="input-field">
+                <input class="input" id="p-oi" type="text" placeholder="MM / YYYY" style="pointer-events:none">
+              </div>
+            </div>
+            <div class="divider-text"><span class="divider-text__label">or</span></div>
+            <label class="checkbox" style="pointer-events:none">
+              <input class="checkbox__input" type="checkbox">
+              <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="checkbox__label">Not purchased yet.</span>
+            </label>
+          </div>
+        `
+      },
+      {
+        name: "Conditional Selector",
+        description: "A question that reveals a follow-up input when a particular answer is chosen \u2014 the panel takes any input type.",
+        page: "components/conditional-selector/conditional-selector.html",
+        preview: `
+          <div class="conditional-selector" style="max-width:320px;pointer-events:none">
+            <fieldset class="choice-selector">
+              <div class="choice-selector__header">
+                <p class="choice-selector__title">Are you the legal owner?</p>
+              </div>
+              <div class="choice-selector__options">
+                <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="p-cs"><span class="radio__control"></span></label>
+                <label class="text-icon-item"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="p-cs" checked><span class="radio__control"></span></label>
+              </div>
+            </fieldset>
+            <div class="conditional-selector__panel">
+              <div class="input-group">
+                <span class="input-label input-label--title">Who is the legal owner?</span>
+                <div class="input-field">
+                  <input class="input" type="text" placeholder="Select" readonly>
+                  <span class="input-select__chevron"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+                </div>
+              </div>
             </div>
           </div>
         `
@@ -894,7 +1021,7 @@
             </div>
             <div class="tier-card__features">
               <div class="tier-card__feature">
-                <span class="tier-card__feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#00E660"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="#fff"/></svg></span>
+                <span class="tier-card__feature-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#05CC58"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="#fff"/></svg></span>
                 <span class="tier-card__feature-text">Third party cover</span>
               </div>
               <div class="tier-card__feature tier-card__feature--off">
@@ -911,9 +1038,9 @@
         page: "components/bullet-points/bullet-points.html",
         preview: `
           <div class="bullet-points" style="gap:16px">
-            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#00E660"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Up to 25% off for good driving</span></span></span></div>
-            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#00E660"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Earn up to £60 in rewards</span></span></span></div>
-            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#00E660"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Privacy-first — your location stays yours</span></span></span></div>
+            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#05CC58"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Up to 25% off for good driving</span></span></span></div>
+            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#05CC58"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Earn up to £60 in rewards</span></span></span></div>
+            <div class="bullet-point"><span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z" fill="#05CC58"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z" fill="currentColor"/></svg></span><span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Privacy-first — your location stays yours</span></span></span></div>
           </div>
         `
       },

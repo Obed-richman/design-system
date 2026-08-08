@@ -95,6 +95,11 @@
    RIGHT VALUE (2 columns)
    ------------------------------------------------------------ */
 
+/* Spec — a key/value row: plain key on the left, emphasised value on the right
+   (the default row emphasises the label instead). Used for read-back summaries
+   such as vehicle details. */
+.display-row--spec .display-row__label { font-weight: var(--font-weight-regular); }
+
 .display-row__value {
   flex-shrink: 0;
   align-self:  center;

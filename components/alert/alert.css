@@ -156,3 +156,23 @@
 }
 
 /* Neutral uses the base defaults (white surface, grey border, dark icon). */
+
+
+/* ------------------------------------------------------------
+   BRAND — .alert--brand
+   A purple incentive / social-proof note (e.g. "you're joining N drivers").
+   Sits tighter than the other states: a 4px radius rather than the 16px used
+   above, so it reads as a note inside a card instead of a card of its own.
+   NOTE the copy uses the pressed-link purple because there is no text token at
+   that value — worth raising upstream if a brand text token is wanted.
+   ------------------------------------------------------------ */
+
+.alert--brand {
+  --alert-surface: var(--surface-brand-2-low);     /* #EDE0FE */
+  --alert-border:  var(--border-brand-2-low);
+  --alert-icon:    var(--icon-glyph-brand-2-medium);
+
+  border-radius: var(--radius-x-small);            /* 4px */
+}
+.alert--brand .alert__title,
+.alert--brand .alert__description { color: var(--text-link-pressed); }   /* #750BF3 */

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Alert Component</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../alert/alert.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="global-alert.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Modern Era', system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #68676c; font-size: 14px; margin: 0 0 28px; }
+    .card { max-width: 620px; background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; }
+    .cap { font-size: 12px; color: #68676c; margin: 0 0 12px; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; }
+    /* The three states shown IN PLACE so they can be read side by side. The real
+       component is fixed to the top of the viewport — unpinned here for the page
+       only, which is why this lives in the demo's own style block and not in
+       global-alert.css. */
+    .docs-stack { position: static; max-width: none; padding-inline: 0; }
+  </style>
+  <script src="../alert/alert.js" defer></script>
+  <script src="global-alert.js" defer></script>
+</head>
+<body>
+
+  <h1>Global Alert</h1>
+  <p class="subtitle">A floating stack of screen-level messages, capped at two — Zego Design System</p>
+
+  <div class="card">
+    <p class="cap">Live — raise them and watch the stack. Success retires itself after 5s; a third message drops the oldest.</p>
+    <div class="row">
+      <button class="btn btn--secondary btn--pill" type="button"
+              onclick="GlobalAlert.show({ state: 'error', message: 'We couldn’t match these details with the DVLA. Check your licence number and personal details, then try again.' })">Raise Error</button>
+      <button class="btn btn--secondary btn--pill" type="button"
+              onclick="GlobalAlert.show({ state: 'warning', message: 'Your quote expires in 24 hours.' })">Raise Warning</button>
+      <button class="btn btn--secondary btn--pill" type="button"
+              onclick="GlobalAlert.show({ state: 'success', message: 'Your details have been saved.' })">Raise Success</button>
+      <button class="btn btn--tertiary btn--pill" type="button" onclick="GlobalAlert.clear()">Clear all</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <p class="cap">The three states — Error and Warning persist, Success retires itself</p>
+    <div class="global-alert docs-stack">
+      <div class="alert alert--negative alert--bordered">
+        <span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/><path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+        <div class="alert__content"><p class="alert__description">We couldn&#8217;t match these details with the DVLA. Check your licence number and personal details, then try again.</p></div>
+        <button class="alert__close" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="alert alert--warning alert--bordered">
+        <span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/><path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+        <div class="alert__content"><p class="alert__description">Your quote expires in 24 hours.</p></div>
+        <button class="alert__close" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="alert alert--positive alert--bordered">
+        <span class="alert__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 14.5576L15.9072 9.13697C16.1025 8.94171 16.4191 8.94171 16.6143 9.13697L17.3214 9.84408C17.5167 10.0393 17.5167 10.3559 17.3214 10.5512L10.8513 17.0213C10.656 17.2166 10.3394 17.2166 10.1442 17.0213L6.60355 13.4807C6.40829 13.2854 6.40829 12.9689 6.60355 12.7736L7.29953 12.0776C7.4948 11.8824 7.81138 11.8824 8.00664 12.0776L10.4866 14.5576Z" fill="currentColor"/></svg></span>
+        <div class="alert__content"><p class="alert__description">Your details have been saved.</p></div>
+        <button class="alert__close" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

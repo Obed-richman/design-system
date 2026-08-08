@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle found — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Vehicle registration - Lookup results
+       https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7861-192465
+       Second page of the Vehicle step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="vehicle">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">We found your vehicle</h1>
+      <p class="proto__lead">Take a quick look to make sure everything&#39;s correct.</p>
+    </div>
+
+    <!-- Registration Plate — neutral field for reading a value back. Filled
+         with whatever was typed on the previous screen (journey.js); the value
+         below is the fallback when this page is opened on its own. -->
+    <div class="proto__intro">
+      <span class="plate plate--neutral" data-journey-value="reg" data-journey-format="plate">SH48 HSA</span>
+    </div>
+
+    <div class="proto__card">
+          <div class="display-row display-row--spec">
+            <div class="display-row__main"><p class="display-row__label">Vehicle type</p></div>
+            <p class="display-row__value">Car</p>
+          </div>
+          <div class="display-row display-row--spec">
+            <div class="display-row__main"><p class="display-row__label">Make</p></div>
+            <p class="display-row__value">Toyota</p>
+          </div>
+          <div class="display-row display-row--spec">
+            <div class="display-row__main"><p class="display-row__label">Model</p></div>
+            <p class="display-row__value">Prius</p>
+          </div>
+          <div class="display-row display-row--spec">
+            <div class="display-row__main"><p class="display-row__label">Engine size</p></div>
+            <p class="display-row__value">1.8L</p>
+          </div>
+          <div class="display-row display-row--spec">
+            <div class="display-row__main"><p class="display-row__label">Seats</p></div>
+            <p class="display-row__value">5</p>
+          </div>
+      <div class="proto__card-note">
+        <!-- Copy varies by vehicle group (Toyota / electric / other) — see the
+             dev note on the Figma frame -->
+        <div class="alert alert--brand alert--bordered">
+          <div class="alert__content">
+            <p class="alert__description">You&#39;re joining more than 18,000 Toyota drivers who we already cover</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proto__buttons">
+      <button class="btn btn--tertiary btn--pill" type="button" data-journey="back">Change vehicle</button>
+      <button class="btn btn--primary btn--pill" type="button" data-journey="next">Looks good</button>
+    </div>
+
+  </main>
+
+</body>
+</html>

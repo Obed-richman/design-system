@@ -1,0 +1,102 @@
+/*
+ * ============================================================
+ * CONDITIONAL SELECTOR COMPONENT
+ * ============================================================
+ * Figma source: Design System 003 — "Conditional selector / Horizontal"
+ * (component key 9d4b8b9074b3038e8ae55966ef49cdbb216c0acf; a Vertical set
+ * exists too, which is the same thing with the options stacked).
+ *
+ * Figma's own description: "a multiple choice selector that reveals an
+ * additional input field when a specific answer is selected, keeping the form
+ * focused by only surfacing follow-up fields when relevant. The input wrapper
+ * is displayed or hidden based on the selected answer, and can accept any input
+ * type to suit the nature of the follow-up question."
+ *
+ * So this file owns only the wrapper and the tinted panel — the question itself
+ * is a Multiple Choice Selector and the follow-up is whatever input suits, both
+ * dropped in as-is. `.conditional-selector--plain` drops the tint, for a
+ * follow-up that already brings a surface of its own (a Detail Card, say). Measured off the ideation frame: the panel sits 12px below
+ * the options, with 16px padding, an 8px radius and a surface/tertiary-medium
+ * fill.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../choice-selector/choice-selector.css">
+ *   <link rel="stylesheet" href="conditional-selector.css">
+ *   <script src="conditional-selector.js" defer></script>
+ *
+ *   <div class="conditional-selector">
+ *     <fieldset class="choice-selector">
+ *       …
+ *       <label class="text-icon-item">
+ *         <span class="text-icon-item__text">…No…</span>
+ *         <!-- data-reveals marks the answer that opens the panel -->
+ *         <input class="radio__input" type="radio" name="owner" data-reveals>
+ *         <span class="radio__control"></span>
+ *       </label>
+ *     </fieldset>
+ *
+ *     <div class="conditional-selector__panel" hidden>
+ *       …any input: Text Input, Select, segmented date…
+ *     </div>
+ *   </div>
+ *
+ * The panel is `hidden` in the markup so it is closed before the script runs and
+ * on a page with JS off, rather than flashing open on load.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../choice-selector/choice-selector.css';
+
+
+.conditional-selector {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-small);        /* 12px between options and panel */
+  width:          100%;
+  min-width:      0;
+}
+
+
+/* ------------------------------------------------------------
+   PANEL — the revealed follow-up
+   ------------------------------------------------------------ */
+
+.conditional-selector__panel {
+  box-sizing:     border-box;
+  width:          100%;
+  padding:        var(--spacer-16);        /* 16px */
+  background:     var(--surface-tertiary-medium);   /* #f2ede9 */
+  border-radius:  var(--radius-small);     /* 8px */
+}
+
+/* [hidden] alone loses to the display above, so restate it */
+.conditional-selector__panel[hidden] { display: none; }
+
+
+/* Plain — the panel brings no surface of its own.
+   The tint above groups a bare follow-up FIELD with the question that revealed
+   it. When the follow-up is something that already has a surface — a Detail
+   Card, a list of them — the tint becomes a second box around a box, and the
+   grouping is doing no work the card isn't already doing. */
+.conditional-selector--plain > .conditional-selector__panel {
+  padding:       0;
+  background:    none;
+  border-radius: 0;
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   surface/tertiary-medium resolves to black-70 in dark — the same value as
+   surface/primary, the card this panel sits on — so the panel would disappear
+   and the follow-up would stop reading as grouped. Stepping to tertiary-low
+   (black-80) keeps it a recessed panel, which is the relation the light values
+   already have (#f2ede9 against white). A deliberate deviation from the token
+   Figma binds; see KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] .conditional-selector__panel {
+  background: var(--surface-tertiary-low);   /* #27252d */
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle details — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <script src="../../components/optional-input/optional-input.js" defer></script>
+  <script src="../../components/conditional-selector/conditional-selector.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Vehicle details - Default state
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7867-211115
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7867-258064
+       Third page of the Vehicle step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="vehicle">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Tell us about your vehicle</h1>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+          <fieldset class="choice-selector">
+          <div class="choice-selector__header">
+            <p class="choice-selector__title">Has your vehicle been modified?</p>
+            <p class="choice-selector__paragraph">For example, permanent changes to your car&#39;s performance or looks, made after the factory.</p>
+          </div>
+          <!-- A modified vehicle is a decline: data-goes-to sends Continue to the
+               kickout screen instead of the next step. See KICKOUTS in journey.js -->
+          <div class="choice-selector__options">
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="modified" data-goes-to="quote-declined.html"><span class="radio__control"></span></label>
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="modified"><span class="radio__control"></span></label>
+          </div>
+        </fieldset>
+
+      <!-- Figma: Vehicle details - Owner dropdown / "Conditional selector"
+           https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7867-261019
+           Answering No reveals the follow-up panel — data-reveals on that radio
+           is what opens it; see conditional-selector.js -->
+      <div class="conditional-selector">
+        <fieldset class="choice-selector">
+          <div class="choice-selector__header">
+            <p class="choice-selector__title">Are you (or will you be) the legal owner of the vehicle?</p>
+          </div>
+          <div class="choice-selector__options">
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="owner"><span class="radio__control"></span></label>
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="owner" data-reveals><span class="radio__control"></span></label>
+          </div>
+        </fieldset>
+
+        <div class="conditional-selector__panel" hidden>
+          <!-- Select: Text Input + UI / Chevron Small + Dropdown List -->
+          <div class="input-group input-select" data-select
+               data-required-error="Select who the legal owner is.">
+            <span class="input-label input-label--title" id="owner-label">Who is the legal owner?</span>
+            <div class="input-field">
+              <input class="input input-select__value" type="text" readonly placeholder="Select"
+                     id="owner" role="combobox" aria-expanded="false"
+                     aria-controls="owner-list" aria-labelledby="owner-label" autocomplete="off">
+              <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+            </div>
+            <div class="dropdown-list input-select__list" id="owner-list" role="listbox" aria-labelledby="owner-label" hidden>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Family member or friend</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leasing company (&lt; 6 months)</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leasing company (&#8805; 6 months)</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Spouse or partner</span></button>
+              <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Your company or employer</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Figma "Optional input": a field plus a dismissal checkbox.
+           The date is segmented per the dev note on the Figma frame — the "/"
+           is a real element in the primary text colour, so it is visible before
+           anything is typed and never moves. data-date-max="today" refuses a
+           purchase date in the future; see input.js. -->
+      <div class="optional-input">
+        <div class="input-group">
+          <span class="input-label input-label--title" id="purchased-label">When was the vehicle purchased?</span>
+          <div role="group" aria-labelledby="purchased-label" class="input-field input-date"
+               data-date-max="today"
+               data-date-error="The purchase date can&#39;t be in the future.">
+            <input class="input input-date__part input-date__part--month" id="purchased-month"
+                   type="text" placeholder="MM" aria-label="Purchase month"
+                   inputmode="numeric" maxlength="2" autocomplete="off">
+            <span class="input-date__separator" aria-hidden="true">/</span>
+            <input class="input input-date__part input-date__part--year" id="purchased-year"
+                   type="text" placeholder="YYYY" aria-label="Purchase year"
+                   inputmode="numeric" maxlength="4" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="divider-text"><span class="divider-text__label">or</span></div>
+
+        <label class="checkbox">
+          <input class="checkbox__input" type="checkbox">
+          <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+        </label>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

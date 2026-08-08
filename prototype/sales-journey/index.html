@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/vehicle-registration/vehicle-registration.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from data-step) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Vehicle registration - Default state
+       https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7861-192454 -->
+  <main class="proto proto--wrapper" data-step="vehicle">
+
+    <div class="proto__split">
+
+      <!-- Media panel -->
+      <div class="proto__media">
+        <img src="vehicle-hero.jpg" alt="Driver at the wheel of a car">
+      </div>
+
+      <!-- Form panel -->
+      <div class="proto__pane">
+
+        <div class="proto__intro">
+          <h1 class="proto__title">Let&#39;s find your vehicle</h1>
+          <p class="proto__lead">Enter your registration and we&#39;ll take care of the details.</p>
+        </div>
+
+        <!-- Vehicle Registration — fluid (fills the column), plain GB badge.
+             data-veh-reg turns on length validation (vehicle-registration.js):
+             the trailing tick appears on the character that completes the
+             registration, and a wrong length surfaces the error below on blur
+             or on Find vehicle. data-length is the whole rule — letters and
+             digits only, so the space doesn't count. -->
+        <div class="veh-reg veh-reg--fluid" id="reg-field"
+             data-veh-reg
+             data-length="7"
+             data-error-required="Vehicle registration is required."
+             data-error-invalid="We couldn&#39;t find your vehicle. Please check the registration number and try again.">
+          <div class="veh-reg__field">
+            <span class="veh-reg__country">
+              <span class="veh-reg__gb">GB</span>
+            </span>
+            <!-- data-journey-field carries the value to the next screen -->
+            <input class="veh-reg__input" id="reg" type="text" aria-label="Registration" autocomplete="off"
+                   inputmode="text" autocapitalize="characters" spellcheck="false"
+                   data-journey-field="reg">
+            <!-- icons/tick.svg — tones painted from tokens, see vehicle-registration.css -->
+            <span class="veh-reg__status" role="img" aria-label="Registration complete">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path class="veh-reg__status-disc" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1Z"/>
+                <path class="veh-reg__status-glyph" fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5576L15.1072 8.9369C15.3025 8.74164 15.6191 8.74164 15.8143 8.9369L16.5214 9.64401C16.7167 9.83927 16.7167 10.1558 16.5214 10.3511L10.8513 16.0213C10.656 16.2166 10.3394 16.2166 10.1442 16.0213L7.60355 13.4807C7.40829 13.2854 7.40829 12.9689 7.60355 12.7736L8.29953 12.0776C8.4948 11.8824 8.81138 11.8824 9.00664 12.0776L10.4866 13.5576Z"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Bullet Points — card variant -->
+        <div class="bullet-points bullet-points--card">
+          <p class="bullet-points__title">Why 100,000+ drivers already choose us</p>
+          <div class="bullet-point">
+            <span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">FCA regulated</span></span></span>
+          </div>
+          <div class="bullet-point">
+            <span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">24/7 support in the Zego app</span></span></span>
+          </div>
+          <div class="bullet-point">
+            <span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Award-winning claims team</span></span></span>
+          </div>
+          <div class="bullet-point">
+            <span class="bullet-point__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="bullet-point__main"><span class="bullet-point__row"><span class="bullet-point__text">Discounts at renewal and up to £60 in gift cards</span></span></span>
+          </div>
+        </div>
+
+        <!-- data-veh-reg-submit gates the click: while the registration is
+             incomplete the error is surfaced and journey.js never navigates -->
+        <button class="btn btn--primary btn--pill btn--block" type="button"
+                data-journey="next" data-veh-reg-submit="#reg-field">
+          <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span>
+          Find vehicle
+        </button>
+
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

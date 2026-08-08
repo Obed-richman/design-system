@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conditional Selector Component</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../radio/radio.css">
+  <link rel="stylesheet" href="../text-icon-item/text-icon-item.css">
+  <link rel="stylesheet" href="../choice-selector/choice-selector.css">
+  <link rel="stylesheet" href="../input/input.css">
+  <link rel="stylesheet" href="../dropdown-item/dropdown-item.css">
+  <link rel="stylesheet" href="../dropdown-list/dropdown-list.css">
+  <link rel="stylesheet" href="conditional-selector.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Modern Era', system-ui, sans-serif; background: #f8f5f3; margin: 0; padding: 32px; color: #27252d; }
+    h1 { font-size: 24px; font-weight: 700; margin: 0 0 4px; }
+    .subtitle { color: #68676c; font-size: 14px; margin: 0 0 28px; }
+    .card { max-width: 560px; background: #fff; border-radius: 16px; padding: 32px; margin-bottom: 20px; }
+    .cap { font-size: 12px; color: #68676c; margin: 0 0 12px; }
+  </style>
+  <script src="../input/input.js" defer></script>
+  <script src="conditional-selector.js" defer></script>
+</head>
+<body>
+
+  <h1>Conditional Selector</h1>
+  <p class="subtitle">A question that reveals a follow-up input when a particular answer is chosen — Zego Design System</p>
+
+  <div class="card">
+    <p class="cap">Live — choose No to reveal the follow-up</p>
+    <div class="conditional-selector">
+          <fieldset class="choice-selector">
+            <div class="choice-selector__header">
+              <p class="choice-selector__title">Are you (or will you be) the legal owner of the vehicle?</p>
+            </div>
+            <div class="choice-selector__options">
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="owner-a"><span class="radio__control"></span></label>
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="owner-a" data-reveals><span class="radio__control"></span></label>
+            </div>
+          </fieldset>
+          <div class="conditional-selector__panel" hidden>
+            <div class="input-group input-select" data-select>
+              <span class="input-label input-label--title" id="demo-label">Who is the legal owner?</span>
+              <div class="input-field">
+                <input class="input input-select__value" type="text" readonly placeholder="Select"
+                       role="combobox" aria-expanded="false" aria-controls="demo-list"
+                       aria-labelledby="demo-label" autocomplete="off">
+                <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+              </div>
+              <div class="dropdown-list input-select__list" id="demo-list" role="listbox" aria-labelledby="demo-label" hidden>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Family member or friend</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leasing company (&lt; 6 months)</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Spouse or partner</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Your company or employer</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <div class="card">
+    <p class="cap">Revealed (No pre-selected)</p>
+    <div class="conditional-selector">
+          <fieldset class="choice-selector">
+            <div class="choice-selector__header">
+              <p class="choice-selector__title">Are you (or will you be) the legal owner of the vehicle?</p>
+            </div>
+            <div class="choice-selector__options">
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="owner-b"><span class="radio__control"></span></label>
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="owner-b" data-reveals checked><span class="radio__control"></span></label>
+            </div>
+          </fieldset>
+          <div class="conditional-selector__panel">
+            <div class="input-group input-select" data-select>
+              <span class="input-label input-label--title" id="open-label">Who is the legal owner?</span>
+              <div class="input-field">
+                <input class="input input-select__value" type="text" readonly placeholder="Select"
+                       role="combobox" aria-expanded="false" aria-controls="open-list"
+                       aria-labelledby="open-label" autocomplete="off">
+                <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+              </div>
+              <div class="dropdown-list input-select__list" id="open-list" role="listbox" aria-labelledby="open-label" hidden>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Family member or friend</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Leasing company (&lt; 6 months)</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Spouse or partner</span></button>
+                <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Your company or employer</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+</body>
+</html>

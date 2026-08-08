@@ -11,6 +11,13 @@
  *   - current   — active label, track half filled  (.--current)
  *   - complete  — active label, track fully filled  (.--complete)
  *
+ * Partial fill: when a step spans several pages, the track doubles as a
+ * progress bar for them. Override --onb-fill on the step to say how far
+ * through it you are, e.g. page 2 of 3:
+ *   <div class="onboarding-steps__step onboarding-steps__step--current"
+ *        style="--onb-fill: 66.67%">
+ * The .--current default of 50% is the two-page case.
+ *
  * Responsive: labels are 18px on desktop and shrink to 14px below 768px.
  * Add .onboarding-steps--compact to force the small size at any width.
  *

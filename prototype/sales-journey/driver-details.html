@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver details — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/address-lookup/address-lookup.js" defer></script>
+  <script src="../../components/conditional-selector/conditional-selector.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Driver details
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8148-467607
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7928-267648
+       First page of the Driver step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Tell us about yourself</h1>
+      <p class="proto__lead">We&#39;ll only use these details to get your quote and set up your cover.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <div class="alert alert--information alert--bordered">
+        <span class="alert__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7C11.3096 7 10.75 7.55964 10.75 8.25C10.75 8.94036 11.3096 9.5 12 9.5C12.6904 9.5 13.25 8.94036 13.25 8.25C13.25 7.55964 12.6904 7 12 7Z" fill="currentColor"/> <path d="M13 11.5C13 11.2239 12.7761 11 12.5 11H11.5C11.2239 11 11 11.2239 11 11.5L11 16.5C11 16.7761 11.2239 17 11.5 17L12.5 17C12.7761 17 13 16.7761 13 16.5L13 11.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+        <div class="alert__content">
+          <p class="alert__description">Enter these details as they appear on your driving licence.</p>
+        </div>
+      </div>
+
+      <!-- Title — Select (Text Input + chevron + Dropdown List) -->
+      <div class="input-group input-select" data-select
+           data-required-error="Select your title.">
+        <label class="input-label input-label--title" id="title-label">Title</label>
+        <div class="input-field">
+          <input class="input input-select__value" type="text" readonly placeholder="Select"
+                 id="title" data-journey-field="title" role="combobox" aria-expanded="false"
+                 aria-controls="title-list" aria-labelledby="title-label" autocomplete="off">
+          <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="dropdown-list input-select__list" id="title-list" role="listbox" aria-labelledby="title-label" hidden>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mr</span></button>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mrs</span></button>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Miss</span></button>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Ms</span></button>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Mx</span></button>
+          <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Dr</span></button>
+        </div>
+      </div>
+
+      <div class="input-group" data-required-error="Enter your first name(s).">
+        <label class="input-label input-label--title" for="first-names">First name(s)</label>
+        <div class="input-field">
+          <input class="input" id="first-names" data-journey-field="first-names" type="text" placeholder="Enter first name(s)"
+                 autocomplete="given-name" spellcheck="false">
+        </div>
+      </div>
+
+      <div class="input-group" data-required-error="Enter your surname.">
+        <label class="input-label input-label--title" for="surname">Surname</label>
+        <div class="input-field">
+          <input class="input" id="surname" data-journey-field="surname" type="text" placeholder="Enter surname"
+                 autocomplete="family-name" spellcheck="false">
+        </div>
+      </div>
+
+      <!-- Date of birth — three segments, the "/" always visible. data-date-max
+           refuses a date in the future; see the DATE ENTRY block in input.js -->
+      <div class="input-group" data-required-error="Enter your date of birth.">
+        <span class="input-label input-label--title" id="dob-label">Date of birth</span>
+        <div class="input-field input-date" role="group" aria-labelledby="dob-label"
+             data-date-max="today"
+             data-date-error="Your date of birth can&#39;t be in the future.">
+          <input class="input input-date__part input-date__part--day" id="dob-day" data-journey-field="dob-day"
+                 type="text" placeholder="DD" aria-label="Day of birth"
+                 inputmode="numeric" maxlength="2" autocomplete="bday-day">
+          <span class="input-date__separator" aria-hidden="true">/</span>
+          <input class="input input-date__part input-date__part--month" id="dob-month" data-journey-field="dob-month"
+                 type="text" placeholder="MM" aria-label="Month of birth"
+                 inputmode="numeric" maxlength="2" autocomplete="bday-month">
+          <span class="input-date__separator" aria-hidden="true">/</span>
+          <input class="input input-date__part input-date__part--year" id="dob-year" data-journey-field="dob-year"
+                 type="text" placeholder="YYYY" aria-label="Year of birth"
+                 inputmode="numeric" maxlength="4" autocomplete="bday-year">
+        </div>
+      </div>
+
+      <!-- UK address — postcode search, then the chosen address or manual entry.
+           Results are faked from whatever postcode is typed; see
+           address-lookup.js. The hidden input carries the answer. -->
+      <div class="address-lookup" id="address" data-address-lookup
+           data-sample-street="Elaine Street" data-sample-town="Liverpool">
+        <div class="input-group" data-required-error="Enter your address.">
+          <span class="address-lookup__title" id="address-label">UK address</span>
+
+          <div class="address-lookup__stage" data-stage="search">
+            <div class="input-field">
+              <input class="input" data-address="postcode" type="text"
+                     placeholder="Enter your postcode" aria-labelledby="address-label"
+                     autocomplete="postal-code" spellcheck="false"
+                     role="combobox" aria-expanded="false" aria-controls="address-results">
+              <button class="address-lookup__glyph" type="button" data-address-search
+                      aria-label="Search for your address">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg>
+              </button>
+            </div>
+            <div class="dropdown-list address-lookup__results" id="address-results" role="listbox" hidden></div>
+          </div>
+
+          <div class="address-lookup__stage" data-stage="chosen" hidden>
+            <div class="address-lookup__summary">
+              <p class="address-lookup__lines"></p>
+              <hr class="divider">
+              <button class="btn btn--secondary btn--pill" type="button" data-address-edit>
+                <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0634 11.4771L13.5634 7.22714L14.9366 5.77311L19.4366 10.0231L18.0634 11.4771Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19 22.5001C19 22.7763 18.7761 23.0001 18.5 23.0001H13.5C13.2238 23.0001 13 22.7763 13 22.5001V21.5001C13 21.224 13.2238 21.0001 13.5 21.0001H18.5C18.7761 21.0001 19 21.224 19 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M23 22.5001C23 22.7763 22.7761 23.0001 22.5 23.0001H21.5C21.2238 23.0001 21 22.7763 21 22.5001V21.5001C21 21.224 21.2238 21.0001 21.5 21.0001H22.5C22.7761 21.0001 23 21.224 23 21.5001V22.5001Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16.5675 1.64432C17.3536 0.857233 18.6308 0.862793 19.41 1.65669L22.3711 4.67371C23.1397 5.45682 23.1338 6.71295 22.3579 7.48884L8.32846 21.5184C8.12006 21.7268 7.85487 21.8692 7.56602 21.9278L2.86187 22.8821C1.81029 23.0954 0.881329 22.1678 1.09318 21.1159L2.0072 16.5776C2.06547 16.2883 2.20778 16.0226 2.41632 15.8138L16.5675 1.64432ZM20.9437 6.07463L17.9826 3.05762L3.93805 17.1204L3.20255 20.7722L7.02076 19.9977L20.9437 6.07463Z" fill="currentColor"/></svg></span>
+                Edit
+              </button>
+            </div>
+          </div>
+
+          <div class="address-lookup__stage address-lookup__manual" data-stage="manual" hidden>
+            <div class="input-group">
+              <label class="input-label" for="addr-line1">Address line 1</label>
+              <div class="input-field"><input class="input" id="addr-line1" data-address="line1" type="text" autocomplete="address-line1"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="addr-line2">Address line 2</label>
+              <div class="input-field"><input class="input" id="addr-line2" data-address="line2" type="text" autocomplete="address-line2"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="addr-city">City</label>
+              <div class="input-field"><input class="input" id="addr-city" data-address="city" type="text" autocomplete="address-level2"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label" for="addr-postcode">Postcode</label>
+              <div class="input-field"><input class="input" id="addr-postcode" data-address="postcode-manual" type="text" autocomplete="postal-code"></div>
+            </div>
+            <button class="btn btn--secondary btn--pill" type="button" data-address-save>Save address</button>
+          </div>
+
+          <!-- The one value the rest of the journey reads -->
+          <input class="input" type="hidden" data-address="value" id="address-value">
+        </div>
+      </div>
+
+      <!-- Answering No reveals when they moved to the UK -->
+      <div class="conditional-selector">
+        <fieldset class="choice-selector">
+          <div class="choice-selector__header">
+            <p class="choice-selector__title">Have you lived in the UK since birth?</p>
+          </div>
+          <div class="choice-selector__options">
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="uk-since-birth"><span class="radio__control"></span></label>
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="uk-since-birth" data-reveals><span class="radio__control"></span></label>
+          </div>
+        </fieldset>
+
+        <div class="conditional-selector__panel" hidden>
+          <div class="input-group" data-required-error="Enter roughly when you moved to the UK.">
+            <span class="input-label input-label--title" id="moved-label">When did you move to the UK?</span>
+            <p class="input-message">A rough guess is fine.</p>
+            <div class="input-field input-date" role="group" aria-labelledby="moved-label"
+                 data-date-max="today"
+                 data-date-error="That date can&#39;t be in the future.">
+              <input class="input input-date__part input-date__part--month" id="moved-month"
+                     type="text" placeholder="MM" aria-label="Month you moved to the UK"
+                     inputmode="numeric" maxlength="2" autocomplete="off">
+              <span class="input-date__separator" aria-hidden="true">/</span>
+              <input class="input input-date__part input-date__part--year" id="moved-year"
+                     type="text" placeholder="YYYY" aria-label="Year you moved to the UK"
+                     inputmode="numeric" maxlength="4" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

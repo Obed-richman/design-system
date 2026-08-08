@@ -62,13 +62,15 @@
   color:       var(--text-primary);
 }
 
+/* Supporting text sits back from the question on --text-pressed, matching
+   .text-icon-item__support on the options below it */
 .choice-selector__paragraph {
   margin:      0;
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);         /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-primary);
+  color:       var(--text-pressed);
 }
 
 
@@ -92,6 +94,37 @@
 
 
 /* ------------------------------------------------------------
+   VERTICAL — options stacked full width
+   Figma's "Multiple choice selector / Vertical". Used where each option needs
+   room for a leading icon and a longer label than a two-up row allows, so the
+   options stack instead of sharing the width. They sit Spacer-20 apart, not the
+   Spacer-8 of the horizontal row: side by side, proximity already reads as "one
+   question", but stacked they need the separation to stop reading as a list of
+   unrelated rows.
+   ------------------------------------------------------------ */
+
+/* Direct children only. A follow-up nested in this list carries its own
+   selector, and that one is usually horizontal — without the child combinator
+   the stacking would cascade into it and turn a Yes/No pair into two rows. */
+.choice-selector--vertical > .choice-selector__options {
+  flex-direction: column;
+  align-items:    stretch;
+  gap:            var(--spacer-20);
+}
+.choice-selector--vertical > .choice-selector__options > .text-icon-item {
+  flex:  0 0 auto;
+  width: 100%;
+}
+
+/* A follow-up revealed under the option that triggered it sits closer to it
+   (Spacer-12) than the options are to each other, which is what ties the two
+   together rather than reading as a third option. */
+.choice-selector--vertical > .choice-selector__options > .conditional-selector__panel {
+  margin-top: calc(var(--spacer-12) - var(--spacer-20));   /* -8px */
+}
+
+
+/* ------------------------------------------------------------
    MESSAGE — optional helper / error text below the row
    ------------------------------------------------------------ */
 
@@ -107,3 +140,16 @@
   color:       var(--text-primary);
 }
 .choice-selector__message--error { color: var(--text-error); }
+
+/* The DS warning glyph — see the same block in input.css for why it's a mask */
+.choice-selector__message--error::before {
+  content:     '';
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  margin-top:  2px;                      /* centres it on the 20px line */
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+}
+

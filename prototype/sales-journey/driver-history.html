@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driving history — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Drving history
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7113-97253
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-268680
+       Second page of the Driver step — see the STEPS list in journey.js.
+
+       Every question here is a decline criterion, so each Yes carries
+       data-goes-to and ends the journey on the kickout screen. Remove the
+       attribute from a question to let a Yes carry on instead. Note the options
+       run Yes then No on this page, which is how the frames draw them — the
+       other screens lead with No. -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">A few things we have to ask</h1>
+      <p class="proto__lead">These check Zego is right for you.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <fieldset class="choice-selector">
+        <div class="choice-selector__header">
+          <p class="choice-selector__title">Do you have a medical condition or disability you need to tell the DVLA about, but haven&#39;t yet?</p>
+        </div>
+        <div class="choice-selector__options">
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="dvla" data-goes-to="quote-declined.html"><span class="radio__control"></span></label>
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="dvla"><span class="radio__control"></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="choice-selector">
+        <div class="choice-selector__header">
+          <p class="choice-selector__title">Do you have any unspent non-motoring-related criminal convictions?</p>
+        </div>
+        <div class="choice-selector__options">
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="convictions" data-goes-to="quote-declined.html"><span class="radio__control"></span></label>
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="convictions"><span class="radio__control"></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="choice-selector">
+        <div class="choice-selector__header">
+          <p class="choice-selector__title">Have you had an insurance policy cancelled or voided for non-payment, fraud or misrepresentation in the last 5 years?</p>
+        </div>
+        <div class="choice-selector__options">
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="cancelled" data-goes-to="quote-declined.html"><span class="radio__control"></span></label>
+          <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="cancelled"><span class="radio__control"></span></label>
+        </div>
+      </fieldset>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

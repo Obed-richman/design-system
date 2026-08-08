@@ -38,6 +38,17 @@
   white-space:      nowrap;
 }
 
+/* Neutral — beige field instead of plate yellow, for summary and confirmation
+   screens where the plate is quoting a value back rather than depicting a
+   road-legal plate.
+   Unlike the yellow plate this one takes the mode-aware ink: its surface flips
+   to a dark grey in dark mode, where the fixed plate ink would fall to ~1.3:1
+   contrast and disappear. */
+.plate--neutral {
+  background-color: var(--surface-tertiary-high);
+  color:            var(--text-primary);
+}
+
 
 /* ------------------------------------------------------------
    SIZES

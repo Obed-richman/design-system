@@ -112,6 +112,19 @@
   letter-spacing: var(--letter-spacing-snug);
 }
 
+/* ---- Title 4+ ----
+   Figma only ships this step in Bold. It is the mobile partner to Desktop
+   Title 3, so a responsive heading crosses between the two rather than using
+   one class at both breakpoints. */
+
+.title-4-plus-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-4-plus);
+  line-height: var(--line-height-title-4-plus);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
 /* ---- Subtitle ---- */
 
 .subtitle-1 {

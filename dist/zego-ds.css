@@ -73,6 +73,7 @@ body { font-family: var(--font-family-base); }
   --colour-aqua-100:   #055555;
   --colour-aqua-90:    #047373;
   --colour-aqua-90-20: #04737333;
+  --colour-aqua-90-10: #0473731A;
   --colour-aqua-80:    #059292;
   --colour-aqua-70:    #08B0B0;
   --colour-aqua-60:    #05CFCF;
@@ -87,6 +88,7 @@ body { font-family: var(--font-family-base); }
   /* --- Orange --- */
   --colour-orange-100:    #6B4400;
   --colour-orange-100-30: #6B44004D;
+  --colour-orange-100-10: #6B44001A;
   --colour-orange-90:     #8C5900;
   --colour-orange-80:     #B06F00;
   --colour-orange-80-80:  #B06F00CC;
@@ -102,6 +104,7 @@ body { font-family: var(--font-family-base); }
   /* --- Red --- */
   --colour-red-100:    #670303;
   --colour-red-100-30: #6703034D;
+  --colour-red-100-10: #6703031A;
   --colour-red-90:     #880303;
   --colour-red-80:     #AB0606;
   --colour-red-70:     #D00909;
@@ -208,8 +211,10 @@ body { font-family: var(--font-family-base); }
   --colour-purple-100-20: #39067633;
   --colour-purple-90:     #4B059F;
   --colour-purple-90-20:  #4B059F33;
+  --colour-purple-90-50:  #4B059F80;
   --colour-purple-80:     #5F06C9;
   --colour-purple-70:     #750BF3;
+  --colour-purple-70-10:  #750BF31A;
   --colour-purple-60:     #892BFA;
   --colour-purple-50:     #A458FF;
   --colour-purple-50-40:  #A458FF66;
@@ -304,10 +309,10 @@ body { font-family: var(--font-family-base); }
   --spacer-4:   4px;  --spacer-8:   8px;  --spacer-12:  12px; --spacer-16:  16px;
   --spacer-20:  20px; --spacer-24:  24px; --spacer-32:  32px; --spacer-40:  40px;
   --spacer-48:  48px;
-  --spacer-64:  32px; --spacer-80:  32px; --spacer-94:  48px; --spacer-192: 24px;
+  --spacer-64:  32px; --spacer-80:  32px; --spacer-96:  48px; --spacer-192: 24px;
 
   /* Frame (mobile) */
-  --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 327px;
+  --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 311px;
 
   /* Icon sizes */
   --icon-size-3xs: 12px; --icon-size-xxs: 16px; --icon-size-xs: 24px; --icon-size-s: 32px;
@@ -317,8 +322,8 @@ body { font-family: var(--font-family-base); }
 @media (min-width: 768px) {
   :root {
     /* Spacer (desktop) — only the large steps differ from mobile */
-    --spacer-64: 64px; --spacer-80: 80px; --spacer-94: 96px; --spacer-192: 192px;
-    --frame-screen: 1440px; --frame-wrapper: 1056px; --frame-container: 876px; --frame-content: 516px;
+    --spacer-64: 64px; --spacer-80: 80px; --spacer-96: 96px; --spacer-192: 192px;
+    --frame-screen: 1440px; --frame-wrapper: 1200px; --frame-container: 996px; --frame-content: 588px;
   }
 }
 
@@ -361,7 +366,7 @@ body { font-family: var(--font-family-base); }
   --surface-information:        var(--colour-blue-50);
   --surface-success:            var(--colour-green-60);
   --surface-warning:            var(--colour-orange-50);
-  --surface-error:              var(--colour-red-50);
+  --surface-error:              var(--colour-red-60);
   --surface-error-low:          var(--colour-red-10);
   --surface-warning-low:        var(--colour-orange-10);
   --surface-success-low:        var(--colour-green-10);
@@ -372,6 +377,13 @@ body { font-family: var(--font-family-base); }
   --surface-success-low-fixed:  var(--colour-green-10);
   --surface-information-fixed:  var(--colour-blue-10);
   --surface-brand-2-low:        var(--colour-purple-10);
+  /* NOT CONFIRMED — surface/brand-1-low and brand-4-low exist as Figma
+     variables but are not placed on the colour documentation frame, so their
+     light values can't be read through the MCP. These mirror brand/N-low,
+     which is how the readable surface/brand-2-low behaves (both #EDE0FE).
+     Confirm against Figma — see KNOWN-ISSUES.md. */
+  --surface-brand-1-low:        var(--colour-aqua-10);
+  --surface-brand-4-low:        var(--colour-yellow-10);
   --surface-brand-2-low-fixed:  var(--colour-purple-10);
   --surface-brand-3-high:       var(--colour-navy-90);
 
@@ -414,7 +426,7 @@ body { font-family: var(--font-family-base); }
   --brand-4-low:    var(--colour-yellow-10);
 
   /* --- rating (driver score) — new in Figma --- */
-  --rating-excellent: var(--colour-green-50);    /* #00E660 */
+  --rating-excellent: var(--colour-green-60);    /* #05CC58 */
   --rating-great:     var(--colour-lime-50);      /* #AAFF64 */
   --rating-good:      var(--colour-yellow-50);    /* #FCFF5F */
   --rating-improving: var(--colour-orange-50);    /* #FFB029 */
@@ -462,7 +474,7 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-brand-3-high-fixed: var(--colour-navy-90);
 
   /* --- icon / link --- */
-  --icon-link-default:         var(--colour-purple-90);
+  --icon-link-primary:         var(--colour-purple-90);
   --icon-link-pressed:         var(--colour-purple-70);
   --icon-link-on-dark:         var(--colour-aqua-50);
   --icon-link-on-dark-pressed: var(--colour-aqua-40);
@@ -504,6 +516,9 @@ body { font-family: var(--font-family-base); }
   --background-tertiary:  var(--colour-black-80);
   --background-inverse:   var(--colour-white);
   --background-disabled:  var(--colour-black-80);
+  --background-primary-fixed:   var(--colour-white);
+  --background-secondary-fixed: var(--colour-grey-20);
+  --background-tertiary-fixed:  var(--colour-ecru-20);
   --background-page:      var(--colour-black-90);
 
   /* surface */
@@ -511,14 +526,27 @@ body { font-family: var(--font-family-base); }
   --surface-secondary:         var(--colour-white-20);
   --surface-secondary-hover:   var(--colour-white-40);
   --surface-secondary-pressed: var(--colour-grey-90);
+  --surface-tertiary-low:      var(--colour-black-80);
+  --surface-tertiary-medium:   var(--colour-black-70);
+  --surface-tertiary-high:     var(--colour-black-60);
   --surface-inverse:           var(--colour-white-80);
   --surface-active:            var(--colour-aqua-80);
   --surface-focus:             var(--colour-aqua-90-20);
   --surface-success:           var(--colour-green-80);
-  --surface-error-low:         var(--colour-red-70-10);
-  --surface-warning-low:       var(--colour-orange-70-10);
+  --surface-error-low:         var(--colour-red-100-10);
+  --surface-error:             var(--colour-red-70);
+  --surface-error-low-fixed:   var(--colour-red-10);
+  --surface-warning-low:       var(--colour-orange-100-10);
+  --surface-warning:           var(--colour-orange-70);
+  --surface-warning-low-fixed: var(--colour-orange-10);
   --surface-success-low:       var(--colour-green-100-30);
+  --surface-success-low-fixed: var(--colour-green-10);
   --surface-information-low:   var(--colour-blue-90-20);
+  --surface-information-fixed: var(--colour-blue-10);   /* Figma: surface/information-fixed (no "low") */
+  --surface-brand-1-low:            var(--colour-aqua-90-10);
+  --surface-brand-2-low:            var(--colour-purple-70-10);
+  --surface-brand-3-high:           var(--colour-black-70);
+  --surface-brand-4-low:            var(--colour-yellow-90-20);
 
   /* border */
   --border-primary:         var(--colour-black-60);
@@ -532,6 +560,9 @@ body { font-family: var(--font-family-base); }
   --border-error-low:       var(--colour-red-90);
   --border-warning-low:     var(--colour-orange-90);
   --border-information-low: var(--colour-blue-90);
+  --border-brand-2-low:     var(--colour-purple-70-10);
+  --border-brand-2-medium:  var(--colour-purple-70);
+  --border-on-light-fixed:  var(--colour-black-80);
 
   /* overlay */
   --overlay-light-high:   var(--colour-black-80-80);
@@ -545,10 +576,24 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-primary:     var(--colour-white);
   --icon-glyph-on-color:    var(--colour-black-80);
   --icon-glyph-information: var(--colour-blue-60);
-  --icon-link-default:      var(--colour-purple-70);
+  --icon-glyph-error-low:   var(--colour-red-70-10);
+  --icon-glyph-error-high:  var(--colour-red-70);
+  --icon-glyph-warning-high:  var(--colour-orange-70);
+  --icon-glyph-warning-low:  var(--colour-orange-70-10);
+  --icon-glyph-success-high:  var(--colour-green-70);
+  --icon-glyph-brand-2-high:  var(--colour-purple-50);
+  --icon-glyph-brand-2-low:   var(--colour-purple-90-20);
+  --icon-glyph-brand-3-high:  var(--colour-purple-90-50);
+  --icon-link-primary:      var(--colour-purple-70);
+  --icon-glyph-active:      var(--colour-aqua-80); /* aqua-80 is the same as aqua-60 in light mode, but aqua-80 is used in dark mode for active icons */
 
   /* text */
   --text-primary:          var(--colour-white);
+  /* NOT CONFIRMED against Figma (dark modes can't be read — see KNOWN-ISSUES 1.4).
+     Light grey-80 (#68676C) left unchanged in dark measured 2.43:1 on the dark
+     card, under the 4.5:1 AA floor for body copy. grey-60 gives 9.12:1 and is
+     already the dark pressed grey below, so the pair stays consistent. */
+  --text-pressed:          var(--colour-grey-60);
   --text-on-color:         var(--colour-black-80);
   --text-on-color-pressed: var(--colour-grey-60);
   --text-link:             var(--colour-aqua-50);
@@ -559,18 +604,26 @@ body { font-family: var(--font-family-base); }
 }
 
 /* ============================================
-   5. TYPOGRAPHY TOKENS  (unchanged — in sync with Figma)
+   5. TYPOGRAPHY TOKENS
+   Base values are DESKTOP; the @media (max-width: 767px) block at the end of
+   this section overrides the Title/Display steps for mobile. (Note this is the
+   opposite direction to the Size section above, which is mobile-first.)
    ============================================ */
 
 :root {
   --font-family-base:  'Modern Era', sans-serif;
   --font-family-plate: 'UKNumberPlate', monospace;
 
-  --font-size-display:      48px;
+  --font-size-display:      84px;
   --font-size-title-1:      48px;
   --font-size-title-2:      40px;
   --font-size-title-3:      32px;
   --font-size-title-4:      24px;
+  /* Title 4+ — Figma "Title 4+ | Bold", a step between Title 4 and Title 3.
+     Bold only. Desktop 28/32, mobile 24/32 (the line height matches, so only
+     the size is overridden below). Figma pairs mobile Title 4+ with desktop
+     Title 3 for page headings — see the "Text" component. */
+  --font-size-title-4-plus: 28px;
   --font-size-subtitle-1:   18px;
   --font-size-subtitle-2:   16px;
   --font-size-subtitle-3:   14px;
@@ -587,15 +640,16 @@ body { font-family: var(--font-family-base); }
   --font-weight-bold:    700;
   --font-weight-black:   900;
 
-  --line-height-display:      52px;
+  --line-height-display:      84px;
   --line-height-title-1:      52px;
   --line-height-title-2:      44px;
   --line-height-title-3:      36px;
   --line-height-title-4:      28px;
+  --line-height-title-4-plus: 32px;
   --line-height-subtitle-1:   24px;
   --line-height-subtitle-2:   24px;
   --line-height-subtitle-3:   20px;
-  --line-height-subtitle-4:   18px;
+  --line-height-subtitle-4:   16px;
   --line-height-body-1:       24px;
   --line-height-body-2:       24px;
   --line-height-body-3:       20px;
@@ -613,6 +667,7 @@ body { font-family: var(--font-family-base); }
   :root {
     --font-size-display: 48px; --font-size-title-1: 40px; --font-size-title-2: 32px;
     --font-size-title-3: 28px; --font-size-title-4: 20px;
+    --font-size-title-4-plus: 24px;   /* line-height is 32px in both modes */
     --line-height-display: 52px; --line-height-title-1: 44px; --line-height-title-2: 36px;
     --line-height-title-3: 32px; --line-height-title-4: 24px;
   }
@@ -730,6 +785,19 @@ body { font-family: var(--font-family-base); }
   font-size: var(--font-size-title-4);
   line-height: var(--line-height-title-4);
   letter-spacing: var(--letter-spacing-snug);
+}
+
+/* ---- Title 4+ ----
+   Figma only ships this step in Bold. It is the mobile partner to Desktop
+   Title 3, so a responsive heading crosses between the two rather than using
+   one class at both breakpoints. */
+
+.title-4-plus-bold {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-title-4-plus);
+  line-height: var(--line-height-title-4-plus);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 /* ---- Subtitle ---- */
@@ -1055,7 +1123,7 @@ body { font-family: var(--font-family-base); }
   gap:              var(--gap-x-small);          /* 8px */
   padding:          var(--gap-medium);           /* 16px */
   border:           var(--border-m) solid var(--border-primary);
-  border-radius:    var(--radius-medium);        /* 16px */
+  border-radius:    var(--radius-small);         /* 8px — Radius-8, what 003 binds */
   background-color: var(--surface-primary);
   transition:       border-color 150ms ease, box-shadow 150ms ease;
 }
@@ -1120,6 +1188,22 @@ body { font-family: var(--font-family-base); }
 }
 .acknowledge--disabled .acknowledge__text { color: var(--text-disabled); }
 .acknowledge--disabled .acknowledge__info { color: var(--icon-glyph-disabled); }
+
+
+/* ------------------------------------------------------------
+   INLINE LINK
+   The consent copy carries a link out to the policy it refers to. There is no
+   shared link class in the system — Alert, Extra Cover and Stepper each define
+   their own — so this follows the same shape: text/link, underlined. Bold here
+   because it sits inside a run of body copy and has to be findable in it, which
+   is how the sales frames draw it.
+   ------------------------------------------------------------ */
+
+.acknowledge__link {
+  font-weight:     var(--font-weight-bold);
+  color:           var(--text-link);
+  text-decoration: underline;
+}
 
 
 /* ==== components/addons-section/addons-section.css ==== */
@@ -1203,6 +1287,159 @@ body { font-family: var(--font-family-base); }
   .addons__title { font-size: 28px; line-height: 32px; }
   .addons__cards > .extra-cover { flex: 1 1 100%; }
 }
+
+
+/* ==== components/address-lookup/address-lookup.css ==== */
+/*
+ * ============================================================
+ * ADDRESS LOOKUP COMPONENT
+ * ============================================================
+ * Figma source: Sales Journey — Ideation / "Driver details" states
+ * (Address search dropdown · Address populated · Address edit)
+ *
+ * A UK address captured in three moves:
+ *
+ *   1. SEARCH   a postcode field with a trailing search glyph. Searching opens a
+ *               Dropdown List of matching addresses — each a two-line row — with
+ *               a final "Enter address manually" row.
+ *   2. CHOSEN   the picked address shown back as a bordered summary with an Edit
+ *               action under a rule.
+ *   3. MANUAL   line 1, line 2, city and postcode, with a Save address action.
+ *
+ * Only one of the three is in the DOM flow at a time. All three are in the markup
+ * and toggled by `hidden`, so the field works with JS off (it opens on the manual
+ * form) and nothing has to be built at runtime.
+ *
+ * Composes Text Input, Dropdown List, Dropdown Item, Divider and Button — link
+ * those alongside this file. Behaviour is in address-lookup.js.
+ *
+ * NOTE: 003 has a **Row List** component (key 11cbcd7d8dc64a74d22095d0f33abe1d…)
+ * which is what the Figma frame uses for the CHOSEN summary. It isn't in this
+ * repo yet, so the summary below is built to match the frame rather than to that
+ * component's API. Worth re-basing once Row List is ported — see KNOWN-ISSUES.
+ *
+ * Usage: see address-lookup.html, or the Driver details screen in the prototype.
+ * ============================================================
+ */
+
+
+
+
+
+.address-lookup {
+  position:   relative;                /* anchors the floating results list */
+  width:      100%;
+  min-width:  0;
+  font-family: 'Modern Era', sans-serif;
+}
+
+/* The three stages, and the label that sits above all of them */
+.address-lookup__stage[hidden] { display: none; }
+
+.address-lookup__title {
+  display:     block;
+  margin:      0 0 var(--gap-x-small);   /* 8px */
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   1. SEARCH
+   ------------------------------------------------------------ */
+
+/* A real button so the search is reachable by keyboard and by click, with the
+   UA's button chrome stripped back to just the glyph */
+.address-lookup__glyph {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  padding:     0;
+  border:      none;
+  background:  none;
+  cursor:      pointer;
+  color:       var(--icon-glyph-primary);
+}
+.address-lookup__glyph svg { display: block; width: 100%; height: 100%; }
+
+/* Results float so the questions below don't get shoved down as they open */
+.address-lookup__results {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+.address-lookup__results[hidden] { display: none; }
+
+/* A result row is two lines: the address, then where it is. The Dropdown Item
+   centres a single label, so the stack overrides that to start-aligned. */
+.address-lookup__result { align-items: flex-start; }
+.address-lookup__result-text {
+  flex:           1;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  text-align:     left;
+}
+.address-lookup__result-sub {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+/* The last row is an escape hatch, not an address — chevron, no sub-line */
+.address-lookup__manual-link .dropdown-item__label { flex: 1; }
+.address-lookup__chevron {
+  flex-shrink: 0;
+  width:       7px;
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+}
+.address-lookup__chevron svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   2. CHOSEN — the address read back, with an Edit action
+   ------------------------------------------------------------ */
+
+.address-lookup__summary {
+  box-sizing:     border-box;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px */
+  padding:        var(--spacer-16);
+  border:         var(--border-s) solid var(--border-primary);
+  border-radius:  var(--radius-small);            /* 8px */
+}
+
+.address-lookup__lines {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.address-lookup__summary .btn { width: 100%; }
+
+
+/* ------------------------------------------------------------
+   3. MANUAL — the four fields and Save
+   ------------------------------------------------------------ */
+
+.address-lookup__manual {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px between fields */
+}
+.address-lookup__manual .btn { width: 100%; }
 
 
 /* ==== components/aggregator-partners/aggregator-partners.css ==== */
@@ -1418,6 +1655,26 @@ body { font-family: var(--font-family-base); }
 }
 
 /* Neutral uses the base defaults (white surface, grey border, dark icon). */
+
+
+/* ------------------------------------------------------------
+   BRAND — .alert--brand
+   A purple incentive / social-proof note (e.g. "you're joining N drivers").
+   Sits tighter than the other states: a 4px radius rather than the 16px used
+   above, so it reads as a note inside a card instead of a card of its own.
+   NOTE the copy uses the pressed-link purple because there is no text token at
+   that value — worth raising upstream if a brand text token is wanted.
+   ------------------------------------------------------------ */
+
+.alert--brand {
+  --alert-surface: var(--surface-brand-2-low);     /* #EDE0FE */
+  --alert-border:  var(--border-brand-2-low);
+  --alert-icon:    var(--icon-glyph-brand-2-medium);
+
+  border-radius: var(--radius-x-small);            /* 4px */
+}
+.alert--brand .alert__title,
+.alert--brand .alert__description { color: var(--text-link-pressed); }   /* #750BF3 */
 
 
 /* ==== components/bottom-nav/bottom-nav.css ==== */
@@ -1647,7 +1904,7 @@ body { font-family: var(--font-family-base); }
 .bounce-dots--8 .bounce-dots__dot { --bounce-dot-size: 8px; }
 
 /* Force white dots on a dark surface without a theme wrapper */
-.bounce-dots--inverse { color: var(--colour-white); }
+.bounce-dots--inverse { color: var(--icon-glyph-on-color-fixed); }
 
 
 /* ------------------------------------------------------------
@@ -1718,7 +1975,7 @@ body { font-family: var(--font-family-base); }
   flex:   0 0 auto;
   width:  24px;
   height: 24px;
-  color:  var(--colour-white);                   /* white check on the green disc */
+  color:  var(--icon-glyph-on-color-fixed);                   /* white check on the green disc */
 }
 .bullet-point__icon svg { display: block; width: 100%; height: 100%; }
 
@@ -1745,6 +2002,34 @@ body { font-family: var(--font-family-base); }
   line-height: var(--line-height-subtitle-3);
   color:       var(--text-pressed);              /* muted */
 }
+
+/* ------------------------------------------------------------
+   CARD VARIANT — .bullet-points--card
+   The same list configured as a tinted benefits panel: tighter rows and a
+   small brand-purple tick instead of the green disc. Use icons/tick-small.svg
+   for the glyph (it inherits currentColor from the rule below).
+   ------------------------------------------------------------ */
+
+.bullet-points--card {
+  gap:           var(--spacer-8);                /* 8px */
+  padding:       var(--spacer-16);
+  background:    var(--surface-tertiary-medium);
+  border-radius: var(--radius-small);            /* 8px */
+}
+
+.bullet-points--card .bullet-points__title {
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+}
+
+.bullet-points--card .bullet-point { gap: var(--spacer-4); }
+
+.bullet-points--card .bullet-point__icon {
+  width:  var(--icon-size-xxs);                  /* 16px */
+  height: var(--icon-size-xxs);
+  color:  var(--icon-glyph-brand-2-medium);      /* purple tick */
+}
+
 
 /* Trailing info icon */
 .bullet-point__info {
@@ -1773,8 +2058,10 @@ body { font-family: var(--font-family-base); }
  * :focus-visible). Matching force-state modifiers (.btn--hover, .btn--pressed,
  * .btn--focused) render the same look statically for showcase/demo pages.
  *
- * State colour progression (primary): surface-active (default)
+ * State colour progression (primary): brand-1-medium (default)
  *   -> surface-primary-hover (hover) -> surface-primary-pressed (pressed).
+ * brand-1-medium is the brand aqua and is identical in both modes, so the
+ * primary fill no longer darkens in dark mode the way surface-active does.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -1884,6 +2171,11 @@ body { font-family: var(--font-family-base); }
   height:      auto;
 }
 
+/* Block — fill the container, for full-width CTAs at the end of a form */
+.btn--block {
+  width: 100%;
+}
+
 
 /* ------------------------------------------------------------
    SIZE — Large
@@ -1915,7 +2207,7 @@ body { font-family: var(--font-family-base); }
    ------------------------------------------------------------ */
 
 .btn--primary {
-  background-color: var(--surface-active);   /* Aqua 50 */
+  background-color: var(--brand-1-medium);   /* Brand Aqua — same in both modes */
   border-color:     transparent;
   color:            var(--text-primary-fixed); /* #27252d */
 }
@@ -1935,7 +2227,7 @@ body { font-family: var(--font-family-base); }
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
 .btn--primary:focus-visible,
 .btn--primary.btn--focused {
-  background-color: var(--surface-active);
+  background-color: var(--brand-1-medium);
 }
 
 .btn--primary:disabled,
@@ -2071,10 +2363,9 @@ body { font-family: var(--font-family-base); }
    Applied when [data-theme="dark"] is on a parent element
    ------------------------------------------------------------ */
 
-[data-theme="dark"] .btn--primary {
-  background-color: var(--surface-active);
-  color:            var(--text-primary-fixed);
-}
+/* Primary needs no dark override: brand-1-medium and text-primary-fixed are
+   both mode-independent, so the base rule already holds. (It previously
+   restated surface-active here, which resolves to a muted Aqua 80 in dark.) */
 
 [data-theme="dark"] .btn--secondary {
   background-color: transparent;
@@ -2412,13 +2703,15 @@ body { font-family: var(--font-family-base); }
   color:       var(--text-primary);
 }
 
+/* Supporting text sits back from the question on --text-pressed, matching
+   .text-icon-item__support on the options below it */
 .choice-selector__paragraph {
   margin:      0;
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);         /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-primary);
+  color:       var(--text-pressed);
 }
 
 
@@ -2442,6 +2735,37 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
+   VERTICAL — options stacked full width
+   Figma's "Multiple choice selector / Vertical". Used where each option needs
+   room for a leading icon and a longer label than a two-up row allows, so the
+   options stack instead of sharing the width. They sit Spacer-20 apart, not the
+   Spacer-8 of the horizontal row: side by side, proximity already reads as "one
+   question", but stacked they need the separation to stop reading as a list of
+   unrelated rows.
+   ------------------------------------------------------------ */
+
+/* Direct children only. A follow-up nested in this list carries its own
+   selector, and that one is usually horizontal — without the child combinator
+   the stacking would cascade into it and turn a Yes/No pair into two rows. */
+.choice-selector--vertical > .choice-selector__options {
+  flex-direction: column;
+  align-items:    stretch;
+  gap:            var(--spacer-20);
+}
+.choice-selector--vertical > .choice-selector__options > .text-icon-item {
+  flex:  0 0 auto;
+  width: 100%;
+}
+
+/* A follow-up revealed under the option that triggered it sits closer to it
+   (Spacer-12) than the options are to each other, which is what ties the two
+   together rather than reading as a third option. */
+.choice-selector--vertical > .choice-selector__options > .conditional-selector__panel {
+  margin-top: calc(var(--spacer-12) - var(--spacer-20));   /* -8px */
+}
+
+
+/* ------------------------------------------------------------
    MESSAGE — optional helper / error text below the row
    ------------------------------------------------------------ */
 
@@ -2457,6 +2781,19 @@ body { font-family: var(--font-family-base); }
   color:       var(--text-primary);
 }
 .choice-selector__message--error { color: var(--text-error); }
+
+/* The DS warning glyph — see the same block in input.css for why it's a mask */
+.choice-selector__message--error::before {
+  content:     '';
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  margin-top:  2px;                      /* centres it on the 20px line */
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+}
+
 
 
 /* ==== components/comparison-tile/comparison-tile.css ==== */
@@ -2666,6 +3003,108 @@ body { font-family: var(--font-family-base); }
 .comparison-tile--disabled .comparison-tile__support { color: var(--text-disabled); }
 
 
+/* ==== components/conditional-selector/conditional-selector.css ==== */
+/*
+ * ============================================================
+ * CONDITIONAL SELECTOR COMPONENT
+ * ============================================================
+ * Figma source: Design System 003 — "Conditional selector / Horizontal"
+ * (component key 9d4b8b9074b3038e8ae55966ef49cdbb216c0acf; a Vertical set
+ * exists too, which is the same thing with the options stacked).
+ *
+ * Figma's own description: "a multiple choice selector that reveals an
+ * additional input field when a specific answer is selected, keeping the form
+ * focused by only surfacing follow-up fields when relevant. The input wrapper
+ * is displayed or hidden based on the selected answer, and can accept any input
+ * type to suit the nature of the follow-up question."
+ *
+ * So this file owns only the wrapper and the tinted panel — the question itself
+ * is a Multiple Choice Selector and the follow-up is whatever input suits, both
+ * dropped in as-is. `.conditional-selector--plain` drops the tint, for a
+ * follow-up that already brings a surface of its own (a Detail Card, say). Measured off the ideation frame: the panel sits 12px below
+ * the options, with 16px padding, an 8px radius and a surface/tertiary-medium
+ * fill.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../choice-selector/choice-selector.css">
+ *   <link rel="stylesheet" href="conditional-selector.css">
+ *   <script src="conditional-selector.js" defer></script>
+ *
+ *   <div class="conditional-selector">
+ *     <fieldset class="choice-selector">
+ *       …
+ *       <label class="text-icon-item">
+ *         <span class="text-icon-item__text">…No…</span>
+ *         <!-- data-reveals marks the answer that opens the panel -->
+ *         <input class="radio__input" type="radio" name="owner" data-reveals>
+ *         <span class="radio__control"></span>
+ *       </label>
+ *     </fieldset>
+ *
+ *     <div class="conditional-selector__panel" hidden>
+ *       …any input: Text Input, Select, segmented date…
+ *     </div>
+ *   </div>
+ *
+ * The panel is `hidden` in the markup so it is closed before the script runs and
+ * on a page with JS off, rather than flashing open on load.
+ * ============================================================
+ */
+
+
+.conditional-selector {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-small);        /* 12px between options and panel */
+  width:          100%;
+  min-width:      0;
+}
+
+
+/* ------------------------------------------------------------
+   PANEL — the revealed follow-up
+   ------------------------------------------------------------ */
+
+.conditional-selector__panel {
+  box-sizing:     border-box;
+  width:          100%;
+  padding:        var(--spacer-16);        /* 16px */
+  background:     var(--surface-tertiary-medium);   /* #f2ede9 */
+  border-radius:  var(--radius-small);     /* 8px */
+}
+
+/* [hidden] alone loses to the display above, so restate it */
+.conditional-selector__panel[hidden] { display: none; }
+
+
+/* Plain — the panel brings no surface of its own.
+   The tint above groups a bare follow-up FIELD with the question that revealed
+   it. When the follow-up is something that already has a surface — a Detail
+   Card, a list of them — the tint becomes a second box around a box, and the
+   grouping is doing no work the card isn't already doing. */
+.conditional-selector--plain > .conditional-selector__panel {
+  padding:       0;
+  background:    none;
+  border-radius: 0;
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   surface/tertiary-medium resolves to black-70 in dark — the same value as
+   surface/primary, the card this panel sits on — so the panel would disappear
+   and the follow-up would stop reading as grouped. Stepping to tertiary-low
+   (black-80) keeps it a recessed panel, which is the relation the light values
+   already have (#f2ede9 against white). A deliberate deviation from the token
+   Figma binds; see KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+[data-theme="dark"] .conditional-selector__panel {
+  background: var(--surface-tertiary-low);   /* #27252d */
+}
+
+
 /* ==== components/date-picker/date-picker.css ==== */
 /*
  * ============================================================
@@ -2841,9 +3280,16 @@ body { font-family: var(--font-family-base); }
   max-width:      375px;
   box-sizing:     border-box;
   background:     var(--surface-primary);         /* white */
+  border:         var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius:  var(--radius-small);            /* 8px */
   font-family:    'Modern Era', sans-serif;
 }
+
+/* Fluid — drop the 375px cap and fill the column instead. The cap suits the
+   mobile context the card was drawn for, but inside a desktop content column it
+   leaves the card stranded at a third of the width. Same modifier Vehicle
+   Registration uses for the same reason. */
+.detail-card--fluid { max-width: none; }
 /* Note: no overflow:hidden here — the Incident type dropdown needs to overflow
    the card. The header rounds its own top corners instead (see __top). */
 
@@ -2922,8 +3368,10 @@ body { font-family: var(--font-family-base); }
 .detail-card__content {
   display:        flex;
   flex-direction: column;
-  gap:            var(--spacer-20);               /* 20px */
-  padding:        0 var(--spacer-16);             /* 16px sides */
+  gap:            var(--spacer-20);               /* 20px between fields */
+  padding:        var(--spacer-20) var(--spacer-16);
+  /* Inset top and bottom too, matching Figma: without it the first field sits
+     flush against the header band and the last against the card's edge. */
 }
 
 .detail-card__field {
@@ -3235,6 +3683,11 @@ body { font-family: var(--font-family-base); }
 /* ------------------------------------------------------------
    RIGHT VALUE (2 columns)
    ------------------------------------------------------------ */
+
+/* Spec — a key/value row: plain key on the left, emphasised value on the right
+   (the default row emphasises the label instead). Used for read-back summaries
+   such as vehicle details. */
+.display-row--spec .display-row__label { font-weight: var(--font-weight-regular); }
 
 .display-row__value {
   flex-shrink: 0;
@@ -3604,6 +4057,13 @@ body { font-family: var(--font-family-base); }
   overflow-y:  auto;
 }
 
+/* Children keep their own height and the list scrolls instead of squashing them.
+   Rows are safe either way — their padding and text set a min-content height that
+   flex won't shrink past — but anything with no content of its own, like a Divider
+   separating a common block from the rest of an A-Z, collapses to nothing without
+   this. Scoped to the direct children so it stops at the row. */
+.dropdown-list > * { flex-shrink: 0; }
+
 
 /* ------------------------------------------------------------
    SCROLL BAR — decorative track + thumb (top-right)
@@ -3836,7 +4296,9 @@ body { font-family: var(--font-family-base); }
   box-sizing:     border-box;
   overflow:       hidden;
   padding-bottom: var(--spacer-32);
-  background:     var(--brand-3-high);            /* navy */
+  /* Mode-aware navy: stays Navy 90 in light and steps to Black 70 in dark,
+     unlike --brand-3-high which is the fixed brand navy in both. */
+  background:     var(--surface-brand-3-high);
   color:          var(--text-on-color-fixed);     /* white */
   font-family:    'Modern Era', sans-serif;
   container-type: inline-size;                    /* see the breakpoints above */
@@ -3880,7 +4342,7 @@ body { font-family: var(--font-family-base); }
   align-items:    center;
   gap:            var(--spacer-20);
   width:          100%;
-  max-width:      calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+  max-width:      calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
   box-sizing:     border-box;
   margin:         0 auto;
   padding:        var(--spacer-32) var(--spacer-16) 0;
@@ -3958,6 +4420,138 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ==== components/global-alert/global-alert.css ==== */
+/*
+ * ============================================================
+ * GLOBAL ALERT COMPONENT
+ * ============================================================
+ * A floating stack of messages pinned to the top of the viewport, for faults and
+ * confirmations that belong to the SCREEN rather than to a field — a lookup that
+ * didn't match, a save that failed, a change that went through. Anything with a
+ * field to hang it on belongs on that field instead; this is what's left.
+ *
+ * Not in Figma yet — see KNOWN-ISSUES 3.15. Grown out of the screen-level alert
+ * built for the sales journey, which is now a consumer of this rather than its
+ * own implementation.
+ *
+ * SHAPE
+ * The block is the STACK. Each message inside it is a plain design-system Alert,
+ * so this component adds no colours of its own — the three states map onto Alert:
+ *
+ *   Error    → .alert--negative
+ *   Warning  → .alert--warning
+ *   Success  → .alert--positive
+ *
+ * DEPENDS ON Alert for the message itself (alert.css) and on alert.js for the
+ * close button, which is that component's own behaviour. global-alert.js adds
+ * only what the stack owns: raising, the two-deep cap, and the timer that
+ * retires a Success on its own.
+ *
+ * Usage — one line, no markup needed; the stack is created on first use:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../alert/alert.css">
+ *   <link rel="stylesheet" href="global-alert.css">
+ *   <script src="../alert/alert.js"></script>
+ *   <script src="global-alert.js"></script>
+ *
+ *   GlobalAlert.show({ state: 'error', message: 'That didn't work.' });
+ *
+ * Or place the stack yourself and put Alerts in it — CSS alone is enough:
+ *   <div class="global-alert" data-global-alert>
+ *     <div class="alert alert--negative alert--bordered"> … </div>
+ *   </div>
+ * ============================================================
+ */
+
+
+/* ------------------------------------------------------------
+   THE STACK
+   Fixed, so it stays put while the page scrolls. The fault is usually found by
+   pressing something at the BOTTOM of a screen, and a message in the flow at the
+   top would be off-screen at the moment it appears — the button would just seem
+   not to work.
+
+   Careful where this is mounted: an ancestor with `container-type`, `contain` or
+   a transform becomes the containing block for fixed descendants, and the stack
+   would pin to that instead of the viewport. global-alert.js mounts it on <body>
+   for exactly this reason.
+   ------------------------------------------------------------ */
+
+.global-alert {
+  position:       fixed;
+  z-index:        200;
+  top:            var(--gap-medium);        /* 16px */
+  left:           0;
+  right:          0;
+  margin-inline:  auto;
+  box-sizing:     border-box;
+  padding-inline: var(--gap-medium);
+  max-width:      calc(var(--frame-content) + 2 * var(--gap-medium));
+
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);       /* 8px between stacked messages */
+
+  /* The container spans the width even when empty, so it must never intercept a
+     click meant for the page. The messages themselves take pointer events back. */
+  pointer-events: none;
+}
+
+.global-alert > * { pointer-events: auto; }
+
+
+/* ------------------------------------------------------------
+   THE MESSAGES
+   Radius/Radius-8 rather than the Alert default 16: this reads as a notification
+   over the page, not a card in it. The DS elevation lifts it off what it covers —
+   without a shadow a fixed panel looks like part of the layout underneath.
+   ------------------------------------------------------------ */
+
+.global-alert .alert {
+  border-radius: var(--radius-small);       /* 8px */
+  box-shadow:    var(--shadow-dropdown);
+}
+
+/* Body 2 copy with 16px glyphs either side of it. Bigger copy than Alert's inline
+   default because this is the only thing on screen asking to be read, and SMALLER
+   glyphs because beside 16/24 text a 24px glyph competes with the sentence it
+   belongs to — and a 24px × makes dismissing the message look like the main thing
+   on offer. Spacer-4 above the leading glyph sits it on the first line's cap
+   height rather than its ascender; box-sizing is spelled out so the 4px stays real
+   padding above a 16px glyph whatever reset is in play.
+
+   These are the component's own values, not an override of Alert — a floating
+   message is a different job from a note inside a card, which is what Alert's
+   defaults are drawn for. */
+.global-alert .alert__description {
+  font-size:   var(--font-size-body-2);     /* 16px */
+  line-height: var(--line-height-body-2);   /* 24px */
+}
+
+.global-alert .alert__icon {
+  box-sizing:  content-box;
+  width:       16px;
+  height:      16px;
+  padding-top: var(--spacer-4);
+}
+.global-alert .alert__icon svg { width: 16px; height: 16px; }
+
+.global-alert .alert__close        { width: 16px; height: 16px; }
+.global-alert .alert__close svg    { width: 16px; height: 16px; }
+
+/* Retiring — global-alert.js fades before it removes, so a message leaving on a
+   timer doesn't just blink out. Kept in CSS so the duration is visible here and
+   respects the reduced-motion rule below. */
+.global-alert .alert {
+  transition: opacity 150ms ease;
+}
+.global-alert .alert[data-leaving] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .global-alert .alert { transition: none; }
+}
+
+
 /* ==== components/input/input.css ==== */
 /*
  * ============================================================
@@ -3996,11 +4590,26 @@ body { font-family: var(--font-family-base); }
  *     <p class="input-message input-message--error">Error message</p>
  *   </div>
  *
- *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message -->
+ *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message.
+ *        input-field--valid also reveals a trailing .input__status tick if one is
+ *        in the markup — see the STATUS TICK section. -->
  *   <!-- Disabled: add input-field--disabled and the disabled attribute -->
  *   <!-- Dark mode: add data-theme="dark" to a parent wrapper -->
  *   <!-- Clear button behaviour: include input.js — clicking .input__clear empties the field -->
  *   <script src="input.js"></script>
+ *
+ *   <!-- Segmented MM / YYYY date entry — see the DATE ENTRY section below.
+ *        The question names the pair, so it labels the group rather than either
+ *        half, and each segment carries its own aria-label. -->
+ *   <span class="input-label input-label--title" id="bought-label">When was it bought?</span>
+ *   <div class="input-field input-date" role="group" aria-labelledby="bought-label"
+ *        data-date-max="today" data-date-error="That can't be in the future.">
+ *     <input class="input input-date__part input-date__part--month" inputmode="numeric"
+ *            maxlength="2" placeholder="MM" aria-label="Month">
+ *     <span class="input-date__separator" aria-hidden="true">/</span>
+ *     <input class="input input-date__part input-date__part--year" inputmode="numeric"
+ *            maxlength="4" placeholder="YYYY" aria-label="Year">
+ *   </div>
  * ============================================================
  */
 
@@ -4027,6 +4636,16 @@ body { font-family: var(--font-family-base); }
   line-height: var(--line-height-body-3); /* 20px */
   color:       var(--text-primary);
   display:     block;
+}
+
+/* Title — a question-level label, matching the "Title" slot on Figma's Text
+   Input (Subtitle 2, bold 16/24). Use it where the label is the question
+   itself and should sit level with neighbouring question headings; the default
+   above is the smaller field label. */
+.input-label--title {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);   /* 16px */
+  line-height: var(--line-height-subtitle-2); /* 24px */
 }
 
 
@@ -4090,11 +4709,68 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
+   DATE ENTRY — segmented, DD / MM / YYYY or MM / YYYY
+   Figma draws these fields as "MM / YYYY" and "DD / MM / YYYY": grey hints
+   either side of slashes in the primary text colour, and the dev note on the
+   frame asks for segmented behaviour. So a slash is a real element rather than
+   something a mask types into the value — it is on screen before the first digit
+   and never moves, which is what tells you each part wants a fixed number of
+   digits.
+
+   Day and month are fixed boxes so the slashes can't shift as digits replace the
+   hints. Measured in Modern Era 16px: a digit is 1ch (8.90px), "MM" is 2.99ch
+   and "YYYY" is 4.80ch — the hints are wider than the digits they stand for,
+   hence 3ch and a 4.9ch floor. The year then takes the rest of the field so
+   clicking the empty space to its right lands in it, the way a single input did.
+
+   Behaviour (digits only, auto-advance, range limits, future-date check) is in
+   input.js, and the segments are whatever the markup declares.
+   ------------------------------------------------------------ */
+
+.input-date { gap: 0; }            /* the segments space themselves */
+
+.input-date__part {
+  flex:       0 0 auto;
+  width:      3ch;                 /* fits "MM" */
+  text-align: left;
+}
+.input-date__part--year {
+  flex:      1 1 auto;
+  width:     auto;
+  min-width: 4.9ch;                /* fits "YYYY" */
+}
+
+.input-date__separator {
+  flex:        0 0 auto;
+  margin:      0 var(--spacer-4);  /* 4px either side */
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);        /* 16px, matching the segments */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);            /* #27252d — never the hint grey */
+}
+
+/* Disabled greys the slash too, so the whole field reads as one control */
+.input-date.input-field--disabled .input-date__separator,
+.input-date:has(.input:disabled) .input-date__separator { color: var(--text-disabled); }
+
+
+/* ------------------------------------------------------------
    CLEAR BUTTON — trailing (×), shown in focused / error states
    Uses the design-system close glyph (icons/close.svg).
+
+   Shown only when the field is **in error and focused** — not on focus alone.
+   Offering to wipe a field the moment it's touched is noise; offering it while
+   someone is fixing something that's wrong is help. Note this is narrower than
+   003's Text Input, which draws the clear on Focused as well; the component
+   sheet wants the same change (see KNOWN-ISSUES).
+
+   A component that wants it on different terms still can — Discount Code reveals
+   it once the field has content, and that rule out-specifies this one.
    ------------------------------------------------------------ */
 
 .input__clear {
+  display:     none;
   flex-shrink: 0;
   width:       20px;
   height:      20px;
@@ -4106,12 +4782,74 @@ body { font-family: var(--font-family-base); }
 }
 .input__clear svg { display: block; width: 20px; height: 20px; }
 
+.input-field--error:focus-within .input__clear,
+.input-field--error.input-field--focused .input__clear { display: inline-flex; }
+
+
+/* ------------------------------------------------------------
+   SUPPORTING TEXT — under the label, above the field
+   For the sentence a label can't carry: what a DVLA code looks like, what to do
+   when you aren't sure. Sits between the two so it is read before the field
+   rather than after it, which is what a hint under the field would be.
+
+   Body 3 on text/pressed, the same treatment supporting text under a question
+   gets in Multiple Choice Selector — the two say the same kind of thing.
+   ------------------------------------------------------------ */
+
+.input-support {
+  margin:      0;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);          /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   STATUS TICK — trailing, shown in the valid state
+   The DS Tick glyph (icons/tick.svg) as a trailing icon, revealed by
+   .input-field--valid. This is the visual the documented `valid` state was
+   missing: the state existed as a border colour, with nothing to say WHAT was
+   valid about it.
+
+   16px, not the 24px an icon slot usually gets. Inside a field the tick is a
+   confirmation sitting beside the value, not an action competing with it, and at
+   24px it read as the louder of the two. The slot keeps its width whether or not
+   the tick shows, so the value doesn't jump sideways on the keystroke that
+   completes it. Its two tones are painted from tokens rather than the icon file's
+   own fills, so it follows the theme.
+
+   Same treatment Vehicle Registration already gives its own field, though that
+   one predates this, keeps its own copy under .veh-reg__status and is still at
+   24px — the plate is bigger type, so it carries the larger glyph. Worth
+   collapsing into this if the reg field is ever refactored onto Text Input.
+
+   NOTE 003 draws no tick on Text Input, so this is an addition rather than a
+   variant — see KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+.input__status {
+  flex-shrink: 0;
+  width:       16px;
+  height:      16px;
+  visibility:  hidden;         /* space reserved; the tick is not shown yet */
+}
+.input-field--valid .input__status { visibility: visible; }
+.input__status svg { display: block; width: 100%; height: 100%; }
+
+.input__status-disc  { fill: var(--surface-success); }        /* green disc */
+.input__status-glyph { fill: var(--text-on-color-fixed); }    /* white tick */
+
 
 /* ------------------------------------------------------------
    MESSAGE — below the field (error / valid / hint)
    ------------------------------------------------------------ */
 
 .input-message {
+  margin:      0;                         /* a <p> here would otherwise take the
+                                             UA's 1em, pushing the message 22px
+                                             off the field where Figma has 8 */
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-3);   /* 14px */
@@ -4123,6 +4861,210 @@ body { font-family: var(--font-family-base); }
 .input-message--error { color: var(--text-error); }   /* #d00909 */
 .input-message--valid { color: var(--text-primary); } /* dark — no green in this design */
 .input-message--hint  { color: var(--text-primary); }
+
+/* ------------------------------------------------------------
+   SELECT — a field that opens a Dropdown List
+   Figma builds its dropdowns as a Text Input with a UI / Chevron Small on the
+   right and a Dropdown List 8px below it, so this composes rather than invents:
+   link dropdown-list.css and dropdown-item.css alongside this file.
+
+   The value carrier is a readonly text input, not a div. That way it is
+   focusable and keyboard-reachable for free, "Select" comes from the DS
+   placeholder (and so is text-disabled without another rule), and anything that
+   reads .input values — form serialisation, the prototype's required-field
+   gate — sees it like any other field. readonly stops typing into it.
+
+   Behaviour (open, pick, close, Escape, arrow keys) is in input.js.
+   ------------------------------------------------------------ */
+
+.input-select { position: relative; }        /* anchors the floating list */
+
+/* The whole field opens the list, so the caret would be a lie */
+.input-select .input-field,
+.input-select__value { cursor: pointer; }
+
+.input-select__chevron {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       7px;                          /* the glyph's own 7×12, rotated */
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+  transform:   rotate(90deg);                /* points down when closed */
+  transition:  transform 150ms ease;
+}
+.input-select__chevron svg { display: block; width: 100%; height: 100%; }
+
+.input-select[data-open="true"] .input-select__chevron { transform: rotate(-90deg); }
+
+/* The list floats, so the field below it doesn't get shoved down as it opens */
+.input-select__list {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));    /* 8px under the field */
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+
+/* A flag in a select row, the same 20px lockup the phone list uses.
+
+   NOTHING clips or rings the flag here. The design system's Flags component draws
+   each one as a rounded square already inset from its own box — a 24px flag with a
+   4px corner inside a 28px frame — so the shape and the padding belong to the
+   artwork. This used to clip to --radius-round, which cropped those corners off
+   and turned a tricolour into an unreadable disc; a rectangular clip or ring on
+   the box would be no better, because it would trace the frame rather than the
+   flag inside it. Size the box, load the asset, leave it alone. */
+.input-select__flag {
+  flex-shrink: 0;
+  width:       20px;
+  height:      20px;
+}
+.input-select__flag svg,
+.input-select__flag img { display: block; width: 100%; height: 100%; }
+
+/* Chosen row — the tick reads as "this is the current value" */
+.input-select__list .dropdown-item[aria-selected="true"] {
+  background-color: var(--surface-secondary);
+}
+
+
+/* ------------------------------------------------------------
+   PHONE — a country-code prefix inside the field
+   Figma draws the mobile field as one bordered box with a tinted panel on the
+   left holding the dialling code and a chevron, and the number typed in the
+   white area beside it. Opening the panel drops a Dropdown List of countries,
+   each a flag, a muted code and a name.
+
+   The panel is a button, not a select: it has to sit flush inside the field's
+   border with its own fill, which a native control can't be made to do without
+   fighting it. The chosen code goes into a hidden input so the number and its
+   code read back as two values.
+
+   Link dropdown-list.css and dropdown-item.css alongside this file.
+   Behaviour is in input.js.
+   ------------------------------------------------------------ */
+
+.input-phone {
+  position:      relative;
+  padding-left:  0;                     /* the prefix panel runs to the edge */
+  gap:           0;
+  overflow:      visible;               /* the list escapes the field */
+}
+
+.input-phone__prefix {
+  flex-shrink:   0;
+  align-self:    stretch;
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacer-8);
+  margin:        calc(-1 * var(--gap-small)) 0;   /* fill the field's height */
+  padding:       0 var(--spacer-16);
+  border:        none;
+  border-radius: var(--radius-small) 0 0 var(--radius-small);
+  background:    var(--surface-tertiary-medium);  /* #f2ede9 */
+  cursor:        pointer;
+  font-family:   'Modern Era', sans-serif;
+}
+
+.input-phone__code {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-body-2);           /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.input-phone__chevron {
+  flex-shrink: 0;
+  display:     inline-flex;
+  width:       7px;
+  height:      12px;
+  color:       var(--icon-glyph-primary);
+  transform:   rotate(90deg);
+  transition:  transform 150ms ease;
+}
+.input-phone__chevron svg { display: block; width: 100%; height: 100%; }
+.input-phone[data-open="true"] .input-phone__chevron { transform: rotate(-90deg); }
+
+/* The number sits in the white area beside the panel */
+.input-phone .input { padding-left: var(--gap-medium); }
+
+.input-phone__list {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));
+  left:     0;
+  right:    0;
+  z-index:  20;
+}
+.input-phone__list[hidden] { display: none; }
+
+/* Same lockup, same reasoning as .input-select__flag above */
+.input-phone__flag {
+  flex-shrink: 0;
+  width:       20px;
+  height:      20px;
+}
+.input-phone__flag svg,
+.input-phone__flag img { display: block; width: 100%; height: 100%; }
+
+/* The dialling code sits back from the country it belongs to */
+.input-phone__row-code {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   COUNTER — characters typed, against the length expected
+   Sits under the field, right-aligned, in the muted text colour. Used where the
+   expected length is itself the instruction ("the 16 characters on the front of
+   your licence") so the count is progress, not a scold — it stays neutral at
+   every value rather than turning red near the limit.
+   ------------------------------------------------------------ */
+
+.input-counter {
+  margin:      0;
+  align-self:  flex-end;
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);   /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   ERROR GLYPH — the DS warning icon on error messages
+   Figma draws the Multiple Choice Selector's Messages row as a 16px
+   Tooltips / Warning, 8px from the text and nudged 2px down so it sits
+   optically centred on a 20px line; the Vehicle Registration error row is the
+   same lock-up. Text Input's Error variant has no icon in Figma yet — added
+   here by request, so 003 is the side that needs updating.
+
+   Rendered as a masked ::before rather than as markup, so every error message
+   gets it — the ones components build at runtime and the static ones in the
+   demos — without editing a single instance. The glyph is a data URI, not a
+   file path, so it sidesteps the url()-over-file:// problem, and the mask draws
+   in currentColor so it follows --text-error into dark mode.
+   ------------------------------------------------------------ */
+
+.input-message--error {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--gap-x-small);       /* 8px, icon to text */
+}
+.input-message--error::before {
+  content:     '';
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  margin-top:  2px;                      /* centres it on the 20px line */
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z' fill='black'/%3E%3Cpath d='M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z' fill='black'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z' fill='black'/%3E%3C/svg%3E") no-repeat center / 16px 16px;
+}
+
 
 
 /* ------------------------------------------------------------
@@ -4141,6 +5083,26 @@ body { font-family: var(--font-family-base); }
 .input-field--focused {
   border-color: var(--border-active);
   box-shadow:   var(--shadow-focus);
+}
+
+/* Open — a field whose dropdown is showing takes the active border and keeps it
+   for as long as the list is open.
+
+   Focus alone isn't enough here. A Select's value input is readonly and the phone
+   prefix is a <button>, so :focus-within comes and goes as the pointer moves and
+   the field can end up looking at rest while a menu hangs off it — the two read as
+   unrelated. The border is what ties the open list back to the field it belongs
+   to. Same rule Detail Card's select already applies to itself.
+
+   Not the focus ring, though: the list is the thing to look at now, and a glowing
+   field would compete with it.
+
+   `--error` is excluded rather than restated after, because these selectors are
+   (0,3,0) and would otherwise out-specify the (0,1,0) error rule below — an
+   unanswered required field would lose its red the moment you opened it. */
+[data-select][data-open="true"] .input-field:not(.input-field--error),
+.input-field[data-phone][data-open="true"]:not(.input-field--error) {
+  border-color: var(--border-active);
 }
 
 /* Error — red border (keeps red border on focus, no aqua ring) */
@@ -4186,6 +5148,19 @@ body { font-family: var(--font-family-base); }
 
 [data-theme="dark"] .input-field:hover,
 [data-theme="dark"] .input-field:focus-within { border-color: var(--border-active); }
+
+/* The base dark rule above is (0,2,0), so it out-specifies the plain state
+   classes and was flattening error / valid / hint back to the default border in
+   dark — an error message with no red field to point at. Restated at the same
+   weight; hover and focus already were. */
+[data-theme="dark"] .input-field--error,
+[data-theme="dark"] .input-field--error:hover,
+[data-theme="dark"] .input-field--error:focus-within {
+  border-color: var(--border-error);
+  box-shadow:   none;
+}
+[data-theme="dark"] .input-field--valid,
+[data-theme="dark"] .input-field--hint { border-color: var(--border-primary); }
 
 [data-theme="dark"] .input-field--disabled,
 [data-theme="dark"] .input-field:has(.input:disabled) {
@@ -4505,6 +5480,220 @@ body { font-family: var(--font-family-base); }
 .mobile-stack__close--bare { background: transparent; }
 
 
+/* ==== components/modal/modal.css ==== */
+/*
+ * ============================================================
+ * MODAL COMPONENT
+ * ============================================================
+ * A panel over a scrim that interrupts the page to ask something that cannot be
+ * asked in place — most often "are you sure?" before an action destroys work.
+ *
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57921-5638
+ *
+ * Breakpoints (Figma "Breakpoint" variant):
+ *   Mobile  — 16px sides, the close in a 48px band above the title, Title 4+
+ *   Desktop — 32px sides, the close 16 from the top, Title 3
+ *
+ * The component is a CONTAINER: a close, a title, and a slot for whatever the
+ * dialogue is about. 003 fills its desktop example with Bullet Points; the
+ * actions below are a slot too (Figma's hidden "Buttons & Text Link").
+ *
+ * USE IT SPARINGLY. A modal takes the whole screen away, so it earns its place
+ * only when the answer changes what happens next and the question cannot wait.
+ * A message that merely informs belongs in a Global Alert; a question about one
+ * field belongs beside that field.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../button/button.css">
+ *   <link rel="stylesheet" href="modal.css">
+ *   <script src="modal.js"></script>
+ *
+ *   <div class="modal overlay overlay--darker" id="discard" hidden>
+ *     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="discard-title">
+ *       <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg>…</svg></button>
+ *       <h2 class="modal__title" id="discard-title">Discard what you've added?</h2>
+ *       <p class="modal__body">…</p>
+ *       <div class="modal__actions">
+ *         <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button">Discard</button>
+ *         <button class="btn btn--secondary btn--pill btn--block" type="button" data-modal-close>Cancel</button>
+ *       </div>
+ *     </div>
+ *   </div>
+ *
+ *   Open it with a trigger — <button data-modal-open="discard"> — or from script:
+ *   Modal.open('discard'). Backdrop click and Escape close it; see modal.js.
+ * ============================================================
+ */
+
+
+
+/* ------------------------------------------------------------
+   SCRIM
+   Covers the viewport and dims what is behind, which is what makes the panel
+   read as "answer this first" rather than as another thing on the page.
+
+   Fixed, and mounted on <body> by modal.js — an ancestor with container-type,
+   contain or a transform would become the containing block and pin this inside
+   a card. Same trap the Global Alert has to avoid.
+
+   The wash is the OVERLAY component's Darker variant — the strongest of its
+   three, because a dialogue is the one case where the page behind has to stop
+   looking like something you can still use. Composed as a class on the same
+   element rather than a nested sheet: two fixed full-screen boxes to keep in
+   step is one more than the job needs.
+   ------------------------------------------------------------ */
+
+.modal {
+  position:        fixed;
+  inset:           0;
+  z-index:         300;                        /* over the Global Alert's 200 */
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  /* Spacer-16 either side, which is what leaves a 375px panel at Frame/Container
+     (343) on a 375 phone — the width 003 draws the mobile variant at. */
+  padding:         var(--spacer-16);
+  box-sizing:      border-box;
+}
+
+.modal[hidden] { display: none; }
+
+/* Restated at (0,2,0) so it cannot lose to Overlay's own z-index.
+
+   Both rules are (0,1,0), so which one wins is decided by order — and the order
+   differs by how the CSS is loaded. Linking modal.css puts overlay.css first (it
+   imports it), so .modal wins; the prototype kit and dist/ concatenate every
+   component alphabetically, which puts overlay AFTER modal and dropped the whole
+   dialogue to z-index 200 — level with the Global Alert instead of over it.
+   Specificity settles it either way. */
+.modal.overlay { z-index: 300; }
+
+
+/* ------------------------------------------------------------
+   PANEL
+   ------------------------------------------------------------ */
+
+.modal__panel {
+  position:       relative;
+  box-sizing:     border-box;
+  width:          100%;
+  /* Frame/Screen, which is 375 below 768 and 1440 above it — the desktop cap in
+     the media query below is what actually applies there. */
+  max-width:      var(--frame-screen);
+  max-height:     100%;
+  overflow-y:     auto;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);            /* title → content */
+  /* The top inset clears the close, which sits in a band of its own above the
+     title rather than beside it. Measured off the mobile variant: a 48px band,
+     then Spacer-12 before the title. */
+  padding:        60px var(--spacer-16) var(--spacer-16);
+  background:     var(--surface-primary);
+  border-radius:  var(--radius-x-large);       /* 32px */
+  box-shadow:     var(--shadow-dropdown);
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* The panel takes focus on open so a screen reader lands in the dialogue rather
+   than at the top of the page. That focus is programmatic and the panel is not
+   a control, so it shows no ring — the title and the scrim already say where you
+   are. Controls inside keep their own focus styles. */
+.modal__panel:focus { outline: none; }
+
+/* Desktop steps the padding out and the title up, and caps the panel at the 516
+   003 draws it at — a dialogue stops growing where it stops being comfortable to
+   read rather than following the page's frame. */
+@media (min-width: 768px) {
+  .modal__panel {
+    max-width: 516px;
+    gap:       var(--spacer-24);
+    padding:   var(--spacer-48) var(--spacer-32) var(--spacer-32);
+  }
+}
+
+
+/* ------------------------------------------------------------
+   CLOSE
+   The dismissal of last resort. The actions below are the real answer, so this
+   sits quiet: a neutral disc rather than anything that competes with them.
+   ------------------------------------------------------------ */
+
+.modal__close {
+  position:        absolute;
+  top:             var(--spacer-8);            /* centred in the 48px band */
+  right:           var(--spacer-16);
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           32px;
+  height:          32px;
+  padding:         0;
+  border:          none;
+  border-radius:   var(--radius-round);
+  background:      var(--overlay-dark-medium);  /* #27252d @ 30% */
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.modal__close:hover { background: var(--overlay-dark-high); }
+.modal__close svg   { display: block; width: 16px; height: 16px; }
+
+@media (min-width: 768px) {
+  .modal__close { top: var(--spacer-16); right: var(--spacer-32); }
+}
+
+
+/* ------------------------------------------------------------
+   CONTENT
+   ------------------------------------------------------------ */
+
+/* The title CROSSES type steps rather than scaling within one: Mobile/Title 4+
+   on small screens and Desktop/Title 3 on large, which is the pair 003 uses for a
+   screen heading. That is why it can't be a typography utility class — each of
+   those tracks a single step across breakpoints. The close has a band of its own
+   above, so the title needs no room made for it. */
+.modal__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4-plus);
+  line-height:    var(--line-height-title-4-plus);
+  letter-spacing: var(--letter-spacing-tight);   /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .modal__title {
+    font-size:   var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+  }
+}
+
+.modal__body {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);        /* 16px */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ACTIONS
+   Figma's "Buttons & Text Link" slot, which ships hidden — a modal doesn't have
+   to end in buttons. Stacked and full width at every size: these are a decision,
+   not a toolbar, and side by side invites the reflex tap on the one that
+   destroys work.
+   ------------------------------------------------------------ */
+
+.modal__actions {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-small);            /* 12px */
+  margin-top:     var(--gap-x-small);          /* 8px — a beat before deciding */
+}
+
+
 /* ==== components/notice-toggle/notice-toggle.css ==== */
 /*
  * ============================================================
@@ -4813,6 +6002,13 @@ body { font-family: var(--font-family-base); }
  *   - current   — active label, track half filled  (.--current)
  *   - complete  — active label, track fully filled  (.--complete)
  *
+ * Partial fill: when a step spans several pages, the track doubles as a
+ * progress bar for them. Override --onb-fill on the step to say how far
+ * through it you are, e.g. page 2 of 3:
+ *   <div class="onboarding-steps__step onboarding-steps__step--current"
+ *        style="--onb-fill: 66.67%">
+ * The .--current default of 50% is the two-page case.
+ *
  * Responsive: labels are 18px on desktop and shrink to 14px below 768px.
  * Add .onboarding-steps--compact to force the small size at any width.
  *
@@ -4973,6 +6169,130 @@ body { font-family: var(--font-family-base); }
 .onboarding-steps--numbered .onboarding-steps__fill  { background: var(--surface-active); }
 
 
+/* ==== components/optional-input/optional-input.css ==== */
+/*
+ * ============================================================
+ * OPTIONAL INPUT COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59168-694126
+ *
+ * Captures a value while offering an escape hatch for when the answer isn't
+ * known or doesn't apply: a text input, an "or" divider, and a dismissal
+ * checkbox beneath it. Ticking the box disables the field.
+ *
+ * Variants
+ *   Box ticked — No (default) | Yes. Driven at runtime by optional-input.js,
+ *   which disables the input and adds .input-field--disabled when the box is
+ *   checked. Mark it up pre-ticked with `checked` + `disabled` and the script
+ *   keeps them in step.
+ *
+ * Composes existing components — no styles are duplicated here:
+ *   - Text Input  (.input-group / .input-label / .input-field / .input)
+ *   - Divider     (.divider-text with a label)
+ *   - Checkbox    (.checkbox)
+ * Link input.css, divider.css and checkbox.css alongside this file, plus
+ * input.js (for the optional MM / YYYY mask) and optional-input.js.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="optional-input.css">
+ *   <script src="../input/input.js" defer></script>
+ *   <script src="optional-input.js" defer></script>
+ *
+ *   <div class="optional-input">
+ *     <div class="input-group">
+ *       <label class="input-label input-label--title" for="purchased">When was the vehicle purchased?</label>
+ *       <div class="input-field">
+ *         <input class="input" id="purchased" type="text" placeholder="MM / YYYY"
+ *                data-mask="mm/yyyy" inputmode="numeric">
+ *       </div>
+ *     </div>
+ *     <div class="divider-text"><span class="divider-text__label">or</span></div>
+ *     <label class="checkbox">
+ *       <input class="checkbox__input" type="checkbox">
+ *       <span class="checkbox__box">…tick svg…</span>
+ *       <span class="checkbox__label">The vehicle has not been purchased yet.</span>
+ *     </label>
+ *   </div>
+ * ============================================================
+ */
+
+
+
+
+.optional-input {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);              /* 12px */
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   Every colour comes from the composed components, all of which resolve
+   through mode-aware tokens, so there is nothing to override here.
+   ------------------------------------------------------------ */
+
+
+/* ==== components/overlay/overlay.css ==== */
+/*
+ * ============================================================
+ * OVERLAY COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2482-5095
+ *
+ * A wash over the whole screen. It does one job: take the page out of play so
+ * whatever sits on top of it is plainly the thing to deal with. Modal puts a
+ * dialogue over one; a drawer or an image viewer would do the same.
+ *
+ * Variants (Figma "Colour"):
+ *   Light Overlay   .overlay--light    overlay/light-low     white @ 30%
+ *   Dark Overlay    .overlay--dark     overlay/dark-low      #27252d @ 20%
+ *   Darker Overlay  .overlay--darker   overlay/dark-medium   #27252d @ 30%
+ *
+ * Figma's Breakpoint variant is only the frame it is drawn at — an overlay is
+ * the viewport at every size, so there is nothing responsive to declare.
+ *
+ * WHICH ONE. Dark for a light page, Light for a dark one, Darker when what sits
+ * on top has to win outright — a modal, where the page behind must stop looking
+ * like something you can still use. All three flip with the theme, so a Light
+ * overlay stays a wash toward the page's own opposite in dark mode rather than
+ * turning into a glare.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="overlay.css">
+ *
+ *   <div class="overlay overlay--dark" hidden></div>
+ *
+ * Nothing here opens or closes it — that belongs to whatever it is covering for.
+ * Modal builds its own scrim from these rules rather than nesting an element.
+ * ============================================================
+ */
+
+.overlay {
+  position: fixed;
+  inset:    0;
+  z-index:  200;
+  /* No default colour — a variant is not optional. An overlay with no wash is
+     an invisible sheet over the page that still eats every click. */
+}
+
+.overlay[hidden] { display: none; }
+
+
+/* ------------------------------------------------------------
+   COLOUR
+   ------------------------------------------------------------ */
+
+.overlay--light  { background: var(--overlay-light-low); }    /* white @ 30% */
+.overlay--dark   { background: var(--overlay-dark-low); }     /* #27252d @ 20% */
+.overlay--darker { background: var(--overlay-dark-medium); }  /* #27252d @ 30% */
+
+
 /* ==== components/pagination/pagination.css ==== */
 /*
  * ============================================================
@@ -5063,6 +6383,17 @@ body { font-family: var(--font-family-base); }
   line-height:      1;
   text-transform:   uppercase;
   white-space:      nowrap;
+}
+
+/* Neutral — beige field instead of plate yellow, for summary and confirmation
+   screens where the plate is quoting a value back rather than depicting a
+   road-legal plate.
+   Unlike the yellow plate this one takes the mode-aware ink: its surface flips
+   to a dark grey in dark mode, where the fixed plate ink would fall to ~1.3:1
+   contrast and disappear. */
+.plate--neutral {
+  background-color: var(--surface-tertiary-high);
+  color:            var(--text-primary);
 }
 
 
@@ -5532,6 +6863,7 @@ body { font-family: var(--font-family-base); }
 
 .radio__control {
   --radio-size: 20px;                              /* Large */
+  --radio-dot:  8px;                               /* both sizes — see below */
   box-sizing:      border-box;
   position:        relative;
   flex-shrink:     0;
@@ -5546,13 +6878,22 @@ body { font-family: var(--font-family-base); }
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
-/* Filled dot (Radio type) — centred, hidden until checked */
+/* Filled dot (Radio type) — centred, hidden until checked.
+   8px in BOTH sizes: Figma draws the indicator at a fixed size and only changes
+   the ring around it, so the dot fills 40% of the 20px control and 50% of the
+   16px one. It was a percentage, which looks equivalent but isn't — a flex
+   item's percentage width resolves against the container's content box, and the
+   2px border has already taken 4px off that. 40% of 20px was rendering 6.4px,
+   and 40% of the small control just 4.8px. */
 .radio__control::after {
   content:       '';
-  width:         40%;
-  height:        40%;
+  width:         var(--radio-dot);
+  height:        var(--radio-dot);
   border-radius: var(--radius-round);
-  background:    var(--border-active);   /* Aqua 60 */
+  /* Figma binds the fill to surface/primary-hover, not border/active — the same
+     Aqua 60 in light, but they part company in dark (border/active steps to
+     Aqua 80 there, the dot doesn't). */
+  background:    var(--surface-primary-hover);
   opacity:       0;
   transition:    opacity 120ms ease;
 }
@@ -5614,7 +6955,11 @@ body { font-family: var(--font-family-base); }
 .radio--error .radio__control::after { background: var(--icon-glyph-error); }
 .radio--error .radio__tick { color: var(--icon-glyph-error); }
 
-/* Disabled — grey fill, border + indicator */
+/* Disabled — grey fill, border + indicator, the same for both Types whether or
+   not it's checked. Figma currently leaves Type=Radio / Checked=False on
+   surface/primary (white) while every other disabled cell is
+   background/disabled; that split was raised and resolved in favour of the grey
+   everywhere, so Figma is the side that needs updating. */
 .radio--disabled { cursor: not-allowed; }
 .radio--disabled .radio__control,
 .radio--disabled .radio__input:checked + .radio__control {
@@ -5658,6 +7003,11 @@ body { font-family: var(--font-family-base); }
  *   drop .sales-nav__lockup to hide Trustpilot ("Trustpilot")
  *   drop .sales-nav__steps to hide the stepper ("Steps")
  *
+ * Not a Figma variant:
+ *   .sales-nav--sticky  — holds the bar at the top of the viewport, and grows the
+ *                         same bottom hairline once the page has scrolled. Needs
+ *                         sales-nav.js, which sets [data-scrolled]. See STICKY.
+ *
  * Reuses Trustpilot stars, Onboarding Steps and Button — link trustpilot.css,
  * onboarding-steps.css and button.css. Interactivity: sales-nav.js.
  *
@@ -5692,6 +7042,33 @@ body { font-family: var(--font-family-base); }
 
 /* "Border" boolean — hairline along the bottom edge */
 .sales-nav--border { border-bottom: var(--border-s) solid var(--border-primary); }
+
+
+/* ------------------------------------------------------------
+   STICKY — .sales-nav--sticky
+   Holds the bar at the top of the viewport so the logo, the Help pill and the
+   stepper stay reachable down a long screen. Opt-in, because a bar that hides
+   content is only worth it when there is enough content to scroll.
+
+   The hairline appears only once the page HAS scrolled ([data-scrolled], set by
+   sales-nav.js). At rest the bar and the page share a background and want no
+   seam; once content is passing underneath, the line is what says the bar is in
+   front and the page is cut off behind it rather than ending there. Same
+   declaration as the "Border" boolean above, so the two can't drift.
+
+   z-index sits above page content and below the Global Alert's 200 — a message
+   about the screen should never be covered by the screen's own chrome.
+   ------------------------------------------------------------ */
+
+.sales-nav--sticky {
+  position: sticky;
+  top:      0;
+  z-index:  100;
+}
+
+.sales-nav--sticky[data-scrolled] {
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
 
 
 /* ------------------------------------------------------------
@@ -5783,7 +7160,8 @@ body { font-family: var(--font-family-base); }
   max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
   overflow:      hidden;
-  background:    var(--background-primary);       /* white */
+  background:    var(--surface-primary);
+  border:        var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
   opacity:       0;
@@ -5917,7 +7295,7 @@ body { font-family: var(--font-family-base); }
     grid-column: 1;
     align-self: start;
     width:      100%;
-    max-width:  calc(1200px + 2 * var(--spacer-16));   /* 1200 content + gutters */
+    max-width:  calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
     margin:     0 auto;
   }
 
@@ -5925,7 +7303,7 @@ body { font-family: var(--font-family-base); }
     grid-row:   1;
     grid-column: 1;
     align-self: end;
-    width:      588px;
+    width:      var(--frame-content);
     max-width:  100%;
     margin:     0 auto;
     padding:    var(--spacer-12) 0;
@@ -6160,7 +7538,7 @@ body { font-family: var(--font-family-base); }
    (the base spinner already flips to white under [data-theme="dark"])
    ------------------------------------------------------------ */
 
-.spinner--inverse { color: var(--colour-white); }
+.spinner--inverse { color: var(--icon-glyph-on-color-fixed); }
 
 
 /* ------------------------------------------------------------
@@ -6269,6 +7647,240 @@ body { font-family: var(--font-family-base); }
   border-color:     var(--border-secondary);
   background-color: var(--surface-secondary);
 }
+
+
+/* ==== components/stepper/stepper.css ==== */
+/*
+ * ============================================================
+ * STEPPER COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59062-963
+ *
+ * A vertical stepper: a status icon in a left-hand rail beside a card of
+ * explanatory content. Use it to walk someone through a sequence where each
+ * step needs more than a label — e.g. what happens after a telematics
+ * assessment. For the horizontal progress bar used in page headers see
+ * Onboarding Steps instead.
+ *
+ * Each step's card can carry a title, a paragraph and any number of outcome
+ * rows (a status glyph + its own title and copy), separated by Dividers.
+ *
+ * Variants
+ *   Type   — Inactive (default) | Active (.stepper__item--active)
+ *            Active outlines the card to draw the eye to the step in play.
+ *
+ * Status icon (Figma "Icon / Status") — set one on .stepper__status-icon:
+ *   .--complete     tick in a ring (icons/correct.svg)
+ *   .--not-started  empty grey ring (drawn in CSS, no asset needed)
+ *   .--active       filled green ring, the step in progress
+ *
+ * Reuses Divider between rows, and the two-tone glyphs icons/tick.svg and
+ * icons/cross-red.svg for row outcomes — link divider.css.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="stepper.css">
+ *
+ *   <div class="stepper">
+ *     <div class="stepper__item stepper__item--active">
+ *       <div class="stepper__status">
+ *         <span class="stepper__status-icon stepper__status-icon--not-started"></span>
+ *       </div>
+ *       <div class="stepper__card">
+ *         <p class="stepper__title">Two potential outcomes:</p>
+ *         <p class="stepper__text">Telematics isn't always the right fit…</p>
+ *         <div class="stepper__row">
+ *           <span class="stepper__row-icon">…tick svg…</span>
+ *           <div class="stepper__row-body">
+ *             <p class="stepper__row-title">Your driver rating's ready</p>
+ *             <p class="stepper__row-text">We've gathered enough data…</p>
+ *           </div>
+ *         </div>
+ *         <hr class="divider">
+ *       </div>
+ *     </div>
+ *   </div>
+ * ============================================================
+ */
+
+
+.stepper {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-x-small);            /* 8px between steps */
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   STEP
+   ------------------------------------------------------------ */
+
+.stepper__item {
+  display:     flex;
+  gap:         var(--gap-x-small);               /* 8px */
+  align-items: flex-start;
+  width:       100%;
+}
+
+
+/* ------------------------------------------------------------
+   STATUS RAIL
+   The icon sits in its own column, padded so it lines up with the first line
+   of the card's title rather than the card's top edge.
+   ------------------------------------------------------------ */
+
+.stepper__status {
+  flex:        0 0 auto;
+  display:     flex;
+  align-items: center;
+  padding:     var(--gap-medium) 0;              /* 16px */
+}
+
+.stepper__status-icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  width:           var(--icon-size-xs);          /* 24px */
+  height:          var(--icon-size-xs);
+  flex-shrink:     0;
+}
+.stepper__status-icon svg { display: block; width: 100%; height: 100%; }
+
+/* Complete — tick in a ring */
+.stepper__status-icon--complete { color: var(--icon-glyph-primary); }
+
+/* Not started — an empty ring, drawn rather than imported. Inset so the ring
+   matches the optical size of the 24px glyphs beside it. */
+.stepper__status-icon--not-started::before,
+.stepper__status-icon--active::before {
+  content:       '';
+  display:       block;
+  width:         calc(100% - var(--spacer-4));
+  height:        calc(100% - var(--spacer-4));
+  border-radius: var(--radius-round);
+  box-sizing:    border-box;
+}
+.stepper__status-icon--not-started::before {
+  border: var(--border-s) solid var(--border-secondary);
+}
+
+/* Active — the step in progress */
+.stepper__status-icon--active::before {
+  border:     var(--border-m) solid var(--border-success);
+  background: var(--surface-success);
+}
+
+
+/* ------------------------------------------------------------
+   CARD
+   A transparent border on the resting state so switching to Active doesn't
+   shift the layout.
+   ------------------------------------------------------------ */
+
+.stepper__card {
+  flex:           1 1 0;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--gap-medium);              /* 16px */
+  box-sizing:     border-box;
+  padding:        var(--gap-medium);
+  background:     var(--surface-primary);
+  border:         var(--border-m) solid transparent;
+  border-radius:  var(--radius-medium);           /* 16px */
+}
+
+.stepper__item--active .stepper__card {
+  border-color: var(--border-success-low);
+}
+
+
+/* ------------------------------------------------------------
+   CARD TEXT
+   ------------------------------------------------------------ */
+
+.stepper__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.stepper__text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+/* The title and its paragraph sit closer together than the card's own gap */
+.stepper__title + .stepper__text { margin-top: calc(var(--spacer-4) - var(--gap-medium)); }
+
+/* Inline link — underlined, matching .alert__link. (The Figma mock leaves it
+   underline-free; the design system underlines inline links.) */
+.stepper__link {
+  color:           var(--text-link);
+  text-decoration: underline;
+}
+
+
+/* ------------------------------------------------------------
+   OUTCOME ROWS
+   ------------------------------------------------------------ */
+
+.stepper__row {
+  display:     flex;
+  gap:         var(--spacer-8);                   /* 8px */
+  align-items: flex-start;
+  width:       100%;
+}
+
+.stepper__row-icon {
+  flex:       0 0 auto;
+  width:      var(--icon-size-xxs);               /* 16px */
+  height:     var(--icon-size-xxs);
+  margin-top: var(--gap-xx-small);                /* 4px — align to the first line */
+  color:      var(--text-on-color-fixed);         /* white glyph on the two-tone disc */
+}
+.stepper__row-icon svg { display: block; width: 100%; height: 100%; }
+
+.stepper__row-body {
+  flex:           1 1 0;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);                /* 4px */
+}
+
+.stepper__row-title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);       /* 16px */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.stepper__row-text {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);           /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   DARK MODE
+   Every colour above resolves through a mode-aware token, so the card, text,
+   rules and Active outline all follow [data-theme="dark"] with no overrides.
+   The two-tone row glyphs keep their fixed red/green discs by design.
+   ------------------------------------------------------------ */
 
 
 /* ==== components/tab-bar/tab-bar.css ==== */
@@ -6479,7 +8091,8 @@ body { font-family: var(--font-family-base); }
   height:      24px;
   color:       var(--icon-glyph-primary);
 }
-.text-icon-item__icon svg { display: block; width: 100%; height: 100%; }
+.text-icon-item__icon svg,
+.text-icon-item__icon img { display: block; width: 100%; height: 100%; }
 
 .text-icon-item__text {
   flex:           1;
@@ -6769,7 +8382,7 @@ body { font-family: var(--font-family-base); }
 .tier-card__feature-info svg { display: block; width: 100%; height: 100%; }
 
 /* Included tick: green disc, white glyph (tick.svg glyph is currentColor) */
-.tier-card__feature-icon { color: var(--colour-white); }
+.tier-card__feature-icon { color: var(--icon-glyph-on-color-fixed); }
 
 /* Trailing info icon: muted */
 .tier-card__feature-info { color: var(--icon-glyph-pressed); margin-left: auto; }
@@ -8000,6 +9613,11 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
  *   default | hover (--hover) | focused (--focused) | error (--error) | disabled (--disabled)
  * An optional message row sits below; add .veh-reg--error to colour it red.
  *
+ * Valid (--valid) is an addition, not a Figma variant — the component has no
+ * Valid state in 003. It reveals the trailing tick in .veh-reg__status and
+ * leaves the border alone, so a field being filled in keeps its focus ring
+ * instead of dropping to the lighter valid border mid-type.
+ *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="vehicle-registration.css">
@@ -8014,6 +9632,9 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
  *       <input class="veh-reg__input" type="text" value="SH48 HSA" aria-label="Registration">
  *     </div>
  *   </div>
+ *
+ * Length validation (tick when complete, error message when not) is opt-in —
+ * see vehicle-registration.js.
  * ============================================================
  */
 
@@ -8026,6 +9647,12 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   box-sizing:     border-box;
   font-family:    'Modern Era', sans-serif;
 }
+
+/* Fluid — drop the cap above and fill the column instead. Desktop layouts give
+   the field a whole content column, which is wider than the mobile cap.
+   For the plain "GB"-only badge (no country picker) just omit the
+   .veh-reg__flag and .veh-reg__chevron elements — no modifier needed. */
+.veh-reg--fluid { max-width: none; }
 
 
 /* ------------------------------------------------------------
@@ -8080,7 +9707,16 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   box-shadow:   var(--shadow-focus);
 }
 
-.veh-reg__field--error { border-color: var(--border-error); }
+/* Error — red border, and it stays red with the caret in the field. The hover
+   and focus pseudo-classes above are (0,2,0), so the bare --error class would
+   lose to them; restating it against both is how input.css handles the same
+   clash. Figma's Error state has no focus ring, hence box-shadow: none. */
+.veh-reg__field--error,
+.veh-reg__field--error:hover,
+.veh-reg__field--error:focus-within {
+  border-color: var(--border-error);
+  box-shadow:   none;
+}
 
 
 /* ------------------------------------------------------------
@@ -8144,6 +9780,28 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   appearance:     none;
 }
 .veh-reg__input::placeholder { color: var(--text-disabled); }
+
+
+/* ------------------------------------------------------------
+   TRAILING STATUS — validation tick
+   The DS Tick glyph (icons/tick.svg) as a trailing icon, shown once the field
+   holds a complete registration. The slot keeps its 24px whether or not the
+   tick is showing, so the plate number doesn't jump sideways on the keystroke
+   that completes it. Its two tones are painted from tokens rather than the
+   icon file's own fills, which are still on the pre-update green.
+   ------------------------------------------------------------ */
+
+.veh-reg__status {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  visibility:  hidden;      /* space is reserved; the tick is not shown yet */
+}
+.veh-reg__field--valid .veh-reg__status { visibility: visible; }
+.veh-reg__status svg { display: block; width: 100%; height: 100%; }
+
+.veh-reg__status-disc  { fill: var(--surface-success); }        /* green disc */
+.veh-reg__status-glyph { fill: var(--text-on-color-fixed); }    /* white tick */
 
 
 /* ------------------------------------------------------------

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact details — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Contact details
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=6260-83128
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7932-269730
+       Third page of the Driver step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">How should we contact you?</h1>
+      <p class="proto__lead">We&#39;ll only use these to send your quote and look after your cover.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <!-- Email — format checked on blur by input.js, required by the gate -->
+      <div class="input-group" data-required-error="Enter your email address.">
+        <label class="input-label input-label--title" for="email">Email</label>
+        <div class="input-field">
+          <input class="input" id="email" type="email" placeholder="Enter your email address"
+                 data-validate="email"
+                 data-email-error="Please provide a valid email address."
+                 autocomplete="email" spellcheck="false">
+          <button class="input__clear" type="button" aria-label="Clear email address"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Mobile number — dialling code prefix + the number, one field.
+           The code is its own value; see the PHONE section in input.js -->
+      <div class="input-group" data-required-error="Enter your mobile number.">
+        <label class="input-label input-label--title" for="mobile">Mobile number</label>
+        <div class="input-field input-phone" data-phone>
+          <button class="input-phone__prefix" type="button" aria-expanded="false"
+                  aria-controls="mobile-codes" aria-label="Dialling code">
+            <span class="input-phone__code">+44</span>
+            <span class="input-phone__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+          </button>
+          <input class="input" id="mobile" type="tel" inputmode="tel" autocomplete="tel-national">
+          <input type="hidden" data-phone-code value="+44">
+
+          <!-- UK, then the five countries most likely after it, then a Divider and
+               the rest A-Z. Same shape the licence-issued select's frames use.
+               dropdown-list--scroll is the design system's own modifier for a long
+               list (240px, ~5 rows at the 48px row height), so the common block is
+               what you land on and everything else is one scroll away. Flags come
+               from assets/flags. -->
+          <div class="dropdown-list dropdown-list--scroll input-phone__list" id="mobile-codes" role="listbox" aria-label="Dialling code" hidden>
+            <button class="dropdown-item" type="button" role="option" aria-selected="true" data-code="+44">
+              <span class="input-phone__flag"><img src="../../assets/flags/uk.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+44</span>
+              <span class="dropdown-item__label">United Kingdom</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+353">
+              <span class="input-phone__flag"><img src="../../assets/flags/ireland.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+353</span>
+              <span class="dropdown-item__label">Ireland</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+40">
+              <span class="input-phone__flag"><img src="../../assets/flags/romania.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+40</span>
+              <span class="dropdown-item__label">Romania</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+351">
+              <span class="input-phone__flag"><img src="../../assets/flags/portugal.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+351</span>
+              <span class="dropdown-item__label">Portugal</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+48">
+              <span class="input-phone__flag"><img src="../../assets/flags/poland.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+48</span>
+              <span class="dropdown-item__label">Poland</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+34">
+              <span class="input-phone__flag"><img src="../../assets/flags/spain.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+34</span>
+              <span class="dropdown-item__label">Spain</span>
+            </button>
+            <hr class="divider" aria-hidden="true">
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+93">
+              <span class="input-phone__flag"><img src="../../assets/flags/afghanistan.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+93</span>
+              <span class="dropdown-item__label">Afghanistan</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+355">
+              <span class="input-phone__flag"><img src="../../assets/flags/albania.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+355</span>
+              <span class="dropdown-item__label">Albania</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+32">
+              <span class="input-phone__flag"><img src="../../assets/flags/belgium.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+32</span>
+              <span class="dropdown-item__label">Belgium</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+359">
+              <span class="input-phone__flag"><img src="../../assets/flags/bulgaria.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+359</span>
+              <span class="dropdown-item__label">Bulgaria</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+33">
+              <span class="input-phone__flag"><img src="../../assets/flags/france.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+33</span>
+              <span class="dropdown-item__label">France</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+49">
+              <span class="input-phone__flag"><img src="../../assets/flags/germany.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+49</span>
+              <span class="dropdown-item__label">Germany</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+30">
+              <span class="input-phone__flag"><img src="../../assets/flags/greece.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+30</span>
+              <span class="dropdown-item__label">Greece</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+36">
+              <span class="input-phone__flag"><img src="../../assets/flags/hungary.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+36</span>
+              <span class="dropdown-item__label">Hungary</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+39">
+              <span class="input-phone__flag"><img src="../../assets/flags/italy.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+39</span>
+              <span class="dropdown-item__label">Italy</span>
+            </button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false" data-code="+421">
+              <span class="input-phone__flag"><img src="../../assets/flags/slovakia.svg" width="20" height="20" alt=""></span>
+              <span class="input-phone__row-code">+421</span>
+              <span class="dropdown-item__label">Slovakia</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marketing opt-ins. Neither is required: they carry no .input, so the
+           Continue gate leaves them alone. The first ships ticked (opt-out), the
+           second unticked (opt-in), as the frames draw them. -->
+      <div class="proto__optins">
+        <div class="acknowledge">
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox" checked>
+            <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="checkbox__label acknowledge__text">Hear from Zego about products, exclusive deals, and ways to save on your insurance. See our <a class="acknowledge__link" href="#">privacy policy</a>. Opt out any time.</span>
+          </label>
+        </div>
+
+        <div class="acknowledge">
+          <label class="checkbox">
+            <input class="checkbox__input" type="checkbox">
+            <span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="checkbox__label acknowledge__text">Get offer and services from our trusted partners. Opt out any time.</span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>
