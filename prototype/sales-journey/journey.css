@@ -286,6 +286,16 @@ html[data-viewport="mobile"] > body > .footer-sales {
   gap:            var(--spacer-16);
 }
 
+/* Primary first — for a pair that is "do this" / "not now" rather than "back" /
+   "next". The desktop row then reads primary-left, which is how the work provider
+   frames draw it, and the mobile column still puts the primary on top; the markup
+   simply leads with it instead of ending on it.
+
+   The difference is what the pair MEANS. Back/Next is a sequence, so the row runs
+   in journey order with Next at the right. Link/Skip is a choice between two ways
+   forward, so the one being offered leads. */
+.proto__buttons--primary-first { flex-direction: column; }
+
 @media (min-width: 768px) {
   html:not([data-viewport="mobile"]) .proto__buttons {
     flex-direction: row;
@@ -480,4 +490,441 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 .proto__add { margin-top: var(--spacer-20); }
 @container (min-width: 480px) {
   .proto__add { margin-top: var(--spacer-24); }
+}
+
+/* ------------------------------------------------------------
+   COVER START — the date picker attached to a field
+   The DS Date Picker is a floating card; here it hangs off the field that opens
+   it, the way a Dropdown List does. Same 8px offset and the same z-index tier,
+   so a picker and a dropdown behave alike when both are on a screen.
+   ------------------------------------------------------------ */
+
+.proto__picker {
+  position: absolute;
+  top:      calc(100% + var(--spacer-8));
+  left:     0;
+  z-index:  20;
+}
+.proto__picker[hidden] { display: none; }
+
+/* The group is the positioning context, and it has to stack above the questions
+   below it or the open calendar would slide behind them. */
+[data-start-picker] {
+  position: relative;
+  z-index:  1;
+}
+
+/* ------------------------------------------------------------
+   POLICY LENGTH — two Product Cards as one question
+   The cards are the options, so they stack at the same rhythm questions inside a
+   card already use. No white .proto__card wraps them: each card brings its own
+   surface, and a card of cards is a box in a box.
+   ------------------------------------------------------------ */
+
+.proto__options {
+  display:  grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap:      var(--spacer-20);
+  margin:   0;
+  padding:  0;
+  border:   0;
+}
+
+/* Desktop puts the options side by side: two lengths are a comparison, and
+   comparing means reading them against each other rather than scrolling from one
+   to the other. Equal columns, so neither looks like the default by being wider.
+   align-items: stretch keeps them the same height when one has more to say. */
+@container (min-width: 480px) {
+  .proto__options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacer-24);
+    align-items: stretch;
+  }
+}
+
+/* A legend that names the group for a screen reader without taking space. The
+   heading above says the same thing on screen, so showing both would repeat it. */
+.visually-hidden {
+  position: absolute;
+  width:    1px;
+  height:   1px;
+  margin:   -1px;
+  padding:  0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------
+   COMPARE — the link, and the table it opens
+   ------------------------------------------------------------ */
+
+.proto__compare {
+  margin:     0;
+  text-align: center;
+}
+
+/* A link, not a button: it goes to more detail about the choice rather than
+   acting on it. A <button> underneath because it opens a dialogue rather than
+   navigating — the role is what matters, the look follows the meaning. */
+.proto__compare-link {
+  padding:         0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  font-family:     'Modern Era', sans-serif;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-body-3);      /* 14px */
+  line-height:     var(--line-height-body-3);
+  color:           var(--text-link);
+  text-decoration: underline;
+}
+.proto__compare-link:hover { color: var(--text-link-pressed); }
+
+/* The table. Rules between rows rather than around every cell — the eye is
+   scanning down a column for ticks, and a full grid puts a line through every
+   one of those runs. */
+.compare {
+  width:           100%;
+  border-collapse: separate;                     /* so the outer radius holds */
+  border-spacing:  0;
+  border:          var(--border-s) solid var(--border-primary);
+  border-radius:   var(--radius-small);
+  overflow:        hidden;
+  font-family:     'Modern Era', sans-serif;
+  text-align:      center;
+}
+
+.compare__col-header {
+  padding:     var(--spacer-12) var(--spacer-8);
+  background:  var(--surface-tertiary-medium);   /* #F2EDE9 */
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-body-3);
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+  vertical-align: middle;
+}
+/* The first column is labels, so it reads left-aligned like a list */
+.compare__col-header--what,
+.compare__row-header {
+  text-align: left;
+  width:      44%;
+}
+
+.compare__row-header,
+.compare__cell {
+  padding:     var(--spacer-12) var(--spacer-8);
+  border-top:  var(--border-s) solid var(--border-primary);
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+.compare__mark {
+  display: inline-flex;
+  width:   16px;
+  height:  16px;
+  color:   var(--icon-glyph-brand-2-medium);     /* purple tick */
+}
+.compare__mark svg { display: block; width: 100%; height: 100%; }
+/* Not covered — the same weight as the ticks, in the text colour. A red cross
+   would read as an error rather than as a fact about the cover level. */
+.compare__mark--no { color: var(--icon-glyph-primary); }
+
+
+/* ------------------------------------------------------------
+   FETCHING QUOTE
+   The wait between choosing a policy type and seeing the price. Not a question,
+   so it has no card, no Back and no Continue: one panel, centred, that says what
+   is being looked for and sells the thing that was just chosen while it looks.
+
+   Everything is centred and the panel hugs its content, because the panel IS the
+   screen — there is nothing else on it to align to.
+   ------------------------------------------------------------ */
+
+.proto__loading {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  text-align:      center;
+  /* Radius-24. Measured off the frame rather than read off a variable — 003's
+     own binding list stops at 16 here, so this is the one number on the screen
+     that isn't token-backed. */
+  border-radius:   var(--radius-large);
+  /* tertiary-MEDIUM (#F2EDE9), a step deeper than the page's tertiary-low, which
+     is what makes the panel read as a panel with no border and no shadow. */
+  background:      var(--surface-tertiary-medium);
+  padding:         var(--spacer-24) var(--spacer-16);
+}
+
+/* Spacer-8 under the wheel, then the rhythm below. Everything on this screen is
+   8 apart except the headline, which takes 16 — it is the message, and the line
+   above it is a label for it. */
+.proto__loading .spinner { margin-bottom: var(--spacer-8); }
+
+.proto__loading-label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+
+.proto__loading-message {
+  margin:         var(--spacer-16) 0 0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-2);      /* 32 / 36 */
+  line-height:    var(--line-height-title-2);
+  letter-spacing: var(--letter-spacing-tight);   /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+/* The illustration. Width-capped rather than stretched: it is drawn at a fixed
+   size and blowing it up on a wide desktop column would show every soft edge. */
+/* margin-inline: auto, because text-align doesn't centre a block. The variant
+   wrapper is as wide as the headline, so without this the artwork sits against its
+   left edge on any column wider than 296. */
+.proto__loading-art {
+  display:       block;
+  width:         100%;
+  max-width:     296px;
+  height:        auto;
+  margin:        var(--spacer-8) auto 0;
+}
+
+/* The secondary offer. 003 draws it as a Status Label with almost everything
+   overridden — solid brand/2-medium instead of the Brand variant's light fill,
+   white text, Subtitle 1 instead of Subtitle 4, 32 tall instead of 24. That is a
+   page decision rather than a library one, so it lives here rather than bending
+   Status Label into a shape the component doesn't have. See KNOWN-ISSUES. */
+.proto__loading-offer {
+  display:       inline-block;
+  margin:        var(--spacer-8) 0 0;
+  padding:       var(--spacer-4) var(--spacer-8);
+  border-radius: var(--radius-x-small);          /* 4px */
+  background:    var(--brand-2-medium);          /* #A458FF */
+  color:         var(--text-on-color-fixed);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-1);    /* 18 / 24 */
+  line-height:   var(--line-height-subtitle-1);
+}
+
+.proto__loading-terms {
+  margin:      var(--spacer-8) 0 0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-4);          /* 12 / 16 */
+  line-height: var(--line-height-body-4);
+  color:       var(--text-primary);
+}
+
+/* One page carries both policy types; journey.js reveals the one that was chosen
+   and removes the other, so neither is ever half-visible. */
+.proto__loading [data-loading-for][hidden] { display: none; }
+
+
+/* ------------------------------------------------------------
+   THE REWARD FAN
+   The Sense wait's illustration, which moves: three gift cards start almost
+   stacked, hold for a beat, then fan apart and hold again on a 2s loop.
+
+   Rebuilt from parts rather than played as a picture, because the artwork has to
+   OVERLAP — the Figma exports carry an opaque panel-coloured background, so laying
+   three of them on top of each other paints beige boxes over the cards behind. Each
+   card here is a real element: a white tile, a gift-card face and its two lines.
+
+   Every number below is Figma's, scaled by 296/330.4 = 0.8959 so the fan fits the
+   same 296px column the static illustration used. The keyframes are the tracks
+   get_motion_context emitted for nodes 8474:138255 / 138259 / 138263, unchanged in
+   shape: hold to 14.59%, move, hold to the end.
+
+   `translate` and `rotate` are the standalone properties on purpose — the cards sit
+   at a fixed angle while only their position animates, which a single `transform`
+   would force this file to restate on every keyframe.
+   ------------------------------------------------------------ */
+
+.proto__fan {
+  position:   relative;
+  width:      296px;
+  height:     196px;
+  margin:     var(--spacer-8) auto 0;
+  flex:       0 0 auto;
+}
+
+.proto__fan-card {
+  position:      absolute;
+  width:         115px;
+  height:        117px;
+  box-sizing:    border-box;
+  padding:       6px;
+  border-radius: var(--radius-small);           /* 8px */
+  background:    var(--surface-primary);
+  box-shadow:    var(--shadow-dropdown);
+  /* Out and back, three times.
+
+     `alternate` is what makes the return journey: the odd runs play the keyframes
+     forward and fan the cards apart, the even ones play them backwards and walk the
+     cards home — easings included, since CSS reverses those too. So one out-and-back
+     is TWO of Figma's 2s runs, and two of them is `iteration-count: 4` — 8s in total,
+     which is what journey.js waits (LOOPS x LOOP_MS, LOOP_MS being the round trip).
+     If either number changes, change both.
+
+     Nothing snaps: each run starts where the last one ended, and because the count is
+     even the animation finishes on the 0% frame, which is also each card's base
+     `translate` below. That base is what a reduced-motion viewer sees, and it is why
+     no fill-mode is needed to stop the cards jumping as the page leaves. */
+  animation-duration:        2s;
+  animation-direction:       alternate;
+  animation-iteration-count: 4;                 /* 2 x (out + back) */
+  animation-timing-function: linear;
+}
+
+.proto__fan-card img {
+  display:       block;
+  width:         100%;
+  aspect-ratio:  400 / 250;                     /* the faces are all 400x250 */
+  object-fit:    cover;
+  border-radius: var(--radius-x-small);         /* 4px */
+}
+
+.proto__fan-name {
+  margin:      6px 0 0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);     /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+}
+.proto__fan-where {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-metadata);       /* 11 / 16 */
+  line-height: var(--line-height-metadata);
+  color:       var(--text-primary);
+}
+
+/* Back to front: Tesco, Just Eat, Amazon — the order 003 stacks them, which is why
+   Amazon is the face you see while they are still piled up. */
+
+.proto__fan-card--tesco {
+  left: 68px; top: 57px;
+  rotate: -15deg;
+  translate: 0 0;
+  animation-name: proto-fan-tesco;
+}
+@keyframes proto-fan-tesco {
+  0%      { translate: 0 0; }
+  14.59%  { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+            translate: 0 0; }
+  70.114% { translate: -53.2px -27.6px; }
+  100%    { translate: -53.2px -27.6px; }
+}
+
+.proto__fan-card--just-eat {
+  left: 95px; top: 36px;
+  rotate: 15.58deg;
+  translate: 22.9px 18.9px;
+  animation-name: proto-fan-just-eat;
+}
+/* The one card with a spring rather than a bezier — Figma resolves it to this
+   linear() ramp, kept as emitted so the overshoot lands where the design does. */
+@keyframes proto-fan-just-eat {
+  0%      { translate: 22.9px 18.9px; }
+  14.59%  { animation-timing-function: linear(0, 0.0188, 0.0679, 0.1374, 0.2195, 0.308, 0.3978, 0.4856, 0.5686, 0.6452, 0.7142, 0.7753, 0.8283, 0.8735, 0.9113, 0.9423, 0.9671, 0.9866, 1.0014, 1.0123, 1.0198, 1.0247, 1.0274, 1.0283, 1.0281, 1.0268, 1.025, 1.0227, 1.0202, 1.0177, 1.0152, 1.0128, 1.0106, 1.0085, 1.0068, 1.0052, 1.0039, 1.0028, 1.0018, 1.0011, 1.0005, 1, 0.9997, 0.9995, 0.9993, 0.9992, 0.9992, 0.9992, 0.9992, 0.9993, 0.9993);
+            translate: 22.9px 18.9px; }
+  80.654% { translate: 70.4px -18.7px; }
+  100%    { translate: 70.4px -18.7px; }
+}
+
+.proto__fan-card--amazon {
+  left: 86px; top: 36px;
+  rotate: 12.4deg;
+  translate: 9.2px 6.8px;
+  animation-name: proto-fan-amazon;
+}
+@keyframes proto-fan-amazon {
+  0%      { translate: 9.2px 6.8px; }
+  14.59%  { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+            translate: 9.2px 6.8px; }
+  70.114% { translate: 22.4px 29.4px; }
+  100%    { translate: 22.4px 29.4px; }
+}
+
+/* Held at the start of the loop for anyone who has asked motion to stop — the cards
+   keep the piled-up arrangement the screen opens on, which is a complete picture
+   rather than a half-finished one. */
+@media (prefers-reduced-motion: reduce) {
+  .proto__fan-card { animation: none; }
+}
+
+
+/* The read-back's Change control — a text link in a row, not a button: it reopens
+   a question rather than acting on anything. Bold so it holds its own against the
+   bold answer beside it. */
+.proto__change {
+  padding:         0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  font-family:     'Modern Era', sans-serif;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-body-3);      /* 14px */
+  line-height:     var(--line-height-body-3);
+  color:           var(--text-link);
+}
+.proto__change:hover { color: var(--text-link-pressed); }
+
+/* Options inside a Change dialogue.
+   .proto__options goes two-column on a CONTAINER query, and a modal is mounted on
+   <body> by modal.js — outside .proto, so there is no container to query and the pair
+   would stack however wide the screen got. A viewport query is right here: a dialogue
+   is only ever as wide as the screen lets it be, so there is no narrow-container case
+   to protect. 768 is the same hinge the panel itself steps at. */
+@media (min-width: 768px) {
+  .modal .proto__options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items:           stretch;
+  }
+}
+
+
+/* These dialogues hold WHITE cards, so their panel steps back to tertiary-low rather
+   than staying white. Measured off the desktop frame at #F8F5F3: a white panel behind
+   white cards leaves the cards with no edge to sit against, and the whole dialogue
+   reads as one flat sheet. Scoped to the edit dialogues rather than changed on Modal,
+   because a dialogue whose content is plain text still wants the white. */
+.modal[id^="edit-"] .modal__panel { background: var(--surface-tertiary-low); }
+
+/* The running total inside a Change dialogue — what the choice costs, so it can be
+   weighed before Done. Ruled off rather than tinted: the cards above it are already
+   carrying colour, and another filled panel would compete with them. */
+.proto__modal-total {
+  padding-top: var(--spacer-16);
+  border-top:  var(--border-s) solid var(--border-primary);
+}
+.proto__modal-total-row {
+  display:         flex;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  margin:          0;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-2);   /* 16 / 24 */
+  line-height:     var(--line-height-subtitle-2);
+  color:           var(--text-primary);
+}
+/* The figure steps up on desktop, where the dialogue has the room and the total is the
+   thing being weighed. Title 4 rather than another Subtitle step: 16 alongside cards
+   whose own titles are 20 read as a footnote to them. */
+@media (min-width: 768px) {
+  .proto__modal-total-row {
+    font-size:   var(--font-size-title-4);
+    line-height: var(--line-height-title-4);
+  }
+}
+
+.proto__modal-total-note {
+  margin:      var(--spacer-4) 0 0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-4);           /* 12 / 16 */
+  line-height: var(--line-height-body-4);
+  color:       var(--text-primary);
 }

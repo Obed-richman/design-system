@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claims — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+  <script src="../../components/conditional-selector/conditional-selector.js" defer></script>
+  <script src="../../components/modal/modal.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Claims
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7599-51208
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8064-170496
+
+       The same repeating-card screen as driving-convictions.html, so it reuses the
+       same data-card* hooks in journey.js — the behaviour is "a list of
+       Detail Cards you add to and delete from", not anything about convictions.
+       Every driver sees this one; it sits after the taxi licence. -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Any claims in the last 3 years?</h1>
+      <p class="proto__lead">No judgement. It just helps us calculate the most accurate price for your cover.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <!-- --plain: the follow-up is a list of Detail Cards, which bring their own
+           surface, so the panel adds no tint of its own. -->
+      <div class="conditional-selector conditional-selector--plain" data-card-question>
+        <fieldset class="choice-selector">
+          <div class="choice-selector__options">
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="claims" data-reveals><span class="radio__control"></span></label>
+            <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="claims"><span class="radio__control"></span></label>
+          </div>
+        </fieldset>
+
+        <div class="conditional-selector__panel" hidden>
+          <div class="proto__convictions" data-card-list>
+            <div class="detail-card detail-card--fluid" data-card>
+              <div class="detail-card__top">
+                <p class="detail-card__title">Claim #1</p>
+                <div class="detail-card__actions">
+                  <button class="detail-card__icon-btn" type="button" data-card-delete aria-label="Delete claim #1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
+                </div>
+              </div>
+              <div class="detail-card__content">
+
+                <div class="input-group" data-required-error="Enter a date within the last 3 years.">
+                  <span class="input-label input-label--title" id="claim-1-when-label">When did the incident happen?</span>
+                  <div role="group" aria-labelledby="claim-1-when-label" class="input-field input-date"
+                       data-date-within="3"
+                       data-date-error="Enter a date within the last 3 years.">
+                    <input class="input input-date__part input-date__part--month" id="claim-1-month"
+                           type="text" placeholder="MM" aria-label="Incident month"
+                           inputmode="numeric" maxlength="2" autocomplete="off">
+                    <span class="input-date__separator" aria-hidden="true">/</span>
+                    <input class="input input-date__part input-date__part--year" id="claim-1-year"
+                           type="text" placeholder="YYYY" aria-label="Incident year"
+                           inputmode="numeric" maxlength="4" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-group input-select" data-select data-select-filter
+                     data-required-error="Select the type of incident.">
+                  <span class="input-label input-label--title" id="claim-1-type-label">What type of incident was it?</span>
+                  <div class="input-field">
+                    <input class="input input-select__value" type="text" placeholder="Select"
+                           id="claim-1-type" role="combobox" aria-expanded="false"
+                           aria-controls="claim-1-type-list" aria-labelledby="claim-1-type-label" autocomplete="off">
+                    <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+                  </div>
+                  <div class="dropdown-list input-select__list" id="claim-1-type-list" role="listbox" aria-labelledby="claim-1-type-label" hidden>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Accident</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Collision</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Theft</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Vandalism</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Windscreen</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Other</span></button>
+                  </div>
+                </div>
+
+                <fieldset class="choice-selector" data-required-error="Select an option.">
+                  <div class="choice-selector__header">
+                    <p class="choice-selector__title">Was this an at-fault incident?</p>
+                  </div>
+                  <div class="choice-selector__options">
+                    <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="claim-1-fault"><span class="radio__control"></span></label>
+                    <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="claim-1-fault"><span class="radio__control"></span></label>
+                  </div>
+                </fieldset>
+
+                <div class="input-group" data-required-error="Enter the claim value.">
+                  <label class="input-label input-label--title" for="claim-1-value">What was the claim value?</label>
+                  <p class="input-support">Use your best estimate if you&#39;re not sure.</p>
+                  <div class="input-field">
+                    <input class="input" id="claim-1-value" type="text" inputmode="numeric"
+                           placeholder="&pound;" autocomplete="off">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn--secondary btn--pill btn--block proto__add" type="button" data-card-add>
+            <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/> </svg></span>Add a claim
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+  <!-- Raised when Yes -> No would throw away entered claims. Never shown for an
+       empty card list: there is nothing to lose, so nothing to confirm. -->
+  <div class="modal overlay overlay--darker" id="discard-convictions" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="discard-claims-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="discard-claims-title">Discard what you&#39;ve added?</h2>
+      <p class="modal__body">Changing your answer to &#39;No&#39; will discard the details you&#39;ve added, you&#39;ll need to re-enter them if you change your mind.</p>
+      <div class="modal__actions">
+        <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button" data-card-discard>Discard</button>
+        <button class="btn btn--secondary btn--pill btn--block" type="button" data-card-keep>Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- The blank card journey.js clones for "Add a claim" -->
+  <template id="card-template">
+            <div class="detail-card detail-card--fluid" data-card>
+              <div class="detail-card__top">
+                <p class="detail-card__title">Claim #{n}</p>
+                <div class="detail-card__actions">
+                  <button class="detail-card__icon-btn" type="button" data-card-delete aria-label="Delete claim #{n}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
+                </div>
+              </div>
+              <div class="detail-card__content">
+
+                <div class="input-group" data-required-error="Enter a date within the last 3 years.">
+                  <span class="input-label input-label--title" id="claim-{i}-when-label">When did the incident happen?</span>
+                  <div role="group" aria-labelledby="claim-{i}-when-label" class="input-field input-date"
+                       data-date-within="3"
+                       data-date-error="Enter a date within the last 3 years.">
+                    <input class="input input-date__part input-date__part--month" id="claim-{i}-month"
+                           type="text" placeholder="MM" aria-label="Incident month"
+                           inputmode="numeric" maxlength="2" autocomplete="off">
+                    <span class="input-date__separator" aria-hidden="true">/</span>
+                    <input class="input input-date__part input-date__part--year" id="claim-{i}-year"
+                           type="text" placeholder="YYYY" aria-label="Incident year"
+                           inputmode="numeric" maxlength="4" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="input-group input-select" data-select data-select-filter
+                     data-required-error="Select the type of incident.">
+                  <span class="input-label input-label--title" id="claim-{i}-type-label">What type of incident was it?</span>
+                  <div class="input-field">
+                    <input class="input input-select__value" type="text" placeholder="Select"
+                           id="claim-{i}-type" role="combobox" aria-expanded="false"
+                           aria-controls="claim-{i}-type-list" aria-labelledby="claim-{i}-type-label" autocomplete="off">
+                    <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+                  </div>
+                  <div class="dropdown-list input-select__list" id="claim-{i}-type-list" role="listbox" aria-labelledby="claim-{i}-type-label" hidden>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Accident</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Collision</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Theft</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Vandalism</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Windscreen</span></button>
+                    <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">Other</span></button>
+                  </div>
+                </div>
+
+                <fieldset class="choice-selector" data-required-error="Select an option.">
+                  <div class="choice-selector__header">
+                    <p class="choice-selector__title">Was this an at-fault incident?</p>
+                  </div>
+                  <div class="choice-selector__options">
+                    <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="claim-{i}-fault"><span class="radio__control"></span></label>
+                    <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="claim-{i}-fault"><span class="radio__control"></span></label>
+                  </div>
+                </fieldset>
+
+                <div class="input-group" data-required-error="Enter the claim value.">
+                  <label class="input-label input-label--title" for="claim-{i}-value">What was the claim value?</label>
+                  <p class="input-support">Use your best estimate if you&#39;re not sure.</p>
+                  <div class="input-field">
+                    <input class="input" id="claim-{i}-value" type="text" inputmode="numeric"
+                           placeholder="&pound;" autocomplete="off">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+  </template>
+
+</body>
+</html>

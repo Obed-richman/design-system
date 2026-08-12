@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy type — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Policy type
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=5174-438013
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8104-458949
+       Fourth page of the Quote step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="quote">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Keep it simple, or get rewarded?</h1>
+      <p class="proto__lead">Choose your policy type. Rewards for good driving, or keep it simple.</p>
+    </div>
+
+    <!-- Two Product Cards as one question, the same shape policy length and cover
+         level use. What's different here is the top-left: these cards ARE Zego
+         products, so they carry the product lockup instead of a glyph badge, and
+         the card needs no title of its own — the wordmark has already named it. -->
+    <fieldset class="proto__options" data-required-error="Choose a policy type.">
+      <legend class="visually-hidden">Policy type</legend>
+
+      <label class="product-card product-card--fluid">
+        <div class="product-card__header">
+          <div class="product-card__top">
+            <span class="product-card__lockup"><img src="../../brand/zego-sense.svg" alt="Zego Sense"></span>
+            <div class="product-card__meta">
+              <input class="radio__input" type="radio" name="policy-type" value="sense" data-journey-field="policy-type" checked>
+              <span class="radio__control"></span>
+            </div>
+          </div>
+
+          <p class="product-card__subtitle">App-based telematics that rewards good driving.</p>
+
+          <ul class="product-card__benefits">
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Up to £60 in gift cards</span>
+            </li>
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Up to 25% off at renewal</span>
+            </li>
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Tips to help you drive better</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The rewards banner is a Marketing Banner with the gift cards in its
+             image slot, which is how 003 builds it. It is the one part of the card
+             that changes between hovered and chosen: it tints to surface/focus once
+             this card holds the checked radio. -->
+        <div class="product-card__banner">
+          <div class="marketing-banner">
+            <div class="marketing-banner__content">
+              <div class="marketing-banner__text">
+                <p class="marketing-banner__title">Drive well. Get rewards.</p>
+              </div>
+            </div>
+            <div class="marketing-banner__image">
+              <div class="product-card__rewards" aria-hidden="true">
+                <span class="product-card__reward"><img src="../../assets/rewards/amazon.jpg" alt=""></span>
+                <span class="product-card__reward"><img src="../../assets/rewards/just-eat.jpg" alt=""></span>
+                <span class="product-card__reward"><img src="../../assets/rewards/starbucks.jpg" alt=""></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </label>
+
+      <label class="product-card product-card--fluid">
+        <div class="product-card__header">
+          <div class="product-card__top">
+            <span class="product-card__lockup"><img src="../../brand/zego-standard.svg" alt="Zego Standard"></span>
+            <div class="product-card__meta">
+              <input class="radio__input" type="radio" name="policy-type" value="standard" data-journey-field="policy-type">
+              <span class="radio__control"></span>
+            </div>
+          </div>
+
+          <p class="product-card__subtitle">Simple cover you can set and forget.</p>
+
+          <ul class="product-card__benefits">
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">No telematics, just drive</span>
+            </li>
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Manage it all in the Zego app</span>
+            </li>
+          </ul>
+        </div>
+      </label>
+    </fieldset>
+
+    <div class="proto__cta">
+      <!-- Continue steps aside to the wait, which then replaces itself with the quote -->
+      <button class="btn btn--primary btn--pill btn--block" type="button"
+              data-journey="next" data-goes-to="fetching-quote.html">Continue</button>
+      <p class="proto__cta-note">You can always change this later.</p>
+    </div>
+
+  </main>
+
+</body>
+</html>

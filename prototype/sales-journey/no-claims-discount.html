@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No claims discount — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / No claims discount
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=6260-94833
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8064-203779
+
+       "Just a couple more things" — the heading is plural and the card holds one
+       question, so the screen is built to take more: add another .input-group to
+       the card and the gate, the rhythm and the error handling all follow. -->
+  <main class="proto" data-step="driver">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Just a couple more things</h1>
+      <p class="proto__lead">These help us get your price right. Honest answers mean an accurate quote.</p>
+    </div>
+
+    <div class="proto__card proto__card--form">
+
+      <!-- The bold line names the topic and the question is asked underneath it,
+           rather than the label being the question — the frames give this one two
+           lines of supporting text, which a label can't carry. -->
+      <div class="input-group input-select" data-select
+           data-required-error="Select your no claims discount.">
+        <span class="input-label input-label--title" id="ncd-label">Your taxi no claims discount (NCD)</span>
+        <p class="input-support">How many years of no claims discount have you earned as a taxi driver?</p>
+        <p class="input-support">You&#39;ll need proof from your last insurer. We&#39;ll remind you to send it after you buy.</p>
+        <div class="input-field">
+          <input class="input input-select__value" type="text" readonly placeholder="Select"
+                 id="ncd" role="combobox" aria-expanded="false"
+                 aria-controls="ncd-list" aria-labelledby="ncd-label" autocomplete="off">
+          <span class="input-select__chevron" aria-hidden="true"><svg viewBox="0 0 7 12" fill="none"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="dropdown-list dropdown-list--scroll input-select__list" id="ncd-list" role="listbox" aria-labelledby="ncd-label" hidden>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">0</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">1</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">2</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">3</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">4</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">5</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">6</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">7</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">8</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">9</span></button>
+            <button class="dropdown-item" type="button" role="option" aria-selected="false"><span class="dropdown-item__label">10</span></button>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

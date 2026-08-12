@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Link your Uber account — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Work provider
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=6260-94861
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8072-454389
+
+       The frames run this screen into Uber's own sign-in and back. Those screens
+       belong to Uber, so the prototype doesn't stand them up: Link to Uber goes
+       straight to the linked screen, which is what a driver sees on the way back.
+       The "couldn't link" outcome is drawn in Figma and deliberately not built. -->
+  <main class="proto" data-step="driver">
+
+    <div class="product-card product-card--fluid">
+      <div class="product-card__header">
+        <div class="product-card__top">
+          <span class="product-card__badge product-card__badge--logo">
+            <img src="../../icons/logo-uber.svg" width="48" height="48" alt="Uber">
+          </span>
+        </div>
+
+        <h1 class="product-card__title">Get up to 25% off when you link your Uber account.</h1>
+        <p class="product-card__subtitle">Link your account so we can check your driving history and apply any discount you&#39;re eligible for. You&#39;ll sign in on Uber&#39;s own site, then come straight back here.</p>
+
+        <ul class="product-card__benefits">
+          <li class="product-card__benefit">
+            <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="product-card__benefit-text">Quick, secure connection</span>
+          </li>
+          <li class="product-card__benefit">
+            <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="product-card__benefit-text">No documents to upload</span>
+          </li>
+          <li class="product-card__benefit">
+            <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+            <span class="product-card__benefit-text">Discount applied automatically if you&#39;re eligible</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Primary first: a choice between two ways forward, not back/next, so the
+         offer leads on both breakpoints. Link to Uber steps to the linked screen;
+         skipping takes the flow's own next and leaves the pair behind — see
+         data-goes-to in journey.js -->
+    <div class="proto__buttons proto__buttons--primary-first">
+      <button class="btn btn--primary btn--pill btn--block" type="button"
+              data-journey="next" data-goes-to="work-provider-linked.html">Link to Uber</button>
+      <button class="btn btn--secondary btn--pill btn--block" type="button"
+              data-journey="next">Skip for now</button>
+    </div>
+
+  </main>
+
+</body>
+</html>

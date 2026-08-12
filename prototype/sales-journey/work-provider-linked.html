@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uber account linked — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Work provider (linked)
+       https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=6260-94869
+
+       An OUTCOME of the screen before, not a step of its own: data-flow-as makes
+       it sit in that slot, so Continue leaves for the next step and Back returns
+       to the offer rather than walking the flow one page short. -->
+  <main class="proto" data-step="driver" data-flow-as="work-provider.html">
+
+    <div class="product-card product-card--fluid">
+      <div class="product-card__header">
+        <div class="product-card__top">
+          <span class="product-card__badge product-card__badge--logo">
+            <img src="../../icons/logo-uber.svg" width="48" height="48" alt="Uber">
+            <span class="product-card__pip" role="img" aria-label="Linked"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+          </span>
+        </div>
+
+        <h1 class="product-card__title">You&#39;re all linked.</h1>
+        <p class="product-card__subtitle">Your quote will automatically include a discount based on your Uber driver score.</p>
+      </div>
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+</body>
+</html>

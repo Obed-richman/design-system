@@ -44,12 +44,12 @@
 
     <div class="proto__card proto__card--form">
 
-      <!-- Yes reveals the conviction cards. data-conviction-list marks the panel
+      <!-- Yes reveals the conviction cards. data-card-list marks the panel
            journey.js adds and removes cards in; switching back to No asks first,
            because there is entered work to lose. -->
       <!-- --plain: the follow-up is a list of Detail Cards, which bring their own
            surface, so the panel adds no tint of its own. -->
-      <div class="conditional-selector conditional-selector--plain" data-convictions>
+      <div class="conditional-selector conditional-selector--plain" data-card-question>
         <fieldset class="choice-selector">
           <div class="choice-selector__options">
             <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="convictions" data-reveals><span class="radio__control"></span></label>
@@ -58,12 +58,12 @@
         </fieldset>
 
         <div class="conditional-selector__panel" hidden>
-          <div class="proto__convictions" data-conviction-list>
-            <div class="detail-card detail-card--fluid" data-conviction>
+          <div class="proto__convictions" data-card-list>
+            <div class="detail-card detail-card--fluid" data-card>
               <div class="detail-card__top">
                 <p class="detail-card__title">Conviction #1</p>
                 <div class="detail-card__actions">
-                  <button class="detail-card__icon-btn" type="button" data-conviction-delete aria-label="Delete conviction #1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
+                  <button class="detail-card__icon-btn" type="button" data-card-delete aria-label="Delete conviction #1"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
                 </div>
               </div>
               <div class="detail-card__content">
@@ -71,8 +71,8 @@
                 <div class="input-group" data-required-error="Enter conviction date.">
                   <span class="input-label input-label--title" id="conv-1-when-label">When did the conviction occur?</span>
                   <div role="group" aria-labelledby="conv-1-when-label" class="input-field input-date"
-                       data-date-max="today"
-                       data-date-error="The conviction date can&#39;t be in the future.">
+                       data-date-within="5"
+                       data-date-error="Enter a date within the last 5 years.">
                     <input class="input input-date__part input-date__part--month" id="conv-1-month"
                            type="text" placeholder="MM" aria-label="Conviction month"
                            inputmode="numeric" maxlength="2" autocomplete="off">
@@ -141,7 +141,7 @@
             </div>
           </div>
 
-          <button class="btn btn--secondary btn--pill btn--block proto__add" type="button" data-conviction-add>
+          <button class="btn btn--secondary btn--pill btn--block proto__add" type="button" data-card-add>
             <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/> </svg></span>Add a conviction
           </button>
         </div>
@@ -161,19 +161,19 @@
       <h2 class="modal__title" id="discard-convictions-title">Discard what you&#39;ve added?</h2>
       <p class="modal__body">Changing your answer to &#39;No&#39; will discard the details you&#39;ve added, you&#39;ll need to re-enter them if you change your mind.</p>
       <div class="modal__actions">
-        <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button" data-conviction-discard>Discard</button>
-        <button class="btn btn--secondary btn--pill btn--block" type="button" data-conviction-keep>Cancel</button>
+        <button class="btn btn--primary btn--destructive btn--pill btn--block" type="button" data-card-discard>Discard</button>
+        <button class="btn btn--secondary btn--pill btn--block" type="button" data-card-keep>Cancel</button>
       </div>
     </div>
   </div>
 
   <!-- The blank card journey.js clones for "Add a conviction" -->
-  <template id="conviction-template">
-            <div class="detail-card detail-card--fluid" data-conviction>
+  <template id="card-template">
+            <div class="detail-card detail-card--fluid" data-card>
               <div class="detail-card__top">
                 <p class="detail-card__title">Conviction #{n}</p>
                 <div class="detail-card__actions">
-                  <button class="detail-card__icon-btn" type="button" data-conviction-delete aria-label="Delete conviction #{n}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
+                  <button class="detail-card__icon-btn" type="button" data-card-delete aria-label="Delete conviction #{n}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M9.5 9C9.77614 9 10 9.22386 10 9.5V18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V9.5C8 9.22386 8.22386 9 8.5 9H9.5Z" fill="currentColor"/> <path d="M15.5 9C15.7761 9 16 9.27982 16 9.625V18.375C16 18.7202 15.7761 19 15.5 19H14.5C14.2239 19 14 18.7202 14 18.375V9.625C14 9.27982 14.2239 9 14.5 9H15.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M15 1C16.1046 1 17 1.89543 17 3V5H22.5C22.7761 5 23 5.22386 23 5.5V6.5C23 6.77614 22.7761 7 22.5 7H21V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V7H1.5C1.22386 7 1 6.77614 1 6.5V5.5C1 5.22386 1.22386 5 1.5 5H7V3C7.00001 1.89544 7.89544 1.00001 9 1H15ZM5 20.5C5 20.7761 5.22386 21 5.5 21H18.5C18.7761 21 19 20.7761 19 20.5V7H5V20.5ZM9.25 3C9.11193 3 9 3.11193 9 3.25V5H15V3.25C15 3.11193 14.8881 3 14.75 3H9.25Z" fill="currentColor"/> </svg></button>
                 </div>
               </div>
               <div class="detail-card__content">
@@ -181,8 +181,8 @@
                 <div class="input-group" data-required-error="Enter conviction date.">
                   <span class="input-label input-label--title" id="conv-{i}-when-label">When did the conviction occur?</span>
                   <div role="group" aria-labelledby="conv-{i}-when-label" class="input-field input-date"
-                       data-date-max="today"
-                       data-date-error="The conviction date can&#39;t be in the future.">
+                       data-date-within="5"
+                       data-date-error="Enter a date within the last 5 years.">
                     <input class="input input-date__part input-date__part--month" id="conv-{i}-month"
                            type="text" placeholder="MM" aria-label="Conviction month"
                            inputmode="numeric" maxlength="2" autocomplete="off">
