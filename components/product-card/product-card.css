@@ -8,20 +8,32 @@
  * "Best value" tag + radio, a headline, key benefit bullets, and an optional
  * promotional rewards banner.
  *
- * States: Resting (default) | .product-card--active (3px aqua border)
+ * A benefit can be marked .product-card__benefit--excluded — a cross instead of a
+ * tick, for what a level leaves out.
  *
- * Composition — reuses Radio (selection control) and the DS tick-small icon.
- * Link radio.css alongside this file (or use the prototype/dist bundle).
+ * States (Figma "State"): Default | Hover | Active.
+ *   Hover  — aqua border. Applied on :hover, or forced with .product-card--hover.
+ *   Active — aqua border AND the rewards banner tinted surface/focus. Applied when
+ *            the card contains the checked radio, or forced with
+ *            .product-card--active.
+ *
+ * Composition — reuses Radio (selection control), the DS tick-small icon, and
+ * MARKETING BANNER for the rewards banner: 003 drops one into the foot of the card
+ * and fills its image slot with the reward gift cards, so the banner's markup is
+ * the Marketing Banner's own and this file only overrides its width, radius and
+ * background. Link all three (or use the prototype/dist bundle).
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="../marketing-banner/marketing-banner.css">
  *   <link rel="stylesheet" href="product-card.css">
  * ============================================================
  */
 
 @import '../tokens/tokens.css';
 @import '../radio/radio.css';
+@import '../marketing-banner/marketing-banner.css';
 
 
 .product-card {
@@ -29,27 +41,62 @@
   flex-direction: column;
   align-items:    stretch;
   width:          100%;
-  max-width:      335px;
+  /* The width 003 draws it at — re-read 12 Aug 2026, when it came down from 335. It is
+     the mobile content frame, but written as a number rather than --frame-content
+     because that token steps to 588 on desktop and this card does not. */
+  max-width:      311px;
   box-sizing:     border-box;
-  border:         var(--border-l) solid transparent;   /* keeps size stable vs active */
+  /* Border-2, the width 003 binds on the Active state, carried at every state so
+     the card doesn't resize when it's chosen. Transparent at rest: the resting card
+     in 003 has no outline at all, just its surface against the page. */
+  border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);                /* 16px */
-  background:     var(--background-primary);
+  /* surface, not background: this is a card sitting ON the page, not the page.
+     The two are both white in light mode, so the difference only shows in dark —
+     where a surface steps to black-70 and a background stays black-80, which is
+     what keeps the card readable against what it sits on. */
+  background:     var(--surface-primary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
 
-.product-card--active { border-color: var(--border-active); }
+/* States (Figma "State" variant): Default | Hover | Active.
+
+   Hover and Active share the aqua border; what separates them is the rewards
+   banner, which only tints on Active — see the REWARDS BANNER section. So hovering
+   says "this one is under your cursor" and choosing says "this one is yours", and
+   the two don't look identical.
+
+   The modifier states Active for a static example; the :has() rule makes a card
+   that CONTAINS the chosen radio show it, so a set of cards behaves like a radio
+   group without anything having to move a class about. Without it the border sits
+   wherever the markup left it while the answer moves. */
+.product-card--hover,
+.product-card--active,
+.product-card:has(.radio__input:checked) { border-color: var(--border-active); }
+
+/* :hover only on a card that can be CHOSEN. A card with no radio in it — the work
+   provider offer, which is a panel with its own buttons — isn't an option, and
+   lighting it up on hover promises a selection that isn't there. */
+.product-card:has(.radio__input):hover { border-color: var(--border-active); }
 
 
 /* ------------------------------------------------------------
    HEADER
    ------------------------------------------------------------ */
 
+/* No gap: each part states its own distance, because 003 doesn't space them
+   evenly. Measured off the component — top row, then 16 to the title, 4 to the
+   description, 8 to the bullets. A single gap here was adding itself to every one
+   of those, which is why the bullets sat 20 from the text above instead of 8. */
+/* Spacer-16, minus the border, because Figma measures the inset from the card's
+   outer edge and the stroke sits inside it. 003 binds Spacer-16 here and doesn't
+   bind Spacer-20 anywhere on the card — the 20 this used to carry was wrong, and
+   put every card's content 4px further in than the frame draws it. */
 .product-card__header {
   display:        flex;
   flex-direction: column;
-  gap:            var(--spacer-12);
-  padding:        var(--spacer-20);
+  padding:        calc(var(--spacer-16) - var(--border-m));   /* 14 + 2 = 16 */
 }
 
 .product-card__top {
@@ -58,6 +105,7 @@
   justify-content: space-between;
   gap:             var(--spacer-8);
   width:           100%;
+  margin-bottom:   var(--spacer-16);
 }
 
 .product-card__badge {
@@ -68,10 +116,76 @@
   width:           48px;
   height:          48px;
   border-radius:   var(--radius-small);          /* 8px */
-  background:      var(--brand-2-low);           /* light purple */
-  color:           var(--brand-3-high);          /* navy glyph */
+  /* icon/glyph/brand-2-low, not surface/brand-2-low — a step deeper (purple-20
+     #DBBFFD against purple-10 #EDE0FE), which is what 003 binds on the badge. */
+  background:      var(--icon-glyph-brand-2-low);
+  color:           var(--icon-glyph-brand-3-high-fixed);   /* navy glyph */
 }
 .product-card__badge svg { display: block; width: 24px; height: 24px; }
+
+/* Brand glyph — purple instead of the navy default. Bound this way on the policy
+   length cards, where the badge is the only colour on an otherwise plain card and
+   navy read as a second brand rather than an accent. */
+.product-card__badge--brand { color: var(--icon-glyph-brand-2-high); }
+
+/* Logo — a partner's own mark instead of a DS glyph. The artwork brings its own
+   surface and fills the 48px box, so the badge supplies neither: a purple square
+   behind an Uber square is two badges. */
+.product-card__badge--logo {
+  background: none;
+  padding:    0;
+  overflow:   hidden;
+}
+.product-card__badge--logo img,
+.product-card__badge--logo svg { display: block; width: 100%; height: 100%; }
+
+/* A status pip on the badge — a tick when a partner account is linked. Sits on
+   the corner rather than beside the title, so the thing it reports on is the
+   thing it is attached to. */
+.product-card__badge { position: relative; }
+
+.product-card__pip {
+  position:        absolute;
+  right:           calc(-1 * var(--spacer-4));
+  bottom:          calc(-1 * var(--spacer-4));
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           20px;
+  height:          20px;
+  border-radius:   var(--radius-round);
+  background:      var(--surface-success);
+  color:           var(--text-on-color-fixed);
+}
+.product-card__pip svg { display: block; width: 12px; height: 12px; }
+
+/* ------------------------------------------------------------
+   LOCKUP
+   The other thing 003 puts in the card's top-left: a Zego Product wordmark instead
+   of a glyph badge, on the screens where the card IS a Zego product rather than a
+   cover option. Figma's "Top left" frame takes the lockup at its natural size —
+   68×44 for Sense, 102×44 for Standard — so this sets the height and lets the width
+   follow, rather than forcing both into the badge's 48px square.
+
+   No background and no radius: the lockup is type, not an icon, and a tinted tile
+   behind it would read as a second badge. It also brings its own two colours, so
+   there is nothing here to set a colour with.
+   ------------------------------------------------------------ */
+
+.product-card__lockup {
+  display: block;
+  flex:    0 0 auto;
+  height:  44px;
+}
+.product-card__lockup img,
+.product-card__lockup svg { display: block; height: 100%; width: auto; }
+
+
+/* Fluid — drop the 311px cap and fill the column. The cap suits a card sitting
+   beside its siblings in a chooser; alone on a screen it leaves the card narrower
+   than everything around it. Same modifier Detail Card and Vehicle Registration
+   use for the same reason. */
+.product-card--fluid { max-width: none; }
 
 .product-card__meta {
   display:     flex;
@@ -115,73 +229,157 @@
   color:       var(--text-primary);
 }
 
+/* On a card with no title — 003 hides it on the policy-type cards, where the
+   lockup already names the product — the description follows the top row directly.
+   Without this its 4px would add to the row's own 16 and open the gap to 20. */
+.product-card__top + .product-card__subtitle { margin-top: 0; }
+
+/* The list resets its own UA indent, so benefits can be marked up as the list
+   they are without hanging off the title they sit under. */
 .product-card__benefits {
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-4);
-  margin-top:     var(--spacer-20);
+  /* Spacer-8 from the text above, not Spacer-20. 003 puts the bullet list 8px
+     under the title-and-description block: the bullets expand on what was just
+     said, so they belong to it rather than starting a new section. */
+  margin:         var(--spacer-8) 0 0;
+  padding:        0;
+  list-style:     none;
 }
 .product-card__benefit {
   display:     flex;
-  align-items: center;
+  align-items: flex-start;
   gap:         var(--spacer-8);
 }
+/* Top-aligned, nudged onto the first line's centre. Centring the tick against the
+   whole benefit floats it into the middle of a benefit that wraps to two lines,
+   pointing at nothing. */
 .product-card__benefit-icon {
-  flex:   0 0 auto;
-  width:  16px;
-  height: 16px;
-  color:  var(--brand-2-high);                   /* purple tick */
+  flex:       0 0 auto;
+  width:      16px;
+  height:     16px;
+  margin-top: var(--spacer-4);                   /* (24px line - 16px glyph) / 2 */
+  color:      var(--icon-glyph-brand-2-medium);  /* #A458FF */
 }
 .product-card__benefit-icon svg { display: block; width: 100%; height: 100%; }
+
+/* Excluded — what this level does NOT cover. A cross in the text colour rather
+   than the purple tick: it is a fact about the option, not a fault, so it reads
+   as plainly as the ticks beside it instead of shouting in red. */
+.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-primary); }
 .product-card__benefit-text {
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-subtitle-3);      /* 14px */
-  line-height: var(--line-height-subtitle-3);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);        /* 24px */
   color:       var(--text-primary);
 }
 
 
 /* ------------------------------------------------------------
    REWARDS BANNER
+   Not a thing of its own any more: 003 now drops a MARKETING BANNER into the card
+   and fills its image slot with the reward gift cards. So the markup here is the
+   Marketing Banner's own — .marketing-banner / __content / __text / __title — and
+   this section only says the two things the card changes about it.
+
+   Composed the way Modal composes Overlay: overrides on `.product-card__banner
+   .marketing-banner`, which win on SPECIFICITY rather than on load order. Order
+   happens to be in their favour here — the kit and dist/ concatenate components
+   alphabetically, so marketing-banner lands first — but Modal lost that bet once
+   already when a rename flipped the order, and this way a rename can't.
    ------------------------------------------------------------ */
 
+/* The frame that insets the banner from the card edge — Spacer-16 on every side it
+   touches, measured from the card's OUTER edge with the border inside it, so the
+   banner lines up with the copy above rather than reaching past it. (003 had it at 12
+   for a while, which pulled the banner 4px wider than the text; re-read 12 Aug 2026
+   and it is 16 — a 279 banner in a 311 card.) */
 .product-card__banner {
   display:         flex;
   justify-content: center;
-  padding:         0 var(--spacer-8) var(--spacer-8);
+  padding:         0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
 }
-.product-card__banner-inner {
-  display:       flex;
-  align-items:   center;
-  overflow:      hidden;
-  width:         100%;
-  padding-left:  var(--spacer-16);
-  border-radius: 10px;
-  background:    var(--brand-2-low);             /* light purple */
+
+/* With a banner under it the header's padding-bottom stops being an inset from the
+   card edge and becomes a GAP between two blocks, which 003 sets to a full 16. */
+.product-card__header:has(+ .product-card__banner) { padding-bottom: var(--spacer-16); }
+
+.product-card__banner .marketing-banner {
+  width:         100%;                           /* not the standalone's 343 */
+  border-radius: var(--radius-small);            /* 8, not the standalone's 16 */
+  background:    var(--surface-tertiary-low);    /* #F8F5F3, not the aqua */
+  transition:    background-color 150ms ease;
 }
-.product-card__banner-text {
-  flex:        0 0 auto;
-  width:       96px;
-  margin:      0;
-  font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-subtitle-3);      /* 14px */
-  line-height: var(--line-height-subtitle-3);
-  color:       var(--brand-2-high);              /* deep purple */
+
+/* The banner picks up surface/focus once the card is CHOSEN — not on hover. It is
+   the one part of the card that changes between the two aqua-bordered states, and
+   it is what makes a chosen card read as chosen rather than as hovered. */
+.product-card--active .product-card__banner .marketing-banner,
+.product-card:has(.radio__input:checked) .product-card__banner .marketing-banner {
+  background: var(--surface-focus);              /* #CEFDFD */
 }
-/* Placeholder reward cards (swap for real gift-card art) */
+
+/* The image slot is wider here than the standalone banner's 129 — the reward stack
+   needs the room, and the text is two short lines that don't.
+
+   Which column gives way matters. A card in a two-column desktop grid is narrower
+   than the 311 003 draws it at, and if the text shrinks with it "Drive well. Get
+   rewards." goes to four lines and the banner grows to fit. So the text is FIXED at
+   the 94 Figma gives it and the image takes whatever is left, clipping the stack at
+   its right edge — which is where 003 clips it anyway. At the drawn width the sum
+   comes out exact on its own: 16 + 94 + 12 + 157 = 279. */
+.product-card__banner .marketing-banner__content {
+  flex:  0 0 auto;
+  width: 94px;
+}
+
+.product-card__banner .marketing-banner__image {
+  flex:       1 1 auto;
+  width:      auto;
+  min-width:  0;
+  overflow:   hidden;                            /* clips the stack, not the banner */
+  background: none;                              /* no placeholder gradient */
+}
+
+
+/* ------------------------------------------------------------
+   REWARD CARDS
+   Three gift-card faces fanned out inside the banner's image slot. Each overlaps
+   the one to its right and the LEFTMOST is on top, which is why they need an
+   explicit z-index: in source order a later sibling paints over an earlier one,
+   which would fan them the wrong way.
+   ------------------------------------------------------------ */
+
+/* Pinned left, not centred: as the slot narrows it is the far card that goes, and
+   the Amazon face — the one on top, and the one a customer recognises first — stays
+   whole. Centring would eat both ends. */
 .product-card__rewards {
-  display:     flex;
-  align-items: center;
-  height:      90px;
-  flex:        1 1 auto;
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-start;
+  height:          100%;
 }
 .product-card__reward {
+  position:      relative;
+  flex:          0 0 auto;
   width:         82px;
   height:        51px;
-  margin-left:   -16px;
-  border-radius: 5px;
+  margin-left:   -40px;                          /* 82 - 42, the step 003 draws */
+  border-radius: var(--radius-x-small);          /* 4px */
+  overflow:      hidden;
   transform:     rotate(-7.5deg);
   box-shadow:    0 0 10px rgba(39,37,45,0.08), 0 1px 2px rgba(0,0,0,0.1);
-  background:    var(--surface-tertiary-high);
+  background:    var(--surface-tertiary-high);   /* shows through until art loads */
 }
-.product-card__reward:first-child { margin-left: 0; }
+.product-card__reward:first-child   { margin-left: 0; }
+.product-card__reward:nth-child(1)  { z-index: 3; }
+.product-card__reward:nth-child(2)  { z-index: 2; }
+.product-card__reward:nth-child(3)  { z-index: 1; }
+
+.product-card__reward img {
+  display:    block;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}

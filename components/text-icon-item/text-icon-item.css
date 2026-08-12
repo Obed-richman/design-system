@@ -24,6 +24,9 @@
  *   <label class="text-icon-item">
  *     <span class="text-icon-item__icon"><svg>…</svg></span>
  *     <span class="text-icon-item__text"><span class="text-icon-item__label">Text</span></span>
+ *
+ *   A second line goes in .text-icon-item__support — Body 2, level with the label,
+ *   set apart by weight and colour rather than size.
  *     <input class="radio__input" type="radio" name="opt">
  *     <span class="radio__control"></span>
  *   </label>
@@ -78,12 +81,27 @@
   color:       var(--text-primary);
   white-space: nowrap;
 }
+/* Body 2, level with the label. A second line under an option is nearly always
+   part of what you are choosing between — the date under "Today" — rather than a
+   footnote about it, so it reads at the same size and is set apart by weight and
+   colour instead. One size everywhere; there is no smaller variant to pick wrong. */
 .text-icon-item__support {
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-3);          /* 14px */
-  line-height: var(--line-height-body-3);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);        /* 24px */
   color:       var(--text-pressed);
+}
+
+/* A second line needs room the single-line item doesn't: without it the two lines
+   sit flush against the border and the item comes out 52px where the design says
+   76. Scoped to items that HAVE a support line, because adding it to the base
+   pushed every Yes/No option in the journey from 48 to 52.
+
+   Spacer-12 measured from the outer edge, which is how Figma reads it — the 2px
+   border sits inside that 12, so the padding is what's left of it. */
+.text-icon-item:has(.text-icon-item__support) {
+  padding-block: calc(var(--gap-small) - var(--border-m));   /* 12 - 2 = 10 */
 }
 
 /* Trailing radio (reused from radio.css) */

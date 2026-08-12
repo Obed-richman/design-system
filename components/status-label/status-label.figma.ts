@@ -12,6 +12,7 @@ figma.connect(
   {
     props: {
       state: figma.enum("State", {
+        Brand: "status-label--brand",
         Information: "status-label--information",
         Success: "status-label--success",
         Warning: "status-label--warning",

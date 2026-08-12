@@ -93,7 +93,9 @@
   width:         100%;
   box-sizing:    border-box;
   padding-right: var(--spacer-16);               /* 16px */
-  background:    var(--background-primary);       /* white */
+  /* surface, not background: the plate field sits ON a card. 003 binds
+     surface/primary here. */
+  background:    var(--surface-primary);
   border:        var(--border-m) solid var(--border-secondary);  /* 2px */
   border-radius: var(--radius-small);            /* 8px */
   overflow:      hidden;

@@ -7,7 +7,7 @@
  * A small 24px badge with a coloured border, text and light fill.
  *
  * Variants:
- *   State — information | success | warning | error | inactive | disabled
+ *   State — brand | information | success | warning | error | inactive | disabled
  *   Style — pill (default) | rounded (.status-label--rounded)
  *
  * Usage:
@@ -56,6 +56,17 @@
 /* ------------------------------------------------------------
    STATES
    ------------------------------------------------------------ */
+
+/* Brand — added to 003 after this file was first written (State=Brand,
+   node-id=59025-73073). Unlike the other six it says nothing about status: it marks
+   something as a Zego thing, so it takes the brand purple rather than a semantic
+   colour. Its border is a step deeper than its text, which is the same shape the
+   other states use. */
+.status-label--brand {
+  color:            var(--brand-2-medium);          /* #A458FF */
+  border-color:     var(--border-brand-2-medium);   /* #750BF3 */
+  background-color: var(--surface-brand-2-low);     /* #EDE0FE */
+}
 
 .status-label--information {
   color:            var(--text-information);

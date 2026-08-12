@@ -106,7 +106,10 @@
   box-sizing:       border-box;
   padding:          var(--gap-medium);           /* 16px */
   border-radius:    var(--radius-medium);        /* 16px */
-  background-color: var(--background-primary);   /* white */
+  /* surface, not background: a pill sitting ON the section, not the page behind
+     it. In dark the two diverge and background/primary would flatten this into the
+     section it sits on. 003 binds surface/primary here. */
+  background-color: var(--surface-primary);
 }
 
 .price-comparison__discount-label {

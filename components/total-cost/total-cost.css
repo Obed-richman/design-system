@@ -15,8 +15,10 @@
  *   - Alert       (recalculation notice)
  *   - Acknowledge (terms-of-business checkbox box)
  *
- * The content column is capped at 516px and centred; a top divider separates
- * it from the page. Below 768px the padding tightens and the title steps down.
+ * The content column is capped at one content frame (588) and centred, inside 32px of
+ * side padding — 652 overall, which is 003's desktop symbol. A top divider separates it
+ * from the page. Below 768px the padding tightens to 16 and the title steps down, and
+ * the column simply fills what is left.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -36,7 +38,7 @@
   align-items:    center;
   width:          100%;
   box-sizing:     border-box;
-  padding:        var(--spacer-20) var(--spacer-20) var(--spacer-48);
+  padding:        var(--spacer-16) var(--spacer-32) var(--spacer-48);
   border-top:     var(--border-s) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
@@ -47,7 +49,11 @@
   align-items:    center;
   gap:            var(--spacer-20);
   width:          100%;
-  max-width:      516px;
+  /* One content frame. The 516 this used to carry was a stale example width — the same
+     516 Modal had — where 003's desktop symbol is 652 around a 588 content frame with
+     32 either side. Written as a number rather than --frame-content, because that
+     token steps to 311 on mobile and here the column fills its space instead. */
+  max-width:      588px;
 }
 
 

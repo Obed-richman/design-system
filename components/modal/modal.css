@@ -11,6 +11,10 @@
  *   Mobile  — 16px sides, the close in a 48px band above the title, Title 4+
  *   Desktop — 32px sides, the close 16 from the top, Title 3
  *
+ * WIDTH IS CONTENT-DRIVEN. The panel declares padding, not width: it hugs its content,
+ * so what is inside decides how wide the dialogue is while the inner padding stays
+ * constant (16 mobile, capped at 343; 32 desktop, bounded by the screen).
+ *
  * The component is a CONTAINER: a close, a title, and a slot for whatever the
  * dialogue is about. 003 fills its desktop example with Bullet Points; the
  * actions below are a slot too (Figma's hidden "Buttons & Text Link").
@@ -94,13 +98,23 @@
    PANEL
    ------------------------------------------------------------ */
 
+/* CONTENT-DRIVEN WIDTH.
+   The panel sets its inner PADDING and nothing else about its width: it hugs what is
+   inside it, so a dialogue asking one question stays narrow and one holding two cards
+   or a table grows to fit them. The padding stays put either way — 16 here, 32 on
+   desktop — which is what keeps a set of dialogues looking like one family while their
+   widths differ.
+
+   fit-content, not a percentage — and the ceiling is on the CONTENT, not the panel.
+   003 draws the mobile symbol 375 wide around a 343 container and the desktop one 652
+   around 588, which are Frame/Screen and Frame/Content with the padding added back. So
+   the cap is stated the same way: the content frame plus its own two paddings, which is
+   why it reads as arithmetic rather than as a magic 375 / 652. */
 .modal__panel {
   position:       relative;
   box-sizing:     border-box;
-  width:          100%;
-  /* Frame/Screen, which is 375 below 768 and 1440 above it — the desktop cap in
-     the media query below is what actually applies there. */
-  max-width:      var(--frame-screen);
+  width:          fit-content;
+  max-width:      calc(343px + 2 * var(--spacer-16));       /* 343 content + padding */
   max-height:     100%;
   overflow-y:     auto;
   display:        flex;
@@ -122,14 +136,17 @@
    are. Controls inside keep their own focus styles. */
 .modal__panel:focus { outline: none; }
 
-/* Desktop steps the padding out and the title up, and caps the panel at the 516
-   003 draws it at — a dialogue stops growing where it stops being comfortable to
-   read rather than following the page's frame. */
+/* Desktop steps the padding out and the title up, and raises the ceiling to one
+   content frame. The 516 this file used to impose is gone from 003 too — it was one
+   example's width, not every dialogue's. */
 @media (min-width: 768px) {
   .modal__panel {
-    max-width: 516px;
+    max-width: calc(var(--frame-content) + 2 * var(--spacer-32));
     gap:       var(--spacer-24);
-    padding:   var(--spacer-48) var(--spacer-32) var(--spacer-32);
+    /* 88 above the title, not 48: 003's desktop Close is a 64-tall band of its own
+       with Spacer-24 under it before the content starts (64 + 24 = 88), the same shape
+       as mobile's 48 + 12 = 60. Re-read 12 Aug 2026. */
+    padding:   88px var(--spacer-32) var(--spacer-32);
   }
 }
 
@@ -152,11 +169,11 @@
   padding:         0;
   border:          none;
   border-radius:   var(--radius-round);
-  background:      var(--overlay-dark-medium);  /* #27252d @ 30% */
+  background:      var(--overlay-dark-low);     /* #27252d @ 20% */
   color:           var(--icon-glyph-primary);
   cursor:          pointer;
 }
-.modal__close:hover { background: var(--overlay-dark-high); }
+.modal__close:hover { background: var(--overlay-dark-medium); }
 .modal__close svg   { display: block; width: 16px; height: 16px; }
 
 @media (min-width: 768px) {
@@ -206,9 +223,30 @@
    destroys work.
    ------------------------------------------------------------ */
 
+/* 003's "Scroll bottom clip": the actions sit in a WHITE band pinned to the foot of
+   the panel, so the decision stays put while long content scrolls under it — and the
+   band's own surface is what stops text showing through from behind as it passes.
+
+   Sticky rather than fixed, so it stays inside the panel's rounded corners and its
+   scroll context. The negative margins let it bleed to the panel's edges while the
+   panel keeps its padding for everything above; the padding is added back here so the
+   button sits at the same 16 / 32 inset as the rest. */
 .modal__actions {
+  position:       sticky;
+  bottom:         calc(-1 * var(--spacer-16));
+  z-index:        1;
   display:        flex;
   flex-direction: column;
   gap:            var(--gap-small);            /* 12px */
-  margin-top:     var(--gap-x-small);          /* 8px — a beat before deciding */
+  margin:         var(--gap-x-small) calc(-1 * var(--spacer-16)) calc(-1 * var(--spacer-16));
+  padding:        var(--spacer-16);
+  background:     var(--surface-primary);
+}
+
+@media (min-width: 768px) {
+  .modal__actions {
+    bottom:  calc(-1 * var(--spacer-32));
+    margin:  var(--gap-x-small) calc(-1 * var(--spacer-32)) calc(-1 * var(--spacer-32));
+    padding: var(--spacer-32);
+  }
 }

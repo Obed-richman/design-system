@@ -414,6 +414,13 @@
  * reads as a broken field, where a message says what is actually wrong. Copy
  * comes from data-date-error, so it stays with the page.
  *
+ * A WINDOW — data-date-within="3"
+ * Both bounds at once: no later than today and no earlier than N years back.
+ * For a question that asks about a period — claims in the last 3 years,
+ * convictions in the last 5 — where a date outside the window isn't being asked
+ * about at all. Implies data-date-max="today", so it replaces it rather than
+ * joining it, and shares data-date-error.
+ *
  * Day ranges are 01–31 regardless of month: a real calendar check would need
  * copy for "that date doesn't exist", which no design specifies yet.
  * ============================================================
@@ -493,7 +500,9 @@
     var parts = segments(root);
     if (!parts.length || !parts.every(full)) { hide(root); return true; }
 
-    if (root.dataset.dateMax === 'today') {
+    var within = +root.dataset.dateWithin || 0;
+
+    if (root.dataset.dateMax === 'today' || within) {
       var value = {};
       parts.forEach(function (p) { value[kindOf(p)] = +digits(p.value); });
 
@@ -506,7 +515,14 @@
         || (year === now.getFullYear() && value.month === now.getMonth() + 1
             && value.day !== undefined && value.day > now.getDate());
 
-      if (future) {
+      /* The floor of the window, N years back to the same month. Compared the
+         same way round as the ceiling above, so the two agree about a date that
+         lands exactly on the boundary month: it is inside the window. */
+      var floorYear = now.getFullYear() - within;
+      var early = within && (year < floorYear
+        || (year === floorYear && value.month < now.getMonth() + 1));
+
+      if (future || early) {
         show(root, root.dataset.dateError || 'That date is in the future.');
         return false;
       }

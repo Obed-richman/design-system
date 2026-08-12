@@ -35,6 +35,8 @@
  *     <p class="input-message input-message--error">Error message</p>
  *   </div>
  *
+ *   <!-- A field that opens something (a date picker) carries a decorative
+ *        trailing icon — see the TRAILING ICON section. -->
  *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message.
  *        input-field--valid also reveals a trailing .input__status tick if one is
  *        in the markup — see the STATUS TICK section. -->
@@ -252,6 +254,38 @@
   line-height: var(--line-height-body-3);
   color:       var(--text-pressed);
 }
+
+/* Spacer-4 under the LABEL, not the group's Spacer-8: the support finishes the
+   question, so it belongs to the label more than the field belongs to either. Only
+   the first one — a second paragraph of supporting text is a separate sentence and
+   keeps the group's own 8px. */
+.input-label + .input-support {
+  margin-top: calc(var(--spacer-4) - var(--gap-x-small));   /* 4 - 8 = -4 */
+}
+
+
+/* ------------------------------------------------------------
+   TRAILING ICON — decorative, always shown
+   The affordance on a field that opens something. Distinct from the clear (an
+   action) and the status tick (a verdict) — this one only says what the field
+   does. A field that opens a Date Picker takes icons/calendar.svg; take the glyph
+   from /icons rather than drawing one, and inline it so it inherits the colour
+   set here.
+
+     <div class="input-field">
+       <input class="input" type="text" readonly placeholder="Select"
+              aria-haspopup="dialog" aria-expanded="false">
+       <span class="input__icon" aria-hidden="true"><svg>…calendar…</svg></span>
+     </div>
+   ------------------------------------------------------------ */
+
+.input__icon {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.input__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------

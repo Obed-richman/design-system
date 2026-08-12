@@ -72,7 +72,16 @@
   display:               grid;
   grid-template-columns: repeat(7, 1fr);
 }
-.date-picker__grid { gap: var(--spacer-4); }      /* 4px */
+/* The grid sits on its own white panel, inset from the picker and ruled off — 003
+   separates the days from the month nav and the weekday row that way, so the row of
+   letters reads as a heading for the panel rather than as a first row of it. */
+.date-picker__grid {
+  gap:           var(--spacer-4);                 /* 4px */
+  padding:       var(--spacer-8);
+  border:        var(--border-s) solid var(--border-primary);
+  border-radius: var(--radius-medium);            /* 16px */
+  background:    var(--surface-primary);
+}
 
 .date-picker__weekday {
   text-align:  center;
@@ -115,9 +124,12 @@
 /* Today — outlined */
 .date-picker__day--today { border-color: var(--border-primary); }
 
-/* Selected — aqua surface + border */
+/* Selected — an aqua RING, not a filled cell. 003 outlines the chosen day and leaves
+   its middle white, which is what lets today's neutral ring and the selection sit in
+   the same grid without one of them reading as a button. Re-read 12 Aug 2026: this
+   file had been filling it with surface/focus. */
 .date-picker__day--selected {
-  background:    var(--surface-focus);            /* #cefdfd */
+  background:    transparent;
   border-color:  var(--border-active);            /* #05cfcf */
 }
 
