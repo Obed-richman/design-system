@@ -118,8 +118,17 @@ opened cold has no trail and gets the flow's answer.
 | `eu-licence.html` | Driver | Licence number, country of issue, and when they got it. Reached when EU licence is chosen. |
 | `driving-convictions.html` | Driver | Driving convictions or bans in the last 5 years, as a list you add to. **EU drivers only** — see §4.11. |
 | `taxi-licence.html` | Driver | When the taxi licence was issued and by which district. Both UK and EU drivers — where the licence branch closes. |
+| `claims.html` | Driver | Claims in the last 3 years, as a list you add to. Same repeating-card screen as convictions. |
+| `no-claims-discount.html` | Driver | Years of taxi no claims discount. |
+| `work-provider.html` | Driver | Offers linking an Uber account for a discount. Last page of the Driver step. |
+| `work-provider-linked.html` | — | Confirms the account is linked. An **outcome** of the page above, sharing its slot. |
 | `uk-licence.html` | Driver | Licence number, with the personal details from the driver screen shown for checking. Reached when the licence is UK and not Northern Ireland. |
-| `quote.html` | Quote | The price. **Placeholder** — one page standing in for the step. |
+| `cover-start.html` | Quote | When cover should begin: Today, Tomorrow, or a date within 30 days. |
+| `policy-length.html` | Quote | 12 months or 30 days, as two Product Cards. |
+| `cover-level.html` | Quote | Fully comprehensive or third party only, with a Modal comparing them side by side. |
+| `policy-type.html` | Quote | Zego Sense or Zego Standard, as two Product Cards wearing the product lockups. |
+| `fetching-quote.html` | — | The **wait** while the quote is generated, in a Sense and a Standard version. Not a slot: it shares the quote's stepper position and replaces itself. |
+| `review-quote.html` | Quote | The price and the read-back: two payment tiles, a promo row, a summary of every choice with Change links, and Continue. |
 | `payment.html` | Payment | **Placeholder** — one page standing in for the step. Ends the journey. |
 | `quote-declined.html` | — | Kickout. Reached when an answer disqualifies the quote. |
 
@@ -129,11 +138,12 @@ added to that step's `pages` array, and the stepper's progress maths follows
 automatically. Driver has its first real page; Quote and Payment are still single
 placeholders carrying a dashed `.proto__todo` drop zone where real content goes.
 
-The Driver step is **six slots**, split by what they ask: who the driver **is**,
+The Driver step is **nine slots**, split by what they ask: who the driver **is**,
 their **history**, how to **contact** them, what **licence type** they hold, then
 the licence itself — a branch, so a UK page *or* an EU page **and its convictions
 screen**, never both — and finally the **taxi licence**, where the branch closes
-and both kinds of driver meet again. Figma's own split.
+and both kinds of driver meet again, their **claims**, their **no claims
+discount**, and the offer to link a **work provider** account. Figma's own split.
 
 ---
 
@@ -188,6 +198,7 @@ without the same trick.
 | question | `Subtitle 2` (bold 16/24) | same |
 | supporting text under a question | `Body 3` (14/20), `color/text/pressed` | same |
 | field label | `Body 3` (14/20) | same |
+| second line under an option | `Body 2` (16/24), `color/text/pressed` | same |
 | alert copy (inline and banner) | `Body 2` (16/24) | `Body 2` (16/24) |
 | alert glyph, leading and close | 16px | 16px |
 
@@ -539,10 +550,307 @@ page and an EU driver from the convictions page.
 🔶 **The district list is a sample** — 50 real licensing districts with London
 pinned. There are several hundred; a live version wants a real source.
 
-### 4.13 Placeholders
+### 4.13 Any claims in the last 3 years? — `claims.html`
 
-🔶 **`quote.html`** — "Your quote" / "Comprehensive cover for 12 months." /
-"Total cost £1,606/year", "or pay £142.30 /month" / "Continue"
+- Heading: **Any claims in the last 3 years?**
+- Sub-heading: **No judgement. It just helps us calculate the most accurate price
+  for your cover.**
+- Answers: **Yes** · **No**
+- Yes reveals a list of **Claim #N** cards, each a Detail Card with a bin to delete
+  it, holding:
+  - **When did the incident happen?** — segmented `MM / YYYY`, bounded to the last
+    3 years
+  - **What type of incident was it?** — Select: Accident · Collision · Theft ·
+    Vandalism · Windscreen · Other
+  - **Was this an at-fault incident?** — Yes · No
+  - **What was the claim value?** — *Use your best estimate if you're not sure.*
+    Placeholder **£**
+- Action below the list: **+ Add a claim**
+- Action: **Continue**
+
+Errors: *Select an option.* · *Enter a date within the last 3 years.* · *Select the
+type of incident.* · *Enter the claim value.*
+
+**The same screen as convictions**, so it uses the same behaviour: the list never
+empties, numbering closes up after a delete while ids keep counting, and switching
+Yes → No asks before discarding. See §4.11 for the reasoning, all of which applies
+here.
+
+### 4.14 Just a couple more things — `no-claims-discount.html`
+
+- Heading: **Just a couple more things**
+- Sub-heading: **These help us get your price right. Honest answers mean an accurate
+  quote.**
+- **Your taxi no claims discount (NCD)** — the bold line names the topic, and the
+  question is asked underneath it:
+  - *How many years of no claims discount have you earned as a taxi driver?*
+  - *You'll need proof from your last insurer. We'll remind you to send it after you
+    buy.*
+- A Select, placeholder **Select**, offering **0**–**10**
+- Action: **Continue**
+
+Error: *Select your no claims discount.*
+
+**The label is the topic, not the question.** Two lines of supporting text won't fit
+in a label, so the bold line names what is being asked about and the question and the
+proof note sit under it as supporting text. Same shape as a question with a
+`.choice-selector__paragraph` — the label is what you are looking at, the text below
+is what you need to know before answering.
+
+**The heading is plural and the card holds one question.** Built to take more: add
+another `.input-group` and the gate, the rhythm and the error handling all follow.
+
+**The scale stops at 10.** Confirmed — a driver with more says 10, so there is no
+"or more" option to explain. The frames show 0–4 in a scrolling list and don't draw
+the end of it.
+
+### 4.15 Link your Uber account — `work-provider.html`
+
+- A **Product card** carrying the Uber badge:
+  - **Get up to 25% off when you link your Uber account.**
+  - *Link your account so we can check your driving history and apply any discount
+    you're eligible for. You'll sign in on Uber's own site, then come straight back
+    here.*
+  - ✓ Quick, secure connection · ✓ No documents to upload · ✓ Discount applied
+    automatically if you're eligible
+- Actions: **Link to Uber** · **Skip for now**
+
+Then `work-provider-linked.html`:
+
+- The same card with a tick on the badge: **You're all linked.** / *Your quote will
+  automatically include a discount based on your Uber driver score.*
+- Action: **Continue**
+
+**Uber's own screens are not built.** The frames run this into Uber's sign-in and
+back; those pages belong to Uber, so **Link to Uber** goes straight to the linked
+screen, which is what a driver sees on the way back. The *"We couldn't link your Uber
+account"* outcome is drawn in Figma and deliberately left out of the prototype.
+
+**The linked screen is an outcome, not a step.** It carries
+`data-flow-as="work-provider.html"`, so it sits in that page's slot: Continue leaves
+for the next step, Back returns to the offer, and the stepper counts one position for
+the pair rather than counting a page a skipping driver never sees.
+
+**The primary leads on both breakpoints** (`.proto__buttons--primary-first`). Every
+other paired action in the journey is Back/Next — a sequence, so the desktop row runs
+in journey order with Next on the right. This pair is a choice between two ways
+forward, so the one being offered comes first. The frames draw it that way.
+
+### 4.16 Ready to hit the road? — `cover-start.html`
+
+- Heading: **Ready to hit the road?**
+- Sub-heading: **Our cover fits your schedule, so tell us when you'd like it to
+  begin.**
+- **Today** / **Tomorrow**, each showing its date
+- **Or**
+- **Pick a date** — *Cover start date must be within 30 days.* A field that opens
+  the Date Picker, placeholder **Select**
+- Action: **Continue**
+
+Error: *Select a cover start date.*
+
+**Three controls, one question.** Today, Tomorrow and the picked date are
+alternative answers, so they sit inside `data-answer-group`: answering any one
+answers all three, and failing turns all three red under a **single** message. The
+message belongs to the choice, so it comes from the group rather than from whichever
+control happens to carry it — otherwise it would read *"Pick a date is required."*
+
+**They clear each other.** Confirming a date unchecks the shortcuts; choosing a
+shortcut empties the field. Two answers to one question is a state the screen can't
+act on, so it is never reachable rather than resolved later.
+
+**The dates are written at runtime.** "Today" is not something markup can state, so
+journey.js fills both shortcuts and sets the picker's window: no earlier than today,
+no later than 30 days out, **both ends inclusive**. Days outside it render disabled
+and the month arrows stop at the edge, so there is no way to walk into an empty
+month.
+
+**The field carries a calendar**, `icons/calendar.svg` in Text Input's decorative
+`.input__icon` slot — the affordance that says this field opens something rather
+than takes typing.
+
+### 4.17 Fixed term or flexible? — `policy-length.html`
+
+- Heading: **Fixed term or flexible?**
+- Sub-heading: **Choose your policy length. A full year, or month to month.**
+- Two Product Cards, **12 months** selected by default:
+  - **12 months** — *Best value if you're driving year-round.* · Pay monthly or
+    annually · Cheaper than rolling 30-day cover · One year of cover, sorted
+  - **30 days** — *Flexible cover when you need more freedom.* · No long-term
+    commitment · Great for changing circumstances · A simple way to try Zego before
+    you commit
+- Action: **Continue**, with **You can always change this later.** beneath it
+
+**The card is the answer, not the radio.** Each card is a `<label>`, so the whole
+thing is the target and the radio in its corner only reports the state. The aqua
+border follows the checked radio through `:has()` rather than a class someone has to
+move — otherwise the border sits where the markup left it while the answer moves on.
+
+**Side by side on desktop.** Two lengths are a comparison, and comparing means
+reading them against each other rather than scrolling from one to the other. Equal
+columns at the journey's 480px hinge, so neither looks like the default by being
+wider; stacked below it.
+
+**No white card wraps them.** Each Product Card brings its own surface, so the
+`.proto__card` every other screen uses would be a box around boxes. They stack at
+the same Spacer-20 / 24 rhythm questions inside a card use.
+
+**The CTA note** is `.proto__cta`, built for the DVLA line on the licence screen and
+parked when that moved. First real use.
+
+### 4.18 Full protection or the essentials? — `cover-level.html`
+
+- Heading: **Full protection or the essentials?**
+- Sub-heading: **Choose your cover level. Protect your vehicle too, or just the
+  legal minimum.**
+- Two Product Cards, **Fully comprehensive** selected by default:
+  - **Fully comprehensive** — *The widest level of protection for you and your
+    vehicle.* · Covers damage to your own vehicle · Covers damage or injury caused
+    to others · Includes fire and theft cover
+  - **Third party only** — *The simplest cover to meet basic legal requirements.* ·
+    Covers injury or damage caused to others · ✕ Vehicle repairs are not included
+- Link: **Compare side by side**
+- Action: **Continue**, with **You can always change this later.** beneath it
+
+**The excluded bullet is new.** Third party is defined as much by what it leaves out
+as by what it covers, so the card says so — `.product-card__benefit--excluded`, a
+cross in `icon/glyph/primary` rather than the purple tick. Text colour, not red: it
+is a fact about the option, not a fault, and a warning colour would read as "you
+have chosen wrong".
+
+**Compare opens a Modal**, not another page. The comparison is a reference for the
+decision being made on this screen; sending someone away to read it loses the two
+cards they are weighing. Nine rows, ticks and crosses in the same pair of tokens the
+cards use, and the table scrolls inside the panel when the viewport is short. It is
+a `<button>` styled as a link — it opens something, it doesn't navigate.
+
+**Side by side on desktop**, same `.proto__options` grid as policy length, for the
+same reason: two levels are a comparison.
+
+### 4.19 Keep it simple, or get rewarded? — `policy-type.html`
+
+- Heading: **Keep it simple, or get rewarded?**
+- Sub-heading: **Choose your policy type. Rewards for good driving, or keep it
+  simple.**
+- Two Product Cards, **Sense** selected by default:
+  - **Zego Sense** — *App-based telematics that rewards good driving.* · Up to £60
+    in gift cards · Up to 25% off at renewal · Tips to help you drive better ·
+    rewards banner reading **Drive well. Get rewards.**
+  - **Zego Standard** — *Simple cover you can set and forget.* · No telematics, just
+    drive · Manage it all in the Zego app
+- Action: **Continue**, with **You can always change this later.** beneath it
+
+**The card wears the product's own mark.** These two options are Zego products
+rather than cover choices, so the top-left holds the `Zego Product` lockup —
+`brand/zego-sense.svg` and `brand/zego-standard.svg` — instead of a glyph badge.
+The lockup names the product, so neither card carries a title: the description
+follows the top row directly. Both of those are new to Product Card
+(`.product-card__lockup`, and a rule that drops the description's 4px when no title
+sits above it) rather than to this page.
+
+**The rewards banner is used for the first time here**, and it is a **Marketing
+Banner** — 003 builds it by dropping one into the foot of the card and filling its
+image slot with the three gift cards (`assets/rewards/`). It tints to
+`surface/focus` when its card is the chosen one, which is what separates a chosen
+card from a hovered one.
+
+**Side by side on desktop**, the same `.proto__options` grid as policy length and
+cover level. The cards stretch to equal height, so the banner sits at the foot of
+the Sense card rather than floating mid-way.
+
+### 4.20 Finding your best savings — `fetching-quote.html`
+
+The wait between choosing a policy type and seeing the price. Two variants, picked
+by what was chosen on the screen before:
+
+- Spinner, then **Finding your best savings** on both
+- **Sense** — **Good driving could unlock £60 in rewards**, the reward cards, then
+  **and 25% off at renewal** and *With our annual Sense telematics policies.*
+- **Standard** — **All included** and the everyday-driving illustration. Nothing to
+  earn, so nothing to qualify.
+
+**It is not a question, so it has none of a question's furniture** — no Back, no
+Continue, no card. It leaves on its own after **eight seconds**, which is not a number
+picked for feel: it is two round trips of the Sense fan, so the animation finishes
+rather than being cut off mid-move. Standard waits the same, because the
+quote being waited for is the same quote.
+
+**And it is not a slot in the flow.** `data-flow-as="review-quote.html"` puts the stepper
+where the quote sits, because the quote is what is being fetched. journey.js moves on
+with `location.replace`, so the screen never enters browser history and never joins
+the journey's own trail — which is what makes **Back from the quote land on the
+policy type question** rather than on a screen with nothing to do. Both fall out of
+the one decision not to enter history; neither needed special-casing.
+
+**The variant comes from the answer, not the URL.** The policy-type radios carry
+`data-journey-field="policy-type"`, and journey.js now records a radio that ships
+*checked* on load as well as on change — otherwise a default answer nobody clicked
+would never be stored, and this screen would guess.
+
+**The block that doesn't apply is removed, not hidden.** A hidden block is one stray
+rule away from showing both messages at once, and this screen exists to say one
+thing.
+
+**The Sense cards move.** Three gift cards start almost stacked, hold for a beat,
+then fan apart — the animation 003 added to the frame, with its positions, easings and
+timings taken from Figma's own keyframes — and then the same motion runs **backwards**
+and walks them home. That out-and-back is one loop, and it makes **two** before the
+screen leaves, settling on the pile it opened with. They are
+built from parts (`.proto__fan`) rather than played as a picture, because the cards
+overlap and the exported artwork carries an opaque panel-coloured background. A
+by-product: the Sense illustration now follows the theme, where the flat PNG it
+replaced could not. Anyone who has asked for less motion sees the piled-up
+arrangement the screen opens on.
+
+### 4.21 Charlotte, here's your quote — `review-quote.html`
+
+- Heading: **Charlotte, here's your quote and cover details for** over the plate
+- Two **Small Comparison Tiles**, Pay monthly selected:
+  - **Pay monthly** — Today £500 · Then 11 monthly repayments £216 · **Total £2,876**,
+    tagged *Spread the cost* and *19.9% APR*
+  - **Pay upfront** — One payment, today · **Total £2,872**, tagged *Save £200*
+- **Have a promo code?** — a collapsed Discount Code
+- **Your cover summary** — a Detail Card of four rows, each with a **Change** link:
+  Policy type *Sense* · Cover level *Fully comprehensive* · Cover length *12 months* ·
+  Cover start date *30 / 07 / 2026*
+- An information Alert: **You can add extra protection to tailor your cover on the
+  next page.**
+- Action: **Continue**
+
+**Two up on desktop, like every other pair on the journey.** The payment tiles share
+`.proto__options` with policy length, cover level and policy type, so they sit in equal
+columns and each fills its own — the amounts are there to be weighed against each
+other. The Change dialogues do the same: their two cards go side by side at 768px.
+`.proto__options` normally switches on a **container** query, and a modal is mounted on
+`<body>` — outside `.proto`, with no container to query — so the modal rule uses a
+viewport query instead. A dialogue is only ever as wide as the screen allows, so there
+is no narrow-container case for it to protect against.
+
+**The summary is the journey reading itself back.** Each row is a question already
+answered, so it takes `display-row--stacked` — the question in plain weight, the answer
+bold underneath — and its Change link reopens that question in a **Modal** rather than
+walking back through the flow. Each dialogue holds the question's own cards and a
+running total, and Done writes the answer back into the row that opened it — so the
+summary can't end up disagreeing with the dialogue that set it.
+
+**An applied promo code can't be folded away.** While a code is on the price the
+collapse disappears; it returns after Remove, with the field open for another try.
+
+**The link's word follows the dialogue.** A row says **Change** where its question has
+alternatives and **Learn more** where it has only one — a dialogue with nothing to
+switch to can only explain the option it shows. journey.js reads that off the number of
+options rather than the page declaring it, so the one-option variant needs one fewer
+card and no new labels. The start date is always Change; a calendar has no
+single-option form.
+
+🔶 **There is a one-option variant of this screen** for products or premiums where
+monthly can't be offered — see KNOWN-ISSUES 2.17. It doesn't apply here: this journey
+is private hire, which sells both 12-month and 30-day cover.
+
+### 4.22 Placeholders
+
+🔶 **`quote.html`** is out of the flow — `review-quote.html` replaced it. The file is
+still on disk; delete it once nothing is bookmarked against it.
 
 🔶 **`payment.html`** — "Payment" / "Your policy starts as soon as this is
 confirmed." / "Pay & get covered"
@@ -581,6 +889,12 @@ Copy defaults to something derived from the label, and `data-required-error` on 
 control overrides it where a screen needs to be specific.
 
 ### 5.2 Field rules
+
+**A date is bounded by the question that asks for it.** A screen asking about the
+last 3 years refuses a date outside that window, not merely one in the future —
+`data-date-within="3"` on the field, which is both bounds at once. Convictions asks
+about 5 years and now says so; before this it only refused the future, so a
+conviction from 1998 would have been accepted by a question that didn't ask about it.
 
 **Every error message ends in a full stop.** All 25 across the journey do; the two
 on the taxi licence screen were the only exceptions and have been brought into line

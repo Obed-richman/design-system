@@ -262,6 +262,339 @@ Worth knowing generally: **any component that composes another and needs to over
 it must do so on specificity**, because this repo has two load orders and only one of
 them matches the `@import` graph.
 
+### 2.11 `background/primary` used where `surface/primary` was meant — audited
+Audited 8 Aug 2026, after Product Card was found painting itself with
+`--background-primary`. **A surface is a thing ON the page; a background is the
+page.** Both are `#FFFFFF` in light, so the two are interchangeable there and only
+diverge in dark — surface steps to black-70 (`#2E2D35`), background stays black-80
+(`#27252D`) — which is where the wrong one makes an element vanish into what it
+sits on.
+
+All 16 uses of `--background-primary*` in component CSS were checked against the
+component's own Figma bindings (`get_variable_defs` on the node in each file's
+header).
+
+**Changed — 003 binds `surface/primary` and no `background/primary` at all:**
+
+| component | element | was |
+|---|---|---|
+| `product-card` | the card | flattened into the page in dark |
+| `price-comparison` | `__discount` | **measured flat** against its own section |
+| `number-item` | the tile | — |
+| `vehicle-registration` | `__field` | — |
+
+**Left alone — 003 binds `background/primary`, so the token is right:**
+`bottom-nav`, `mobile-nav` (both), `extra-cover`, `trustpilot-reviews`,
+`status-label--inactive`. These are chrome or full-bleed panels: they *are* the
+background of what they cover.
+
+**Unaffected — the component already handles dark explicitly:** `input`
+(`.input-field` goes transparent in dark, 15 overrides) and `button`
+(`.btn--secondary`, 12 overrides). The light-mode token is cosmetic there.
+
+**Deliberate:** `toggle`'s `__thumb` uses `--background-primary-fixed`, a white that
+should not follow the theme.
+
+**Two need a decision — 003 binds BOTH tokens on the component, and a flat list of
+variables can't say which element takes which:**
+
+- **`tier-section .tier-section__docs` — measured FLAT.** In dark the docs panel is
+  `#27252D` on a `#27252D` section, so it disappears. Whatever Figma intends, the
+  current result is wrong. Recommend `surface/primary`; confirm which element the
+  `background/primary` binding belongs to.
+- **`segment .segment__item[aria-selected="true"]`** — the selected thumb on a grey
+  track. Could legitimately be either. Not changed.
+
+One caveat on method: the dark-mode measurements are reliable for the journey pages
+and for components measured against their own root, but the component showcases
+re-assert a stored theme through `showcase-controls.js`, so a few probes read light
+values on a page that had been switched to dark. Where that happened the finding
+rests on the Figma binding, not the measurement — the two never disagreed.
+
+### 2.12 Text + Icon Item: two-line options were undersized
+`components/text-icon-item/text-icon-item.css`. The cover-start options render a
+date under the label, and came out **52px tall where 003 draws 76** with the second
+line at the wrong size. Two causes, both in the component:
+
+- **No vertical padding.** The base rule is `padding: 0 16px` with `min-height: 48`,
+  which is right for one line and leaves two lines flush against the border. Now
+  `padding-block: calc(var(--gap-small) - var(--border-m))` — Spacer-12 measured from
+  the outer edge, which is how Figma reads it, less the 2px border that sits inside
+  it — applied only to items that **have** a support line. My first attempt put it on
+  the base rule and pushed every single-line Yes/No option in the journey from 48 to
+  52; measured across four screens before and after.
+
+- **The support line was Body 3, and is now Body 2** (16/24) on `text/pressed`,
+  everywhere. A second line under an option is nearly always part of what you are
+  choosing between rather than a footnote about it, so it reads level with the label
+  and is set apart by weight and colour instead of size. Decided, and applied as the
+  default — the `--value` modifier that briefly carried it is gone, so there is no
+  smaller variant left to pick wrong.
+
+🔶 **003's own component still says `Subtitle 4`** (bold 12/16) for the support line,
+which is neither what this repo had nor what its own cover-start instance uses.
+**Wants correcting in Figma** to Body 2.
+
+### 2.14 Eight icons added — and the hand-drawn tick and cross retired
+Pulled from 003 on 8 Aug 2026.
+
+| file | Figma | sizes drawn |
+|---|---|---|
+| `cross-small.svg` | UI / Cross Small `58717-71528` | XS 24, XXS 16 |
+| `order-1.svg` | Interface / order 1 `59589-4803` | 96 → 16 |
+| `order-2.svg` | Interface / order 2 `59589-4893` | 96 → 16 |
+| `order-3.svg` | Interface / order 3 `59589-4978` | 96 → 16 |
+| `monthly-payments.svg` | Finance / Monthly payments `59353-17763` | 96 → 16 |
+| `third-party-only.svg` | General / Third TPO `58838-1003` | XXL → XXS |
+| `public-liability.svg` | General / Public Liability `58838-1024` | XXL → XXS |
+| `legal-protection.svg` | General / Legal Protection `58838-1014` | XXL → XXS |
+
+**One file per icon, taken from the 24 variant**, which is the library's convention
+— the rest are all 24. The multi-size variants are the same drawing scaled, so
+a single scalable file loses nothing; Cross Small's two are within 1% of each other
+in inset. Figma exports the art at its own bounding box (22×22 inside a 24 box, or
+14.37 for Cross Small), so each path was offset into place rather than wrapped in a
+`transform` — every other icon in the library is a bare path in a `0 0 24 24`
+viewBox, and a consumer copying one out has to get the same result.
+
+**Near-neighbours were checked before each was added**, since `ncd.svg` had already
+been missed once by searching for the wrong word. `cross-small` is not `cross` —
+that one is a thin, full-bleed ✕ for dismissal, this is the bold inset mark that
+sits in a bullet or a table cell. `order-2` is not `item-number` (a stacked-card
+glyph with a 2 in it). `legal-protection` is not `legal` (a briefcase). And
+`third-party-only` is not `passenger-3rd-party` — two figures, no shield.
+
+**The journey's tick and cross were hand-drawn** and are now the DS glyphs:
+`tick-small` in 4 files (28 instances across cover level, policy length and the two
+work-provider screens) and `cross-small` in 5. `product-card.css` had claimed "the
+DS tick-small icon" in its header the whole time. That is the **fourth** reinvention
+this session — the library is the first place to check, not the last.
+
+🔶 **Five of the eight are in the library but unused.** Monthly payments is the
+obvious badge for the "or pay £142.30 /month" line on `quote.html` when that screen
+is built; Order 1–3 suit a numbered sequence; Public Liability and Legal Protection
+are cover-level concepts and both appear as rows in the cover-level comparison
+table, which currently has no icons in its row headers. None were wired in, since
+nothing asked for them yet.
+
+### 2.15 Product lockups added — and `brand/` finally has a page
+`Zego Product` (`node-id=58660-10741`), pulled 8 Aug 2026: **Type=Sense** (68×44) and
+**Type=Standard** (102×44), saved as `brand/zego-sense.svg` and
+`brand/zego-standard.svg`.
+
+**These are not icons and don't belong in `icons/`.** They are wordmark lockups at
+their own aspect ratios, so they go beside `brand/zego-logo.svg` — which had been
+sitting in the repo with nothing pointing at it. `pages/brand.html` now shows all
+three, linked from the index the way Flags is; the Figma export carries the whole
+page around the mark (a `#767288` backing rect and the parent frames), so each was
+cut from its `<g id="Type=…">` subtree rather than saved as exported.
+
+**They carry their own colour and the logo does not.** `zego-logo.svg` is one tone
+on `currentColor`, which is why the same file serves navy on a light page and white
+on the brand header. The lockups are two-tone — the wordmark in `#00166C`
+(`--colour-navy-90`) and the product name in `#A458FF` (`--colour-purple-50`) — so a
+container cannot recolour them, and both values are baked into the files as Figma
+draws them.
+
+🔶 **There is no reversed lockup in 003.** On a dark surface the navy wordmark all
+but disappears while the purple stays legible, so these are light-surface only until
+a dark variant is authored — or until it's decided that the logo plus a text label
+is what a dark context should use. `pages/brand.html` says so on the page.
+
+### 2.18 Modal width is content-driven
+Principle given 11 Aug 2026: **the panel sets its inner padding, not its width.** It
+hugs its content, so what is inside decides how wide a dialogue is while the padding
+stays constant — 16 on mobile with a 343 ceiling, 32 on desktop.
+
+`.modal__panel` was `width: 100%` capped at 516; it is now `width: fit-content`, capped
+at 343 below 768 and bounded only by the scrim's own 16px inset above it. Measured
+after: on mobile the card dialogues reach the 343 ceiling and the date one stops at 289
+because that is all its content needs; on desktop they come to 754 / 754 / 754 / 321,
+and the cover-level comparison table to 485. Padding held at 16 / 32 throughout.
+
+**Resolved 12 Aug 2026.** 003 dropped the 516 — the instance is still in the file,
+hidden and literally named "516" — and its symbols now say where the ceiling belongs:
+mobile is **375 around a 343 container**, desktop **652 around 588**. So the cap is on
+the CONTENT, not the panel, and it is written as arithmetic — the content frame plus its
+own two paddings — rather than as a bare 375 / 652:
+
+    max-width: calc(343px + 2 * var(--spacer-16));                    /* mobile  */
+    max-width: calc(var(--frame-content) + 2 * var(--spacer-32));     /* desktop */
+
+Measured after: the card dialogues come to **652** on desktop, matching 003's own symbol
+width, and the date dialogue stops at **321** because that is all it needs. On mobile
+they land at 367 and 289 against a 375 ceiling. Padding held at 16 / 32. The 754 I
+reported a day earlier is gone, and it was gone by raising a content ceiling rather than
+by putting a width back on the wrapper.
+
+(I had also given the dialogue cards `--fluid`, lifted from the screens where they fill
+a page column. Under a content-driven panel that made the dialogues 851–944 wide, since
+a fluid card has no intrinsic width to hug. Removed — inside a dialogue a card should
+use its own drawn cap.)
+
+### 2.16 The rewards banner is a Marketing Banner now
+Resynced 9 Aug 2026 after 003's Product Card was updated (`57761-5782`). The banner
+at the foot of the card is no longer a shape of its own: it is a **Marketing Banner
+instance** with the reward gift cards dropped into its image slot.
+
+**So the markup is the Marketing Banner's.** `.product-card__banner-inner` and
+`.product-card__banner-text` are gone, replaced by `.marketing-banner`, `__content`,
+`__text` and `__title`. Product Card keeps only the frame (`.product-card__banner`)
+and the reward stack, and overrides three things about the banner it contains —
+width, radius and background. Those overrides sit at `.product-card__banner
+.marketing-banner` so they win on **specificity**, not on which file loads first.
+
+| | was | 003 now |
+|---|---|---|
+| inset from the card edge | 16 all round | **12 sides, 16 bottom**, 16 gap above |
+| height | 90 | **80** |
+| radius | `10px` (a magic number) | **Radius-8** |
+| text | Subtitle 3, 14/20, 96px column | **Subtitle 2, 16/24**, 94px column |
+| image slot | — | **189**, holding the reward stack |
+| card height | 342 | **332** |
+
+All of it measured off a 1:1 render of `57761-5782` and re-measured in the browser
+after: 12 / 12 / 16, 80 tall, radius 8, text 16 in and 16 down at 16/24 bold, slot
+189. The old `10px` radius was never a token — the sort of thing that only surfaces
+when a component is re-read.
+
+**The gift cards are real now** — `assets/rewards/amazon.jpg`, `just-eat.jpg`,
+`starbucks.jpg`, pulled from 003 and filed like `assets/partners/`, with a README
+saying they are third-party brand assets. They fan out with the **leftmost on top**,
+which needs an explicit `z-index`: source order paints the other way round.
+
+🔶 **One thing is a repo decision, not a Figma one.** 003 draws the card at 335,
+where the text column (94) and the image (189) add up exactly. In a two-column
+desktop grid the card is narrower than that, and a rigid 189 squeezed the copy to
+about 40px and four lines, growing the banner. So the **text column is fixed at 94
+and the image gives way**, clipping the stack at its right edge — which is where 003
+clips it anyway. **Worth confirming** that's the wanted behaviour at narrow widths,
+since 003 has no variant that shows one.
+
+**Marketing Banner itself needed no change.** Both layouts were re-measured against
+`59030-76347` and match — Horizontal 343×124 with a 129 image, Vertical 343×228 with
+a 96-tall image, `brand/1-low` behind both. What changed there is that its image is
+now a proper **slot**, which is what lets the card drop the gift cards into it. 003's
+own slot placeholder is an empty transparent PNG, so the component page keeps its
+gradient rather than shipping a blank.
+
+### 2.17 Review quote: a new component and three things it leaned on
+Built 11 Aug 2026 for `review-quote.html`. The screen is almost entirely existing
+components — Registration Plate, Detail Card, Display Row, Alert, Button — but three
+pieces needed library work first.
+
+**New: Small Comparison Tile** (`57968-9417`). Badge, radio, title, and a tinted panel
+of figures with tags under them. Three states, and the same hover/active grammar as
+Product Card: aqua border on both, panel to `surface/focus` only when chosen. Capped
+at the 351 it is drawn at, with `--fluid` to drop that.
+
+🔶 **It is easy to confuse with Comparison Tile** (`6477-174868`), which is a coloured
+frame over a big price. Two components a word apart doing different jobs; both file
+headers now say which is which, but the names are worth a look.
+
+🔶 **Its tags are Status Labels with the colours overridden** — yellow `brand/4-medium`
+for the selling point, `brand/4-low` inside a `border/warning-low` hairline for the
+small print. Neither is a state Status Label has, and every state it does have means
+something about *status*, so they are declared on the tile instead
+(`__tag` / `__tag--note`). **Worth deciding** whether these want to be real variants.
+
+🔶 **Figma spells the third state "Avtive".** The Code Connect enum key has to match
+the variant name, so the typo is carried in `small-comparison-tile.figma.ts` on
+purpose. Fix it in 003 and that line changes with it.
+
+**Discount Code gained the collapsed state** 003 now draws: `--collapsible` plus a
+`__toggle` row, closed by default, because a field asking for a promo code reads as
+something you have missed. An applied code still shows while the row is shut — it is
+money off, and hiding it makes it look like it didn't take.
+
+**Two modifiers rather than new components.** `display-row--stacked` (plain question,
+bold answer beneath — the vertical twin of the existing `--spec`), and
+`detail-card__content--rows`, because Display Row collapses its own dividers with its
+neighbour and the card's 20px gap broke that into a double rule between every row.
+
+- 🔶 **The plate is the real yellow one**; the frame shows a muted grey plate. Either
+  Registration Plate wants a quiet variant or the frame is using a placeholder fill.
+- 🔶 **Cover length uses `waiting`** (an hourglass) where the frame draws a clock.
+  Nothing in `icons/` is a plain clock — checked.
+
+**The Change dialogues are built** (`7811-107433` policy type, `-107578` cover level,
+`-107722` cover length, `-107866` start date). Each is a Modal holding the question's
+own cards — lifted from the screen that owns them at authoring time rather than
+retyped, so there is one place each card exists — plus the running total and Done.
+Closing writes the chosen answer back into the row that opened it, matched on the
+row's `data-journey-value` against the modal's id, so the summary cannot disagree with
+the dialogue. `data-required-error` is stripped from the copies: inside a dialogue the
+question is already answered and must not gate Continue.
+
+**An applied promo code now removes the collapse.** The row can't be folded away while
+money is coming off the price, and the toggle only returns after Remove — which leaves
+the field open, ready for another code. Asked for 11 Aug 2026.
+
+**The component was re-read against `7861-485803` on 11 Aug 2026**, and it settles the
+collapsible question: the "Have a promo code?" row with its chevron is part of the
+component, present on Default and Error — so `--collapsible` is a resync, not a repo
+invention. It also confirms the change asked for the same day: **the Applied state has
+no toggle row at all**, just the banner and Remove.
+
+Four pieces of copy were wrong in the repo and are now 003's:
+
+| | was | 003 |
+|---|---|---|
+| the row | Add a discount code | **Have a promo code?** |
+| the button | Apply code | **Apply** |
+| the error | Invalid code, please check and try again | **Invalid code, please try again** |
+| applied | Promo code applied / saving £50 on this policy | **Code ZEGO22 applied!** / You're saving £60.00 |
+
+Fixed in the component page, its demo, Code Connect and the journey screen. The
+component set is State × Breakpoint (Default · Applied · Error × Desktop · Mobile) —
+no fourth state, so nothing else is missing.
+
+**The journey's three promo frames were checked on 11 Aug 2026** (`8314-257122`
+expanded / `-257161` applied / `-257200` error — they sit below the main frames in the
+same section, which is why they are easy to miss). The screen places the component
+correctly at every state, and the **applied** frame independently confirms the change
+asked for that day: the promo card holds only the banner and Remove, with no
+"Have a promo code?" row above it.
+
+They also turned up three copy conflicts, none of which the component link could have
+shown:
+
+- **The error message: this journey uses the frame's.** Three versions existed — 003's
+  component says *Invalid code, please try again*, the error frame says *Invalid, please
+  check the code.*, the repo said *Invalid code, please check and try again*. Decided
+  11 Aug 2026: the **journey uses the frame's copy** and the component keeps 003's, so
+  `review-quote.html` deliberately diverges from `discount-code.html` on this one
+  string. 🔶 The component and the frame still disagree; one of them wants changing.
+
+- **"Change" or "Learn more" is now a rule, not a label.** Decided 11 Aug 2026: a row
+  says **Change** when its question has alternatives to offer, and **Learn more** when
+  it has only one — in which case the dialogue can only explain that option, which is
+  what makes it worth opening at all. A date is always Change; there is no
+  single-option version of a calendar.
+
+  So journey.js **derives the word from the dialogue** rather than the page authoring
+  it: one option in the modal gives Learn more, more than one gives Change. That is
+  what makes the 12-months-only variant cheap — it needs no second set of labels, only
+  one fewer card. Proved by deleting the 30-day card and watching Cover length flip to
+  Learn more while the other three stayed Change.
+
+- **"Cover summary", not "Your cover summary".** Three of the four mobile frames say
+  the former and only the desktop one adds "Your"; changed to match the majority. It is
+  the only summary card in the journey, so there was one place to change.
+
+- **The Apply button takes the rounded variant**, matching the component; the journey
+  screen had it as a pill.
+
+**The "12 months only" variant is understood and deliberately not built.**
+`7953-363357` is the review screen with only the monthly option, and it surfaces when
+a monthly option cannot be offered at all — either the product sells 12 months only
+with no 30-day alternative, or the premium has passed a fixed threshold above which
+monthly isn't offered. It is not a dead end: **applying a discount that brings the
+premium back under that threshold turns the screen back into the two-option version.**
+It does not apply to this journey, which covers a **private hire** product offering
+both 12-month and 30-day cover. Recorded so the next product doesn't have to rediscover
+the rule.
+
 ---
 
 ## 3. Prototype (`prototype/sales-journey/`)
@@ -546,6 +879,266 @@ Still open:
 - **The offence-code list is a sample.** The frames show five codes; the build
   carries 21 real DVLA codes and filters as you type. A live version needs the full
   list, which is long enough to want a real source rather than markup.
+
+- **The repeating-card behaviour is shared with `claims.html`** and its hooks are
+  named for what they do — `data-card-list`, `data-card-add`, `data-card-delete`
+  and so on — not for convictions. They were `data-conviction-*` first, which was
+  fine until a second screen used them: renumbering hard-coded "Conviction", so
+  adding a claim silently relabelled every card. The noun now comes from the
+  page's own `<template>`.
+
+### 3.17 Work provider: the Uber badge, and the outcome that isn't built
+`work-provider.html` / `work-provider-linked.html`, built 8 Aug 2026.
+
+- **`icons/logo-uber.svg` came from the ideation file, not 003.** 003 has no Work
+  Providers component — the search finds an Uber glyph only in the legacy *001
+  Components* library and a Partners set in the email templates. So the badge was
+  extracted from the Sales Journey frame itself: a 48px rounded square on
+  `#27252D` (which *is* `color/text/primary`) with the wordmark in white. **Wants a
+  home in 003** alongside whatever other work providers are coming — this will not
+  be the only one.
+
+- **The "We couldn't link your Uber account" screen is drawn and not built** —
+  *Try again* / *Continue without linking*. Left out by request. Worth building when
+  the link is real enough to fail.
+
+- **Product Card gained three things** for this screen: `--badge--logo` (a partner's
+  own mark, which brings its own surface), `__pip` (the status tick on the badge) and
+  `--fluid` (drop the 335px cap when the card is alone on a screen rather than beside
+  siblings). Its benefit list also now resets its own UA indent and top-aligns the
+  tick, which was floating into the middle of any benefit that wrapped to two lines.
+  None of these are in 003's Product Card. **Wants authoring.**
+
+### 3.18 Cover start: what the Date Picker gained, and one thing to confirm
+`cover-start.html`, built 8 Aug 2026 — the first page of the Quote step.
+
+- **Date Picker gained bounds and self-rendering.** `data-min` / `data-max` disable
+  the days outside a window and stop the month arrows at its edge; a MutationObserver
+  re-renders when the data attributes change, so a picker can be *driven* from
+  script. Without the second, setting `data-year` at runtime rendered nothing — the
+  component had rendered once on load against markup that couldn't know today's
+  date. Neither is in 003's Date Picker. **Wants authoring.**
+
+- **Text Input gained `.input__icon`** — a decorative trailing icon, distinct from
+  the clear (an action) and the status tick (a verdict). The calendar affordance
+  needed one and was borrowing `.input-select__chevron`, which is sized 7×12 for a
+  chevron and rendered the calendar as a speck. A field that opens a Date Picker
+  takes this slot with `icons/calendar.svg`; it is documented in `input.css` and
+  shown on the component page, so a second date field doesn't have to work it out.
+  (I drew a calendar path by hand first — `icons/calendar.svg` was already there.
+  Third time this session an asset was reinvented rather than looked for; the
+  library is the first place to check, not the last.)
+
+- **The picker is attached to the field by the page, not the component.** Opening,
+  Confirm, Cancel and writing the value back all live in `journey.js`. If a second
+  screen wants a date field, that wiring should move into the component rather than
+  be copied.
+
+- **The 30-day window is inclusive of both ends** — today counts and day 30 counts.
+  Confirmed.
+
+### 2.13 Product Card resynced with 003 — new Hover state, new banner colours
+Re-read 8 Aug 2026 after the component was updated (`node-id=57761-3983`). It now
+ships three states — **Default · Hover · Active** — where the repo had two.
+
+| | 003 now | repo had |
+|---|---|---|
+| Hover | aqua border | *no state* |
+| Active | aqua border **and** the banner on `surface/focus` | border only |
+| banner, resting | `surface/tertiary-low` `#F8F5F3` | `brand-2-low` `#EDE0FE` (purple) |
+| banner text | `text/primary` | `brand-2-high` (deep purple) |
+| benefit tick | `icon/glyph/brand-2-medium` `#A458FF` | `brand-2-high` `#5F06C9` |
+
+Re-measured against the component's own frame at the same time, three more were out:
+the benefit text was **Subtitle 3 (14/20)** where 003 draws **Body 2 (16/24)**; the
+bullet list sat **20px** under the description instead of **8**; and the tick was
+centred on a 20px line rather than a 24px one.
+
+The 20 was a compound: `__header` carried a single `gap: 12` **and** the list a
+`margin-top: 8`. That gap was inflating every distance in the header — the title sat
+16 from the top row only by accident, and the description 16 from the title where
+003 says 4. The header now sets no gap and each part states its own distance, which
+is how the component is actually drawn: top row · 16 · title · 4 · description · 8 ·
+bullets. Verified on the component page and on policy-length.
+
+The banner going from purple to warm grey is the substantive change: the tint is now
+what tells Active apart from Hover, since both carry the aqua border. Implemented so
+Hover comes from `:hover` and Active from the card containing the checked radio —
+neither needs a class moved about.
+
+**`:hover` is scoped to cards that contain a radio.** A Product Card with no radio —
+the work provider offer, which is a panel with its own buttons — isn't an option, and
+an aqua border on hover would promise a selection that isn't there. Checked on all
+three pages that use the component.
+
+### 3.19 Policy length: what Product Card gained
+`policy-length.html`, built 8 Aug 2026.
+
+- **The active border now follows the radio** — `.product-card:has(.radio__input:checked)`
+  alongside the `--active` modifier. As a class only, the border stayed wherever the
+  markup put it while the selection moved; measured before and after across both
+  cards. The modifier is kept for static examples.
+
+- **The badge was two tokens out.** 003 binds `icon/glyph/brand-2-low` (#DBBFFD) for
+  the fill where the repo had `brand-2-low` (#EDE0FE — a step lighter), and
+  `icon/glyph/brand-3-high-fixed` for the glyph. Both corrected. The policy-length
+  instance additionally overrides the glyph to `icon/glyph/brand-2-high` (#4B059F),
+  added as `--badge--brand` rather than changed globally, since the component's own
+  default is navy.
+
+- 🔶 **A third frame shows this screen with only the 12-month card.** Presumably some
+  drivers are offered one length. Not built — the condition isn't stated.
+
+### 3.20 Cover level: the badge glyphs are placeholders
+`cover-level.html`, built 8 Aug 2026.
+
+- **Fully comprehensive takes `icons/ncd.svg`** — a shield with a tick, and exactly
+  the glyph the frame draws. I had reported that no shield existed in the library
+  and stood in `icons/policy.svg`; it was there under a name I didn't search for.
+  Set on the user's instruction, 8 Aug 2026. The name reads as "no claims discount",
+  but the drawing is a protection shield and this is the second thing it's used for
+  — 🔶 **worth renaming in Figma** if it is meant to be general.
+
+- **Third party only takes `icons/third-party-only.svg`** — the shield with a person
+  the frame draws, added from 003 the same day. Both badges are now the drawn
+  glyphs; nothing on this screen is standing in.
+
+- **The excluded bullet was added to Product Card**, not to the journey:
+  `.product-card__benefit--excluded` swaps the tick for a cross in
+  `icon/glyph/primary`. Not in 003 — the component there has no negative bullet, so
+  this needs authoring as a variant on the benefit row.
+
+- **The comparison table is journey scaffolding** (`.compare` in `journey.css`), not
+  a component. Nine rows of tick/cross against two columns is specific to this
+  screen; if a second table turns up it should be lifted into the DS rather than
+  copied. The copy is mine — the frames show the link but not the panel behind it.
+
+### 3.21 Policy type: Product Card's padding was 4px out everywhere
+`policy-type.html`, built 8 Aug 2026 from `5174-438013` / `8104-458949`.
+
+- **The card's inset was wrong and is now 16.** `.product-card__header` carried
+  `Spacer-20`; 003 binds **`Spacer-16`** and binds no Spacer-20 anywhere on the
+  component (`57761-5782`: a 335-wide card with a 303-wide content frame at x=16).
+  The journey frame says the same — 343 wide, 311 at x=16. Written as
+  `calc(var(--spacer-16) - var(--border-m))` so the border sits inside the inset,
+  which is how Figma measures it. **This moves policy length and cover level too**,
+  by 4px on each side; both were re-rendered and are correct.
+
+- **The border was `Border-3` and should be `Border-2`.** 003 binds Border-2 on the
+  Active state. Measured after: 2px border, 14px padding, content 16 from the outer
+  edge on all three screens.
+
+- **The banner was inset 8 and should be 16** — level with the copy above it, which
+  is what 003 draws. Nothing used the banner until this page, so nothing else moved.
+
+- **The reward tiles are real now** — see 2.16.
+
+- 🔶 **The error state isn't built.** A third frame, *Policy type - Generating quote
+  error*, floats an error Alert above the page: **"Something went wrong" / "We
+  couldn't generate your quote just now. Tap Continue to try again."** The Global
+  Alert component can show it as-is, but nothing says what makes quote generation
+  fail, and firing it at random would make the prototype lie about how often it
+  happens. **With engineering** as of 8 Aug 2026 — what actually fails, and how
+  often. Once that's known it is a few lines: the copy is above and the Global Alert
+  already stacks, persists on Error, and closes.
+
+### 3.22 Fetching quote: the wait, and two things it borrows
+`fetching-quote.html`, built 9 Aug 2026 from `8167-126557` (Sense) /
+`8167-127063` (Standard) / `8167-127292` (desktop).
+
+**A new kind of screen.** Every page so far asks something; this one waits. So it
+carries no Back, no Continue and no card, and it is **not a slot in the flow** —
+`data-flow-as="quote.html"` borrows the quote's stepper position, and journey.js
+leaves with `location.replace` after 8s — two round trips of the Sense fan, so the
+wait is set by the animation rather than by feel (`LOOPS * LOOP_MS`). Never entering history is what makes both
+the browser's Back button and the journey's own trail skip it, so Back from the quote
+lands on the policy type question. Verified: no Back control on the wait, and
+`quote.html` → `policy-type.html`.
+
+**`data-journey-field` now records a checked radio on load**, not only on change.
+Sense ships selected on the screen before, and without this the wait would have had
+no stored answer to read for a choice the user had visibly made. Applies to every
+radio in the journey, not just this pair.
+
+- 🔶 **The panel's 24px radius is the one number on this screen with no token behind
+  it.** 003's binding list for the frame stops at Radius-16; the corner measures 24
+  off a 1:1 render (fitted across the arc, not eyeballed). Written as
+  `--radius-large`. **Worth binding in Figma.**
+
+- 🔶 **The purple offer strip is a Status Label with almost everything overridden** —
+  solid `brand/2-medium` instead of the Brand variant's light fill, white text,
+  Subtitle 1 instead of Subtitle 4, 32 tall instead of 24, radius 4. That is not a
+  variant the component has, so it is built as journey furniture
+  (`.proto__loading-offer`) rather than by bending Status Label. **Either it wants a
+  real solid-fill variant in 003, or it should stay page furniture** — worth
+  deciding, because a second screen wanting the same strip would copy it.
+
+- 🔶 **`standard-cover.png` has the panel colour baked in.** Exported at 3× into
+  `assets/loading/`, its background is a flat `#F2EDE9` —
+  `surface/tertiary-medium`'s **light** value. On the panel in light mode that is
+  seamless; in **dark mode the panel changes and the illustration will show a beige
+  block**. Keying the flat colour out would wreck the soft shadows over it, so this
+  wants a **transparent export** rather than a workaround. (The Sense illustration
+  had the same problem and no longer does — see 3.23.)
+
+**Status Label gained the Brand state** while this was being read — 003 has
+`State=Brand` (`59025-73073`) and the repo's six states didn't include it. Added with
+its own tokens (`brand/2-medium` text, `border/brand-2-medium`,
+`surface/brand-2-low`), shown on the component page in both styles, and mapped in
+Code Connect. Unrelated to the offer strip above, which is a different shape.
+
+### 3.23 The Sense reward fan — the first animation in the journey
+`8167-127293`, read 9 Aug 2026 with `get_motion_context`. Three gift cards start
+almost stacked, hold, then fan apart over Figma's 2s — and then the same motion in
+reverse walks them home. **`animation-direction: alternate`** buys the return journey
+for nothing: CSS plays the keyframes and their easings backwards on every even run, so
+one out-and-back is two runs and two of them is `iteration-count: 4`, 8s in all.
+
+Nothing snaps anywhere, which is the point of going back rather than looping: each run
+starts where the last ended, and an even count finishes on the 0% frame — each card's
+own base `translate`. That is why no `fill-mode` is needed to stop the cards jumping
+as the page leaves, and why a reduced-motion viewer's static state is the same picture
+the animation begins and ends on. The 2s and the 8s live in `journey.css` and
+`journey.js` respectively and have to move together.
+
+**Taken from Figma, not eyeballed.** Each card's start and end offsets, its move
+window (14.59% → 70.114%, and 80.654% for the middle card) and its easing came
+straight from the emitted keyframes — including the one card that uses a spring,
+which Figma resolves to a 51-stop `linear()` ramp, kept as emitted. Scaled by
+296/330.4 so the fan fits the same 296px column the static illustration used.
+
+**Built from parts, not played as a picture.** The cards have to overlap, and the
+Figma exports of them carry an opaque panel-coloured background — three of those laid
+over each other paint beige boxes across the cards behind. So each card is a real
+element: a `surface/primary` tile, a gift-card face from `assets/rewards/`, and its
+two lines. Two things fall out of that: the Sense illustration now **follows the
+theme** (the flat PNG it replaced could not, see 3.22), and `prefers-reduced-motion`
+can hold it on the piled-up arrangement the screen opens on.
+
+`assets/rewards/tesco.jpg` was added for the third face. `sense-rewards.png` is gone
+— nothing referenced it once the fan replaced it.
+
+- 🔶 **The card's internals are my reading, not a measurement.** Every number Figma
+  reports for these cards is a **rotated bounding box**, so the unrotated size and
+  angle had to be recovered from the exported rasters (corner-finding, then solving
+  the rect): ~128×131 at −15° / +15.58° / +12.4°, which reproduces the given bboxes
+  to within 3% — the gap being the rounded corners. The face inset (6.75) is Figma's;
+  the label sizes are the nearest tokens (Subtitle 4 + Metadata) to a measured ~15/13
+  at full scale. **Transparent exports of the three cards would make all of that
+  unnecessary** — the fan would use the artwork directly and the positions are
+  already exact.
+
+- 🔶 **One card's label doesn't match its artwork in Figma.** The middle card carries
+  the Just Eat face with the text *Tesco / Online & in store* — the same strings as
+  the card behind it. Built here as **Just Eat / Online**, because shipping "Tesco"
+  over Just Eat artwork reads as a bug. **Worth correcting in the frame** either way.
+
+- The motion could not be checked against Figma's own render: `export_video` produces
+  an MP4, and headless Chrome does not advance a media clock under virtual time, so
+  the frames could not be decoded. Verified instead by holding the CSS loop at fixed
+  offsets (negative `animation-delay`, paused) and comparing the **start** state to
+  the frame screenshot, which does match. The fanned-out state is trusted to the
+  numbers.
 
 ---
 
