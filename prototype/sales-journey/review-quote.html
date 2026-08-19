@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review quote — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+  <script src="../../components/modal/modal.js" defer></script>
+  <script src="../../components/input/input.js" defer></script>
+  <script src="../../components/discount-code/discount-code.js" defer></script>
+  <script src="../../components/date-picker/date-picker.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Review quote
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7811-107318
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8114-459509
+       Last page of the Quote step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="quote">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Charlotte, here&#39;s your quote and cover details for</h1>
+      <span class="plate">SH48 HSA</span>
+    </div>
+
+    <!-- How to pay. Two Price Cards, monthly selected — the tile lays out
+         the arithmetic of a plan, which is why it isn't a Product Card: there is no
+         product to sell here, only two ways to settle the same one. -->
+    <fieldset class="proto__options" data-required-error="Choose how to pay.">
+      <legend class="visually-hidden">How would you like to pay?</legend>
+      <label class="price-card">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M12.1582 12C13.0282 12 13.8235 12.4994 14.2126 13.2898C14.2997 13.4666 14.2292 13.6816 14.0552 13.77L13.4348 14.085C13.2608 14.1733 13.0492 14.1018 12.9622 13.925C12.8099 13.6157 12.4986 13.4204 12.1582 13.4204H12.0471C11.5507 13.4204 11.1482 13.829 11.1482 14.3333V15.145H12.147C12.3676 15.145 12.5464 15.3267 12.5464 15.5508V16.1594C12.5464 16.3835 12.3676 16.5652 12.147 16.5652H11.1482V17.5796H13.7449C13.9655 17.5796 14.1445 17.7615 14.1445 17.9856V18.5942C14.1445 18.8183 13.9655 19 13.7449 19H10.14941C9.92883 19 9.75002 18.8183 9.75 18.5942V14.3333C9.75004 13.0446 10.77848 12 12.0471 12H12.1582Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1C7.77614 1 8 1.22386 8 1.5V3H16V1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5C1 3.89543 1.89543 3 3 3H6V1.5C6 1.22386 6.22386 1 6.5 1H7.5ZM3 21H21V10H3V21ZM3 8H21V5H18V5.5C18 5.77614 17.7761 6 17.5 6H16.5C16.2239 6 16 5.77614 16 5.5V5H8V5.5C8 5.77614 7.77614 6 7.5 6H6.5C6.22386 6 6 5.77614 6 5.5V5H3V8Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
+            <input class="radio__input" type="radio" name="payment" value="monthly" data-journey-field="payment" checked>
+            <span class="radio__control"></span>
+          </span>
+        </div>
+        <p class="price-card__title">Pay monthly</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>Today</span><span>£500</span></li>
+            <li class="price-card__line"><span>Then 11 monthly repayments</span><span>£216</span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>£2,876</span></li>
+          </ul>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Spread the cost</span>
+            <span class="price-card__tag price-card__tag--note">19.9% APR</span>
+          </div>
+        </div>
+      </label>
+      <label class="price-card">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
+            <input class="radio__input" type="radio" name="payment" value="upfront" data-journey-field="payment">
+            <span class="radio__control"></span>
+          </span>
+        </div>
+        <p class="price-card__title">Pay upfront</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>One payment, today</span><span></span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>£2,872</span></li>
+          </ul>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Save £200</span>
+          </div>
+        </div>
+      </label>
+    </fieldset>
+
+    <!-- Shut by default: most people have no code, and an open field asking for one
+         reads as something they have missed. -->
+    <div class="discount-code discount-code--collapsible" data-code="ZEGO22" data-state="default" data-open="false">
+      <button class="discount-code__toggle" type="button" aria-expanded="false">
+        Have a promo code?
+        <span class="discount-code__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12.4142 15.4142C12.1834 15.6451 11.8166 15.6451 11.5858 15.4142L5.29289 9.12132C4.90237 8.73079 4.90237 8.09763 5.29289 7.7071L5.70711 7.29289C6.09763 6.90237 6.7308 6.90237 7.12132 7.29289L12 12.1716L16.8787 7.29289C17.2692 6.90237 17.9024 6.90237 18.2929 7.29289L18.7071 7.7071C19.0976 8.09763 19.0976 8.73079 18.7071 9.12132L12.4142 15.4142Z" fill="currentColor"/></svg></span>
+      </button>
+      <div class="discount-code__form">
+        <div class="discount-code__row">
+          <div class="input-field"><input class="input" type="text" placeholder="Enter discount code" aria-label="Discount code"></div>
+          <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply</button>
+        </div>
+        <div class="discount-code__message">
+          <span class="discount-code__message-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15C11.3096 15 10.75 15.5596 10.75 16.25C10.75 16.9404 11.3096 17.5 12 17.5C12.6904 17.5 13.25 16.9404 13.25 16.25C13.25 15.5596 12.6904 15 12 15Z" fill="currentColor"/><path d="M13 7.5C13 7.22386 12.7761 7 12.5 7H11.5C11.2239 7 11 7.22386 11 7.5V12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5V7.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+          <p class="discount-code__message-text">Invalid, please check the code.</p>
+        </div>
+      </div>
+      <div class="discount-code__applied alert alert--information alert--bordered">
+        <span class="alert__icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.02893 5.48853C1.02893 4.6601 1.7005 3.98853 2.52893 3.98853H21.5C22.3284 3.98853 23 4.6601 23 5.48853V9.8198H22C20.8954 9.8198 20 10.7152 20 11.8198C20 12.9244 20.8954 13.8198 22 13.8198H23V18.4999C23 19.3283 22.3284 19.9999 21.5 19.9999H2.52893C1.7005 19.9999 1.02893 19.3283 1.02893 18.4999V13.9942H2.02893C3.1335 13.9942 4.02893 13.0988 4.02893 11.9942C4.02893 10.8896 3.1335 9.99422 2.02893 9.99422H1.02893V5.48853ZM3.02893 5.98853V8.12023C4.75416 8.56428 6.02893 10.1304 6.02893 11.9942C6.02893 13.8581 4.75416 15.4242 3.02893 15.8682V17.9999H21V15.6938C19.2748 15.2497 18 13.6836 18 11.8198C18 9.95596 19.2748 8.38986 21 7.94582V5.98853H3.02893Z" fill="currentColor"/> <path d="M9.51447 10.7499C10.2048 10.7499 10.7645 10.1903 10.7645 9.49994C10.7645 8.80958 10.2048 8.24994 9.51447 8.24994C8.82411 8.24994 8.26447 8.80958 8.26447 9.49994C8.26447 10.1903 8.82411 10.7499 9.51447 10.7499Z" fill="currentColor"/> <path d="M8.45371 14.8535C8.25845 14.6582 8.25845 14.3416 8.45371 14.1464L14.1106 8.48953C14.3058 8.29427 14.6224 8.29427 14.8177 8.48953L15.5248 9.19664C15.72 9.3919 15.72 9.70848 15.5248 9.90374L9.86793 15.5606C9.67266 15.7559 9.35608 15.7559 9.16082 15.5606L8.45371 14.8535Z" fill="currentColor"/> <path d="M15.7645 14.4999C15.7645 15.1903 15.2048 15.7499 14.5145 15.7499C13.8241 15.7499 13.2645 15.1903 13.2645 14.4999C13.2645 13.8096 13.8241 13.2499 14.5145 13.2499C15.2048 13.2499 15.7645 13.8096 15.7645 14.4999Z" fill="currentColor"/> </svg></span>
+        <div class="alert__content">
+          <p class="alert__title">Code ZEGO22 applied!</p>
+          <p class="alert__description">You&rsquo;re saving £60.00</p>
+        </div>
+        <button class="btn btn--tertiary btn--small btn--pill discount-code__remove" type="button">Remove</button>
+      </div>
+    </div>
+
+    <!-- The read-back. Detail Card holds four Display Rows in its content slot, each
+         a question in plain weight with the answer bold under it and a Change link
+         that reopens that question in a Modal. -->
+    <div class="detail-card detail-card--fluid">
+      <div class="detail-card__top">
+        <h2 class="detail-card__title">Cover summary</h2>
+      </div>
+      <div class="detail-card__content detail-card__content--rows">
+        <div class="display-row display-row--stacked">
+          <span class="display-row__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M16 10.5C16 10.7761 15.7761 11 15.5 11H8.5C8.22386 11 8 10.7761 8 10.5V9.5C8 9.22386 8.22386 9 8.5 9H15.5C15.7761 9 16 9.22386 16 9.5V10.5Z" fill="currentColor"/> <path d="M13.5 15C13.7761 15 14 14.7761 14 14.5V13.5C14 13.2239 13.7761 13 13.5 13H8.5C8.22386 13 8 13.2239 8 13.5V14.5C8 14.7761 8.22386 15 8.5 15H13.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M3 3C3 1.89543 3.89543 1 5 1H13.4737C14.2548 1 15.005 1.30458 15.565 1.84902L20.0912 6.24955C20.6722 6.81439 21 7.59023 21 8.40053V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V3ZM13.4737 3L5 3V21L19 21V8.40053C19 8.13043 18.8907 7.87182 18.6971 7.68354L14.1708 3.28301C13.9842 3.10153 13.7341 3 13.4737 3Z" fill="currentColor"/> </svg></span>
+          <div class="display-row__main">
+            <p class="display-row__label">Policy type</p>
+            <p class="display-row__support" data-journey-value="policy-type">Sense</p>
+          </div>
+          <span class="display-row__trailing">
+            <button class="proto__change" type="button" data-modal-open="edit-policy-type">Change<span class="visually-hidden"> policy type</span></button>
+          </span>
+        </div>
+        <div class="display-row display-row--stacked">
+          <span class="display-row__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6354 12.0147L14.482 8.16781C14.6773 7.97255 14.9939 7.97255 15.1892 8.16781L15.8963 8.87491C16.0915 9.07018 16.0915 9.38676 15.8963 9.58202L11 14.4785C10.8048 14.6738 10.4882 14.6738 10.2929 14.4785L8.1465 12.3321C7.95124 12.1368 7.95124 11.8202 8.14651 11.625L8.84249 10.929C9.03776 10.7337 9.35434 10.7337 9.5496 10.929L10.6354 12.0147Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2.99897C2 1.89305 2.89678 1 4 1H20C21.1045 1 22 1.89534 22 2.99996V12.7895C22 15.3454 20.7345 17.4269 19.2106 19.0042C17.6877 20.5805 15.8339 21.7325 14.4619 22.458C12.9168 23.275 11.0917 23.2884 9.53602 22.483C8.16157 21.7715 6.30705 20.6355 4.78405 19.0586C3.25768 17.4782 2 15.3843 2 12.7895V2.99897ZM4 3V12.7895C4 14.692 4.91414 16.3144 6.22263 17.6692C7.53447 19.0274 9.17783 20.0455 10.4555 20.7069C11.4256 21.2091 12.5578 21.2024 13.527 20.6899C14.8063 20.0135 16.4552 18.9778 17.7723 17.6146C19.0883 16.2524 20 14.6426 20 12.7895V3H4Z" fill="currentColor"/> </svg></span>
+          <div class="display-row__main">
+            <p class="display-row__label">Cover level</p>
+            <p class="display-row__support" data-journey-value="cover-level">Fully comprehensive</p>
+          </div>
+          <span class="display-row__trailing">
+            <button class="proto__change" type="button" data-modal-open="edit-cover-level">Change<span class="visually-hidden"> cover level</span></button>
+          </span>
+        </div>
+        <div class="display-row display-row--stacked">
+          <span class="display-row__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.0156 0.96991H19.5C19.7761 0.96991 20 1.19377 20 1.46991V2.46991C20 2.74605 19.7761 2.96991 19.5 2.96991H18.0156V6.98414C18.0156 9.07857 16.9451 10.9227 15.3215 12C16.9451 13.0773 18.0159 14.9214 18.0159 17.0159V21.011H19.5C19.7761 21.011 20 21.2349 20 21.511V22.511C20 22.7872 19.7761 23.011 19.5 23.011H4.5C4.22386 23.011 4 22.7872 4 22.511V21.511C4.00001 21.2349 4.22386 21.011 4.5 21.011H5.98438V17.0159C5.98438 14.9215 7.05469 13.0771 8.67822 11.9998C7.05482 10.9224 5.98413 9.07848 5.98413 6.98414V2.96991H4.5C4.22386 2.96991 4 2.74605 4 2.46991V1.46991C4 1.19377 4.22386 0.96991 4.5 0.96991H5.98413V0.96405H18.0156V0.96991ZM7.98438 18.009V21.011H16.0159V18.009H7.98438ZM12.0002 13C10.1301 13 8.5584 14.2785 8.11157 16.009H15.8884C15.4416 14.2785 13.8703 13.0001 12.0002 13ZM7.98413 6.98414C7.98413 9.2019 9.78202 10.9999 11.9998 11C14.2176 11 16.0156 9.20198 16.0156 6.98414V2.96991H7.98413V6.98414Z" fill="currentColor"/> </svg></span>
+          <div class="display-row__main">
+            <p class="display-row__label">Cover length</p>
+            <p class="display-row__support" data-journey-value="cover-length">12 months</p>
+          </div>
+          <span class="display-row__trailing">
+            <button class="proto__change" type="button" data-modal-open="edit-cover-length">Change<span class="visually-hidden"> cover length</span></button>
+          </span>
+        </div>
+        <div class="display-row display-row--stacked">
+          <span class="display-row__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 5C1 3.89543 1.89543 3 3 3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5ZM21 5L3 5V21H21V5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M21 10L2 10L2 8L21 8V10Z" fill="currentColor"/> <path d="M16 1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V4.25C18 4.52614 17.7761 4.75 17.5 4.75H16.5C16.2239 4.75 16 4.52614 16 4.25V1.5Z" fill="currentColor"/> <path d="M6 1.5C6 1.22386 6.22386 1 6.5 1H7.5C7.77614 1 8 1.22386 8 1.5V4.25C8 4.52614 7.77614 4.75 7.5 4.75H6.5C6.22386 4.75 6 4.52614 6 4.25V1.5Z" fill="currentColor"/> </svg></span>
+          <div class="display-row__main">
+            <p class="display-row__label">Cover start date</p>
+            <p class="display-row__support" data-journey-value="cover-start-date">30 / 07 / 2026</p>
+          </div>
+          <span class="display-row__trailing">
+            <button class="proto__change" type="button" data-modal-open="edit-cover-start-date">Change<span class="visually-hidden"> cover start date</span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert--information alert--bordered">
+      <span class="alert__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7C11.3096 7 10.75 7.55964 10.75 8.25C10.75 8.94036 11.3096 9.5 12 9.5C12.6904 9.5 13.25 8.94036 13.25 8.25C13.25 7.55964 12.6904 7 12 7Z" fill="currentColor"/> <path d="M13 11.5C13 11.2239 12.7761 11 12.5 11H11.5C11.2239 11 11 11.2239 11 11.5L11 16.5C11 16.7761 11.2239 17 11.5 17L12.5 17C12.7761 17 13 16.7761 13 16.5L13 11.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span>
+      <div class="alert__content">
+        <p class="alert__description">You can add extra protection to tailor your cover on the next page.</p>
+      </div>
+    </div>
+
+    <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+
+  </main>
+
+
+  <!-- Change: Policy type. The same options the question's own screen shows, so there is one
+       place the cards are authored. Done just closes it — a prototype has no quote to
+       recalculate, and the summary row updates from the choice. -->
+  <div class="modal overlay overlay--darker" id="edit-policy-type" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-policy-type-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="edit-policy-type-title">Policy type</h2>
+
+    <fieldset class="proto__options">
+          <legend class="visually-hidden">Policy type</legend>
+
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__lockup"><img src="../../brand/zego-sense.svg" alt="Zego Sense"></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="policy-type" value="sense"  checked>
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__subtitle">App-based telematics that rewards good driving.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Up to £60 in gift cards</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Up to 25% off at renewal</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Tips to help you drive better</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- The rewards banner is a Marketing Banner with the gift cards in its
+                 image slot, which is how 003 builds it. It is the one part of the card
+                 that changes between hovered and chosen: it tints to surface/focus once
+                 this card holds the checked radio. -->
+            <div class="product-card__banner">
+              <div class="marketing-banner">
+                <div class="marketing-banner__content">
+                  <div class="marketing-banner__text">
+                    <p class="marketing-banner__title">Drive well. Get rewards.</p>
+                  </div>
+                </div>
+                <div class="marketing-banner__image">
+                  <div class="product-card__rewards" aria-hidden="true">
+                    <span class="product-card__reward"><img src="../../assets/rewards/amazon.jpg" alt=""></span>
+                    <span class="product-card__reward"><img src="../../assets/rewards/just-eat.jpg" alt=""></span>
+                    <span class="product-card__reward"><img src="../../assets/rewards/starbucks.jpg" alt=""></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </label>
+
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__lockup"><img src="../../brand/zego-standard.svg" alt="Zego Standard"></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="policy-type" value="standard" >
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__subtitle">Simple cover you can set and forget.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">No telematics, just drive</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Manage it all in the Zego app</span>
+                </li>
+              </ul>
+            </div>
+          </label>
+        </fieldset>
+
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
+      <div class="modal__actions">
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change: Cover level. The same options the question's own screen shows, so there is one
+       place the cards are authored. Done just closes it — a prototype has no quote to
+       recalculate, and the summary row updates from the choice. -->
+  <div class="modal overlay overlay--darker" id="edit-cover-level" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-level-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="edit-cover-level-title">Cover level</h2>
+
+    <fieldset class="proto__options">
+          <legend class="visually-hidden">Cover level</legend>
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6354 12.0147L14.482 8.16781C14.6773 7.97255 14.9939 7.97255 15.1892 8.16781L15.8963 8.87491C16.0915 9.07018 16.0915 9.38676 15.8963 9.58202L11 14.4785C10.8048 14.6738 10.4882 14.6738 10.2929 14.4785L8.1465 12.3321C7.95124 12.1368 7.95124 11.8202 8.14651 11.625L8.84249 10.929C9.03776 10.7337 9.35434 10.7337 9.5496 10.929L10.6354 12.0147Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2.99897C2 1.89305 2.89678 1 4 1H20C21.1045 1 22 1.89534 22 2.99996V12.7895C22 15.3454 20.7345 17.4269 19.2106 19.0042C17.6877 20.5805 15.8339 21.7325 14.4619 22.458C12.9168 23.275 11.0917 23.2884 9.53602 22.483C8.16157 21.7715 6.30705 20.6355 4.78405 19.0586C3.25768 17.4782 2 15.3843 2 12.7895V2.99897ZM4 3V12.7895C4 14.692 4.91414 16.3144 6.22263 17.6692C7.53447 19.0274 9.17783 20.0455 10.4555 20.7069C11.4256 21.2091 12.5578 21.2024 13.527 20.6899C14.8063 20.0135 16.4552 18.9778 17.7723 17.6146C19.0883 16.2524 20 14.6426 20 12.7895V3H4Z" fill="currentColor"/> </svg></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="cover-level" value="comprehensive" checked>
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__title">Fully comprehensive</p>
+              <p class="product-card__subtitle">The widest level of protection for you and your vehicle.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Covers damage to your own vehicle</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Covers damage or injury caused to others</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Includes fire and theft cover</span>
+                </li>
+              </ul>
+            </div>
+          </label>
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M13 8C13 7.44772 12.5523 7 12 7C11.44772 7 11 7.44772 11 8C11 8.55228 11.44772 9 12 9C12.5523 9 13 8.55228 13 8ZM15 8C15 9.65685 13.6569 11 12 11C10.34315 11 9 9.65685 9 8C9 6.34315 10.34315 5 12 5C13.6569 5 15 6.34315 15 8Z" fill="currentColor"/> <path d="M14.3731 14.3724C14.3727 13.0621 13.3104 12.0001 12.0001 12.0001C10.68969 12.0001 9.62738 13.0621 9.62701 14.3724L14.3731 14.3724ZM7.62701 14.3731C7.62701 11.9579 9.58489 10.0001 12.0001 10.0001C14.4152 10.0001 16.3731 11.9579 16.3731 14.3731V14.8865C16.3731 15.7071 15.7079 16.3724 14.8873 16.3724L9.11285 16.3724C8.29226 16.3724 7.62701 15.7071 7.62701 14.8865V14.3731Z" fill="currentColor"/> <path d="M4 3V12.7896C4.00002 14.6921 4.91419 16.3144 6.22266 17.6692C7.5345 19.0274 9.17791 20.0456 10.45557 20.707C11.42561 21.2092 12.5579 21.2024 13.5271 20.6899C14.8063 20.0135 16.4552 18.9777 17.7722 17.6145C19.0882 16.2524 20 14.6427 20 12.7896V3H4ZM22 12.7896C22 15.3454 20.7346 17.4268 19.2107 19.0042C17.6878 20.5805 15.8339 21.7326 14.4619 22.458C12.9169 23.275 11.09182 23.2885 9.53613 22.4832C8.16169 21.7716 6.30694 20.6355 4.78394 19.0586C3.25761 17.4782 2.00002 15.3843 2 12.7896V2.99902C2 1.89311 2.89678 1 4 1H20C21.1045 1 22 1.89538 22 3V12.7896Z" fill="currentColor"/> </svg></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="cover-level" value="third-party">
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__title">Third party only</p>
+              <p class="product-card__subtitle">The simplest cover to meet basic legal requirements.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Covers injury or damage caused to others</span>
+                </li>
+                <li class="product-card__benefit product-card__benefit--excluded">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Vehicle repairs are not included</span>
+                </li>
+              </ul>
+            </div>
+          </label>
+        </fieldset>
+
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
+      <div class="modal__actions">
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change: Cover length. The same options the question's own screen shows, so there is one
+       place the cards are authored. Done just closes it — a prototype has no quote to
+       recalculate, and the summary row updates from the choice. -->
+  <div class="modal overlay overlay--darker" id="edit-cover-length" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-length-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="edit-cover-length-title">Cover length</h2>
+
+    <fieldset class="proto__options">
+          <legend class="visually-hidden">Policy length</legend>
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.5 4C10.7761 4 11 4.22386 11 4.5V5H17V4.5C17 4.22386 17.2239 4 17.5 4H18.5C18.7761 4 19 4.22386 19 4.5V5H21.5C22.3284 5 23 5.67157 23 6.5V19C23 20.1046 22.1046 21 21 21H7C5.89543 21 5 20.1046 5 19V6.5C5 5.67157 5.67157 5 6.5 5H9V4.5C9 4.22386 9.22386 4 9.5 4H10.5ZM7 19H21V12H7V19ZM7 10H21V7H19V7.5C19 7.77614 18.7761 8 18.5 8H17.5C17.2239 8 17 7.77614 17 7.5V7H11V7.5C11 7.77614 10.7761 8 10.5 8H9.5C9.22386 8 9 7.77614 9 7.5V7H7V10Z" fill="currentColor"/> <path d="M13.5 1C13.7761 1 14 1.22386 14 1.5V2.5C14 2.77614 13.7761 3 13.5 3H3.5C3.22386 3 3 3.22386 3 3.5V14.5C3 14.7761 2.77614 15 2.5 15H1.5C1.22386 15 1 14.7761 1 14.5V3C1 1.89543 1.89543 1 3 1H13.5Z" fill="currentColor"/> </svg></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="policy-length" value="12-months" checked>
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__title">12 months</p>
+              <p class="product-card__subtitle">Best value if you&#39;re driving year-round.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Pay monthly or annually</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Cheaper than rolling 30-day cover</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">One year of cover, sorted</span>
+                </li>
+              </ul>
+            </div>
+          </label>
+          <label class="product-card">
+            <div class="product-card__header">
+              <div class="product-card__top">
+                <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 5C1 3.89543 1.89543 3 3 3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5ZM21 5L3 5V21H21V5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M21 10L2 10L2 8L21 8V10Z" fill="currentColor"/> <path d="M16 1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V4.25C18 4.52614 17.7761 4.75 17.5 4.75H16.5C16.2239 4.75 16 4.52614 16 4.25V1.5Z" fill="currentColor"/> <path d="M6 1.5C6 1.22386 6.22386 1 6.5 1H7.5C7.77614 1 8 1.22386 8 1.5V4.25C8 4.52614 7.77614 4.75 7.5 4.75H6.5C6.22386 4.75 6 4.52614 6 4.25V1.5Z" fill="currentColor"/> </svg></span>
+                <div class="product-card__meta">
+                  <input class="radio__input" type="radio" name="policy-length" value="30-days">
+                  <span class="radio__control"></span>
+                </div>
+              </div>
+
+              <p class="product-card__title">30 days</p>
+              <p class="product-card__subtitle">Flexible cover when you need more freedom.</p>
+
+              <ul class="product-card__benefits">
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">No long-term commitment</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">Great for changing circumstances</span>
+                </li>
+                <li class="product-card__benefit">
+                  <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+                  <span class="product-card__benefit-text">A simple way to try Zego before you commit</span>
+                </li>
+              </ul>
+            </div>
+          </label>
+        </fieldset>
+
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
+      <div class="modal__actions">
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change: Cover start date. The same options the question's own screen shows, so there is one
+       place the cards are authored. Done just closes it — a prototype has no quote to
+       recalculate, and the summary row updates from the choice. -->
+  <div class="modal overlay overlay--darker" id="edit-cover-start-date" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-start-date-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="edit-cover-start-date-title">Cover start date</h2>
+
+    <div class="date-picker">
+              <div class="date-picker__header">
+                <button class="btn btn--secondary btn--fab date-picker__nav date-picker__prev" type="button" aria-label="Previous month">
+                  <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13.1018 20.4098C13.2972 20.6049 13.2972 20.9213 13.1018 21.1164L12.3641 21.8532C12.1687 22.0483 11.8519 22.0483 11.6565 21.8532L2.19214 12.4013C2.1798 12.389 2.16824 12.3762 2.15746 12.3629L2.14656 12.3521C1.95117 12.1569 1.95117 11.8406 2.14656 11.6454L11.6585 2.14614C11.8539 1.951 12.1706 1.951 12.366 2.14614L13.1037 2.88286C13.2991 3.078 13.2991 3.39437 13.1037 3.5895L5.68394 10.9995L21.5002 10.9995C21.7764 10.9995 22.0002 11.2233 22.0002 11.4995V12.4995C22.0002 12.7756 21.7764 12.9995 21.5002 12.9995L5.68167 12.9995L13.1018 20.4098Z" fill="currentColor"/></svg></span>
+                </button>
+                <p class="date-picker__title"></p>
+                <button class="btn btn--secondary btn--fab date-picker__nav date-picker__next" type="button" aria-label="Next month">
+                  <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.8984 3.58972C10.703 3.39458 10.703 3.07821 10.8984 2.88308L11.6361 2.14635C11.8315 1.95122 12.1483 1.95122 12.3437 2.14635L21.8081 11.5982C21.8204 11.6105 21.832 11.6233 21.8428 11.6366L21.8537 11.6475C22.0491 11.8426 22.0491 12.159 21.8537 12.3541L12.3418 21.8534C12.1464 22.0485 11.8296 22.0485 11.6342 21.8534L10.8965 21.1166C10.7011 20.9215 10.7011 20.6051 10.8965 20.41L18.3163 13H2.5C2.22386 13 2 12.7762 2 12.5V11.5C2 11.2239 2.22386 11 2.5 11H18.3186L10.8984 3.58972Z" fill="currentColor"/></svg></span>
+                </button>
+              </div>
+
+              <div class="date-picker__weekdays">
+                <span class="date-picker__weekday">M</span>
+                <span class="date-picker__weekday">T</span>
+                <span class="date-picker__weekday">W</span>
+                <span class="date-picker__weekday">T</span>
+                <span class="date-picker__weekday">F</span>
+                <span class="date-picker__weekday">S</span>
+                <span class="date-picker__weekday">S</span>
+              </div>
+
+              <div class="date-picker__grid"><!-- filled by date-picker.js --></div>
+            </div>
+
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
+      <div class="modal__actions">
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

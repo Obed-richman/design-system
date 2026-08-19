@@ -123,3 +123,73 @@
 @media (max-width: 768px) {
   .discount-code__remove-arrow { display: none; }  /* mobile Remove shows minus only */
 }
+
+
+/* ------------------------------------------------------------
+   COLLAPSIBLE
+   A summary row that opens the rest. Closed by default: on a page that is mostly
+   about a price, a discount field left open invites hunting for a code that
+   doesn't exist.
+
+   The row is a real <button> with aria-expanded, so it announces its state and
+   works from the keyboard without anything else being added.
+   ------------------------------------------------------------ */
+
+.discount-code--collapsible {
+  border-radius: var(--radius-medium);            /* 16 */
+  background:    var(--surface-primary);
+  padding:       var(--spacer-16);
+}
+
+.discount-code__toggle {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+  padding:         0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  font-family:     inherit;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-2);   /* 16 / 24 */
+  line-height:     var(--line-height-subtitle-2);
+  color:           var(--text-primary);
+  text-align:      left;
+}
+
+.discount-code__chevron {
+  flex:       0 0 auto;
+  width:      16px;
+  height:     16px;
+  color:      var(--icon-glyph-primary);
+  transition: rotate 150ms ease;
+}
+.discount-code__chevron svg { display: block; width: 100%; height: 100%; }
+
+/* Points up once open — the control's own direction is the clearest statement of
+   which way it will go next. */
+.discount-code--collapsible[data-open="true"] .discount-code__chevron { rotate: 180deg; }
+
+/* Closed: only the row shows. A Divider above the form separates the two once it
+   is open, which is what 003 reveals alongside the input. */
+.discount-code--collapsible:not([data-open="true"]) .discount-code__form,
+.discount-code--collapsible:not([data-open="true"]) .discount-code__applied { display: none; }
+
+.discount-code--collapsible[data-open="true"] .discount-code__form {
+  margin-top:  var(--spacer-16);
+  padding-top: var(--spacer-16);
+  border-top:  var(--border-s) solid var(--border-primary);
+}
+
+/* An applied code takes the collapse away entirely rather than staying openable. A
+   discount is a change to the price, so it belongs on the page as plainly as the
+   price does — and a chevron beside it invites folding away the one thing on this row
+   that now matters. Remove puts the control back. */
+.discount-code--collapsible[data-state="applied"] .discount-code__toggle { display: none; }
+
+.discount-code--collapsible[data-state="applied"] .discount-code__applied {
+  display:    flex;
+  margin-top: 0;
+}

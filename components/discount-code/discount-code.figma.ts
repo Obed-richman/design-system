@@ -16,10 +16,10 @@ figma.connect(
     variant: { State: "Default" },
     example: () =>
       html`<div class="discount-code">
-  <p class="discount-code__label">Add a discount code</p>
+  <p class="discount-code__label">Have a promo code?</p>
   <div class="discount-code__row">
     <div class="input-field"><input class="input" type="text" placeholder="Enter discount code" /></div>
-    <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply code</button>
+    <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply</button>
   </div>
 </div>`,
   }
@@ -31,17 +31,17 @@ figma.connect(
     variant: { State: "Error" },
     example: () =>
       html`<div class="discount-code">
-  <p class="discount-code__label">Add a discount code</p>
+  <p class="discount-code__label">Have a promo code?</p>
   <div class="discount-code__row">
     <div class="input-field input-field--error">
       <input class="input" type="text" value="ZEG/22" />
       <button class="input__clear" type="button" aria-label="Clear"><!-- close × --></button>
     </div>
-    <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply code</button>
+    <button class="btn btn--secondary btn--rounded discount-code__apply" type="button">Apply</button>
   </div>
   <div class="discount-code__message">
     <span class="discount-code__message-icon"><!-- warning --></span>
-    <p class="discount-code__message-text">Invalid code, please check and try again</p>
+    <p class="discount-code__message-text">Invalid code, please try again</p>
   </div>
 </div>`,
   }

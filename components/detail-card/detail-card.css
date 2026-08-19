@@ -133,6 +133,18 @@
      flush against the header band and the last against the card's edge. */
 }
 
+/* A card whose content is a LIST OF ROWS rather than a stack of fields. Display Row
+   brings its own dividers and collapses them with its neighbour, so the 20px gap and
+   the block padding both have to go — a gap stops the collapse and leaves a double
+   rule between every row, which is what 003 draws as a single line. The rows keep
+   the 16px side inset by taking it themselves. */
+.detail-card__content--rows {
+  gap:           0;
+  padding-block: 0;
+}
+.detail-card__content--rows > .display-row:first-child { border-top: none; }
+.detail-card__content--rows > .display-row:last-child  { border-bottom: none; }
+
 .detail-card__field {
   display:        flex;
   flex-direction: column;

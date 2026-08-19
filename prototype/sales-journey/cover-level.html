@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cover level — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+  <script src="../../components/modal/modal.js" defer></script>
+
+  <!-- Screen-level messages: the Global Alert stack + Alert's own close behaviour -->
+  <script src="../../components/alert/alert.js" defer></script>
+  <script src="../../components/global-alert/global-alert.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Cover level
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=7811-105003
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8090-457987
+       Third page of the Quote step — see the STEPS list in journey.js -->
+  <main class="proto" data-step="quote">
+
+    <div class="proto__intro">
+      <h1 class="proto__title">Full protection or the essentials?</h1>
+      <p class="proto__lead">Choose your cover level. Protect your vehicle too, or just the legal minimum.</p>
+    </div>
+
+    <fieldset class="proto__options" data-required-error="Choose a cover level.">
+      <legend class="visually-hidden">Cover level</legend>
+      <label class="product-card product-card--fluid">
+        <div class="product-card__header">
+          <div class="product-card__top">
+            <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path fill-rule="evenodd" clip-rule="evenodd" d="M10.6354 12.0147L14.482 8.16781C14.6773 7.97255 14.9939 7.97255 15.1892 8.16781L15.8963 8.87491C16.0915 9.07018 16.0915 9.38676 15.8963 9.58202L11 14.4785C10.8048 14.6738 10.4882 14.6738 10.2929 14.4785L8.1465 12.3321C7.95124 12.1368 7.95124 11.8202 8.14651 11.625L8.84249 10.929C9.03776 10.7337 9.35434 10.7337 9.5496 10.929L10.6354 12.0147Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 2.99897C2 1.89305 2.89678 1 4 1H20C21.1045 1 22 1.89534 22 2.99996V12.7895C22 15.3454 20.7345 17.4269 19.2106 19.0042C17.6877 20.5805 15.8339 21.7325 14.4619 22.458C12.9168 23.275 11.0917 23.2884 9.53602 22.483C8.16157 21.7715 6.30705 20.6355 4.78405 19.0586C3.25768 17.4782 2 15.3843 2 12.7895V2.99897ZM4 3V12.7895C4 14.692 4.91414 16.3144 6.22263 17.6692C7.53447 19.0274 9.17783 20.0455 10.4555 20.7069C11.4256 21.2091 12.5578 21.2024 13.527 20.6899C14.8063 20.0135 16.4552 18.9778 17.7723 17.6146C19.0883 16.2524 20 14.6426 20 12.7895V3H4Z" fill="currentColor"/> </svg></span>
+            <div class="product-card__meta">
+              <input class="radio__input" type="radio" name="cover-level" value="comprehensive" checked>
+              <span class="radio__control"></span>
+            </div>
+          </div>
+
+          <p class="product-card__title">Fully comprehensive</p>
+          <p class="product-card__subtitle">The widest level of protection for you and your vehicle.</p>
+
+          <ul class="product-card__benefits">
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Covers damage to your own vehicle</span>
+            </li>
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Covers damage or injury caused to others</span>
+            </li>
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Includes fire and theft cover</span>
+            </li>
+          </ul>
+        </div>
+      </label>
+      <label class="product-card product-card--fluid">
+        <div class="product-card__header">
+          <div class="product-card__top">
+            <span class="product-card__badge product-card__badge--brand" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M13 8C13 7.44772 12.5523 7 12 7C11.44772 7 11 7.44772 11 8C11 8.55228 11.44772 9 12 9C12.5523 9 13 8.55228 13 8ZM15 8C15 9.65685 13.6569 11 12 11C10.34315 11 9 9.65685 9 8C9 6.34315 10.34315 5 12 5C13.6569 5 15 6.34315 15 8Z" fill="currentColor"/> <path d="M14.3731 14.3724C14.3727 13.0621 13.3104 12.0001 12.0001 12.0001C10.68969 12.0001 9.62738 13.0621 9.62701 14.3724L14.3731 14.3724ZM7.62701 14.3731C7.62701 11.9579 9.58489 10.0001 12.0001 10.0001C14.4152 10.0001 16.3731 11.9579 16.3731 14.3731V14.8865C16.3731 15.7071 15.7079 16.3724 14.8873 16.3724L9.11285 16.3724C8.29226 16.3724 7.62701 15.7071 7.62701 14.8865V14.3731Z" fill="currentColor"/> <path d="M4 3V12.7896C4.00002 14.6921 4.91419 16.3144 6.22266 17.6692C7.5345 19.0274 9.17791 20.0456 10.45557 20.707C11.42561 21.2092 12.5579 21.2024 13.5271 20.6899C14.8063 20.0135 16.4552 18.9777 17.7722 17.6145C19.0882 16.2524 20 14.6427 20 12.7896V3H4ZM22 12.7896C22 15.3454 20.7346 17.4268 19.2107 19.0042C17.6878 20.5805 15.8339 21.7326 14.4619 22.458C12.9169 23.275 11.09182 23.2885 9.53613 22.4832C8.16169 21.7716 6.30694 20.6355 4.78394 19.0586C3.25761 17.4782 2.00002 15.3843 2 12.7896V2.99902C2 1.89311 2.89678 1 4 1H20C21.1045 1 22 1.89538 22 3V12.7896Z" fill="currentColor"/> </svg></span>
+            <div class="product-card__meta">
+              <input class="radio__input" type="radio" name="cover-level" value="third-party">
+              <span class="radio__control"></span>
+            </div>
+          </div>
+
+          <p class="product-card__title">Third party only</p>
+          <p class="product-card__subtitle">The simplest cover to meet basic legal requirements.</p>
+
+          <ul class="product-card__benefits">
+            <li class="product-card__benefit">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Covers injury or damage caused to others</span>
+            </li>
+            <li class="product-card__benefit product-card__benefit--excluded">
+              <span class="product-card__benefit-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span>
+              <span class="product-card__benefit-text">Vehicle repairs are not included</span>
+            </li>
+          </ul>
+        </div>
+      </label>
+    </fieldset>
+
+    <!-- Opens the comparison table. A link rather than a button: it goes to more
+         detail about the choice, it doesn't act on it. -->
+    <p class="proto__compare">
+      <button class="proto__compare-link" type="button" data-modal-open="compare">Compare side by side</button>
+    </p>
+
+    <div class="proto__cta">
+      <button class="btn btn--primary btn--pill btn--block" type="button" data-journey="next">Continue</button>
+      <p class="proto__cta-note">You can always change this later.</p>
+    </div>
+
+  </main>
+
+  <div class="modal overlay overlay--darker" id="compare" hidden>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="compare-title">
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
+      <h2 class="modal__title" id="compare-title">Compare cover levels</h2>
+
+      <table class="compare">
+        <thead>
+          <tr>
+            <th class="compare__col-header compare__col-header--what" scope="col">What&#39;s covered</th>
+            <th class="compare__col-header" scope="col">Third party only</th>
+            <th class="compare__col-header" scope="col">Fully Comp.</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th class="compare__row-header" scope="row">Fire and theft</th>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Damage or injury to others</th>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Damage to others&#39; property</th>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Public liability</th>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Emergency medical treatment</th>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Damage to your vehicle</th>
+              <td class="compare__cell"><span class="compare__mark compare__mark--no" role="img" aria-label="Not covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Windscreen</th>
+              <td class="compare__cell"><span class="compare__mark compare__mark--no" role="img" aria-label="Not covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Audio equipment</th>
+              <td class="compare__cell"><span class="compare__mark compare__mark--no" role="img" aria-label="Not covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+            <tr>
+              <th class="compare__row-header" scope="row">Vandalism</th>
+              <td class="compare__cell"><span class="compare__mark compare__mark--no" role="img" aria-label="Not covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16.4192 5.10649C16.8097 4.71597 17.4427 4.71597 17.8333 5.10649L18.8948 6.16704C19.2849 6.55756 19.2851 7.1907 18.8948 7.5811L14.4749 12L18.8948 16.42C19.2849 16.8104 19.285 17.4436 18.8948 17.834L17.8333 18.8946C17.4427 19.285 16.8097 19.2851 16.4192 18.8946L11.9993 14.4747L7.58033 18.8946C7.18979 19.285 6.55674 19.2851 6.16627 18.8946L5.10572 17.834C4.71525 17.4436 4.71535 16.8105 5.10572 16.42L9.52466 12L5.10572 7.5811C4.71524 7.19063 4.71534 6.55758 5.10572 6.16704L6.16627 5.10649C6.55679 4.71597 7.1898 4.71597 7.58033 5.10649L11.9993 9.52544L16.4192 5.10649Z" fill="currentColor"/></svg></span></td>
+              <td class="compare__cell"><span class="compare__mark" role="img" aria-label="Covered"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.2891 5.25373C17.6283 4.91487 18.1785 4.91468 18.5176 5.25373L19.7451 6.48225C20.0843 6.82144 20.0843 7.37157 19.7451 7.71076L9.89552 17.5604C9.55638 17.8994 9.00713 17.8993 8.66798 17.5604L4.25392 13.1473C3.91492 12.8081 3.91491 12.2579 4.25392 11.9188L5.4629 10.7098C5.80204 10.3706 6.35221 10.3707 6.69142 10.7098L9.2627 13.2811L17.2891 5.25373Z" fill="currentColor"/></svg></span></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -102,8 +102,9 @@
        DVLA lookup and only an EU driver is asked for them. See FLOW below. */
     { id: 'driver',  label: 'Driver',  pages: ['driver-details.html', 'driver-history.html', 'contact-details.html', 'licence-type.html',
                                                ['uk-licence.html', ['eu-licence.html', 'driving-convictions.html']],
-                                               'taxi-licence.html'] },
-    { id: 'quote',   label: 'Quote',   pages: ['quote.html'] },
+                                               'taxi-licence.html', 'claims.html', 'no-claims-discount.html',
+                                               'work-provider.html'] },
+    { id: 'quote',   label: 'Quote',   pages: ['cover-start.html', 'policy-length.html', 'cover-level.html', 'policy-type.html', 'review-quote.html'] },
     { id: 'payment', label: 'Payment', pages: ['payment.html'] }
   ];
 
@@ -179,8 +180,11 @@
      Going back out of a branch, the trail decides which arm — and it is only
      trusted when it names a page that really does sit in the slot behind, so a
      stale or hand-edited trail can't route somewhere absurd. */
-  function step(at, forward) {
-    var file = here();
+  function step(at, forward, main) {
+    var flowAs = main && main.dataset.flowAs;
+    if (flowAs && !forward) return flowAs;      /* back to the screen it came from */
+
+    var file = flowAs || here();
     var arm  = armOf(FLOW[at.flow] || [], file);
     if (arm) {
       var i = arm.indexOf(file) + (forward ? 1 : -1);
@@ -333,6 +337,10 @@
 
   function complaint(el) {
     if (el.dataset.requiredError) return el.dataset.requiredError;
+    /* A group's message describes the choice, not whichever control happens to
+       carry it — "Select a cover start date", never "Pick a date is required." */
+    var group = groupOf(el);
+    if (group && group.dataset.requiredError) return group.dataset.requiredError;
     /* Figma's Driver details error state gives the approved wording */
     if (kindOf(el) === 'selector') return 'Select an option.';
 
@@ -376,23 +384,25 @@
     });
   }
 
-  function flag(el) {
+  /* `speak` is false for every control in a failing answer-group except the last:
+     they all turn red, but one message stands for the choice they share. */
+  function flag(el, speak) {
     el.setAttribute('data-journey-invalid', '');
-    var text = complaint(el);
+    var text = speak === false ? null : complaint(el);
 
     if (kindOf(el) === 'selector') {
       el.querySelectorAll('.text-icon-item').forEach(function (option) {
         option.classList.add('text-icon-item--error');
       });
-      say(el, 'choice-selector__message choice-selector__message--error',
-          text, el.querySelectorAll('.radio__input'));
+      if (text) say(el, 'choice-selector__message choice-selector__message--error',
+                    text, el.querySelectorAll('.radio__input'));
       return;
     }
 
     var group = el.classList.contains('input-group') ? el : el.querySelector('.input-group');
     var field = el.querySelector('.input-field');
     if (field) field.classList.add('input-field--error');
-    say(group || el, 'input-message input-message--error', text, inputs(el));
+    if (text) say(group || el, 'input-message input-message--error', text, inputs(el));
   }
 
   /* Only ever undoes what flag() did — hence the marker attribute. And it
@@ -423,6 +433,13 @@
      Only answers that are actually on screen count: a hidden follow-up may still
      be checked from before — pick UK licence, answer the Northern Ireland
      question, then switch to EU, and that stale answer would otherwise win. */
+  /* A route carried by the control itself — "this button goes here", the same
+     attribute an answer uses. For a screen offering two ways forward rather than
+     one: Link to Uber steps aside to its own outcome page, Skip takes the flow. */
+  function goesToFrom(el) {
+    return el && el.getAttribute('data-goes-to');
+  }
+
   function goesTo(main) {
     var picked = main.querySelectorAll('[data-goes-to]:checked');
     for (var i = 0; i < picked.length; i++) {
@@ -435,16 +452,50 @@
   }
 
   /* True when the screen may move on */
+  /* Controls that are alternative ways to answer ONE question — the cover start
+     date is Today, or Tomorrow, or a date you pick — sit inside an element marked
+     data-answer-group. Answering any of them answers all of them; failing flags
+     every one, because it is the choice between them that is unmade, and the
+     message goes on the last so it reads as belonging to the group rather than
+     accusing the first option. */
+  function groupOf(el) { return el.closest('[data-answer-group]'); }
+
+  function isLastIn(all, group, index) {
+    for (var i = all.length - 1; i > index; i--) {
+      if (groupOf(all[i]) === group) return false;
+    }
+    return true;
+  }
+
   function gate(main) {
     var first = null;
+    var all   = controls(main);
 
-    controls(main).forEach(function (el) {
+    /* Which groups already have an answer somewhere in them */
+    var satisfied = [];
+    all.forEach(function (el) {
+      var g = groupOf(el);
+      if (g && answered(el) && satisfied.indexOf(g) === -1) satisfied.push(g);
+    });
+
+    /* Within a failing group only the last control carries the message */
+    var speaker = [];
+    all.forEach(function (el) {
+      var g = groupOf(el);
+      if (g && satisfied.indexOf(g) === -1) speaker[all.indexOf(el)] = g;
+    });
+    var last = {};
+    all.forEach(function (el, i) { var g = groupOf(el); if (g) last[all.indexOf(g)] = i; });
+
+    all.forEach(function (el, i) {
+      var g = groupOf(el);
       var blocked;
-      if (answered(el)) {
+      if (answered(el) || (g && satisfied.indexOf(g) !== -1)) {
         unflag(el);
         blocked = !!ownError(el);      /* populated, but the component objects */
       } else {
-        flag(el);
+        /* every control in the group turns red; only the last one speaks */
+        flag(el, g ? isLastIn(all, g, i) : true);
         blocked = true;
       }
       if (blocked && !first) first = el;
@@ -598,38 +649,39 @@
     if (window.GlobalAlert) window.GlobalAlert.clear();
   }
 
-  /* --- CONVICTIONS — a list you add to and delete from ---------------------
-     The convictions screen repeats one Detail Card. Everything the card contains
-     is ordinary journey markup, so the required-field gate, the segmented date and
-     the filtering Select all work on a card that did not exist when the page
-     loaded — nothing here re-implements any of that.
+  /* --- A LIST OF CARDS you add to and delete from --------------------------
+     Two screens repeat one Detail Card: convictions and claims. Everything a card
+     contains is ordinary journey markup, so the required-field gate, the segmented
+     date and the filtering Select all work on a card that did not exist when the
+     page loaded — nothing here re-implements any of that.
 
      Two jobs only: keep the ids and radio names unique so a second card does not
      drive the first, and keep the numbering honest after a delete. */
 
-  var convictions = 0;                 /* ids ever issued — never reused */
+  var cards = 0;                       /* ids ever issued — never reused */
+  var noun  = 'Item';                  /* what a card is called, read off the page */
 
   function renumber(list) {
-    list.querySelectorAll('[data-conviction]').forEach(function (card, i) {
+    list.querySelectorAll('[data-card]').forEach(function (card, i) {
       var n = i + 1;
-      card.querySelector('.detail-card__title').textContent = 'Conviction #' + n;
-      var bin = card.querySelector('[data-conviction-delete]');
-      if (bin) bin.setAttribute('aria-label', 'Delete conviction #' + n);
+      card.querySelector('.detail-card__title').textContent = noun + ' #' + n;
+      var bin = card.querySelector('[data-card-delete]');
+      if (bin) bin.setAttribute('aria-label', 'Delete ' + noun.toLowerCase() + ' #' + n);
     });
   }
 
   /* The template carries {n} and {i} placeholders. {n} is what the driver reads,
      {i} is what the DOM needs to keep apart — they are different numbers as soon
      as anything is deleted, which is exactly why they are separate. */
-  function addConviction(main) {
-    var list = main.querySelector('[data-conviction-list]');
-    var tpl  = document.getElementById('conviction-template');
+  function addCard(main) {
+    var list = main.querySelector('[data-card-list]');
+    var tpl  = document.getElementById('card-template');
     if (!list || !tpl) return null;
 
-    convictions++;
+    cards++;
     var html = tpl.innerHTML
-      .replace(/\{i\}/g, String(convictions))
-      .replace(/\{n\}/g, String(list.querySelectorAll('[data-conviction]').length + 1));
+      .replace(/\{i\}/g, String(cards))
+      .replace(/\{n\}/g, String(list.querySelectorAll('[data-card]').length + 1));
 
     var holder = document.createElement('div');
     holder.innerHTML = html;
@@ -639,36 +691,44 @@
     return card;
   }
 
-  function convictionsEntered(main) {
-    var list = main.querySelector('[data-conviction-list]');
+  function cardsEntered(main) {
+    var list = main.querySelector('[data-card-list]');
     if (!list) return false;
     return Array.prototype.some.call(list.querySelectorAll('.input'), function (i) {
       return i.value.trim();
     }) || !!list.querySelector('.radio__input:checked');
   }
 
-  function wireConvictions(main) {
-    var root = main.querySelector('[data-convictions]');
+  function wireCardList(main) {
+    var root = main.querySelector('[data-card-question]');
     if (!root) return;
-    var list = main.querySelector('[data-conviction-list]');
+    var list = main.querySelector('[data-card-list]');
 
     /* The first card is in the markup, so the id counter starts past it */
-    convictions = list ? list.querySelectorAll('[data-conviction]').length : 0;
+    cards = list ? list.querySelectorAll('[data-card]').length : 0;
+
+    /* What a card is called comes from the template, not from here — "Conviction"
+       on one screen and "Claim" on the next. Renumbering used to hard-code the
+       first, which quietly relabelled every claim as a conviction the moment one
+       was added or deleted. */
+    var tpl = document.getElementById('card-template');
+    var named = tpl && tpl.innerHTML.match(/detail-card__title">\s*([^<#]*?)\s*#\{n\}/);
+    if (named) noun = named[1];
 
     main.addEventListener('click', function (event) {
-      if (event.target.closest('[data-conviction-add]')) {
-        var card = addConviction(main);
+      if (event.target.closest('[data-card-add]')) {
+        var card = addCard(main);
         if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
 
-      var bin = event.target.closest('[data-conviction-delete]');
+      var bin = event.target.closest('[data-card-delete]');
       if (bin) {
-        var card = bin.closest('[data-conviction]');
+        var card = bin.closest('[data-card]');
         /* The last card stays. Deleting it would leave Yes answered with nothing
            to show, which is a state the screen has no design for — answering No
            is how you say you have none. */
-        if (list.querySelectorAll('[data-conviction]').length > 1) {
+        if (list.querySelectorAll('[data-card]').length > 1) {
           card.remove();
           renumber(list);
         }
@@ -689,14 +749,14 @@
     var discarding = false;
 
     no.addEventListener('change', function () {
-      if (discarding || !no.checked || !convictionsEntered(main)) return;
+      if (discarding || !no.checked || !cardsEntered(main)) return;
       yes.checked = true;                                  /* put it back for now */
       yes.dispatchEvent(new Event('change', { bubbles: true }));
       window.Modal.open('discard-convictions', no);
     });
 
     document.addEventListener('click', function (event) {
-      if (event.target.closest('[data-conviction-discard]')) {
+      if (event.target.closest('[data-card-discard]')) {
         /* Answer No for real. conditional-selector.js clears the panel's fields
            as it hides them, so the cards' contents go with it; the extra cards
            themselves are dropped here so reopening starts from one blank card. */
@@ -705,12 +765,132 @@
         no.dispatchEvent(new Event('change', { bubbles: true }));
         discarding = false;
 
-        list.querySelectorAll('[data-conviction]').forEach(function (c, i) { if (i) c.remove(); });
+        list.querySelectorAll('[data-card]').forEach(function (c, i) { if (i) c.remove(); });
         renumber(list);
         window.Modal.close('discard-convictions');
-      } else if (event.target.closest('[data-conviction-keep]')) {
+      } else if (event.target.closest('[data-card-keep]')) {
         window.Modal.close('discard-convictions');
       }
+    });
+  }
+
+
+  /* --- COVER START DATE ----------------------------------------------------
+     Three ways to say the same thing: Today, Tomorrow, or a date from the
+     picker. They share a data-answer-group so the gate treats them as one
+     question; this only has to keep them from contradicting each other, and to
+     write the two shortcut dates — "today" is not something markup can state.
+
+     The picker is the DS Date Picker, which renders and navigates itself. What
+     it doesn't own is being attached to a field: opening, Confirm, Cancel and
+     the 30-day ceiling are all this screen's business. */
+
+  function fmt(d) {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+  }
+
+  /* --- THE WAIT --------------------------------------------------------------
+     The screen between choosing a policy type and seeing the price. It is not a
+     question, so it has no Back and no Continue: it shows the variant for the
+     type that was chosen and then leaves by itself.
+
+     location.replace, not href: a wait is not somewhere the browser's own Back
+     button should be able to land, and the journey's trail never learns about it
+     either — so Back from the quote returns to the question before the wait
+     rather than to the wait. Both fall out of never entering history. */
+
+  /* How long the wait lasts, set by the reward fan rather than picked. One loop of
+     the fan is a round trip — the cards fan apart over 2s and come back over another
+     2s — and it makes two of them, so the screen leaves as the cards settle back into
+     the pile rather than cutting them off mid-move. `.proto__fan-card` in journey.css
+     spends the same budget as `iteration-count: 4` (two runs per loop); change the
+     two together.
+
+     Both variants wait the same, because what is being waited FOR is the same quote.
+     Standard has no animation to time against, so it simply holds its illustration
+     for the eight seconds. */
+  var LOOP_MS = 4000;                 /* 2s out + 2s back */
+  var LOOPS   = 2;
+  var WAIT_MS = LOOPS * LOOP_MS;      /* 8s */
+
+  function wireWait(main) {
+    var panel = main.querySelector('[data-wait-for]');
+    if (!panel) return;
+
+    var chosen = answers()[panel.dataset.waitFor] || panel.dataset.waitDefault;
+
+    /* The block that doesn't apply is REMOVED, not hidden. A hidden block is one
+       stray rule away from showing both messages at once, and this screen exists
+       to say one thing. */
+    panel.querySelectorAll('[data-wait-when]').forEach(function (block) {
+      if (block.dataset.waitWhen === chosen) block.hidden = false;
+      else block.remove();
+    });
+
+    setTimeout(function () {
+      location.replace(panel.dataset.waitThen);
+    }, WAIT_MS);
+  }
+
+  function wireCoverStart(main) {
+    var picker = main.querySelector('.proto__picker');
+    var group  = main.querySelector('[data-start-picker]');
+    if (!picker || !group) return;
+
+    var field = group.querySelector('.input');
+    var today = new Date();
+
+    /* The shortcuts say which day they mean, so nobody has to work it out */
+    main.querySelectorAll('[data-start-date]').forEach(function (el) {
+      var d = new Date(today);
+      d.setDate(d.getDate() + (+el.getAttribute('data-start-date')));
+      el.textContent = fmt(d);
+    });
+
+    /* Cover can start today at the earliest and 30 days out at the latest */
+    var last = new Date(today);
+    last.setDate(last.getDate() + 30);
+    picker.setAttribute('data-today',  today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate());
+    picker.setAttribute('data-year',   today.getFullYear());
+    picker.setAttribute('data-month',  today.getMonth());
+    picker.setAttribute('data-min',    today.getFullYear() + '-' + today.getMonth() + '-' + today.getDate());
+    picker.setAttribute('data-max',    last.getFullYear() + '-' + last.getMonth() + '-' + last.getDate());
+
+    function open(yes) {
+      picker.hidden = !yes;
+      field.setAttribute('aria-expanded', yes ? 'true' : 'false');
+    }
+
+    field.addEventListener('click', function () { open(picker.hidden); });
+
+    main.addEventListener('click', function (event) {
+      if (event.target.closest('[data-picker-cancel]')) { open(false); return; }
+
+      if (event.target.closest('[data-picker-confirm]')) {
+        var sel = picker.getAttribute('data-selected');
+        if (sel) {
+          var p = sel.split('-');
+          field.value = fmt(new Date(+p[0], +p[1], +p[2]));
+          /* Picking a date IS the answer, so the shortcuts stand down */
+          main.querySelectorAll('[data-start-choice]').forEach(function (r) { r.checked = false; });
+          field.dispatchEvent(new Event('input', { bubbles: true }));
+          field.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        open(false);
+        return;
+      }
+    });
+
+    /* ...and the other way round: choosing a shortcut clears the picked date */
+    main.querySelectorAll('[data-start-choice]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (!r.checked) return;
+        field.value = '';
+        picker.removeAttribute('data-selected');
+        open(false);
+        field.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
   }
 
@@ -718,7 +898,11 @@
   /* Where are we? Derived from the filename so a page can't disagree with the
      flow; data-step is the fallback when a screen is opened outside it. */
   function locate(main) {
-    var file = location.pathname.split('/').pop() || 'index.html';
+    /* An OUTCOME of a screen rather than a screen of its own — the linked-account
+       page after the work-provider offer. It sits in that page's slot, so the
+       stepper counts one position for the pair and nobody's progress bar counts a
+       page they will never see. */
+    var file = main.dataset.flowAs || here();
     for (var i = 0; i < STEPS.length; i++) {
       var p = slotIn(STEPS[i].pages, file);
       if (p !== -1) return { step: i, page: p, flow: slotIn(FLOW, file) };
@@ -754,18 +938,25 @@
     foot.innerHTML = FOOT;
     main.parentNode.insertBefore(foot.firstElementChild, main.nextSibling);
 
-    // A small Back control at the top of every screen. It carries
-    // data-journey="back" so the wiring below points it at the previous page —
-    // and removes it on the first screen, where there is nowhere to go back to.
-    // An exit screen skips it: there is nowhere useful to go back to from a
-    // dead end, and the design doesn't show one.
-    if (!main.hasAttribute('data-exit')) {
+    // A Back control at the FOOT of every screen, below the CTA.
+    //
+    // This is prototype furniture, not part of the journey: the live product has no
+    // Back button, and the Figma frames don't draw one. It exists so the flow can be
+    // walked in both directions while it is being reviewed. Kept small and tertiary so
+    // it never competes with the real action above it, and put last so it reads as a
+    // way out of the page rather than the first thing on it.
+    //
+    // Removed on the first screen, which has nowhere to go back to. An exit screen
+    // skips it: there is nowhere useful to go from a dead end, and the design doesn't
+    // show one. A WAIT skips it too — it leaves on its own, so a control that says
+    // "go back" would be racing it.
+    if (!main.hasAttribute('data-exit') && !main.querySelector('[data-wait-for]')) {
       var back = document.createElement('a');
       back.className = 'btn btn--tertiary btn--pill btn--small proto__back';
       back.setAttribute('data-journey', 'back');
       back.setAttribute('href', '#');
       back.innerHTML = '<span class="btn__icon">' + ARROW_LEFT + '</span>Back';
-      main.insertBefore(back, main.firstChild);
+      main.appendChild(back);
     }
 
     // Remember what gets typed, and fill in what earlier screens captured
@@ -773,9 +964,90 @@
       el.addEventListener('input', function () {
         remember(el.dataset.journeyField, el.value);
       });
+      /* A radio that ships checked never fires input, so a default answer would
+         never be recorded and the next screen would see nothing. Write it once on
+         load, so what the screen shows and what it remembers always agree. */
+      if (el.type === 'radio' && el.checked) remember(el.dataset.journeyField, el.value);
     });
 
-    wireConvictions(main);
+    /* --- CHANGE DIALOGUES ---------------------------------------------------
+       A Change link on the read-back opens the question's own cards in a Modal.
+       Closing it writes the chosen answer back into the row that opened it, so the
+       summary can never disagree with what the dialogue shows. Matched on the row's
+       data-journey-value and the modal's id — no third list to keep in step. */
+    document.querySelectorAll('.modal[id^="edit-"]').forEach(function (modal) {
+      var key = modal.id.replace(/^edit-/, '');
+      var row = main.querySelector('[data-journey-value="' + key + '"]');
+      if (!row) return;
+
+      /* What the link promises follows from what the dialogue can do. A question with
+         alternatives says CHANGE; a question with only one option left to offer says
+         LEARN MORE, because the dialogue can then only explain that option — it has
+         nothing to switch to. That is the difference between this screen and the
+         12-months-only variant, and it is read off the options rather than authored,
+         so the variant needs no second set of labels. A date is always Change: there
+         is no single-option version of a calendar. */
+      /* A calendar in a dialogue has nothing wiring it to a field, so nothing has set
+         the month it should open on. Seed it from the answer being changed — or from
+         today if there isn't one — and give it the same 30-day window the cover-start
+         screen uses, so the dialogue can't offer a date the question wouldn't. */
+      var cal = modal.querySelector('.date-picker');
+      if (cal && !cal.getAttribute('data-year')) {
+        var parts = (row.textContent.match(/(\d{2})\s*\/\s*(\d{2})\s*\/\s*(\d{4})/) || []).slice(1);
+        var now   = new Date();
+        var start = parts.length ? new Date(+parts[2], parts[1] - 1, +parts[0]) : now;
+        function stamp(d) {
+          return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') +
+                 '-' + String(d.getDate()).padStart(2, '0');
+        }
+        var last = new Date(now); last.setDate(last.getDate() + 30);
+        /* Open on a month the window actually contains. The stored answer can be in
+           the past by the time someone comes back to this screen — a quote saved on
+           30 July, reopened in August — and opening there would show a calendar with
+           every day disabled and no hint of where the live dates are. */
+        if (start < now) start = now;
+        cal.setAttribute('data-year',  start.getFullYear());
+        cal.setAttribute('data-month', start.getMonth());
+        cal.setAttribute('data-today', stamp(now));
+        cal.setAttribute('data-min',   stamp(now));
+        cal.setAttribute('data-max',   stamp(last));
+        if (parts.length) cal.setAttribute('data-selected', stamp(start));
+      }
+
+      var trigger = main.querySelector('[data-modal-open="' + modal.id + '"]');
+      if (trigger) {
+        var single = modal.querySelectorAll('.radio__input').length === 1;
+        var label  = modal.querySelector('.date-picker, [data-start-picker]') ? 'Change'
+                   : (single ? 'Learn more' : 'Change');
+        var question = trigger.closest('.display-row')
+                              .querySelector('.display-row__label').textContent.trim();
+        /* The visible word is short because the row above it says what it acts on; the
+           hidden half is for anyone hearing the links out of context. */
+        trigger.innerHTML = label +
+          '<span class="visually-hidden"> ' + question.toLowerCase() + '</span>';
+      }
+
+      modal.addEventListener('click', function (event) {
+        if (!event.target.closest('[data-modal-close]')) return;
+        /* The label of whatever is checked — the card's own title, so the row reads
+           the same words the dialogue did. */
+        var picked = modal.querySelector('.radio__input:checked');
+        if (!picked) return;
+        var host  = picked.closest('label');
+        var title = host && host.querySelector('.product-card__title, .product-card__subtitle, .text-icon-item__label');
+        var img   = host && host.querySelector('.product-card__lockup img');
+        var text  = img ? img.getAttribute('alt').replace(/^Zego\s+/, '')
+                        : (title ? title.textContent.trim() : null);
+        if (text) {
+          row.textContent = text;
+          remember(key, text);
+        }
+      });
+    });
+
+    wireCardList(main);
+    wireCoverStart(main);
+    wireWait(main);
 
     var stored = answers();
 
@@ -856,7 +1128,7 @@
          a slot, so Continue from the end of one lands past the branch and Back from
          its start returns to the question that chose it — never sideways into the
          other arm. */
-      var to      = step(at, forward);
+      var to      = step(at, forward, main);
       if (!to) { el.remove(); return; }
 
       /* Push on the way forward, pop on the way back — see THE TRAIL above */
@@ -868,7 +1140,7 @@
       }
       function backward() {
         var t = trail();
-        var dest = step(at, false);
+        var dest = step(at, false, main);
         t.pop();
         saveTrail(t);
         location.href = dest;
@@ -883,7 +1155,7 @@
           if (licenceIncomplete(main)) { showIncompleteError(main); return; }
           if (lookupFails(main)) { showLookupError(main); return; }
           clearLookupError();
-          onward(goesTo(main) || to);              /* a disqualifying answer wins */
+          onward(goesToFrom(el) || goesTo(main) || to);   /* the control, then an answer */
         });
       } else {
         el.addEventListener('click', function () {
@@ -894,7 +1166,7 @@
           if (licenceIncomplete(main)) { showIncompleteError(main); return; }
           if (lookupFails(main)) { showLookupError(main); return; }
           clearLookupError();
-          onward(goesTo(main) || to);
+          onward(goesToFrom(el) || goesTo(main) || to);
         });
       }
     });

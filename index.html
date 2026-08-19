@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="components/tab-bar/tab-bar.css">
   <link rel="stylesheet" href="components/bullet-points/bullet-points.css">
   <link rel="stylesheet" href="components/comparison-tile/comparison-tile.css">
+  <link rel="stylesheet" href="components/price-card/price-card.css">
   <link rel="stylesheet" href="components/price-comparison/price-comparison.css">
   <link rel="stylesheet" href="components/tier-card/tier-card.css">
   <link rel="stylesheet" href="components/tier-section/tier-section.css">
@@ -1045,6 +1046,30 @@
         `
       },
       {
+        name: "Price Card",
+        description: "Two ways of paying for the same thing: badge, radio, title and the figures.",
+        page: "components/price-card/price-card.html",
+        preview: `
+          <label class="price-card" style="max-width:300px">
+            <div class="price-card__top">
+              <span class="price-card__badge"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V8H21V6C21 5.44772 20.5523 5 20 5H4ZM3 10V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V10H3Z" fill="currentColor"/><path d="M5.5 15C5.22386 15 5 15.2239 5 15.5V16.5C5 16.7761 5.22386 17 5.5 17H9.5C9.77614 17 10 16.7761 10 16.5V15.5C10 15.2239 9.77614 15 9.5 15H5.5Z" fill="currentColor"/></svg></span>
+              <span class="price-card__control"><input class="radio__input" type="radio" name="sct-preview" checked><span class="radio__control"></span></span>
+            </div>
+            <p class="price-card__title">Pay monthly</p>
+            <div class="price-card__panel">
+              <ul class="price-card__lines">
+                <li class="price-card__line"><span>Today</span><span>&pound;500</span></li>
+                <li class="price-card__line price-card__line--total"><span>Total</span><span>&pound;2,876</span></li>
+              </ul>
+              <div class="price-card__meta">
+                <span class="price-card__tag">Spread the cost</span>
+                <span class="price-card__tag price-card__tag--note">19.9% APR</span>
+              </div>
+            </div>
+          </label>
+        `
+      },
+      {
         name: "Product Card",
         description: "Insurance product option with a badge, Best value tag, benefit bullets and a rewards banner; resting and active states.",
         page: "components/product-card/product-card.html",
@@ -1060,9 +1085,11 @@
                 <p class="product-card__subtitle" style="font-size:14px;line-height:20px">Get up to £60 a year in rewards</p>
               </div>
             </div>
-            <div class="product-card__banner"><div class="product-card__banner-inner">
-              <p class="product-card__banner-text">Drive well. Pay less. Get rewards.</p>
-              <div class="product-card__rewards"><span class="product-card__reward" style="background:#232f3e"></span><span class="product-card__reward" style="background:#ff8000"></span><span class="product-card__reward" style="background:#00704a"></span></div>
+            <div class="product-card__banner"><div class="marketing-banner">
+              <div class="marketing-banner__content"><div class="marketing-banner__text">
+                <p class="marketing-banner__title">Drive well. Get rewards.</p>
+              </div></div>
+              <div class="marketing-banner__image"><div class="product-card__rewards"><span class="product-card__reward"><img src="assets/rewards/amazon.jpg" alt=""></span><span class="product-card__reward"><img src="assets/rewards/just-eat.jpg" alt=""></span><span class="product-card__reward"><img src="assets/rewards/starbucks.jpg" alt=""></span></div></div>
             </div></div>
           </div>
         `
@@ -1278,6 +1305,17 @@
             <img src="assets/flags/germany.svg" width="32" height="32" alt="">
             <img src="assets/flags/spain.svg" width="32" height="32" alt="">
             <img src="assets/flags/italy.svg" width="32" height="32" alt="">
+          </span>
+        `
+      },
+      {
+        name: "Brand marks",
+        description: "The Zego logo and the Sense / Standard product lockups.",
+        page: "pages/brand.html",
+        preview: `
+          <span style="display:inline-flex;gap:16px;align-items:center">
+            <img src="brand/zego-sense.svg" height="36" alt="">
+            <img src="brand/zego-standard.svg" height="36" alt="">
           </span>
         `
       },

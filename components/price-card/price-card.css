@@ -1,0 +1,187 @@
+/*
+ * ============================================================
+ * SMALL COMPARISON TILE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57968-9417
+ *
+ * A selectable tile for choosing between two ways of paying: a product badge, a
+ * radio, a title, and a tinted panel holding the figures with optional tags
+ * beneath them.
+ *
+ * Named "Small comparison tile" in Figma until 13 Aug 2026, when it became PRICE CARD
+ * — a better name, because it was a word away from COMPARISON TILE (comparison-tile.css,
+ * node 6477-174868) while doing a different job. That one compares products on price;
+ * this one lays out the arithmetic of one way of paying for a product already chosen.
+ * The Figma component may still carry the old name; the node id is what to trust.
+ *
+ * States (Figma "State"): Default | Hover | Active (spelled "Avtive" there).
+ *   Hover  — aqua border. :hover, or forced with --hover.
+ *   Active — aqua border AND the panel on surface/focus. Applied when the tile
+ *            contains the checked radio, or forced with --active.
+ *   Exactly the pattern Product Card uses, for the same reason: hovering and
+ *   choosing must not look identical.
+ *
+ * Composition — reuses Radio, and Status Label's geometry for the tags.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="price-card.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../radio/radio.css';
+
+
+.price-card {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  /* The width 003 draws it at. Caps it in a wide container the way Product Card's
+     335 does, and never bites in a mobile column (343 inside a 375 screen). */
+  max-width:      351px;
+  box-sizing:     border-box;
+  /* Border-2 at every state so choosing a tile doesn't resize it; transparent at
+     rest, because 003 gives the resting tile no outline at all. */
+  border:         var(--border-m) solid transparent;
+  border-radius:  var(--radius-medium);                     /* 16 */
+  background:     var(--surface-primary);
+  /* Spacer-16 from the outer edge, so the border comes off the padding. */
+  padding:        calc(var(--spacer-16) - var(--border-m));
+  font-family:    'Modern Era', sans-serif;
+}
+
+.price-card--hover,
+.price-card--active,
+.price-card:has(.radio__input:checked)  { border-color: var(--border-active); }
+.price-card:has(.radio__input):hover    { border-color: var(--border-active); }
+
+
+/* ------------------------------------------------------------
+   TOP ROW — badge and the control that chooses this tile
+   ------------------------------------------------------------ */
+
+.price-card__top {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  margin-bottom:   var(--spacer-16);
+}
+
+.price-card__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-small);                     /* 8 */
+  background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
+  color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
+}
+.price-card__badge svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   TITLE
+   ------------------------------------------------------------ */
+
+.price-card__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;                                     /* Mobile/Title 4 */
+  line-height:    24px;
+  letter-spacing: var(--letter-spacing-tight);              /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   PANEL — the figures
+   Tinted rather than ruled: these lines are an arithmetic aside, and a box around
+   them separates them from the title without drawing four more borders on a card
+   that already has one.
+   ------------------------------------------------------------ */
+
+.price-card__panel {
+  margin-top:    var(--spacer-16);
+  padding:       var(--spacer-12);
+  border-radius: var(--radius-small);                       /* 8 */
+  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
+  transition:    background-color 150ms ease;
+}
+
+/* Aqua once the tile is CHOSEN — not on hover. The panel is the one part that
+   separates the two aqua-bordered states, the same job it does on Product Card. */
+.price-card--active .price-card__panel,
+.price-card:has(.radio__input:checked) .price-card__panel { background: var(--surface-focus); }
+
+.price-card__lines {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin:         0;
+  padding:        0;
+  list-style:     none;
+}
+
+/* Label left, figure right, and the gap between them is whatever is left — so the
+   figures line up down the right edge however long the labels get. */
+.price-card__line {
+  display:         flex;
+  align-items:     baseline;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-2);                 /* 16 / 24 */
+  line-height:     var(--line-height-body-2);
+  color:           var(--text-primary);
+}
+
+/* The total is the line that answers the question, so it carries the weight. */
+.price-card__line--total { font-weight: var(--font-weight-bold); }
+
+
+/* ------------------------------------------------------------
+   TAGS
+   003 draws these as Status Labels with their colours overridden — yellow
+   brand/4-medium for the selling point, and brand/4-low inside a
+   border/warning-low hairline for the small print. Neither is a state Status Label
+   has, so they are declared here rather than by adding two more states to a
+   component whose states all mean something about status. See KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+.price-card__meta {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--spacer-4);
+  margin-top:  var(--spacer-12);
+}
+
+.price-card__tag {
+  display:         inline-flex;
+  align-items:     center;
+  height:          24px;
+  padding:         0 var(--spacer-4);
+  box-sizing:      border-box;
+  border:          var(--border-s) solid transparent;
+  border-radius:   var(--radius-x-small);                   /* 4 */
+  background:      var(--brand-4-medium);                   /* #FCFF5F */
+  color:           var(--text-primary-fixed);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-4);                 /* 12 / 16 */
+  line-height:     var(--line-height-body-4);
+  white-space:     nowrap;
+}
+
+/* The quieter one — a fact you must show rather than a reason to choose. */
+.price-card__tag--note {
+  background:   var(--brand-4-low);                         /* #FDFEE1 */
+  border-color: var(--border-warning-low);                  /* #FBEACE */
+}
+
+/* Fluid — drop the cap and fill the column, for a tile that is alone on a screen
+   rather than beside its sibling. Same modifier Product Card and Detail Card use. */
+.price-card--fluid { max-width: none; }

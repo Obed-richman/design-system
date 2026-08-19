@@ -425,6 +425,11 @@
  *   data-year, data-month (0–11) — the visible month
  *   data-selected  "YYYY-M-D"    — the chosen day (M is 0–11)
  *   data-today     "YYYY-M-D"    — the day drawn with the "today" outline
+ *   data-min, data-max "YYYY-M-D" — optional bounds. Days outside them render
+ *                                   disabled, and the month arrows stop rather
+ *                                   than walking into a month with nothing in it.
+ *                                   For a question that only accepts a window —
+ *                                   "cover must start within 30 days".
  *
  * Weeks start on Monday. Selecting a day updates data-selected and re-renders.
  * Self-init via event delegation:  <script src="date-picker.js" defer></script>
@@ -436,6 +441,22 @@
   var WEEKDAYS = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
   function key(y, m, d) { return y + '-' + m + '-' + d; }
+
+  /* "YYYY-M-D" as a number that sorts, so bounds can be compared without Date */
+  function ord(k) {
+    if (!k) return null;
+    var p = k.split('-');
+    return (+p[0]) * 10000 + (+p[1]) * 100 + (+p[2]);
+  }
+
+  function bounds(dp) {
+    return { min: ord(dp.getAttribute('data-min')), max: ord(dp.getAttribute('data-max')) };
+  }
+
+  function outside(b, y, m, d) {
+    var v = ord(key(y, m, d));
+    return (b.min !== null && v < b.min) || (b.max !== null && v > b.max);
+  }
 
   function render(dp) {
     var year = parseInt(dp.getAttribute('data-year'), 10);
@@ -456,15 +477,27 @@
     for (var i = 0; i < firstDow; i++) {
       cells += '<span class="date-picker__day date-picker__day--empty" aria-hidden="true"></span>';
     }
+    var b = bounds(dp);
     for (var d = 1; d <= daysInMonth; d++) {
       var k = key(year, month, d);
       var cls = 'date-picker__day';
       if (k === selected) cls += ' date-picker__day--selected';
       if (k === today) cls += ' date-picker__day--today';
       var pressed = k === selected ? ' aria-pressed="true"' : '';
-      cells += '<button type="button" class="' + cls + '" data-day="' + d + '"' + pressed + '>' + d + '</button>';
+      /* Out of bounds days are shown and disabled rather than hidden: the shape
+         of the month stays readable, and it is clear the day exists but can't be
+         chosen. */
+      var off = outside(b, year, month, d) ? ' disabled' : '';
+      cells += '<button type="button" class="' + cls + '" data-day="' + d + '"' + pressed + off + '>' + d + '</button>';
     }
     grid.innerHTML = cells;
+
+    /* Stop the arrows at the edge of the window — a month with every day greyed
+       out is a dead end you have to find your own way back from. */
+    var prev = dp.querySelector('.date-picker__prev');
+    var next = dp.querySelector('.date-picker__next');
+    if (prev) prev.disabled = b.min !== null && ord(key(year, month, 1)) <= b.min;
+    if (next) next.disabled = b.max !== null && ord(key(year, month, daysInMonth)) >= b.max;
   }
 
   function shiftMonth(dp, delta) {
@@ -497,8 +530,33 @@
     }
   });
 
+  /* Re-render when the data attributes change, so a picker can be DRIVEN: set
+     data-year and data-month from script and the calendar follows. Without this
+     a consumer that decides the month at runtime — "start from today" — renders
+     once against whatever the markup happened to say and then never again.
+
+     watch() skips the render it caused itself, or setting data-selected inside
+     render would loop. */
+  var rendering = false;
+
+  function watch(dp) {
+    if (dp._dpWatched) return;
+    dp._dpWatched = true;
+    new MutationObserver(function () {
+      if (rendering) return;
+      rendering = true;
+      render(dp);
+      rendering = false;
+    }).observe(dp, { attributes: true,
+      attributeFilter: ['data-year', 'data-month', 'data-selected', 'data-today',
+                        'data-min', 'data-max'] });
+  }
+
   function initAll() {
-    document.querySelectorAll('.date-picker').forEach(render);
+    document.querySelectorAll('.date-picker').forEach(function (dp) {
+      render(dp);
+      watch(dp);
+    });
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAll);
@@ -591,6 +649,9 @@
  *   - Remove: clears the field and returns to default.
  *   - Editing the field after an error clears the error.
  *
+ * A .discount-code--collapsible also opens and closes from its __toggle row,
+ * tracked on data-open so the CSS can hide the form and turn the chevron.
+ *
  * Pair with input.js so the clear (×) button empties the field. Self-init via
  * event delegation:  <script src="discount-code.js" defer></script>
  * ============================================================
@@ -600,9 +661,38 @@
     dc.setAttribute('data-state', state);
     var field = dc.querySelector('.input-field');
     if (field) field.classList.toggle('input-field--error', state === 'error');
+
+    /* A collapsible one loses its collapse while a code is applied — the CSS hides
+       the toggle, and this keeps data-open honest so nothing is left half-shut
+       underneath it. Removing the code leaves it open with the field ready for
+       another try, and the toggle comes back with it. */
+    if (dc.classList.contains('discount-code--collapsible')) {
+      dc.setAttribute('data-open', 'true');
+      var t = dc.querySelector('.discount-code__toggle');
+      if (t) t.setAttribute('aria-expanded', 'true');
+    }
   }
 
   document.addEventListener('click', function (event) {
+    /* Open / close a collapsible one. aria-expanded is set alongside data-open so
+       the row announces its state rather than only looking like it has one. */
+    var toggle = event.target.closest('.discount-code__toggle');
+    if (toggle) {
+      var host = toggle.closest('.discount-code');
+      /* Nothing to fold while a code is applied; the toggle is hidden then, but a
+         keyboard or a script could still reach it. */
+      if (host && host.getAttribute('data-state') !== 'applied') {
+        var open = host.getAttribute('data-open') !== 'true';
+        host.setAttribute('data-open', open ? 'true' : 'false');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+          var f = host.querySelector('.input');
+          if (f) f.focus();
+        }
+      }
+      return;
+    }
+
     var apply = event.target.closest('.discount-code__apply');
     if (apply) {
       var dc = apply.closest('.discount-code');
@@ -1233,6 +1323,13 @@
  * reads as a broken field, where a message says what is actually wrong. Copy
  * comes from data-date-error, so it stays with the page.
  *
+ * A WINDOW — data-date-within="3"
+ * Both bounds at once: no later than today and no earlier than N years back.
+ * For a question that asks about a period — claims in the last 3 years,
+ * convictions in the last 5 — where a date outside the window isn't being asked
+ * about at all. Implies data-date-max="today", so it replaces it rather than
+ * joining it, and shares data-date-error.
+ *
  * Day ranges are 01–31 regardless of month: a real calendar check would need
  * copy for "that date doesn't exist", which no design specifies yet.
  * ============================================================
@@ -1312,7 +1409,9 @@
     var parts = segments(root);
     if (!parts.length || !parts.every(full)) { hide(root); return true; }
 
-    if (root.dataset.dateMax === 'today') {
+    var within = +root.dataset.dateWithin || 0;
+
+    if (root.dataset.dateMax === 'today' || within) {
       var value = {};
       parts.forEach(function (p) { value[kindOf(p)] = +digits(p.value); });
 
@@ -1325,7 +1424,14 @@
         || (year === now.getFullYear() && value.month === now.getMonth() + 1
             && value.day !== undefined && value.day > now.getDate());
 
-      if (future) {
+      /* The floor of the window, N years back to the same month. Compared the
+         same way round as the ceiling above, so the two agree about a date that
+         lands exactly on the boundary month: it is inside the window. */
+      var floorYear = now.getFullYear() - within;
+      var early = within && (year < floorYear
+        || (year === floorYear && value.month < now.getMonth() + 1));
+
+      if (future || early) {
         show(root, root.dataset.dateError || 'That date is in the future.');
         return false;
       }

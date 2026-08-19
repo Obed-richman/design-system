@@ -3116,6 +3116,15 @@ body { font-family: var(--font-family-base); }
  * row, a date grid, and Cancel / Confirm actions. A day can be today (outlined)
  * or selected (aqua). Navigation and selection are handled by date-picker.js.
  *
+ * Two TYPES (Figma "Type"):
+ *   Calendar (default) — month navigation, a weekday row, and the day grid on its
+ *                        own ruled panel. A real date.
+ *   Set date  .date-picker--set-date — a Display Row heading with a checkbox, then a
+ *                        bare 1-28 grid of NUMBER ITEMs. No month, no weekdays: it
+ *                        picks a day OF a month rather than a date, which is what a
+ *                        recurring payment date needs. Composes Number Item and
+ *                        Display Row, so link their CSS too.
+ *
  * Composes existing components: Button (nav FABs + Cancel/Confirm). Icons come
  * from /icons (arrow-left, arrow-right).
  *
@@ -3128,6 +3137,9 @@ body { font-family: var(--font-family-base); }
  *        data-today="2026-0-15" data-selected="2026-0-26"> … </div>
  * ============================================================
  */
+
+
+/* Set date builds its grid from Number Item and its heading from Display Row. */
 
 
 .date-picker {
@@ -3177,7 +3189,16 @@ body { font-family: var(--font-family-base); }
   display:               grid;
   grid-template-columns: repeat(7, 1fr);
 }
-.date-picker__grid { gap: var(--spacer-4); }      /* 4px */
+/* The grid sits on its own white panel, inset from the picker and ruled off — 003
+   separates the days from the month nav and the weekday row that way, so the row of
+   letters reads as a heading for the panel rather than as a first row of it. */
+.date-picker__grid {
+  gap:           var(--spacer-4);                 /* 4px */
+  padding:       var(--spacer-8);
+  border:        var(--border-s) solid var(--border-primary);
+  border-radius: var(--radius-medium);            /* 16px */
+  background:    var(--surface-primary);
+}
 
 .date-picker__weekday {
   text-align:  center;
@@ -3220,7 +3241,13 @@ body { font-family: var(--font-family-base); }
 /* Today — outlined */
 .date-picker__day--today { border-color: var(--border-primary); }
 
-/* Selected — aqua surface + border */
+/* Selected — surface/focus inside an aqua ring. Both are bound on 003's Calendar
+   symbol, and Number Item's Active state (which builds the Set date grid) binds the
+   same pair, so the two types agree.
+
+   I briefly made this transparent on 12 Aug 2026, having read the pale #CEFDFD middle
+   as white in a low-resolution frame render. Restored the same day off the variable
+   list. A colour that faint needs reading from the tokens, not from a screenshot. */
 .date-picker__day--selected {
   background:    var(--surface-focus);            /* #cefdfd */
   border-color:  var(--border-active);            /* #05cfcf */
@@ -3239,6 +3266,38 @@ body { font-family: var(--font-family-base); }
   gap:     var(--gap-medium);                     /* 16px */
 }
 .date-picker__actions .btn { flex: 1; }
+
+
+/* ------------------------------------------------------------
+   TYPE = SET DATE
+   A day of the month rather than a date on a calendar — a payment date, not an event.
+   So there is no month to navigate and no weekday row to align to, and the cells are
+   NUMBER ITEMs: 003 builds this grid out of that component rather than out of the
+   Calendar type's own day buttons, and Number Item already is a 48px tile with the
+   aqua --active state this needs.
+
+   Tighter padding than the Calendar type — Spacer-8 against its 16 — because the
+   Display Row and the grid both carry their own inset, and 16 on top of those pushed
+   the whole thing 12px wider than 003 draws it.
+   ------------------------------------------------------------ */
+
+.date-picker--set-date {
+  gap:     var(--spacer-16);
+  padding: var(--spacer-8);
+}
+
+/* Seven across, and the cells BUTT TOGETHER — no gap. Number Item states are drawn as
+   a ring inside the tile's own 48px, so a gap would separate rings that 003 keeps
+   adjacent, and 7 x 48 = 336 is the width the grid is drawn at. */
+.date-picker__dates {
+  display:               grid;
+  grid-template-columns: repeat(7, 48px);
+  justify-content:       center;
+}
+
+/* The heading is a Display Row with a trailing checkbox — "use this date every month"
+   rather than a title. It brings its own dividers, so nothing is added here. */
+.date-picker--set-date .display-row { padding-inline: var(--spacer-12); }
 
 
 /* ==== components/detail-card/detail-card.css ==== */
@@ -3373,6 +3432,18 @@ body { font-family: var(--font-family-base); }
   /* Inset top and bottom too, matching Figma: without it the first field sits
      flush against the header band and the last against the card's edge. */
 }
+
+/* A card whose content is a LIST OF ROWS rather than a stack of fields. Display Row
+   brings its own dividers and collapses them with its neighbour, so the 20px gap and
+   the block padding both have to go — a gap stops the collapse and leaves a double
+   rule between every row, which is what 003 draws as a single line. The rows keep
+   the 16px side inset by taking it themselves. */
+.detail-card__content--rows {
+  gap:           0;
+  padding-block: 0;
+}
+.detail-card__content--rows > .display-row:first-child { border-top: none; }
+.detail-card__content--rows > .display-row:last-child  { border-bottom: none; }
 
 .detail-card__field {
   display:        flex;
@@ -3589,6 +3660,76 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ------------------------------------------------------------
+   COLLAPSIBLE
+   A summary row that opens the rest. Closed by default: on a page that is mostly
+   about a price, a discount field left open invites hunting for a code that
+   doesn't exist.
+
+   The row is a real <button> with aria-expanded, so it announces its state and
+   works from the keyboard without anything else being added.
+   ------------------------------------------------------------ */
+
+.discount-code--collapsible {
+  border-radius: var(--radius-medium);            /* 16 */
+  background:    var(--surface-primary);
+  padding:       var(--spacer-16);
+}
+
+.discount-code__toggle {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+  padding:         0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  font-family:     inherit;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-2);   /* 16 / 24 */
+  line-height:     var(--line-height-subtitle-2);
+  color:           var(--text-primary);
+  text-align:      left;
+}
+
+.discount-code__chevron {
+  flex:       0 0 auto;
+  width:      16px;
+  height:     16px;
+  color:      var(--icon-glyph-primary);
+  transition: rotate 150ms ease;
+}
+.discount-code__chevron svg { display: block; width: 100%; height: 100%; }
+
+/* Points up once open — the control's own direction is the clearest statement of
+   which way it will go next. */
+.discount-code--collapsible[data-open="true"] .discount-code__chevron { rotate: 180deg; }
+
+/* Closed: only the row shows. A Divider above the form separates the two once it
+   is open, which is what 003 reveals alongside the input. */
+.discount-code--collapsible:not([data-open="true"]) .discount-code__form,
+.discount-code--collapsible:not([data-open="true"]) .discount-code__applied { display: none; }
+
+.discount-code--collapsible[data-open="true"] .discount-code__form {
+  margin-top:  var(--spacer-16);
+  padding-top: var(--spacer-16);
+  border-top:  var(--border-s) solid var(--border-primary);
+}
+
+/* An applied code takes the collapse away entirely rather than staying openable. A
+   discount is a change to the price, so it belongs on the page as plainly as the
+   price does — and a chevron beside it invites folding away the one thing on this row
+   that now matters. Remove puts the control back. */
+.discount-code--collapsible[data-state="applied"] .discount-code__toggle { display: none; }
+
+.discount-code--collapsible[data-state="applied"] .discount-code__applied {
+  display:    flex;
+  margin-top: 0;
+}
+
+
 /* ==== components/display-row/display-row.css ==== */
 /*
  * ============================================================
@@ -3600,6 +3741,8 @@ body { font-family: var(--font-family-base); }
  *   - leading icon (.display-row__icon)
  *   - support text below the label (.display-row__support)
  *   - a right-hand value / 2nd column (.display-row__value)
+ *   - .display-row--stacked  a read-back row: plain label with the ANSWER bold
+ *     underneath it (--spec does the same thing side by side)
  *   - a trailing chevron / radio / button (.display-row__trailing)
  *
  * Reuses Radio and Button for the trailing slot — link radio.css / button.css
@@ -3688,6 +3831,18 @@ body { font-family: var(--font-family-base); }
    (the default row emphasises the label instead). Used for read-back summaries
    such as vehicle details. */
 .display-row--spec .display-row__label { font-weight: var(--font-weight-regular); }
+
+/* Stacked — the same key/value inversion, but vertical: the question in plain
+   weight with the answer bold beneath it. What a summary of choices already made
+   wants, because the eye is scanning the answers, not the questions. The support
+   line steps up to 16/24 to carry that job; at Body 3 it read as a footnote to the
+   label rather than the point of the row. */
+.display-row--stacked .display-row__label { font-weight: var(--font-weight-regular); }
+.display-row--stacked .display-row__support {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+}
 
 .display-row__value {
   flex-shrink: 0;
@@ -4590,6 +4745,8 @@ body { font-family: var(--font-family-base); }
  *     <p class="input-message input-message--error">Error message</p>
  *   </div>
  *
+ *   <!-- A field that opens something (a date picker) carries a decorative
+ *        trailing icon — see the TRAILING ICON section. -->
  *   <!-- Valid / Hint: add input-field--valid | input-field--hint and the matching message.
  *        input-field--valid also reveals a trailing .input__status tick if one is
  *        in the markup — see the STATUS TICK section. -->
@@ -4804,6 +4961,38 @@ body { font-family: var(--font-family-base); }
   line-height: var(--line-height-body-3);
   color:       var(--text-pressed);
 }
+
+/* Spacer-4 under the LABEL, not the group's Spacer-8: the support finishes the
+   question, so it belongs to the label more than the field belongs to either. Only
+   the first one — a second paragraph of supporting text is a separate sentence and
+   keeps the group's own 8px. */
+.input-label + .input-support {
+  margin-top: calc(var(--spacer-4) - var(--gap-x-small));   /* 4 - 8 = -4 */
+}
+
+
+/* ------------------------------------------------------------
+   TRAILING ICON — decorative, always shown
+   The affordance on a field that opens something. Distinct from the clear (an
+   action) and the status tick (a verdict) — this one only says what the field
+   does. A field that opens a Date Picker takes icons/calendar.svg; take the glyph
+   from /icons rather than drawing one, and inline it so it inherits the colour
+   set here.
+
+     <div class="input-field">
+       <input class="input" type="text" readonly placeholder="Select"
+              aria-haspopup="dialog" aria-expanded="false">
+       <span class="input__icon" aria-hidden="true"><svg>…calendar…</svg></span>
+     </div>
+   ------------------------------------------------------------ */
+
+.input__icon {
+  flex-shrink: 0;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.input__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------
@@ -5494,6 +5683,10 @@ body { font-family: var(--font-family-base); }
  *   Mobile  — 16px sides, the close in a 48px band above the title, Title 4+
  *   Desktop — 32px sides, the close 16 from the top, Title 3
  *
+ * WIDTH IS CONTENT-DRIVEN. The panel declares padding, not width: it hugs its content,
+ * so what is inside decides how wide the dialogue is while the inner padding stays
+ * constant (16 mobile, capped at 343; 32 desktop, bounded by the screen).
+ *
  * The component is a CONTAINER: a close, a title, and a slot for whatever the
  * dialogue is about. 003 fills its desktop example with Bullet Points; the
  * actions below are a slot too (Figma's hidden "Buttons & Text Link").
@@ -5574,13 +5767,23 @@ body { font-family: var(--font-family-base); }
    PANEL
    ------------------------------------------------------------ */
 
+/* CONTENT-DRIVEN WIDTH.
+   The panel sets its inner PADDING and nothing else about its width: it hugs what is
+   inside it, so a dialogue asking one question stays narrow and one holding two cards
+   or a table grows to fit them. The padding stays put either way — 16 here, 32 on
+   desktop — which is what keeps a set of dialogues looking like one family while their
+   widths differ.
+
+   fit-content, not a percentage — and the ceiling is on the CONTENT, not the panel.
+   003 draws the mobile symbol 375 wide around a 343 container and the desktop one 652
+   around 588, which are Frame/Screen and Frame/Content with the padding added back. So
+   the cap is stated the same way: the content frame plus its own two paddings, which is
+   why it reads as arithmetic rather than as a magic 375 / 652. */
 .modal__panel {
   position:       relative;
   box-sizing:     border-box;
-  width:          100%;
-  /* Frame/Screen, which is 375 below 768 and 1440 above it — the desktop cap in
-     the media query below is what actually applies there. */
-  max-width:      var(--frame-screen);
+  width:          fit-content;
+  max-width:      calc(343px + 2 * var(--spacer-16));       /* 343 content + padding */
   max-height:     100%;
   overflow-y:     auto;
   display:        flex;
@@ -5602,14 +5805,17 @@ body { font-family: var(--font-family-base); }
    are. Controls inside keep their own focus styles. */
 .modal__panel:focus { outline: none; }
 
-/* Desktop steps the padding out and the title up, and caps the panel at the 516
-   003 draws it at — a dialogue stops growing where it stops being comfortable to
-   read rather than following the page's frame. */
+/* Desktop steps the padding out and the title up, and raises the ceiling to one
+   content frame. The 516 this file used to impose is gone from 003 too — it was one
+   example's width, not every dialogue's. */
 @media (min-width: 768px) {
   .modal__panel {
-    max-width: 516px;
+    max-width: calc(var(--frame-content) + 2 * var(--spacer-32));
     gap:       var(--spacer-24);
-    padding:   var(--spacer-48) var(--spacer-32) var(--spacer-32);
+    /* 88 above the title, not 48: 003's desktop Close is a 64-tall band of its own
+       with Spacer-24 under it before the content starts (64 + 24 = 88), the same shape
+       as mobile's 48 + 12 = 60. Re-read 12 Aug 2026. */
+    padding:   88px var(--spacer-32) var(--spacer-32);
   }
 }
 
@@ -5618,26 +5824,34 @@ body { font-family: var(--font-family-base); }
    CLOSE
    The dismissal of last resort. The actions below are the real answer, so this
    sits quiet: a neutral disc rather than anything that competes with them.
+
+   The glyph is the cross from icons/close.svg — Close's own, not cross.svg's thin
+   full-bleed one, which is drawn to sit on a page rather than inside a disc.
+
+   Only the glyph, though: close.svg ships as a complete control, a cross ON a disc at
+   30% opacity, and this button draws its own disc from overlay/dark-low (20%) because
+   that is what 003 binds on the Modal. Dropping the whole icon in would nest two discs
+   at two opacities — the same mistake as a purple badge behind a partner's logo.
    ------------------------------------------------------------ */
 
+/* The button paints NOTHING: icons/close.svg is the whole control at 32px — a disc at
+   20% (overlay/dark-low, the token 003 binds) with the cross on top, both on
+   currentColor so the pair follows the theme together. Giving the button its own
+   background would put a second disc behind the icon's. */
 .modal__close {
   position:        absolute;
   top:             var(--spacer-8);            /* centred in the 48px band */
   right:           var(--spacer-16);
   display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  width:           32px;
-  height:          32px;
   padding:         0;
   border:          none;
-  border-radius:   var(--radius-round);
-  background:      var(--overlay-dark-medium);  /* #27252d @ 30% */
+  background:      none;
   color:           var(--icon-glyph-primary);
   cursor:          pointer;
 }
-.modal__close:hover { background: var(--overlay-dark-high); }
-.modal__close svg   { display: block; width: 16px; height: 16px; }
+/* Only the disc deepens on hover; the cross is already at full strength. */
+.modal__close:hover circle { fill-opacity: 0.3; }
+.modal__close svg { display: block; width: 32px; height: 32px; }
 
 @media (min-width: 768px) {
   .modal__close { top: var(--spacer-16); right: var(--spacer-32); }
@@ -5686,11 +5900,32 @@ body { font-family: var(--font-family-base); }
    destroys work.
    ------------------------------------------------------------ */
 
+/* 003's "Scroll bottom clip": the actions sit in a WHITE band pinned to the foot of
+   the panel, so the decision stays put while long content scrolls under it — and the
+   band's own surface is what stops text showing through from behind as it passes.
+
+   Sticky rather than fixed, so it stays inside the panel's rounded corners and its
+   scroll context. The negative margins let it bleed to the panel's edges while the
+   panel keeps its padding for everything above; the padding is added back here so the
+   button sits at the same 16 / 32 inset as the rest. */
 .modal__actions {
+  position:       sticky;
+  bottom:         calc(-1 * var(--spacer-16));
+  z-index:        1;
   display:        flex;
   flex-direction: column;
   gap:            var(--gap-small);            /* 12px */
-  margin-top:     var(--gap-x-small);          /* 8px — a beat before deciding */
+  margin:         var(--gap-x-small) calc(-1 * var(--spacer-16)) calc(-1 * var(--spacer-16));
+  padding:        var(--spacer-16);
+  background:     var(--surface-primary);
+}
+
+@media (min-width: 768px) {
+  .modal__actions {
+    bottom:  calc(-1 * var(--spacer-32));
+    margin:  var(--gap-x-small) calc(-1 * var(--spacer-32)) calc(-1 * var(--spacer-32));
+    padding: var(--spacer-32);
+  }
 }
 
 
@@ -5838,7 +6073,9 @@ body { font-family: var(--font-family-base); }
 
   border:           var(--border-m) solid transparent;   /* 2px; Default has no visible border */
   border-radius:    var(--radius-small);                  /* 8px */
-  background-color: var(--background-primary);            /* white */
+  /* surface, not background: a tile sitting ON whatever holds it. 003 binds
+     surface/primary here; background/primary would flatten it in dark. */
+  background-color: var(--surface-primary);
   color:            var(--text-primary);
 
   font-family:      'Modern Era', sans-serif;
@@ -6405,6 +6642,193 @@ body { font-family: var(--font-family-base); }
 .plate--12 { font-size: 12px; }   /* Small */
 
 
+/* ==== components/price-card/price-card.css ==== */
+/*
+ * ============================================================
+ * SMALL COMPARISON TILE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57968-9417
+ *
+ * A selectable tile for choosing between two ways of paying: a product badge, a
+ * radio, a title, and a tinted panel holding the figures with optional tags
+ * beneath them.
+ *
+ * Named "Small comparison tile" in Figma until 13 Aug 2026, when it became PRICE CARD
+ * — a better name, because it was a word away from COMPARISON TILE (comparison-tile.css,
+ * node 6477-174868) while doing a different job. That one compares products on price;
+ * this one lays out the arithmetic of one way of paying for a product already chosen.
+ * The Figma component may still carry the old name; the node id is what to trust.
+ *
+ * States (Figma "State"): Default | Hover | Active (spelled "Avtive" there).
+ *   Hover  — aqua border. :hover, or forced with --hover.
+ *   Active — aqua border AND the panel on surface/focus. Applied when the tile
+ *            contains the checked radio, or forced with --active.
+ *   Exactly the pattern Product Card uses, for the same reason: hovering and
+ *   choosing must not look identical.
+ *
+ * Composition — reuses Radio, and Status Label's geometry for the tags.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="price-card.css">
+ * ============================================================
+ */
+
+
+.price-card {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  /* The width 003 draws it at. Caps it in a wide container the way Product Card's
+     335 does, and never bites in a mobile column (343 inside a 375 screen). */
+  max-width:      351px;
+  box-sizing:     border-box;
+  /* Border-2 at every state so choosing a tile doesn't resize it; transparent at
+     rest, because 003 gives the resting tile no outline at all. */
+  border:         var(--border-m) solid transparent;
+  border-radius:  var(--radius-medium);                     /* 16 */
+  background:     var(--surface-primary);
+  /* Spacer-16 from the outer edge, so the border comes off the padding. */
+  padding:        calc(var(--spacer-16) - var(--border-m));
+  font-family:    'Modern Era', sans-serif;
+}
+
+.price-card--hover,
+.price-card--active,
+.price-card:has(.radio__input:checked)  { border-color: var(--border-active); }
+.price-card:has(.radio__input):hover    { border-color: var(--border-active); }
+
+
+/* ------------------------------------------------------------
+   TOP ROW — badge and the control that chooses this tile
+   ------------------------------------------------------------ */
+
+.price-card__top {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  margin-bottom:   var(--spacer-16);
+}
+
+.price-card__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-small);                     /* 8 */
+  background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
+  color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
+}
+.price-card__badge svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   TITLE
+   ------------------------------------------------------------ */
+
+.price-card__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;                                     /* Mobile/Title 4 */
+  line-height:    24px;
+  letter-spacing: var(--letter-spacing-tight);              /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   PANEL — the figures
+   Tinted rather than ruled: these lines are an arithmetic aside, and a box around
+   them separates them from the title without drawing four more borders on a card
+   that already has one.
+   ------------------------------------------------------------ */
+
+.price-card__panel {
+  margin-top:    var(--spacer-16);
+  padding:       var(--spacer-12);
+  border-radius: var(--radius-small);                       /* 8 */
+  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
+  transition:    background-color 150ms ease;
+}
+
+/* Aqua once the tile is CHOSEN — not on hover. The panel is the one part that
+   separates the two aqua-bordered states, the same job it does on Product Card. */
+.price-card--active .price-card__panel,
+.price-card:has(.radio__input:checked) .price-card__panel { background: var(--surface-focus); }
+
+.price-card__lines {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin:         0;
+  padding:        0;
+  list-style:     none;
+}
+
+/* Label left, figure right, and the gap between them is whatever is left — so the
+   figures line up down the right edge however long the labels get. */
+.price-card__line {
+  display:         flex;
+  align-items:     baseline;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-2);                 /* 16 / 24 */
+  line-height:     var(--line-height-body-2);
+  color:           var(--text-primary);
+}
+
+/* The total is the line that answers the question, so it carries the weight. */
+.price-card__line--total { font-weight: var(--font-weight-bold); }
+
+
+/* ------------------------------------------------------------
+   TAGS
+   003 draws these as Status Labels with their colours overridden — yellow
+   brand/4-medium for the selling point, and brand/4-low inside a
+   border/warning-low hairline for the small print. Neither is a state Status Label
+   has, so they are declared here rather than by adding two more states to a
+   component whose states all mean something about status. See KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+.price-card__meta {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--spacer-4);
+  margin-top:  var(--spacer-12);
+}
+
+.price-card__tag {
+  display:         inline-flex;
+  align-items:     center;
+  height:          24px;
+  padding:         0 var(--spacer-4);
+  box-sizing:      border-box;
+  border:          var(--border-s) solid transparent;
+  border-radius:   var(--radius-x-small);                   /* 4 */
+  background:      var(--brand-4-medium);                   /* #FCFF5F */
+  color:           var(--text-primary-fixed);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-4);                 /* 12 / 16 */
+  line-height:     var(--line-height-body-4);
+  white-space:     nowrap;
+}
+
+/* The quieter one — a fact you must show rather than a reason to choose. */
+.price-card__tag--note {
+  background:   var(--brand-4-low);                         /* #FDFEE1 */
+  border-color: var(--border-warning-low);                  /* #FBEACE */
+}
+
+/* Fluid — drop the cap and fill the column, for a tile that is alone on a screen
+   rather than beside its sibling. Same modifier Product Card and Detail Card use. */
+.price-card--fluid { max-width: none; }
+
+
 /* ==== components/price-comparison/price-comparison.css ==== */
 /*
  * ============================================================
@@ -6511,7 +6935,10 @@ body { font-family: var(--font-family-base); }
   box-sizing:       border-box;
   padding:          var(--gap-medium);           /* 16px */
   border-radius:    var(--radius-medium);        /* 16px */
-  background-color: var(--background-primary);   /* white */
+  /* surface, not background: a pill sitting ON the section, not the page behind
+     it. In dark the two diverge and background/primary would flatten this into the
+     section it sits on. 003 binds surface/primary here. */
+  background-color: var(--surface-primary);
 }
 
 .price-comparison__discount-label {
@@ -6540,17 +6967,29 @@ body { font-family: var(--font-family-base); }
  * "Best value" tag + radio, a headline, key benefit bullets, and an optional
  * promotional rewards banner.
  *
- * States: Resting (default) | .product-card--active (3px aqua border)
+ * A benefit can be marked .product-card__benefit--excluded — a cross instead of a
+ * tick, for what a level leaves out.
  *
- * Composition — reuses Radio (selection control) and the DS tick-small icon.
- * Link radio.css alongside this file (or use the prototype/dist bundle).
+ * States (Figma "State"): Default | Hover | Active.
+ *   Hover  — aqua border. Applied on :hover, or forced with .product-card--hover.
+ *   Active — aqua border AND the rewards banner tinted surface/focus. Applied when
+ *            the card contains the checked radio, or forced with
+ *            .product-card--active.
+ *
+ * Composition — reuses Radio (selection control), the DS tick-small icon, and
+ * MARKETING BANNER for the rewards banner: 003 drops one into the foot of the card
+ * and fills its image slot with the reward gift cards, so the banner's markup is
+ * the Marketing Banner's own and this file only overrides its width, radius and
+ * background. Link all three (or use the prototype/dist bundle).
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="../marketing-banner/marketing-banner.css">
  *   <link rel="stylesheet" href="product-card.css">
  * ============================================================
  */
+
 
 
 .product-card {
@@ -6558,27 +6997,62 @@ body { font-family: var(--font-family-base); }
   flex-direction: column;
   align-items:    stretch;
   width:          100%;
-  max-width:      335px;
+  /* The width 003 draws it at — re-read 12 Aug 2026, when it came down from 335. It is
+     the mobile content frame, but written as a number rather than --frame-content
+     because that token steps to 588 on desktop and this card does not. */
+  max-width:      311px;
   box-sizing:     border-box;
-  border:         var(--border-l) solid transparent;   /* keeps size stable vs active */
+  /* Border-2, the width 003 binds on the Active state, carried at every state so
+     the card doesn't resize when it's chosen. Transparent at rest: the resting card
+     in 003 has no outline at all, just its surface against the page. */
+  border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);                /* 16px */
-  background:     var(--background-primary);
+  /* surface, not background: this is a card sitting ON the page, not the page.
+     The two are both white in light mode, so the difference only shows in dark —
+     where a surface steps to black-70 and a background stays black-80, which is
+     what keeps the card readable against what it sits on. */
+  background:     var(--surface-primary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
 
-.product-card--active { border-color: var(--border-active); }
+/* States (Figma "State" variant): Default | Hover | Active.
+
+   Hover and Active share the aqua border; what separates them is the rewards
+   banner, which only tints on Active — see the REWARDS BANNER section. So hovering
+   says "this one is under your cursor" and choosing says "this one is yours", and
+   the two don't look identical.
+
+   The modifier states Active for a static example; the :has() rule makes a card
+   that CONTAINS the chosen radio show it, so a set of cards behaves like a radio
+   group without anything having to move a class about. Without it the border sits
+   wherever the markup left it while the answer moves. */
+.product-card--hover,
+.product-card--active,
+.product-card:has(.radio__input:checked) { border-color: var(--border-active); }
+
+/* :hover only on a card that can be CHOSEN. A card with no radio in it — the work
+   provider offer, which is a panel with its own buttons — isn't an option, and
+   lighting it up on hover promises a selection that isn't there. */
+.product-card:has(.radio__input):hover { border-color: var(--border-active); }
 
 
 /* ------------------------------------------------------------
    HEADER
    ------------------------------------------------------------ */
 
+/* No gap: each part states its own distance, because 003 doesn't space them
+   evenly. Measured off the component — top row, then 16 to the title, 4 to the
+   description, 8 to the bullets. A single gap here was adding itself to every one
+   of those, which is why the bullets sat 20 from the text above instead of 8. */
+/* Spacer-16, minus the border, because Figma measures the inset from the card's
+   outer edge and the stroke sits inside it. 003 binds Spacer-16 here and doesn't
+   bind Spacer-20 anywhere on the card — the 20 this used to carry was wrong, and
+   put every card's content 4px further in than the frame draws it. */
 .product-card__header {
   display:        flex;
   flex-direction: column;
-  gap:            var(--spacer-12);
-  padding:        var(--spacer-20);
+  padding:        calc(var(--spacer-16) - var(--border-m));   /* 14 + 2 = 16 */
 }
 
 .product-card__top {
@@ -6587,6 +7061,7 @@ body { font-family: var(--font-family-base); }
   justify-content: space-between;
   gap:             var(--spacer-8);
   width:           100%;
+  margin-bottom:   var(--spacer-16);
 }
 
 .product-card__badge {
@@ -6597,10 +7072,85 @@ body { font-family: var(--font-family-base); }
   width:           48px;
   height:          48px;
   border-radius:   var(--radius-small);          /* 8px */
-  background:      var(--brand-2-low);           /* light purple */
-  color:           var(--brand-3-high);          /* navy glyph */
+  /* icon/glyph/brand-2-low, not surface/brand-2-low — a step deeper (purple-20
+     #DBBFFD against purple-10 #EDE0FE), which is what 003 binds on the badge. */
+  background:      var(--icon-glyph-brand-2-low);
+  color:           var(--icon-glyph-brand-3-high-fixed);   /* navy glyph */
 }
 .product-card__badge svg { display: block; width: 24px; height: 24px; }
+
+/* Brand glyph — purple instead of the navy default. Bound this way on the policy
+   length cards, where the badge is the only colour on an otherwise plain card and
+   navy read as a second brand rather than an accent. */
+.product-card__badge--brand { color: var(--icon-glyph-brand-2-high); }
+
+/* Logo — a partner's own mark instead of a DS glyph. The artwork brings its own
+   surface and fills the 48px box, so the badge supplies neither: a purple square
+   behind an Uber square is two badges. */
+.product-card__badge--logo {
+  background: none;
+  padding:    0;
+}
+
+/* The ARTWORK is clipped to the badge's corners, not the badge itself. Clipping the
+   container is the obvious way to round a square logo, and it also cropped the pip —
+   which sits deliberately outside the badge, on its corner. Rounding the image instead
+   keeps the logo square-cornered-free and lets the status overflow. */
+.product-card__badge--logo img,
+.product-card__badge--logo svg {
+  display:       block;
+  width:         100%;
+  height:        100%;
+  border-radius: inherit;
+}
+
+/* A status pip on the badge — a tick when a partner account is linked. Sits on
+   the corner rather than beside the title, so the thing it reports on is the
+   thing it is attached to. */
+.product-card__badge { position: relative; }
+
+.product-card__pip {
+  position:        absolute;
+  right:           calc(-1 * var(--spacer-4));
+  bottom:          calc(-1 * var(--spacer-4));
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           20px;
+  height:          20px;
+  border-radius:   var(--radius-round);
+  background:      var(--surface-success);
+  color:           var(--text-on-color-fixed);
+}
+.product-card__pip svg { display: block; width: 12px; height: 12px; }
+
+/* ------------------------------------------------------------
+   LOCKUP
+   The other thing 003 puts in the card's top-left: a Zego Product wordmark instead
+   of a glyph badge, on the screens where the card IS a Zego product rather than a
+   cover option. Figma's "Top left" frame takes the lockup at its natural size —
+   68×44 for Sense, 102×44 for Standard — so this sets the height and lets the width
+   follow, rather than forcing both into the badge's 48px square.
+
+   No background and no radius: the lockup is type, not an icon, and a tinted tile
+   behind it would read as a second badge. It also brings its own two colours, so
+   there is nothing here to set a colour with.
+   ------------------------------------------------------------ */
+
+.product-card__lockup {
+  display: block;
+  flex:    0 0 auto;
+  height:  44px;
+}
+.product-card__lockup img,
+.product-card__lockup svg { display: block; height: 100%; width: auto; }
+
+
+/* Fluid — drop the 311px cap and fill the column. The cap suits a card sitting
+   beside its siblings in a chooser; alone on a screen it leaves the card narrower
+   than everything around it. Same modifier Detail Card and Vehicle Registration
+   use for the same reason. */
+.product-card--fluid { max-width: none; }
 
 .product-card__meta {
   display:     flex;
@@ -6644,76 +7194,161 @@ body { font-family: var(--font-family-base); }
   color:       var(--text-primary);
 }
 
+/* On a card with no title — 003 hides it on the policy-type cards, where the
+   lockup already names the product — the description follows the top row directly.
+   Without this its 4px would add to the row's own 16 and open the gap to 20. */
+.product-card__top + .product-card__subtitle { margin-top: 0; }
+
+/* The list resets its own UA indent, so benefits can be marked up as the list
+   they are without hanging off the title they sit under. */
 .product-card__benefits {
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-4);
-  margin-top:     var(--spacer-20);
+  /* Spacer-8 from the text above, not Spacer-20. 003 puts the bullet list 8px
+     under the title-and-description block: the bullets expand on what was just
+     said, so they belong to it rather than starting a new section. */
+  margin:         var(--spacer-8) 0 0;
+  padding:        0;
+  list-style:     none;
 }
 .product-card__benefit {
   display:     flex;
-  align-items: center;
+  align-items: flex-start;
   gap:         var(--spacer-8);
 }
+/* Top-aligned, nudged onto the first line's centre. Centring the tick against the
+   whole benefit floats it into the middle of a benefit that wraps to two lines,
+   pointing at nothing. */
 .product-card__benefit-icon {
-  flex:   0 0 auto;
-  width:  16px;
-  height: 16px;
-  color:  var(--brand-2-high);                   /* purple tick */
+  flex:       0 0 auto;
+  width:      16px;
+  height:     16px;
+  margin-top: var(--spacer-4);                   /* (24px line - 16px glyph) / 2 */
+  color:      var(--icon-glyph-brand-2-medium);  /* #A458FF */
 }
 .product-card__benefit-icon svg { display: block; width: 100%; height: 100%; }
+
+/* Excluded — what this level does NOT cover. A cross rather than the purple tick, and
+   in icon/glyph/PRESSED: a step back from the glyph colour beside it, because it is a
+   fact about the option rather than a fault. Still not red — an exclusion is not an
+   error. */
+.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-pressed); }
 .product-card__benefit-text {
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-subtitle-3);      /* 14px */
-  line-height: var(--line-height-subtitle-3);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);        /* 24px */
   color:       var(--text-primary);
 }
 
 
 /* ------------------------------------------------------------
    REWARDS BANNER
+   Not a thing of its own any more: 003 now drops a MARKETING BANNER into the card
+   and fills its image slot with the reward gift cards. So the markup here is the
+   Marketing Banner's own — .marketing-banner / __content / __text / __title — and
+   this section only says the two things the card changes about it.
+
+   Composed the way Modal composes Overlay: overrides on `.product-card__banner
+   .marketing-banner`, which win on SPECIFICITY rather than on load order. Order
+   happens to be in their favour here — the kit and dist/ concatenate components
+   alphabetically, so marketing-banner lands first — but Modal lost that bet once
+   already when a rename flipped the order, and this way a rename can't.
    ------------------------------------------------------------ */
 
+/* The frame that insets the banner from the card edge — Spacer-16 on every side it
+   touches, measured from the card's OUTER edge with the border inside it, so the
+   banner lines up with the copy above rather than reaching past it. (003 had it at 12
+   for a while, which pulled the banner 4px wider than the text; re-read 12 Aug 2026
+   and it is 16 — a 279 banner in a 311 card.) */
 .product-card__banner {
   display:         flex;
   justify-content: center;
-  padding:         0 var(--spacer-8) var(--spacer-8);
+  padding:         0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
 }
-.product-card__banner-inner {
-  display:       flex;
-  align-items:   center;
-  overflow:      hidden;
-  width:         100%;
-  padding-left:  var(--spacer-16);
-  border-radius: 10px;
-  background:    var(--brand-2-low);             /* light purple */
+
+/* With a banner under it the header's padding-bottom stops being an inset from the
+   card edge and becomes a GAP between two blocks, which 003 sets to a full 16. */
+.product-card__header:has(+ .product-card__banner) { padding-bottom: var(--spacer-16); }
+
+.product-card__banner .marketing-banner {
+  width:         100%;                           /* not the standalone's 343 */
+  border-radius: var(--radius-small);            /* 8, not the standalone's 16 */
+  background:    var(--surface-tertiary-low);    /* #F8F5F3, not the aqua */
+  transition:    background-color 150ms ease;
 }
-.product-card__banner-text {
-  flex:        0 0 auto;
-  width:       96px;
-  margin:      0;
-  font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-subtitle-3);      /* 14px */
-  line-height: var(--line-height-subtitle-3);
-  color:       var(--brand-2-high);              /* deep purple */
+
+/* The banner picks up surface/focus once the card is CHOSEN — not on hover. It is
+   the one part of the card that changes between the two aqua-bordered states, and
+   it is what makes a chosen card read as chosen rather than as hovered. */
+.product-card--active .product-card__banner .marketing-banner,
+.product-card:has(.radio__input:checked) .product-card__banner .marketing-banner {
+  background: var(--surface-focus);              /* #CEFDFD */
 }
-/* Placeholder reward cards (swap for real gift-card art) */
+
+/* The image slot is wider here than the standalone banner's 129 — the reward stack
+   needs the room, and the text is two short lines that don't.
+
+   Which column gives way matters. A card in a two-column desktop grid is narrower
+   than the 311 003 draws it at, and if the text shrinks with it "Drive well. Get
+   rewards." goes to four lines and the banner grows to fit. So the text is FIXED at
+   the 94 Figma gives it and the image takes whatever is left, clipping the stack at
+   its right edge — which is where 003 clips it anyway. At the drawn width the sum
+   comes out exact on its own: 16 + 94 + 12 + 157 = 279. */
+.product-card__banner .marketing-banner__content {
+  flex:  0 0 auto;
+  width: 94px;
+}
+
+.product-card__banner .marketing-banner__image {
+  flex:       1 1 auto;
+  width:      auto;
+  min-width:  0;
+  overflow:   hidden;                            /* clips the stack, not the banner */
+  background: none;                              /* no placeholder gradient */
+}
+
+
+/* ------------------------------------------------------------
+   REWARD CARDS
+   Three gift-card faces fanned out inside the banner's image slot. Each overlaps
+   the one to its right and the LEFTMOST is on top, which is why they need an
+   explicit z-index: in source order a later sibling paints over an earlier one,
+   which would fan them the wrong way.
+   ------------------------------------------------------------ */
+
+/* Pinned left, not centred: as the slot narrows it is the far card that goes, and
+   the Amazon face — the one on top, and the one a customer recognises first — stays
+   whole. Centring would eat both ends. */
 .product-card__rewards {
-  display:     flex;
-  align-items: center;
-  height:      90px;
-  flex:        1 1 auto;
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-start;
+  height:          100%;
 }
 .product-card__reward {
+  position:      relative;
+  flex:          0 0 auto;
   width:         82px;
   height:        51px;
-  margin-left:   -16px;
-  border-radius: 5px;
+  margin-left:   -40px;                          /* 82 - 42, the step 003 draws */
+  border-radius: var(--radius-x-small);          /* 4px */
+  overflow:      hidden;
   transform:     rotate(-7.5deg);
   box-shadow:    0 0 10px rgba(39,37,45,0.08), 0 1px 2px rgba(0,0,0,0.1);
-  background:    var(--surface-tertiary-high);
+  background:    var(--surface-tertiary-high);   /* shows through until art loads */
 }
-.product-card__reward:first-child { margin-left: 0; }
+.product-card__reward:first-child   { margin-left: 0; }
+.product-card__reward:nth-child(1)  { z-index: 3; }
+.product-card__reward:nth-child(2)  { z-index: 2; }
+.product-card__reward:nth-child(3)  { z-index: 1; }
+
+.product-card__reward img {
+  display:    block;
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+}
 
 
 /* ==== components/radio-list/radio-list.css ==== */
@@ -7297,6 +7932,12 @@ body { font-family: var(--font-family-base); }
     width:      100%;
     max-width:  calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
     margin:     0 auto;
+    /* Spacer-12 BELOW as well as above, which the mobile shape leaves off because the
+       steps sit under the header there and bring their own. On desktop everything is on
+       one row, so the bar's height is this padding around the 60-tall brand block:
+       12 + 60 + 12 = 84, which is what 003's desktop symbol measures. Re-read
+       13 Aug 2026, when the bar was coming out 72. */
+    padding-bottom: var(--spacer-12);
   }
 
   .sales-nav__steps {
@@ -7565,7 +8206,7 @@ body { font-family: var(--font-family-base); }
  * A small 24px badge with a coloured border, text and light fill.
  *
  * Variants:
- *   State — information | success | warning | error | inactive | disabled
+ *   State — brand | information | success | warning | error | inactive | disabled
  *   Style — pill (default) | rounded (.status-label--rounded)
  *
  * Usage:
@@ -7611,6 +8252,17 @@ body { font-family: var(--font-family-base); }
 /* ------------------------------------------------------------
    STATES
    ------------------------------------------------------------ */
+
+/* Brand — added to 003 after this file was first written (State=Brand,
+   node-id=59025-73073). Unlike the other six it says nothing about status: it marks
+   something as a Zego thing, so it takes the brand purple rather than a semantic
+   colour. Its border is a step deeper than its text, which is the same shape the
+   other states use. */
+.status-label--brand {
+  color:            var(--brand-2-medium);          /* #A458FF */
+  border-color:     var(--border-brand-2-medium);   /* #750BF3 */
+  background-color: var(--surface-brand-2-low);     /* #EDE0FE */
+}
 
 .status-label--information {
   color:            var(--text-information);
@@ -8058,6 +8710,9 @@ body { font-family: var(--font-family-base); }
  *   <label class="text-icon-item">
  *     <span class="text-icon-item__icon"><svg>…</svg></span>
  *     <span class="text-icon-item__text"><span class="text-icon-item__label">Text</span></span>
+ *
+ *   A second line goes in .text-icon-item__support — Body 2, level with the label,
+ *   set apart by weight and colour rather than size.
  *     <input class="radio__input" type="radio" name="opt">
  *     <span class="radio__control"></span>
  *   </label>
@@ -8109,12 +8764,27 @@ body { font-family: var(--font-family-base); }
   color:       var(--text-primary);
   white-space: nowrap;
 }
+/* Body 2, level with the label. A second line under an option is nearly always
+   part of what you are choosing between — the date under "Today" — rather than a
+   footnote about it, so it reads at the same size and is set apart by weight and
+   colour instead. One size everywhere; there is no smaller variant to pick wrong. */
 .text-icon-item__support {
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-3);          /* 14px */
-  line-height: var(--line-height-body-3);
+  font-size:   var(--font-size-body-2);          /* 16px */
+  line-height: var(--line-height-body-2);        /* 24px */
   color:       var(--text-pressed);
+}
+
+/* A second line needs room the single-line item doesn't: without it the two lines
+   sit flush against the border and the item comes out 52px where the design says
+   76. Scoped to items that HAVE a support line, because adding it to the base
+   pushed every Yes/No option in the journey from 48 to 52.
+
+   Spacer-12 measured from the outer edge, which is how Figma reads it — the 2px
+   border sits inside that 12, so the padding is what's left of it. */
+.text-icon-item:has(.text-icon-item__support) {
+  padding-block: calc(var(--gap-small) - var(--border-m));   /* 12 - 2 = 10 */
 }
 
 /* Trailing radio (reused from radio.css) */
@@ -9113,8 +9783,10 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
  *   - Alert       (recalculation notice)
  *   - Acknowledge (terms-of-business checkbox box)
  *
- * The content column is capped at 516px and centred; a top divider separates
- * it from the page. Below 768px the padding tightens and the title steps down.
+ * The content column is capped at one content frame (588) and centred, inside 32px of
+ * side padding — 652 overall, which is 003's desktop symbol. A top divider separates it
+ * from the page. Below 768px the padding tightens to 16 and the title steps down, and
+ * the column simply fills what is left.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -9131,7 +9803,7 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   align-items:    center;
   width:          100%;
   box-sizing:     border-box;
-  padding:        var(--spacer-20) var(--spacer-20) var(--spacer-48);
+  padding:        var(--spacer-16) var(--spacer-32) var(--spacer-48);
   border-top:     var(--border-s) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
@@ -9142,7 +9814,11 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   align-items:    center;
   gap:            var(--spacer-20);
   width:          100%;
-  max-width:      516px;
+  /* One content frame. The 516 this used to carry was a stale example width — the same
+     516 Modal had — where 003's desktop symbol is 652 around a 588 content frame with
+     32 either side. Written as a number rather than --frame-content, because that
+     token steps to 311 on mobile and here the column fills its space instead. */
+  max-width:      588px;
 }
 
 
@@ -9221,6 +9897,12 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   .total-cost__label,
   .total-cost__price { font-size: var(--font-size-title-4-mobile, 20px); line-height: 24px; }
 }
+
+
+/* The amounts inside the sub-line carry weight while the words around them stay
+   regular — "£500 today, then 11 x £216/mo". The figures are what is being compared;
+   the connecting words are just grammar. */
+.total-cost__sub strong { font-weight: var(--font-weight-bold); }
 
 
 /* ==== components/trustpilot-lockup/trustpilot-lockup.css ==== */
@@ -9691,7 +10373,9 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   width:         100%;
   box-sizing:    border-box;
   padding-right: var(--spacer-16);               /* 16px */
-  background:    var(--background-primary);       /* white */
+  /* surface, not background: the plate field sits ON a card. 003 binds
+     surface/primary here. */
+  background:    var(--surface-primary);
   border:        var(--border-m) solid var(--border-secondary);  /* 2px */
   border-radius: var(--radius-small);            /* 8px */
   overflow:      hidden;

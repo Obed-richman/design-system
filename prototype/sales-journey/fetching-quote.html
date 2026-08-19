@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-sc-viewport>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finding your best savings — Sales journey</title>
+
+  <!-- Design system kit: tokens + typography + every component's CSS + fonts -->
+  <link rel="stylesheet" href="../kit.css">
+  <link rel="stylesheet" href="journey.css">
+
+  <!-- Floating Light/Dark + Desktop/Mobile toggle (dev-only; remove before sharing) -->
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+
+  <!-- Interactive component behaviour (self-initialising) -->
+  <script src="../../components/sales-nav/sales-nav.js" defer></script>
+
+  <!-- Injects the Sales Navigation (stepper set from the flow) + Sales Footer -->
+  <script src="journey.js" defer></script>
+</head>
+<body>
+
+  <!-- Figma: Sales Journey — Ideation / Loading — Fetching Quote
+       mobile  https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=5174-438013
+               (Sense 8167-126557 · Standard 8167-127063)
+       desktop https://www.figma.com/design/ctOEKl0RfNNVoXyB998G0V/Sales-Journey---Ideation?node-id=8167-127292
+
+       The wait after choosing a policy type. It is NOT a slot in the flow:
+       data-flow-as puts the stepper where the quote sits, since that is what is
+       being fetched, and journey.js leaves for the review on its own with
+       location.replace — so neither the trail nor browser history can come back
+       to a screen that has nothing to do. Hence no Back and no Continue. -->
+  <main class="proto" data-step="quote" data-flow-as="review-quote.html">
+
+    <!-- data-wait-for names the stored answer that picks the variant; the block
+         that doesn't match is removed outright. See THE WAIT in journey.js. -->
+    <div class="proto__loading"
+         data-wait-for="policy-type" data-wait-default="sense" data-wait-then="review-quote.html">
+
+      <span class="spinner" role="status" aria-label="Finding your best savings"></span>
+      <p class="proto__loading-label">Finding your best savings</p>
+
+      <!-- Sense: the wait sells what good driving is worth -->
+      <div data-wait-when="sense" hidden>
+        <p class="proto__loading-message">Good driving could unlock £60 in rewards</p>
+
+        <!-- The cards fan apart and hold, on a 2s loop. Built from parts rather
+             than played as a picture because they have to overlap — see THE REWARD
+             FAN in journey.css. Decorative: the headline above carries the message,
+             so the whole fan is hidden from a screen reader. -->
+        <div class="proto__fan" aria-hidden="true">
+          <div class="proto__fan-card proto__fan-card--tesco">
+            <img src="../../assets/rewards/tesco.jpg" alt="">
+            <p class="proto__fan-name">Tesco</p>
+            <p class="proto__fan-where">Online &amp; in store</p>
+          </div>
+          <div class="proto__fan-card proto__fan-card--just-eat">
+            <img src="../../assets/rewards/just-eat.jpg" alt="">
+            <p class="proto__fan-name">Just Eat</p>
+            <p class="proto__fan-where">Online</p>
+          </div>
+          <div class="proto__fan-card proto__fan-card--amazon">
+            <img src="../../assets/rewards/amazon.jpg" alt="">
+            <p class="proto__fan-name">Amazon</p>
+            <p class="proto__fan-where">Online</p>
+          </div>
+        </div>
+
+        <p class="proto__loading-offer">and 25% off at renewal</p>
+        <p class="proto__loading-terms">With our annual Sense telematics policies.</p>
+      </div>
+
+      <!-- Standard: nothing to earn, so the wait says what's already covered -->
+      <div data-wait-when="standard" hidden>
+        <p class="proto__loading-message">All included</p>
+        <img class="proto__loading-art" src="../../assets/loading/standard-cover.png"
+             alt="" width="296" height="346">
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -8,6 +8,8 @@
  *   - leading icon (.display-row__icon)
  *   - support text below the label (.display-row__support)
  *   - a right-hand value / 2nd column (.display-row__value)
+ *   - .display-row--stacked  a read-back row: plain label with the ANSWER bold
+ *     underneath it (--spec does the same thing side by side)
  *   - a trailing chevron / radio / button (.display-row__trailing)
  *
  * Reuses Radio and Button for the trailing slot — link radio.css / button.css
@@ -99,6 +101,18 @@
    (the default row emphasises the label instead). Used for read-back summaries
    such as vehicle details. */
 .display-row--spec .display-row__label { font-weight: var(--font-weight-regular); }
+
+/* Stacked — the same key/value inversion, but vertical: the question in plain
+   weight with the answer bold beneath it. What a summary of choices already made
+   wants, because the eye is scanning the answers, not the questions. The support
+   line steps up to 16/24 to carry that job; at Body 3 it read as a footnote to the
+   label rather than the point of the row. */
+.display-row--stacked .display-row__label { font-weight: var(--font-weight-regular); }
+.display-row--stacked .display-row__support {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);      /* 16px */
+  line-height: var(--line-height-subtitle-2);
+}
 
 .display-row__value {
   flex-shrink: 0;
