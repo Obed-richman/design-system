@@ -63,7 +63,12 @@
   display:         flex;
   flex-direction:  column;
   align-items:     center;
-  gap:             var(--gap-xx-small);          /* 4px */
+  /* Gap/X-Small, not XX-Small. 003's Step Indicator puts the track at y=28 under a
+     20px label — an 8px gap — which makes the mobile indicator 20 + 8 + 4 = 32 and the
+     whole component 56. At 4 it came to 28, and that was the missing 4px in the Sales
+     Navigation's mobile height (124 against 003's 128). Read off 57552:33036,
+     14 Aug 2026. */
+  gap:             var(--gap-x-small);           /* 8px */
 }
 
 .onboarding-steps__step--current  { --onb-fill: 50%; }

@@ -1248,7 +1248,7 @@ body { font-family: var(--font-family-base); }
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      343px;   /* read off 58329-40422 */
   text-align:     center;
 }
 .addons__title {
@@ -6172,7 +6172,7 @@ body { font-family: var(--font-family-base); }
   font-family:    'Modern Era', sans-serif;
 }
 
-.onboarding-header__steps { width: 100%; max-width: 516px; }
+.onboarding-header__steps { width: 100%; max-width: 343px;   /* read off 57549-14387 */ }
 
 .onboarding-header__body {
   display:        flex;
@@ -6288,7 +6288,12 @@ body { font-family: var(--font-family-base); }
   display:         flex;
   flex-direction:  column;
   align-items:     center;
-  gap:             var(--gap-xx-small);          /* 4px */
+  /* Gap/X-Small, not XX-Small. 003's Step Indicator puts the track at y=28 under a
+     20px label — an 8px gap — which makes the mobile indicator 20 + 8 + 4 = 32 and the
+     whole component 56. At 4 it came to 28, and that was the missing 4px in the Sales
+     Navigation's mobile height (124 against 003's 128). Read off 57552:33036,
+     14 Aug 2026. */
+  gap:             var(--gap-x-small);           /* 8px */
 }
 
 .onboarding-steps__step--current  { --onb-fill: 50%; }
@@ -9157,13 +9162,13 @@ body { font-family: var(--font-family-base); }
   flex-direction: column;
   align-items:    center;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      588px;   /* read off 58323-28326 */
   text-align:     center;
 }
 
 .tier-section__title {
   margin:         0;
-  max-width:      516px;
+  max-width:      588px;
   text-align:     center;
   font-weight:    var(--font-weight-medium);     /* 500 */
   font-size:      var(--font-size-title-3);      /* 32px */
@@ -10063,7 +10068,7 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      588px;   /* read off 6500-186189 */
   text-align:     center;
 }
 

@@ -33,9 +33,12 @@ desktop, the comparison table went to 16px, and every Cross Small is now
 
 ## 1. Next up
 
-- **Sales Navigation, mobile height.** 003 says **128**; the repo renders **124**. The
-  4px is real but I could not place which element owns it without reading the mobile
-  symbol's children — one metadata call on `57538:15189`. Desktop is fixed (84).
+- **Sales Navigation's mobile height is fixed (14 Aug), and the 4px was not in the
+  nav.** 003's Step Indicator puts the track at `y=28` under a 20px label — an **8px**
+  gap where Onboarding Steps had 4 — so the indicator was 28 instead of 32. One token
+  (`--gap-xx-small` → `--gap-x-small`) took the nav to 128 on mobile and the desktop
+  steps to 60. Padding the nav to hide it would have left the stepper wrong everywhere
+  else it is used.
 - **Date Picker's Cancel / Confirm pair.** Both types put them side by side, full width
   split. The component has actions and the journey dialogue strips them (Done closes
   it), so the component's own pair has still never been checked against the frame.
@@ -66,20 +69,33 @@ reverted. Read faint colours from the tokens, never from a screenshot.
 
 ## 3. Worth a sweep
 
-- **The stale 516 — swept, and it is systematic.** It was a leftover example width in
-  **Modal** and **Total Cost**, both now on one content frame (588). Grepping the rest
-  of the library on 12 Aug found `max-width: 516px` in **five more components**:
+- **The 516 sweep is done (14 Aug), and it was not what I first called it.** I had
+  logged it as "one example width propagated across seven components". Reading each
+  component's own node showed something more interesting: 516 was wrong everywhere, but
+  **the right answer differed every time**, so a blanket replace would have been its own
+  bug.
 
-      components/addons-section/addons-section.css:45
-      components/onboarding-header/onboarding-header.css:44
-      components/tier-section/tier-section.css:54, :60
-      components/trustpilot-reviews/trustpilot-reviews.css:54, :152
+  | component | rule | was | 003 |
+  |---|---|---|---|
+  | Modal | panel | 516 | content-driven (343 / 588 + padding) |
+  | Total Cost | content column | 516 | 588 |
+  | tier-section | `__head`, `__title` | 516 | **588** |
+  | trustpilot-reviews | `__head` | 516 | **588** |
+  | addons-section | `__head` | 516 | **343** |
+  | onboarding-header | `__steps` | 516 | **343** |
 
-  plus three inline `max-width: 516px` on component demo pages. **None of these have
-  been checked against their own Figma nodes** — do not blanket-replace them with 588.
-  The point is that one example width propagated across seven components, so each wants
-  its node re-read and the right content frame put in deliberately. This is the
-  highest-value item on this list: it is one mistake repeated, not seven separate ones.
+  My interim survey guessed from the CSS alone that six of these were a text *measure*
+  and probably deliberate. That was wrong for four of them — worth remembering that
+  reading the shape of a rule is not the same as reading the design.
+
+  🔶 **One left**: `trustpilot-reviews.css:152` `.tp-reviews__rating`. The desktop symbol
+  has a Lockup 512 wide, but that reads as the lockup's own content width rather than a
+  cap, so it needs the frame looked at rather than the number copied.
+
+- 🔶 **Onboarding Steps' track is inset 2px** each side of the step (`x=2, width=69.75`
+  in a 73.75 step on `57552:33036`); the repo's track is `width: 100%`. Small, evidenced,
+  and it changes every stepper — not bundled into the height fix.
+
 - **Product Card's reward stack** uses a fixed overlap step; 003 tightens the step as
   the image slot narrows, so the fan stays inside it. Mine clips at the slot's right
   edge instead. Only shows on the narrowest cards, and a fluid overlap needs a
@@ -97,8 +113,6 @@ reverted. Read faint colours from the tokens, never from a screenshot.
   makes the variant above cheap.
 - **The quote-generation error state** (`7753-127572`) is unbuilt on purpose — the
   trigger is with engineering. Copy is recorded in KNOWN-ISSUES 3.21.
-- **`quote.html` is out of the flow**, replaced by `review-quote.html`. The file is
-  still on disk; delete it once nothing points at it.
 - **`assets/loading/standard-cover.png` has the panel colour baked in** and will show a
   beige block in dark mode. It wants a **transparent export**, not a CSS workaround.
 - **Code Connect carries a typo on purpose**: 003 spells Price Card's third
