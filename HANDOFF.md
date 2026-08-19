@@ -15,36 +15,45 @@ That is enough to be useful immediately.
 
 ---
 
-## Last updated: 12 Aug 2026
+## Last updated: 14 Aug 2026
 
 ### Where we got to
 
-The Quote step is complete end to end: cover start → policy length → cover level →
-policy type → the fetching-quote wait → review quote → payment. The review screen has
-its four Change dialogues working, with the chosen answer writing back into the summary
-row that opened it.
+The Quote step runs end to end: cover start → policy length → cover level → policy type
+→ the fetching-quote wait → review quote → payment. The review screen's four Change
+dialogues work, and each writes its answer back into the row that opened it.
 
-Today was mostly library resync rather than new screens: Product Card down to 311,
-Modal's desktop top inset to 88, Total Cost's content column to 588, Date Picker's
-selection to a ring, and the Discount Code copy aligned to 003.
+Since 12 Aug: Date Picker gained its `Type=Set date` variant, the tile formerly called
+Small Comparison Tile is now **Price Card**, the Change dialogues use **Total Cost** for
+the price and CTA instead of a hand-rolled block, Close is the supplied 32px icon, and
+the Sales Navigation is 84 tall on desktop. Plus a run of journey polish — Back moved to
+the foot of the page, the content wrapper and the Uber offer card take 32px corners on
+desktop, the comparison table went to 16px, and every Cross Small is now
+`icon/glyph/pressed`.
 
----
+## 1. Next up
 
-## 1. Next up — Date Picker (`57549-11422`)
+- **Sales Navigation, mobile height.** 003 says **128**; the repo renders **124**. The
+  4px is real but I could not place which element owns it without reading the mobile
+  symbol's children — one metadata call on `57538:15189`. Desktop is fixed (84).
+- **Date Picker's Cancel / Confirm pair.** Both types put them side by side, full width
+  split. The component has actions and the journey dialogue strips them (Done closes
+  it), so the component's own pair has still never been checked against the frame.
+- **Two readings I did not act on**, from the Calendar symbol's variable list:
+  `border/secondary` `#D4D3D5` is bound where the repo uses `border/primary` for today's
+  outline, and `Radius/Radius-24` is bound where the picker's outer radius is 16. A
+  variable list cannot say which element takes which, so both want the frame read
+  properly rather than inferred.
+- **"Traditional" or "Simple"?** The Policy type *dialogue* frame calls Standard
+  "Traditional cover you can set and forget."; the policy-type *page* frame says
+  "Simple". The build uses "Simple" everywhere, because dialogues lift their cards from
+  the page that owns them. One of the two frames wants correcting.
 
-Two gaps found while resyncing it, neither started:
-
-- **`Type=Set date` is not modelled.** The repo only builds `Type=Calendar`. Set date
-  is structurally different: a header row with a "Text" label and a radio, a bare 1–28
-  grid, **no** month navigation and **no** weekday row. A variant to build, not a token
-  to nudge.
-- **Cancel / Confirm sit side by side**, full width split, in both types. The component
-  has actions, but the journey dialogue strips them (Done closes it), so the
-  component's own pair has never been checked against the frame.
-
-Done today for reference: selected day is now an aqua **ring** with a white middle (it
-had been filled with `surface/focus`), and the day grid sits on its own white ruled
-panel.
+**Verified and settled, so nobody reopens them:** Number Item's Active state is
+`surface/focus` + `border/active` — correct as it stands, and it is what the Calendar
+type binds too. I briefly made the Calendar's selected day transparent on 12 Aug after
+misreading a pale `#CEFDFD` middle as white in a low-resolution render; that is
+reverted. Read faint colours from the tokens, never from a screenshot.
 
 ## 2. Decisions waiting on someone
 
@@ -52,7 +61,7 @@ panel.
 |---|---|
 | **The desktop total in a Change dialogue** | It steps 16/24 → **24/28**. The 24 is my read of "bigger on desktop", not a measurement — I ran out of resolution in the frame. If a smaller step was meant, 18 or 20 is one line in `journey.css`. |
 | **Promo error copy disagrees upstream** | The journey uses *"Invalid, please check the code."* (the frame's), the 003 component says *"Invalid code, please try again"*. Deliberate divergence, recorded — but one of the two wants changing at source. |
-| **Small Comparison Tile's tags** | Yellow `brand/4-medium` and `brand/4-low` + `border/warning-low` are Status Labels with overridden colours in 003. Declared on the tile instead, because Status Label's states all mean something about *status*. Should they be real variants? |
+| **Price Card's tags** | Yellow `brand/4-medium` and `brand/4-low` + `border/warning-low` are Status Labels with overridden colours in 003. Declared on the tile instead, because Status Label's states all mean something about *status*. Should they be real variants? |
 | **`ncd.svg` naming** | It is a protection shield now used for two things; the name says "no claims discount", which is why I failed to find it the first time. |
 
 ## 3. Worth a sweep
@@ -92,7 +101,7 @@ panel.
   still on disk; delete it once nothing points at it.
 - **`assets/loading/standard-cover.png` has the panel colour baked in** and will show a
   beige block in dark mode. It wants a **transparent export**, not a CSS workaround.
-- **Code Connect carries a typo on purpose**: 003 spells Small Comparison Tile's third
+- **Code Connect carries a typo on purpose**: 003 spells Price Card's third
   state "Avtive", and the enum key has to match the variant name.
 
 ## 5. How to verify things in this repo

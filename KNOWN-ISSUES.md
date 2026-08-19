@@ -483,14 +483,17 @@ Built 11 Aug 2026 for `review-quote.html`. The screen is almost entirely existin
 components — Registration Plate, Detail Card, Display Row, Alert, Button — but three
 pieces needed library work first.
 
-**New: Small Comparison Tile** (`57968-9417`). Badge, radio, title, and a tinted panel
+**New: Price Card** (`57968-9417`). Badge, radio, title, and a tinted panel
 of figures with tags under them. Three states, and the same hover/active grammar as
 Product Card: aqua border on both, panel to `surface/focus` only when chosen. Capped
 at the 351 it is drawn at, with `--fluid` to drop that.
 
-🔶 **It is easy to confuse with Comparison Tile** (`6477-174868`), which is a coloured
-frame over a big price. Two components a word apart doing different jobs; both file
-headers now say which is which, but the names are worth a look.
+**Resolved 13 Aug 2026 — it is now PRICE CARD.** It had been "Small comparison tile",
+a word away from Comparison Tile (`6477-174868`) while doing a different job: that one
+compares products on price, this one lays out the arithmetic of one way of paying for a
+product already chosen. Renamed throughout — directory, files, class prefix, Code
+Connect, the index card and the journey screen. The node id (`57968-9417`) is the thing
+to trust if the Figma component still carries the old name.
 
 🔶 **Its tags are Status Labels with the colours overridden** — yellow `brand/4-medium`
 for the selling point, `brand/4-low` inside a `border/warning-low` hairline for the
@@ -499,7 +502,7 @@ something about *status*, so they are declared on the tile instead
 (`__tag` / `__tag--note`). **Worth deciding** whether these want to be real variants.
 
 🔶 **Figma spells the third state "Avtive".** The Code Connect enum key has to match
-the variant name, so the typo is carried in `small-comparison-tile.figma.ts` on
+the variant name, so the typo is carried in `price-card.figma.ts` on
 purpose. Fix it in 003 and that line changes with it.
 
 **Discount Code gained the collapsed state** 003 now draws: `--collapsible` plus a

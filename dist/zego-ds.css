@@ -3116,6 +3116,15 @@ body { font-family: var(--font-family-base); }
  * row, a date grid, and Cancel / Confirm actions. A day can be today (outlined)
  * or selected (aqua). Navigation and selection are handled by date-picker.js.
  *
+ * Two TYPES (Figma "Type"):
+ *   Calendar (default) — month navigation, a weekday row, and the day grid on its
+ *                        own ruled panel. A real date.
+ *   Set date  .date-picker--set-date — a Display Row heading with a checkbox, then a
+ *                        bare 1-28 grid of NUMBER ITEMs. No month, no weekdays: it
+ *                        picks a day OF a month rather than a date, which is what a
+ *                        recurring payment date needs. Composes Number Item and
+ *                        Display Row, so link their CSS too.
+ *
  * Composes existing components: Button (nav FABs + Cancel/Confirm). Icons come
  * from /icons (arrow-left, arrow-right).
  *
@@ -3128,6 +3137,9 @@ body { font-family: var(--font-family-base); }
  *        data-today="2026-0-15" data-selected="2026-0-26"> … </div>
  * ============================================================
  */
+
+
+/* Set date builds its grid from Number Item and its heading from Display Row. */
 
 
 .date-picker {
@@ -3229,12 +3241,15 @@ body { font-family: var(--font-family-base); }
 /* Today — outlined */
 .date-picker__day--today { border-color: var(--border-primary); }
 
-/* Selected — an aqua RING, not a filled cell. 003 outlines the chosen day and leaves
-   its middle white, which is what lets today's neutral ring and the selection sit in
-   the same grid without one of them reading as a button. Re-read 12 Aug 2026: this
-   file had been filling it with surface/focus. */
+/* Selected — surface/focus inside an aqua ring. Both are bound on 003's Calendar
+   symbol, and Number Item's Active state (which builds the Set date grid) binds the
+   same pair, so the two types agree.
+
+   I briefly made this transparent on 12 Aug 2026, having read the pale #CEFDFD middle
+   as white in a low-resolution frame render. Restored the same day off the variable
+   list. A colour that faint needs reading from the tokens, not from a screenshot. */
 .date-picker__day--selected {
-  background:    transparent;
+  background:    var(--surface-focus);            /* #cefdfd */
   border-color:  var(--border-active);            /* #05cfcf */
 }
 
@@ -3251,6 +3266,38 @@ body { font-family: var(--font-family-base); }
   gap:     var(--gap-medium);                     /* 16px */
 }
 .date-picker__actions .btn { flex: 1; }
+
+
+/* ------------------------------------------------------------
+   TYPE = SET DATE
+   A day of the month rather than a date on a calendar — a payment date, not an event.
+   So there is no month to navigate and no weekday row to align to, and the cells are
+   NUMBER ITEMs: 003 builds this grid out of that component rather than out of the
+   Calendar type's own day buttons, and Number Item already is a 48px tile with the
+   aqua --active state this needs.
+
+   Tighter padding than the Calendar type — Spacer-8 against its 16 — because the
+   Display Row and the grid both carry their own inset, and 16 on top of those pushed
+   the whole thing 12px wider than 003 draws it.
+   ------------------------------------------------------------ */
+
+.date-picker--set-date {
+  gap:     var(--spacer-16);
+  padding: var(--spacer-8);
+}
+
+/* Seven across, and the cells BUTT TOGETHER — no gap. Number Item states are drawn as
+   a ring inside the tile's own 48px, so a gap would separate rings that 003 keeps
+   adjacent, and 7 x 48 = 336 is the width the grid is drawn at. */
+.date-picker__dates {
+  display:               grid;
+  grid-template-columns: repeat(7, 48px);
+  justify-content:       center;
+}
+
+/* The heading is a Display Row with a trailing checkbox — "use this date every month"
+   rather than a title. It brings its own dividers, so nothing is added here. */
+.date-picker--set-date .display-row { padding-inline: var(--spacer-12); }
 
 
 /* ==== components/detail-card/detail-card.css ==== */
@@ -5777,26 +5824,34 @@ body { font-family: var(--font-family-base); }
    CLOSE
    The dismissal of last resort. The actions below are the real answer, so this
    sits quiet: a neutral disc rather than anything that competes with them.
+
+   The glyph is the cross from icons/close.svg — Close's own, not cross.svg's thin
+   full-bleed one, which is drawn to sit on a page rather than inside a disc.
+
+   Only the glyph, though: close.svg ships as a complete control, a cross ON a disc at
+   30% opacity, and this button draws its own disc from overlay/dark-low (20%) because
+   that is what 003 binds on the Modal. Dropping the whole icon in would nest two discs
+   at two opacities — the same mistake as a purple badge behind a partner's logo.
    ------------------------------------------------------------ */
 
+/* The button paints NOTHING: icons/close.svg is the whole control at 32px — a disc at
+   20% (overlay/dark-low, the token 003 binds) with the cross on top, both on
+   currentColor so the pair follows the theme together. Giving the button its own
+   background would put a second disc behind the icon's. */
 .modal__close {
   position:        absolute;
   top:             var(--spacer-8);            /* centred in the 48px band */
   right:           var(--spacer-16);
   display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  width:           32px;
-  height:          32px;
   padding:         0;
   border:          none;
-  border-radius:   var(--radius-round);
-  background:      var(--overlay-dark-low);     /* #27252d @ 20% */
+  background:      none;
   color:           var(--icon-glyph-primary);
   cursor:          pointer;
 }
-.modal__close:hover { background: var(--overlay-dark-medium); }
-.modal__close svg   { display: block; width: 16px; height: 16px; }
+/* Only the disc deepens on hover; the cross is already at full strength. */
+.modal__close:hover circle { fill-opacity: 0.3; }
+.modal__close svg { display: block; width: 32px; height: 32px; }
 
 @media (min-width: 768px) {
   .modal__close { top: var(--spacer-16); right: var(--spacer-32); }
@@ -6587,6 +6642,193 @@ body { font-family: var(--font-family-base); }
 .plate--12 { font-size: 12px; }   /* Small */
 
 
+/* ==== components/price-card/price-card.css ==== */
+/*
+ * ============================================================
+ * SMALL COMPARISON TILE COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57968-9417
+ *
+ * A selectable tile for choosing between two ways of paying: a product badge, a
+ * radio, a title, and a tinted panel holding the figures with optional tags
+ * beneath them.
+ *
+ * Named "Small comparison tile" in Figma until 13 Aug 2026, when it became PRICE CARD
+ * — a better name, because it was a word away from COMPARISON TILE (comparison-tile.css,
+ * node 6477-174868) while doing a different job. That one compares products on price;
+ * this one lays out the arithmetic of one way of paying for a product already chosen.
+ * The Figma component may still carry the old name; the node id is what to trust.
+ *
+ * States (Figma "State"): Default | Hover | Active (spelled "Avtive" there).
+ *   Hover  — aqua border. :hover, or forced with --hover.
+ *   Active — aqua border AND the panel on surface/focus. Applied when the tile
+ *            contains the checked radio, or forced with --active.
+ *   Exactly the pattern Product Card uses, for the same reason: hovering and
+ *   choosing must not look identical.
+ *
+ * Composition — reuses Radio, and Status Label's geometry for the tags.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../radio/radio.css">
+ *   <link rel="stylesheet" href="price-card.css">
+ * ============================================================
+ */
+
+
+.price-card {
+  display:        flex;
+  flex-direction: column;
+  width:          100%;
+  /* The width 003 draws it at. Caps it in a wide container the way Product Card's
+     335 does, and never bites in a mobile column (343 inside a 375 screen). */
+  max-width:      351px;
+  box-sizing:     border-box;
+  /* Border-2 at every state so choosing a tile doesn't resize it; transparent at
+     rest, because 003 gives the resting tile no outline at all. */
+  border:         var(--border-m) solid transparent;
+  border-radius:  var(--radius-medium);                     /* 16 */
+  background:     var(--surface-primary);
+  /* Spacer-16 from the outer edge, so the border comes off the padding. */
+  padding:        calc(var(--spacer-16) - var(--border-m));
+  font-family:    'Modern Era', sans-serif;
+}
+
+.price-card--hover,
+.price-card--active,
+.price-card:has(.radio__input:checked)  { border-color: var(--border-active); }
+.price-card:has(.radio__input):hover    { border-color: var(--border-active); }
+
+
+/* ------------------------------------------------------------
+   TOP ROW — badge and the control that chooses this tile
+   ------------------------------------------------------------ */
+
+.price-card__top {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  margin-bottom:   var(--spacer-16);
+}
+
+.price-card__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-small);                     /* 8 */
+  background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
+  color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
+}
+.price-card__badge svg { display: block; width: 24px; height: 24px; }
+
+
+/* ------------------------------------------------------------
+   TITLE
+   ------------------------------------------------------------ */
+
+.price-card__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;                                     /* Mobile/Title 4 */
+  line-height:    24px;
+  letter-spacing: var(--letter-spacing-tight);              /* Figma's -2 is -2% */
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   PANEL — the figures
+   Tinted rather than ruled: these lines are an arithmetic aside, and a box around
+   them separates them from the title without drawing four more borders on a card
+   that already has one.
+   ------------------------------------------------------------ */
+
+.price-card__panel {
+  margin-top:    var(--spacer-16);
+  padding:       var(--spacer-12);
+  border-radius: var(--radius-small);                       /* 8 */
+  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
+  transition:    background-color 150ms ease;
+}
+
+/* Aqua once the tile is CHOSEN — not on hover. The panel is the one part that
+   separates the two aqua-bordered states, the same job it does on Product Card. */
+.price-card--active .price-card__panel,
+.price-card:has(.radio__input:checked) .price-card__panel { background: var(--surface-focus); }
+
+.price-card__lines {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin:         0;
+  padding:        0;
+  list-style:     none;
+}
+
+/* Label left, figure right, and the gap between them is whatever is left — so the
+   figures line up down the right edge however long the labels get. */
+.price-card__line {
+  display:         flex;
+  align-items:     baseline;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-2);                 /* 16 / 24 */
+  line-height:     var(--line-height-body-2);
+  color:           var(--text-primary);
+}
+
+/* The total is the line that answers the question, so it carries the weight. */
+.price-card__line--total { font-weight: var(--font-weight-bold); }
+
+
+/* ------------------------------------------------------------
+   TAGS
+   003 draws these as Status Labels with their colours overridden — yellow
+   brand/4-medium for the selling point, and brand/4-low inside a
+   border/warning-low hairline for the small print. Neither is a state Status Label
+   has, so they are declared here rather than by adding two more states to a
+   component whose states all mean something about status. See KNOWN-ISSUES.
+   ------------------------------------------------------------ */
+
+.price-card__meta {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         var(--spacer-4);
+  margin-top:  var(--spacer-12);
+}
+
+.price-card__tag {
+  display:         inline-flex;
+  align-items:     center;
+  height:          24px;
+  padding:         0 var(--spacer-4);
+  box-sizing:      border-box;
+  border:          var(--border-s) solid transparent;
+  border-radius:   var(--radius-x-small);                   /* 4 */
+  background:      var(--brand-4-medium);                   /* #FCFF5F */
+  color:           var(--text-primary-fixed);
+  font-weight:     var(--font-weight-regular);
+  font-size:       var(--font-size-body-4);                 /* 12 / 16 */
+  line-height:     var(--line-height-body-4);
+  white-space:     nowrap;
+}
+
+/* The quieter one — a fact you must show rather than a reason to choose. */
+.price-card__tag--note {
+  background:   var(--brand-4-low);                         /* #FDFEE1 */
+  border-color: var(--border-warning-low);                  /* #FBEACE */
+}
+
+/* Fluid — drop the cap and fill the column, for a tile that is alone on a screen
+   rather than beside its sibling. Same modifier Product Card and Detail Card use. */
+.price-card--fluid { max-width: none; }
+
+
 /* ==== components/price-comparison/price-comparison.css ==== */
 /*
  * ============================================================
@@ -6848,10 +7090,19 @@ body { font-family: var(--font-family-base); }
 .product-card__badge--logo {
   background: none;
   padding:    0;
-  overflow:   hidden;
 }
+
+/* The ARTWORK is clipped to the badge's corners, not the badge itself. Clipping the
+   container is the obvious way to round a square logo, and it also cropped the pip —
+   which sits deliberately outside the badge, on its corner. Rounding the image instead
+   keeps the logo square-cornered-free and lets the status overflow. */
 .product-card__badge--logo img,
-.product-card__badge--logo svg { display: block; width: 100%; height: 100%; }
+.product-card__badge--logo svg {
+  display:       block;
+  width:         100%;
+  height:        100%;
+  border-radius: inherit;
+}
 
 /* A status pip on the badge — a tick when a partner account is linked. Sits on
    the corner rather than beside the title, so the thing it reports on is the
@@ -6978,10 +7229,11 @@ body { font-family: var(--font-family-base); }
 }
 .product-card__benefit-icon svg { display: block; width: 100%; height: 100%; }
 
-/* Excluded — what this level does NOT cover. A cross in the text colour rather
-   than the purple tick: it is a fact about the option, not a fault, so it reads
-   as plainly as the ticks beside it instead of shouting in red. */
-.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-primary); }
+/* Excluded — what this level does NOT cover. A cross rather than the purple tick, and
+   in icon/glyph/PRESSED: a step back from the glyph colour beside it, because it is a
+   fact about the option rather than a fault. Still not red — an exclusion is not an
+   error. */
+.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-pressed); }
 .product-card__benefit-text {
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-2);          /* 16px */
@@ -7680,6 +7932,12 @@ body { font-family: var(--font-family-base); }
     width:      100%;
     max-width:  calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
     margin:     0 auto;
+    /* Spacer-12 BELOW as well as above, which the mobile shape leaves off because the
+       steps sit under the header there and bring their own. On desktop everything is on
+       one row, so the bar's height is this padding around the 60-tall brand block:
+       12 + 60 + 12 = 84, which is what 003's desktop symbol measures. Re-read
+       13 Aug 2026, when the bar was coming out 72. */
+    padding-bottom: var(--spacer-12);
   }
 
   .sales-nav__steps {
@@ -7846,192 +8104,6 @@ body { font-family: var(--font-family-base); }
 /* Equal-width segments (optional) */
 .segment--fill { display: flex; width: 100%; }
 .segment--fill .segment__item { flex: 1 1 0; min-width: 0; }
-
-
-/* ==== components/small-comparison-tile/small-comparison-tile.css ==== */
-/*
- * ============================================================
- * SMALL COMPARISON TILE COMPONENT
- * ============================================================
- * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57968-9417
- *
- * A selectable tile for choosing between two ways of paying: a product badge, a
- * radio, a title, and a tinted panel holding the figures with optional tags
- * beneath them.
- *
- * NOT the same thing as COMPARISON TILE (comparison-tile.css, node 6477-174868),
- * which is a coloured frame over a big price. That one compares products on price;
- * this one lays out the arithmetic of a single payment plan. The names are close
- * enough that it is worth being sure which is meant.
- *
- * States (Figma "State"): Default | Hover | Active (spelled "Avtive" there).
- *   Hover  — aqua border. :hover, or forced with --hover.
- *   Active — aqua border AND the panel on surface/focus. Applied when the tile
- *            contains the checked radio, or forced with --active.
- *   Exactly the pattern Product Card uses, for the same reason: hovering and
- *   choosing must not look identical.
- *
- * Composition — reuses Radio, and Status Label's geometry for the tags.
- *
- * Usage:
- *   <link rel="stylesheet" href="../tokens/tokens.css">
- *   <link rel="stylesheet" href="../radio/radio.css">
- *   <link rel="stylesheet" href="small-comparison-tile.css">
- * ============================================================
- */
-
-
-.small-comparison-tile {
-  display:        flex;
-  flex-direction: column;
-  width:          100%;
-  /* The width 003 draws it at. Caps it in a wide container the way Product Card's
-     335 does, and never bites in a mobile column (343 inside a 375 screen). */
-  max-width:      351px;
-  box-sizing:     border-box;
-  /* Border-2 at every state so choosing a tile doesn't resize it; transparent at
-     rest, because 003 gives the resting tile no outline at all. */
-  border:         var(--border-m) solid transparent;
-  border-radius:  var(--radius-medium);                     /* 16 */
-  background:     var(--surface-primary);
-  /* Spacer-16 from the outer edge, so the border comes off the padding. */
-  padding:        calc(var(--spacer-16) - var(--border-m));
-  font-family:    'Modern Era', sans-serif;
-}
-
-.small-comparison-tile--hover,
-.small-comparison-tile--active,
-.small-comparison-tile:has(.radio__input:checked)  { border-color: var(--border-active); }
-.small-comparison-tile:has(.radio__input):hover    { border-color: var(--border-active); }
-
-
-/* ------------------------------------------------------------
-   TOP ROW — badge and the control that chooses this tile
-   ------------------------------------------------------------ */
-
-.small-comparison-tile__top {
-  display:         flex;
-  align-items:     flex-start;
-  justify-content: space-between;
-  gap:             var(--spacer-8);
-  margin-bottom:   var(--spacer-16);
-}
-
-.small-comparison-tile__badge {
-  display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  flex:            0 0 auto;
-  width:           48px;
-  height:          48px;
-  border-radius:   var(--radius-small);                     /* 8 */
-  background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
-  color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
-}
-.small-comparison-tile__badge svg { display: block; width: 24px; height: 24px; }
-
-
-/* ------------------------------------------------------------
-   TITLE
-   ------------------------------------------------------------ */
-
-.small-comparison-tile__title {
-  margin:         0;
-  font-weight:    var(--font-weight-bold);
-  font-size:      20px;                                     /* Mobile/Title 4 */
-  line-height:    24px;
-  letter-spacing: var(--letter-spacing-tight);              /* Figma's -2 is -2% */
-  color:          var(--text-primary);
-}
-
-
-/* ------------------------------------------------------------
-   PANEL — the figures
-   Tinted rather than ruled: these lines are an arithmetic aside, and a box around
-   them separates them from the title without drawing four more borders on a card
-   that already has one.
-   ------------------------------------------------------------ */
-
-.small-comparison-tile__panel {
-  margin-top:    var(--spacer-16);
-  padding:       var(--spacer-12);
-  border-radius: var(--radius-small);                       /* 8 */
-  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
-  transition:    background-color 150ms ease;
-}
-
-/* Aqua once the tile is CHOSEN — not on hover. The panel is the one part that
-   separates the two aqua-bordered states, the same job it does on Product Card. */
-.small-comparison-tile--active .small-comparison-tile__panel,
-.small-comparison-tile:has(.radio__input:checked) .small-comparison-tile__panel { background: var(--surface-focus); }
-
-.small-comparison-tile__lines {
-  display:        flex;
-  flex-direction: column;
-  gap:            var(--spacer-4);
-  margin:         0;
-  padding:        0;
-  list-style:     none;
-}
-
-/* Label left, figure right, and the gap between them is whatever is left — so the
-   figures line up down the right edge however long the labels get. */
-.small-comparison-tile__line {
-  display:         flex;
-  align-items:     baseline;
-  justify-content: space-between;
-  gap:             var(--spacer-8);
-  font-weight:     var(--font-weight-regular);
-  font-size:       var(--font-size-body-2);                 /* 16 / 24 */
-  line-height:     var(--line-height-body-2);
-  color:           var(--text-primary);
-}
-
-/* The total is the line that answers the question, so it carries the weight. */
-.small-comparison-tile__line--total { font-weight: var(--font-weight-bold); }
-
-
-/* ------------------------------------------------------------
-   TAGS
-   003 draws these as Status Labels with their colours overridden — yellow
-   brand/4-medium for the selling point, and brand/4-low inside a
-   border/warning-low hairline for the small print. Neither is a state Status Label
-   has, so they are declared here rather than by adding two more states to a
-   component whose states all mean something about status. See KNOWN-ISSUES.
-   ------------------------------------------------------------ */
-
-.small-comparison-tile__meta {
-  display:     flex;
-  flex-wrap:   wrap;
-  gap:         var(--spacer-4);
-  margin-top:  var(--spacer-12);
-}
-
-.small-comparison-tile__tag {
-  display:         inline-flex;
-  align-items:     center;
-  height:          24px;
-  padding:         0 var(--spacer-4);
-  box-sizing:      border-box;
-  border:          var(--border-s) solid transparent;
-  border-radius:   var(--radius-x-small);                   /* 4 */
-  background:      var(--brand-4-medium);                   /* #FCFF5F */
-  color:           var(--text-primary-fixed);
-  font-weight:     var(--font-weight-regular);
-  font-size:       var(--font-size-body-4);                 /* 12 / 16 */
-  line-height:     var(--line-height-body-4);
-  white-space:     nowrap;
-}
-
-/* The quieter one — a fact you must show rather than a reason to choose. */
-.small-comparison-tile__tag--note {
-  background:   var(--brand-4-low);                         /* #FDFEE1 */
-  border-color: var(--border-warning-low);                  /* #FBEACE */
-}
-
-/* Fluid — drop the cap and fill the column, for a tile that is alone on a screen
-   rather than beside its sibling. Same modifier Product Card and Detail Card use. */
-.small-comparison-tile--fluid { max-width: none; }
 
 
 /* ==== components/spinner/spinner.css ==== */
@@ -9825,6 +9897,12 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   .total-cost__label,
   .total-cost__price { font-size: var(--font-size-title-4-mobile, 20px); line-height: 24px; }
 }
+
+
+/* The amounts inside the sub-line carry weight while the words around them stay
+   regular — "£500 today, then 11 x £216/mo". The figures are what is being compared;
+   the connecting words are just grammar. */
+.total-cost__sub strong { font-weight: var(--font-weight-bold); }
 
 
 /* ==== components/trustpilot-lockup/trustpilot-lockup.css ==== */
