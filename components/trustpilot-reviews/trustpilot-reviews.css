@@ -149,7 +149,10 @@
   flex-direction:  column;
   align-items:     center;
   gap:             var(--spacer-8);
-  max-width:       516px;
+  /* 512, read off the Lockup on 6500-186189: a 512 frame with the rating text filling
+     it and the Trustpilot mark centred 8 beneath. Not 516 — that was the stale example
+     width this file shared with Modal and Total Cost. */
+  max-width:       512px;
   text-align:      center;
 }
 .tp-reviews__rating-text {

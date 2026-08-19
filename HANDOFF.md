@@ -88,13 +88,15 @@ reverted. Read faint colours from the tokens, never from a screenshot.
   and probably deliberate. That was wrong for four of them — worth remembering that
   reading the shape of a rule is not the same as reading the design.
 
-  🔶 **One left**: `trustpilot-reviews.css:152` `.tp-reviews__rating`. The desktop symbol
-  has a Lockup 512 wide, but that reads as the lockup's own content width rather than a
-  cap, so it needs the frame looked at rather than the number copied.
+  **All seven are now done.** The last one, `.tp-reviews__rating`, is **512** — the
+  Lockup frame on `6500-186189` is 512 wide with the rating text filling it and the
+  Trustpilot mark centred 8 beneath, so it was a width after all, not content.
 
-- 🔶 **Onboarding Steps' track is inset 2px** each side of the step (`x=2, width=69.75`
-  in a 73.75 step on `57552:33036`); the repo's track is `width: 100%`. Small, evidenced,
-  and it changes every stepper — not bundled into the height fix.
+- **Onboarding Steps' track is inset 2px** each side, done 14 Aug — `width: calc(100% -
+  4px)`, matching `x=2, width=69.75` in a 73.75 step on `57552:33036`. It is what keeps
+  a hair between one step's track and the next so four segments don't read as one bar.
+  The inset is absolute, not proportional: the journey's steps are 91 wide and still take
+  2 either side.
 
 - **Product Card's reward stack** uses a fixed overlap step; 003 tightens the step as
   the image slot narrows, so the fan stays inside it. Mine clips at the slot's right

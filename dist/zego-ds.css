@@ -6323,8 +6323,12 @@ body { font-family: var(--font-family-base); }
    TRACK + FILL
    ------------------------------------------------------------ */
 
+/* Inset 2px each side of the step, not full width: 003's Step Indicator puts the track
+   at x=2 with width 69.75 in a 73.75 step (57552:33036). It keeps a hair of space
+   between one step's track and the next, which is what stops four segments reading as
+   one continuous bar. */
 .onboarding-steps__track {
-  width:         100%;
+  width:         calc(100% - 4px);
   height:        4px;
   border-radius: var(--radius-round);
   background:    var(--surface-tertiary-high);
@@ -10166,7 +10170,10 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   flex-direction:  column;
   align-items:     center;
   gap:             var(--spacer-8);
-  max-width:       516px;
+  /* 512, read off the Lockup on 6500-186189: a 512 frame with the rating text filling
+     it and the Trustpilot mark centred 8 beneath. Not 516 — that was the stale example
+     width this file shared with Modal and Total Cost. */
+  max-width:       512px;
   text-align:      center;
 }
 .tp-reviews__rating-text {

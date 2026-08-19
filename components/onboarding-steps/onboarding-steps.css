@@ -98,8 +98,12 @@
    TRACK + FILL
    ------------------------------------------------------------ */
 
+/* Inset 2px each side of the step, not full width: 003's Step Indicator puts the track
+   at x=2 with width 69.75 in a 73.75 step (57552:33036). It keeps a hair of space
+   between one step's track and the next, which is what stops four segments reading as
+   one continuous bar. */
 .onboarding-steps__track {
-  width:         100%;
+  width:         calc(100% - 4px);
   height:        4px;
   border-radius: var(--radius-round);
   background:    var(--surface-tertiary-high);
