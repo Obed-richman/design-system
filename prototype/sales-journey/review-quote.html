@@ -40,48 +40,48 @@
       <span class="plate">SH48 HSA</span>
     </div>
 
-    <!-- How to pay. Two Small Comparison Tiles, monthly selected — the tile lays out
+    <!-- How to pay. Two Price Cards, monthly selected — the tile lays out
          the arithmetic of a plan, which is why it isn't a Product Card: there is no
          product to sell here, only two ways to settle the same one. -->
     <fieldset class="proto__options" data-required-error="Choose how to pay.">
       <legend class="visually-hidden">How would you like to pay?</legend>
-      <label class="small-comparison-tile">
-        <div class="small-comparison-tile__top">
-          <span class="small-comparison-tile__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M12.1582 12C13.0282 12 13.8235 12.4994 14.2126 13.2898C14.2997 13.4666 14.2292 13.6816 14.0552 13.77L13.4348 14.085C13.2608 14.1733 13.0492 14.1018 12.9622 13.925C12.8099 13.6157 12.4986 13.4204 12.1582 13.4204H12.0471C11.5507 13.4204 11.1482 13.829 11.1482 14.3333V15.145H12.147C12.3676 15.145 12.5464 15.3267 12.5464 15.5508V16.1594C12.5464 16.3835 12.3676 16.5652 12.147 16.5652H11.1482V17.5796H13.7449C13.9655 17.5796 14.1445 17.7615 14.1445 17.9856V18.5942C14.1445 18.8183 13.9655 19 13.7449 19H10.14941C9.92883 19 9.75002 18.8183 9.75 18.5942V14.3333C9.75004 13.0446 10.77848 12 12.0471 12H12.1582Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1C7.77614 1 8 1.22386 8 1.5V3H16V1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5C1 3.89543 1.89543 3 3 3H6V1.5C6 1.22386 6.22386 1 6.5 1H7.5ZM3 21H21V10H3V21ZM3 8H21V5H18V5.5C18 5.77614 17.7761 6 17.5 6H16.5C16.2239 6 16 5.77614 16 5.5V5H8V5.5C8 5.77614 7.77614 6 7.5 6H6.5C6.22386 6 6 5.77614 6 5.5V5H3V8Z" fill="currentColor"/> </svg></span>
-          <span class="small-comparison-tile__control">
+      <label class="price-card">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M12.1582 12C13.0282 12 13.8235 12.4994 14.2126 13.2898C14.2997 13.4666 14.2292 13.6816 14.0552 13.77L13.4348 14.085C13.2608 14.1733 13.0492 14.1018 12.9622 13.925C12.8099 13.6157 12.4986 13.4204 12.1582 13.4204H12.0471C11.5507 13.4204 11.1482 13.829 11.1482 14.3333V15.145H12.147C12.3676 15.145 12.5464 15.3267 12.5464 15.5508V16.1594C12.5464 16.3835 12.3676 16.5652 12.147 16.5652H11.1482V17.5796H13.7449C13.9655 17.5796 14.1445 17.7615 14.1445 17.9856V18.5942C14.1445 18.8183 13.9655 19 13.7449 19H10.14941C9.92883 19 9.75002 18.8183 9.75 18.5942V14.3333C9.75004 13.0446 10.77848 12 12.0471 12H12.1582Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 1C7.77614 1 8 1.22386 8 1.5V3H16V1.5C16 1.22386 16.2239 1 16.5 1H17.5C17.7761 1 18 1.22386 18 1.5V3H21C22.1046 3 23 3.89543 23 5V21C23 22.1046 22.1046 23 21 23H3C1.89543 23 1 22.1046 1 21V5C1 3.89543 1.89543 3 3 3H6V1.5C6 1.22386 6.22386 1 6.5 1H7.5ZM3 21H21V10H3V21ZM3 8H21V5H18V5.5C18 5.77614 17.7761 6 17.5 6H16.5C16.2239 6 16 5.77614 16 5.5V5H8V5.5C8 5.77614 7.77614 6 7.5 6H6.5C6.22386 6 6 5.77614 6 5.5V5H3V8Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
             <input class="radio__input" type="radio" name="payment" value="monthly" data-journey-field="payment" checked>
             <span class="radio__control"></span>
           </span>
         </div>
-        <p class="small-comparison-tile__title">Pay monthly</p>
-        <div class="small-comparison-tile__panel">
-          <ul class="small-comparison-tile__lines">
-            <li class="small-comparison-tile__line"><span>Today</span><span>£500</span></li>
-            <li class="small-comparison-tile__line"><span>Then 11 monthly repayments</span><span>£216</span></li>
-            <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>£2,876</span></li>
+        <p class="price-card__title">Pay monthly</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>Today</span><span>£500</span></li>
+            <li class="price-card__line"><span>Then 11 monthly repayments</span><span>£216</span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>£2,876</span></li>
           </ul>
-          <div class="small-comparison-tile__meta">
-            <span class="small-comparison-tile__tag">Spread the cost</span>
-            <span class="small-comparison-tile__tag small-comparison-tile__tag--note">19.9% APR</span>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Spread the cost</span>
+            <span class="price-card__tag price-card__tag--note">19.9% APR</span>
           </div>
         </div>
       </label>
-      <label class="small-comparison-tile">
-        <div class="small-comparison-tile__top">
-          <span class="small-comparison-tile__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
-          <span class="small-comparison-tile__control">
+      <label class="price-card">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
             <input class="radio__input" type="radio" name="payment" value="upfront" data-journey-field="payment">
             <span class="radio__control"></span>
           </span>
         </div>
-        <p class="small-comparison-tile__title">Pay upfront</p>
-        <div class="small-comparison-tile__panel">
-          <ul class="small-comparison-tile__lines">
-            <li class="small-comparison-tile__line"><span>One payment, today</span><span></span></li>
-            <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>£2,872</span></li>
+        <p class="price-card__title">Pay upfront</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>One payment, today</span><span></span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>£2,872</span></li>
           </ul>
-          <div class="small-comparison-tile__meta">
-            <span class="small-comparison-tile__tag">Save £200</span>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Save £200</span>
           </div>
         </div>
       </label>
@@ -182,7 +182,7 @@
        recalculate, and the summary row updates from the choice. -->
   <div class="modal overlay overlay--darker" id="edit-policy-type" hidden>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-policy-type-title">
-      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
       <h2 class="modal__title" id="edit-policy-type-title">Policy type</h2>
 
     <fieldset class="proto__options">
@@ -264,14 +264,23 @@
           </label>
         </fieldset>
 
-      <!-- The running total, so a change can be weighed against what it costs. -->
-      <div class="proto__modal-total">
-        <p class="proto__modal-total-row"><span>Total</span><span>&pound;2,876</span></p>
-        <p class="proto__modal-total-note">&pound;500 today, then 11 &times; &pound;216 /mo</p>
-      </div>
-
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
       <div class="modal__actions">
-        <button class="btn btn--primary btn--pill btn--block" type="button" data-modal-close>Done</button>
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -281,7 +290,7 @@
        recalculate, and the summary row updates from the choice. -->
   <div class="modal overlay overlay--darker" id="edit-cover-level" hidden>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-level-title">
-      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
       <h2 class="modal__title" id="edit-cover-level-title">Cover level</h2>
 
     <fieldset class="proto__options">
@@ -342,14 +351,23 @@
           </label>
         </fieldset>
 
-      <!-- The running total, so a change can be weighed against what it costs. -->
-      <div class="proto__modal-total">
-        <p class="proto__modal-total-row"><span>Total</span><span>&pound;2,876</span></p>
-        <p class="proto__modal-total-note">&pound;500 today, then 11 &times; &pound;216 /mo</p>
-      </div>
-
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
       <div class="modal__actions">
-        <button class="btn btn--primary btn--pill btn--block" type="button" data-modal-close>Done</button>
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -359,7 +377,7 @@
        recalculate, and the summary row updates from the choice. -->
   <div class="modal overlay overlay--darker" id="edit-cover-length" hidden>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-length-title">
-      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
       <h2 class="modal__title" id="edit-cover-length-title">Cover length</h2>
 
     <fieldset class="proto__options">
@@ -424,14 +442,23 @@
           </label>
         </fieldset>
 
-      <!-- The running total, so a change can be weighed against what it costs. -->
-      <div class="proto__modal-total">
-        <p class="proto__modal-total-row"><span>Total</span><span>&pound;2,876</span></p>
-        <p class="proto__modal-total-note">&pound;500 today, then 11 &times; &pound;216 /mo</p>
-      </div>
-
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
       <div class="modal__actions">
-        <button class="btn btn--primary btn--pill btn--block" type="button" data-modal-close>Done</button>
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -441,7 +468,7 @@
        recalculate, and the summary row updates from the choice. -->
   <div class="modal overlay overlay--darker" id="edit-cover-start-date" hidden>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="edit-cover-start-date-title">
-      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1036 3.10356C19.9083 2.90829 19.5917 2.90829 19.3964 3.10355L11.9142 10.5858L4.51777 3.18934C4.3225 2.99408 4.00592 2.99408 3.81066 3.18934L3.10355 3.89645C2.90829 4.09171 2.90829 4.40829 3.10355 4.60355L10.5 12L3.13299 19.367C2.93773 19.5623 2.93773 19.8789 3.13299 20.0741L3.8401 20.7812C4.03536 20.9765 4.35194 20.9765 4.5472 20.7812L11.9142 13.4142L19.367 20.867C19.5623 21.0623 19.8789 21.0623 20.0741 20.867L20.7812 20.1599C20.9765 19.9646 20.9765 19.6481 20.7812 19.4528L13.3284 12L20.8107 4.51777C21.0059 4.32251 21.0059 4.00592 20.8107 3.81066L20.1036 3.10356Z" fill="currentColor"/></svg></button>
+      <button class="modal__close" type="button" aria-label="Close" data-modal-close><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true"> <circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/> <path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button>
       <h2 class="modal__title" id="edit-cover-start-date-title">Cover start date</h2>
 
     <div class="date-picker">
@@ -468,14 +495,23 @@
               <div class="date-picker__grid"><!-- filled by date-picker.js --></div>
             </div>
 
-      <!-- The running total, so a change can be weighed against what it costs. -->
-      <div class="proto__modal-total">
-        <p class="proto__modal-total-row"><span>Total</span><span>&pound;2,876</span></p>
-        <p class="proto__modal-total-note">&pound;500 today, then 11 &times; &pound;216 /mo</p>
-      </div>
-
+      <!-- The price and the way out are one thing: TOTAL COST's Total variant, which
+           pairs the figure with the CTA under its own rule. It sits inside
+           .modal__actions so it keeps 003's white scroll-bottom-clip band, and so the
+           decision stays reachable however long the cards above it run. -->
       <div class="modal__actions">
-        <button class="btn btn--primary btn--pill btn--block" type="button" data-modal-close>Done</button>
+        <div class="total-cost">
+          <div class="total-cost__content">
+            <div class="total-cost__total">
+              <span class="total-cost__label">Total</span>
+              <div class="total-cost__price-group">
+                <p class="total-cost__price">&pound;2,876</p>
+                <p class="total-cost__sub"><strong>&pound;500</strong> today, then 11 &times; <strong>&pound;216</strong>/mo</p>
+              </div>
+            </div>
+            <button class="btn btn--primary btn--pill total-cost__cta" type="button" data-modal-close>Done</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

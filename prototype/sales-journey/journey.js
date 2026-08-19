@@ -938,19 +938,25 @@
     foot.innerHTML = FOOT;
     main.parentNode.insertBefore(foot.firstElementChild, main.nextSibling);
 
-    // A small Back control at the top of every screen. It carries
-    // data-journey="back" so the wiring below points it at the previous page —
-    // and removes it on the first screen, where there is nowhere to go back to.
-    // An exit screen skips it: there is nowhere useful to go back to from a
-    // dead end, and the design doesn't show one. A WAIT skips it too — it leaves
-    // on its own, so a control that says "go back" would be racing it.
+    // A Back control at the FOOT of every screen, below the CTA.
+    //
+    // This is prototype furniture, not part of the journey: the live product has no
+    // Back button, and the Figma frames don't draw one. It exists so the flow can be
+    // walked in both directions while it is being reviewed. Kept small and tertiary so
+    // it never competes with the real action above it, and put last so it reads as a
+    // way out of the page rather than the first thing on it.
+    //
+    // Removed on the first screen, which has nowhere to go back to. An exit screen
+    // skips it: there is nowhere useful to go from a dead end, and the design doesn't
+    // show one. A WAIT skips it too — it leaves on its own, so a control that says
+    // "go back" would be racing it.
     if (!main.hasAttribute('data-exit') && !main.querySelector('[data-wait-for]')) {
       var back = document.createElement('a');
       back.className = 'btn btn--tertiary btn--pill btn--small proto__back';
       back.setAttribute('data-journey', 'back');
       back.setAttribute('href', '#');
       back.innerHTML = '<span class="btn__icon">' + ARROW_LEFT + '</span>Back';
-      main.insertBefore(back, main.firstChild);
+      main.appendChild(back);
     }
 
     // Remember what gets typed, and fill in what earlier screens captured

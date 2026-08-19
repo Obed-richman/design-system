@@ -100,12 +100,18 @@ html[data-viewport="mobile"] > body > .footer-sales {
 
 /* ------------------------------------------------------------
    BACK CONTROL
-   Injected at the top of every screen by journey.js (and dropped on the first
-   screen, which has nowhere to go back to). Shrink-wrapped so it doesn't
-   stretch across the canvas like the other flex children.
+   PROTOTYPE FURNITURE. The live journey has no Back button and the frames don't
+   draw one; journey.js injects this so the flow can be walked both ways while it
+   is being reviewed. It comes out before anything is shared outside the team —
+   see §7 of JOURNEY.md.
+
+   At the foot of the screen, under the CTA, centred and shrink-wrapped. Smaller
+   than Continue on two counts: btn--small against Continue's default height, and
+   hugging its text against Continue's btn--block. Tertiary too, so a review
+   affordance never reads as the second half of a decision.
    ------------------------------------------------------------ */
 
-.proto__back { align-self: flex-start; }
+.proto__back { align-self: center; }
 
 
 /* ------------------------------------------------------------
@@ -234,7 +240,14 @@ html[data-viewport="mobile"] > body > .footer-sales {
 }
 
 @container (min-width: 480px) {
-  .proto__card { padding: var(--spacer-32); }
+  /* Radius-32 on desktop against the mobile Radius-16. A wrapper this much wider needs
+     the bigger corner to read as the same shape — a 16px radius on a 588 column looks
+     like a rectangle that has been filed down, where on a 343 one it is a rounded card.
+     The padding steps with it for the same reason. */
+  .proto__card {
+    padding:       var(--spacer-32);
+    border-radius: var(--radius-x-large);          /* 32px */
+  }
 }
 
 /* Form card — stacked fields. Kept off the base .proto__card because the
@@ -599,8 +612,11 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   padding:     var(--spacer-12) var(--spacer-8);
   background:  var(--surface-tertiary-medium);   /* #F2EDE9 */
   font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-body-3);
-  line-height: var(--line-height-body-3);
+  /* Body 2, not Body 3. At 14 the table read as small print next to the cards it is
+     comparing, which are all 16 — and this is the screen where someone is reading
+     carefully. Same size at both widths. */
+  font-size:   var(--font-size-body-2);          /* 16 / 24 */
+  line-height: var(--line-height-body-2);
   color:       var(--text-primary);
   vertical-align: middle;
 }
@@ -616,8 +632,8 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   padding:     var(--spacer-12) var(--spacer-8);
   border-top:  var(--border-s) solid var(--border-primary);
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-3);
-  line-height: var(--line-height-body-3);
+  font-size:   var(--font-size-body-2);          /* 16 / 24, matching the headers */
+  line-height: var(--line-height-body-2);
   color:       var(--text-primary);
 }
 
@@ -628,9 +644,10 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   color:   var(--icon-glyph-brand-2-medium);     /* purple tick */
 }
 .compare__mark svg { display: block; width: 100%; height: 100%; }
-/* Not covered — the same weight as the ticks, in the text colour. A red cross
-   would read as an error rather than as a fact about the cover level. */
-.compare__mark--no { color: var(--icon-glyph-primary); }
+/* Not covered — the same weight as the ticks, in icon/glyph/pressed, matching the
+   excluded bullet on the cards this table is comparing. A red cross would read as an
+   error rather than as a fact about the cover level. */
+.compare__mark--no { color: var(--icon-glyph-pressed); }
 
 
 /* ------------------------------------------------------------
@@ -894,37 +911,35 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
    because a dialogue whose content is plain text still wants the white. */
 .modal[id^="edit-"] .modal__panel { background: var(--surface-tertiary-low); }
 
-/* The running total inside a Change dialogue — what the choice costs, so it can be
-   weighed before Done. Ruled off rather than tinted: the cards above it are already
-   carrying colour, and another filled panel would compete with them. */
-.proto__modal-total {
-  padding-top: var(--spacer-16);
-  border-top:  var(--border-s) solid var(--border-primary);
+/* TOTAL COST inside a Change dialogue. The component is built to close a page — its
+   own top rule and generous block padding — and here it closes a panel that already
+   has a band around it. So the rule and the outer padding come off and the component
+   keeps only its content: the figure, and the button under it. */
+.modal__actions .total-cost {
+  padding:    0;
+  border-top: none;
 }
-.proto__modal-total-row {
-  display:         flex;
-  justify-content: space-between;
-  gap:             var(--spacer-8);
-  margin:          0;
-  font-weight:     var(--font-weight-bold);
-  font-size:       var(--font-size-subtitle-2);   /* 16 / 24 */
-  line-height:     var(--line-height-subtitle-2);
-  color:           var(--text-primary);
-}
-/* The figure steps up on desktop, where the dialogue has the room and the total is the
-   thing being weighed. Title 4 rather than another Subtitle step: 16 alongside cards
-   whose own titles are 20 read as a footnote to them. */
-@media (min-width: 768px) {
-  .proto__modal-total-row {
-    font-size:   var(--font-size-title-4);
-    line-height: var(--line-height-title-4);
-  }
-}
+.modal__actions .total-cost__content { max-width: none; }
 
-.proto__modal-total-note {
-  margin:      var(--spacer-4) 0 0;
-  font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-4);           /* 12 / 16 */
-  line-height: var(--line-height-body-4);
-  color:       var(--text-primary);
+
+
+/* THE WORK PROVIDER OFFER — the Uber card. It is not one of a set of options: it is a
+   panel offering to link an account, and on desktop it takes the same Radius-32 the
+   white content wrapper does, because at that width it is reading as the page's own
+   surface rather than as a card among cards.
+
+   Marked with a class rather than found by :not(:has(.radio__input)) — "the card with no
+   radio" is true of this one today, and would silently catch the next non-selectable
+   card that turned up. The other Product Cards keep the component's Radius-16 at every
+   width; only this one steps. */
+@container (min-width: 480px) {
+  .product-card.proto__offer { border-radius: var(--radius-x-large); }   /* 32px */
+
+  /* And the inset steps with the corner, the same pairing the white wrapper uses: a
+     32px radius around 16px of padding leaves the content sitting closer to the corner
+     than the corner is deep. Minus the border, because Product Card measures its inset
+     from the card's outer edge and the stroke sits inside it. */
+  .product-card.proto__offer .product-card__header {
+    padding: calc(var(--spacer-32) - var(--border-m));                   /* 30 + 2 = 32 */
+  }
 }
