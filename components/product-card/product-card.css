@@ -134,10 +134,19 @@
 .product-card__badge--logo {
   background: none;
   padding:    0;
-  overflow:   hidden;
 }
+
+/* The ARTWORK is clipped to the badge's corners, not the badge itself. Clipping the
+   container is the obvious way to round a square logo, and it also cropped the pip —
+   which sits deliberately outside the badge, on its corner. Rounding the image instead
+   keeps the logo square-cornered-free and lets the status overflow. */
 .product-card__badge--logo img,
-.product-card__badge--logo svg { display: block; width: 100%; height: 100%; }
+.product-card__badge--logo svg {
+  display:       block;
+  width:         100%;
+  height:        100%;
+  border-radius: inherit;
+}
 
 /* A status pip on the badge — a tick when a partner account is linked. Sits on
    the corner rather than beside the title, so the thing it reports on is the
@@ -264,10 +273,11 @@
 }
 .product-card__benefit-icon svg { display: block; width: 100%; height: 100%; }
 
-/* Excluded — what this level does NOT cover. A cross in the text colour rather
-   than the purple tick: it is a fact about the option, not a fault, so it reads
-   as plainly as the ticks beside it instead of shouting in red. */
-.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-primary); }
+/* Excluded — what this level does NOT cover. A cross rather than the purple tick, and
+   in icon/glyph/PRESSED: a step back from the glyph colour beside it, because it is a
+   fact about the option rather than a fault. Still not red — an exclusion is not an
+   error. */
+.product-card__benefit--excluded .product-card__benefit-icon { color: var(--icon-glyph-pressed); }
 .product-card__benefit-text {
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-2);          /* 16px */

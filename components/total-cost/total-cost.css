@@ -132,3 +132,9 @@
   .total-cost__label,
   .total-cost__price { font-size: var(--font-size-title-4-mobile, 20px); line-height: 24px; }
 }
+
+
+/* The amounts inside the sub-line carry weight while the words around them stay
+   regular — "£500 today, then 11 x £216/mo". The figures are what is being compared;
+   the connecting words are just grammar. */
+.total-cost__sub strong { font-weight: var(--font-weight-bold); }

@@ -155,26 +155,34 @@
    CLOSE
    The dismissal of last resort. The actions below are the real answer, so this
    sits quiet: a neutral disc rather than anything that competes with them.
+
+   The glyph is the cross from icons/close.svg — Close's own, not cross.svg's thin
+   full-bleed one, which is drawn to sit on a page rather than inside a disc.
+
+   Only the glyph, though: close.svg ships as a complete control, a cross ON a disc at
+   30% opacity, and this button draws its own disc from overlay/dark-low (20%) because
+   that is what 003 binds on the Modal. Dropping the whole icon in would nest two discs
+   at two opacities — the same mistake as a purple badge behind a partner's logo.
    ------------------------------------------------------------ */
 
+/* The button paints NOTHING: icons/close.svg is the whole control at 32px — a disc at
+   20% (overlay/dark-low, the token 003 binds) with the cross on top, both on
+   currentColor so the pair follows the theme together. Giving the button its own
+   background would put a second disc behind the icon's. */
 .modal__close {
   position:        absolute;
   top:             var(--spacer-8);            /* centred in the 48px band */
   right:           var(--spacer-16);
   display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  width:           32px;
-  height:          32px;
   padding:         0;
   border:          none;
-  border-radius:   var(--radius-round);
-  background:      var(--overlay-dark-low);     /* #27252d @ 20% */
+  background:      none;
   color:           var(--icon-glyph-primary);
   cursor:          pointer;
 }
-.modal__close:hover { background: var(--overlay-dark-medium); }
-.modal__close svg   { display: block; width: 16px; height: 16px; }
+/* Only the disc deepens on hover; the cross is already at full strength. */
+.modal__close:hover circle { fill-opacity: 0.3; }
+.modal__close svg { display: block; width: 32px; height: 32px; }
 
 @media (min-width: 768px) {
   .modal__close { top: var(--spacer-16); right: var(--spacer-32); }

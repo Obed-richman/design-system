@@ -326,6 +326,12 @@
     width:      100%;
     max-width:  calc(var(--frame-wrapper) + 2 * var(--spacer-16));   /* wrapper + gutters */
     margin:     0 auto;
+    /* Spacer-12 BELOW as well as above, which the mobile shape leaves off because the
+       steps sit under the header there and bring their own. On desktop everything is on
+       one row, so the bar's height is this padding around the 60-tall brand block:
+       12 + 60 + 12 = 84, which is what 003's desktop symbol measures. Re-read
+       13 Aug 2026, when the bar was coming out 72. */
+    padding-bottom: var(--spacer-12);
   }
 
   .sales-nav__steps {
