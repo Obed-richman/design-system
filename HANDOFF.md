@@ -39,14 +39,33 @@ desktop, the comparison table went to 16px, and every Cross Small is now
   (`--gap-xx-small` → `--gap-x-small`) took the nav to 128 on mobile and the desktop
   steps to 60. Padding the nav to hide it would have left the stepper wrong everywhere
   else it is used.
-- **Date Picker's Cancel / Confirm pair.** Both types put them side by side, full width
-  split. The component has actions and the journey dialogue strips them (Done closes
-  it), so the component's own pair has still never been checked against the frame.
-- **Two readings I did not act on**, from the Calendar symbol's variable list:
-  `border/secondary` `#D4D3D5` is bound where the repo uses `border/primary` for today's
-  outline, and `Radius/Radius-24` is bound where the picker's outer radius is 16. A
-  variable list cannot say which element takes which, so both want the frame read
-  properly rather than inferred.
+- **Date Picker's Cancel / Confirm pair was already correct** (checked 14 Aug). 003's
+  Buttons frame is 384 wide with two 184 buttons and a 16 gap; the repo's `__actions` is
+  a flex row, `gap: 16`, `.btn { flex: 1 }` — two equal buttons, 16 apart. No change.
+
+- **Both Calendar readings are resolved** (14 Aug), and by difference rather than guess:
+  `Radius/Radius-24` is bound on the symbol but **absent** from the Dates Wrapper inside
+  it, so the picker takes 24 and the panel keeps 16 — applied. `border/secondary` is
+  accounted for by **Number Item's Inactive** state, which the repo already uses, so it
+  was never about today's outline. The picker is also **400** wide, not the 376 the repo
+  had.
+
+- 🔶 **003's Calendar composes NUMBER ITEM too** — all 35 date cells are Number Item
+  instances, exactly like Set date. The repo's Calendar has its own `.date-picker__day`
+  buttons that duplicate what Number Item already does (48px tile, Radius-8, Border-2,
+  the aqua Active state). Worth collapsing onto the component, which would also stop the
+  two Types drifting apart. Not a quick change — `date-picker.js` renders those buttons.
+
+- 🔶 **`surface/tertiary` (#FFFFFF) has no token in this repo.** 003 binds it as the
+  Dates Wrapper's background; the repo paints it `--surface-primary`. Identical in light,
+  and I have not added the token because its dark value can't be read (see 1.4 in
+  KNOWN-ISSUES) and guessing a semantic colour is worse than leaving a known gap.
+
+- 🔶 **Number Item has no "today" state** — Default, Inactive, Hover, Focused, Active,
+  Error, Disabled (Active), Disabled. The repo's `.date-picker__day--today` grey outline
+  is therefore a repo addition, like the trailing ticks in 1.8. **Wants authoring**, or a
+  decision that Inactive is what "today, not chosen" should look like.
+
 - **"Traditional" or "Simple"?** The Policy type *dialogue* frame calls Standard
   "Traditional cover you can set and forget."; the policy-type *page* frame says
   "Simple". The build uses "Simple" everywhere, because dialogues lift their cards from
