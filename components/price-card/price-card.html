@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Small Comparison Tile — Design System</title>
+  <title>Price Card — Design System</title>
   <link rel="stylesheet" href="../../tokens/tokens.css">
   <link rel="stylesheet" href="../button/button.css">
   <link rel="stylesheet" href="../radio/radio.css">
   <link rel="stylesheet" href="../../tokens/typography.css">
-  <link rel="stylesheet" href="small-comparison-tile.css">
+  <link rel="stylesheet" href="price-card.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
@@ -39,71 +39,71 @@
     </a>
 
     <div class="component-header">
-      <h1 class="component-header__name">Small Comparison Tile</h1>
+      <h1 class="component-header__name">Price Card</h1>
       <p class="component-header__description">Two ways of paying for the same thing — badge, radio, title and the figures &times; State — Zego Design System</p>
     </div>
 
     <div class="variants">
-      <label class="small-comparison-tile">
-        <div class="small-comparison-tile__top">
-          <span class="small-comparison-tile__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
-          <span class="small-comparison-tile__control">
+      <label class="price-card">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
             <input class="radio__input" type="radio" name="tile-default">
             <span class="radio__control"></span>
           </span>
         </div>
-        <p class="small-comparison-tile__title">Title</p>
-        <div class="small-comparison-tile__panel">
-          <ul class="small-comparison-tile__lines">
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>&pound;XX</span></li>
+        <p class="price-card__title">Title</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>&pound;XX</span></li>
           </ul>
-          <div class="small-comparison-tile__meta">
-            <span class="small-comparison-tile__tag">Spread the cost</span>
-            <span class="small-comparison-tile__tag small-comparison-tile__tag--note">19.9% APR</span>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Spread the cost</span>
+            <span class="price-card__tag price-card__tag--note">19.9% APR</span>
           </div>
         </div>
       </label>
-      <label class="small-comparison-tile small-comparison-tile--hover">
-        <div class="small-comparison-tile__top">
-          <span class="small-comparison-tile__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
-          <span class="small-comparison-tile__control">
+      <label class="price-card price-card--hover">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
             <input class="radio__input" type="radio" name="tile-hover">
             <span class="radio__control"></span>
           </span>
         </div>
-        <p class="small-comparison-tile__title">Title</p>
-        <div class="small-comparison-tile__panel">
-          <ul class="small-comparison-tile__lines">
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>&pound;XX</span></li>
+        <p class="price-card__title">Title</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>&pound;XX</span></li>
           </ul>
-          <div class="small-comparison-tile__meta">
-            <span class="small-comparison-tile__tag">Spread the cost</span>
-            <span class="small-comparison-tile__tag small-comparison-tile__tag--note">19.9% APR</span>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Spread the cost</span>
+            <span class="price-card__tag price-card__tag--note">19.9% APR</span>
           </div>
         </div>
       </label>
-      <label class="small-comparison-tile small-comparison-tile--active">
-        <div class="small-comparison-tile__top">
-          <span class="small-comparison-tile__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
-          <span class="small-comparison-tile__control">
+      <label class="price-card price-card--active">
+        <div class="price-card__top">
+          <span class="price-card__badge" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"> <path d="M18.5 16C18.7761 16 19 15.7761 19 15.5V14.5C19 14.2239 18.7761 14 18.5 14L13.5 14C13.2239 14 13 14.2239 13 14.5V15.5C13 15.7761 13.2239 16 13.5 16L18.5 16Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V9L21 9V6C21 5.44772 20.5523 5 20 5H4ZM3 18V11L21 11V18C21 18.5523 20.5523 19 20 19H4C3.44772 19 3 18.5523 3 18Z" fill="currentColor"/> </svg></span>
+          <span class="price-card__control">
             <input class="radio__input" type="radio" name="tile-active" checked>
             <span class="radio__control"></span>
           </span>
         </div>
-        <p class="small-comparison-tile__title">Title</p>
-        <div class="small-comparison-tile__panel">
-          <ul class="small-comparison-tile__lines">
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line"><span>Item</span><span>&pound;XX</span></li>
-            <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>&pound;XX</span></li>
+        <p class="price-card__title">Title</p>
+        <div class="price-card__panel">
+          <ul class="price-card__lines">
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line"><span>Item</span><span>&pound;XX</span></li>
+            <li class="price-card__line price-card__line--total"><span>Total</span><span>&pound;XX</span></li>
           </ul>
-          <div class="small-comparison-tile__meta">
-            <span class="small-comparison-tile__tag">Spread the cost</span>
-            <span class="small-comparison-tile__tag small-comparison-tile__tag--note">19.9% APR</span>
+          <div class="price-card__meta">
+            <span class="price-card__tag">Spread the cost</span>
+            <span class="price-card__tag price-card__tag--note">19.9% APR</span>
           </div>
         </div>
       </label>

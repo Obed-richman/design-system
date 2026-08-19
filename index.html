@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="components/tab-bar/tab-bar.css">
   <link rel="stylesheet" href="components/bullet-points/bullet-points.css">
   <link rel="stylesheet" href="components/comparison-tile/comparison-tile.css">
-  <link rel="stylesheet" href="components/small-comparison-tile/small-comparison-tile.css">
+  <link rel="stylesheet" href="components/price-card/price-card.css">
   <link rel="stylesheet" href="components/price-comparison/price-comparison.css">
   <link rel="stylesheet" href="components/tier-card/tier-card.css">
   <link rel="stylesheet" href="components/tier-section/tier-section.css">
@@ -1046,24 +1046,24 @@
         `
       },
       {
-        name: "Small Comparison Tile",
+        name: "Price Card",
         description: "Two ways of paying for the same thing: badge, radio, title and the figures.",
-        page: "components/small-comparison-tile/small-comparison-tile.html",
+        page: "components/price-card/price-card.html",
         preview: `
-          <label class="small-comparison-tile" style="max-width:300px">
-            <div class="small-comparison-tile__top">
-              <span class="small-comparison-tile__badge"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V8H21V6C21 5.44772 20.5523 5 20 5H4ZM3 10V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V10H3Z" fill="currentColor"/><path d="M5.5 15C5.22386 15 5 15.2239 5 15.5V16.5C5 16.7761 5.22386 17 5.5 17H9.5C9.77614 17 10 16.7761 10 16.5V15.5C10 15.2239 9.77614 15 9.5 15H5.5Z" fill="currentColor"/></svg></span>
-              <span class="small-comparison-tile__control"><input class="radio__input" type="radio" name="sct-preview" checked><span class="radio__control"></span></span>
+          <label class="price-card" style="max-width:300px">
+            <div class="price-card__top">
+              <span class="price-card__badge"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5C3.44772 5 3 5.44772 3 6V8H21V6C21 5.44772 20.5523 5 20 5H4ZM3 10V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V10H3Z" fill="currentColor"/><path d="M5.5 15C5.22386 15 5 15.2239 5 15.5V16.5C5 16.7761 5.22386 17 5.5 17H9.5C9.77614 17 10 16.7761 10 16.5V15.5C10 15.2239 9.77614 15 9.5 15H5.5Z" fill="currentColor"/></svg></span>
+              <span class="price-card__control"><input class="radio__input" type="radio" name="sct-preview" checked><span class="radio__control"></span></span>
             </div>
-            <p class="small-comparison-tile__title">Pay monthly</p>
-            <div class="small-comparison-tile__panel">
-              <ul class="small-comparison-tile__lines">
-                <li class="small-comparison-tile__line"><span>Today</span><span>&pound;500</span></li>
-                <li class="small-comparison-tile__line small-comparison-tile__line--total"><span>Total</span><span>&pound;2,876</span></li>
+            <p class="price-card__title">Pay monthly</p>
+            <div class="price-card__panel">
+              <ul class="price-card__lines">
+                <li class="price-card__line"><span>Today</span><span>&pound;500</span></li>
+                <li class="price-card__line price-card__line--total"><span>Total</span><span>&pound;2,876</span></li>
               </ul>
-              <div class="small-comparison-tile__meta">
-                <span class="small-comparison-tile__tag">Spread the cost</span>
-                <span class="small-comparison-tile__tag small-comparison-tile__tag--note">19.9% APR</span>
+              <div class="price-card__meta">
+                <span class="price-card__tag">Spread the cost</span>
+                <span class="price-card__tag price-card__tag--note">19.9% APR</span>
               </div>
             </div>
           </label>

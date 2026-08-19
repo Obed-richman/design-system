@@ -8,10 +8,11 @@
  * radio, a title, and a tinted panel holding the figures with optional tags
  * beneath them.
  *
- * NOT the same thing as COMPARISON TILE (comparison-tile.css, node 6477-174868),
- * which is a coloured frame over a big price. That one compares products on price;
- * this one lays out the arithmetic of a single payment plan. The names are close
- * enough that it is worth being sure which is meant.
+ * Named "Small comparison tile" in Figma until 13 Aug 2026, when it became PRICE CARD
+ * — a better name, because it was a word away from COMPARISON TILE (comparison-tile.css,
+ * node 6477-174868) while doing a different job. That one compares products on price;
+ * this one lays out the arithmetic of one way of paying for a product already chosen.
+ * The Figma component may still carry the old name; the node id is what to trust.
  *
  * States (Figma "State"): Default | Hover | Active (spelled "Avtive" there).
  *   Hover  — aqua border. :hover, or forced with --hover.
@@ -25,7 +26,7 @@
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="../radio/radio.css">
- *   <link rel="stylesheet" href="small-comparison-tile.css">
+ *   <link rel="stylesheet" href="price-card.css">
  * ============================================================
  */
 
@@ -33,7 +34,7 @@
 @import '../radio/radio.css';
 
 
-.small-comparison-tile {
+.price-card {
   display:        flex;
   flex-direction: column;
   width:          100%;
@@ -51,17 +52,17 @@
   font-family:    'Modern Era', sans-serif;
 }
 
-.small-comparison-tile--hover,
-.small-comparison-tile--active,
-.small-comparison-tile:has(.radio__input:checked)  { border-color: var(--border-active); }
-.small-comparison-tile:has(.radio__input):hover    { border-color: var(--border-active); }
+.price-card--hover,
+.price-card--active,
+.price-card:has(.radio__input:checked)  { border-color: var(--border-active); }
+.price-card:has(.radio__input):hover    { border-color: var(--border-active); }
 
 
 /* ------------------------------------------------------------
    TOP ROW — badge and the control that chooses this tile
    ------------------------------------------------------------ */
 
-.small-comparison-tile__top {
+.price-card__top {
   display:         flex;
   align-items:     flex-start;
   justify-content: space-between;
@@ -69,7 +70,7 @@
   margin-bottom:   var(--spacer-16);
 }
 
-.small-comparison-tile__badge {
+.price-card__badge {
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
@@ -80,14 +81,14 @@
   background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
   color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
 }
-.small-comparison-tile__badge svg { display: block; width: 24px; height: 24px; }
+.price-card__badge svg { display: block; width: 24px; height: 24px; }
 
 
 /* ------------------------------------------------------------
    TITLE
    ------------------------------------------------------------ */
 
-.small-comparison-tile__title {
+.price-card__title {
   margin:         0;
   font-weight:    var(--font-weight-bold);
   font-size:      20px;                                     /* Mobile/Title 4 */
@@ -104,7 +105,7 @@
    that already has one.
    ------------------------------------------------------------ */
 
-.small-comparison-tile__panel {
+.price-card__panel {
   margin-top:    var(--spacer-16);
   padding:       var(--spacer-12);
   border-radius: var(--radius-small);                       /* 8 */
@@ -114,10 +115,10 @@
 
 /* Aqua once the tile is CHOSEN — not on hover. The panel is the one part that
    separates the two aqua-bordered states, the same job it does on Product Card. */
-.small-comparison-tile--active .small-comparison-tile__panel,
-.small-comparison-tile:has(.radio__input:checked) .small-comparison-tile__panel { background: var(--surface-focus); }
+.price-card--active .price-card__panel,
+.price-card:has(.radio__input:checked) .price-card__panel { background: var(--surface-focus); }
 
-.small-comparison-tile__lines {
+.price-card__lines {
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-4);
@@ -128,7 +129,7 @@
 
 /* Label left, figure right, and the gap between them is whatever is left — so the
    figures line up down the right edge however long the labels get. */
-.small-comparison-tile__line {
+.price-card__line {
   display:         flex;
   align-items:     baseline;
   justify-content: space-between;
@@ -140,7 +141,7 @@
 }
 
 /* The total is the line that answers the question, so it carries the weight. */
-.small-comparison-tile__line--total { font-weight: var(--font-weight-bold); }
+.price-card__line--total { font-weight: var(--font-weight-bold); }
 
 
 /* ------------------------------------------------------------
@@ -152,14 +153,14 @@
    component whose states all mean something about status. See KNOWN-ISSUES.
    ------------------------------------------------------------ */
 
-.small-comparison-tile__meta {
+.price-card__meta {
   display:     flex;
   flex-wrap:   wrap;
   gap:         var(--spacer-4);
   margin-top:  var(--spacer-12);
 }
 
-.small-comparison-tile__tag {
+.price-card__tag {
   display:         inline-flex;
   align-items:     center;
   height:          24px;
@@ -176,11 +177,11 @@
 }
 
 /* The quieter one — a fact you must show rather than a reason to choose. */
-.small-comparison-tile__tag--note {
+.price-card__tag--note {
   background:   var(--brand-4-low);                         /* #FDFEE1 */
   border-color: var(--border-warning-low);                  /* #FBEACE */
 }
 
 /* Fluid — drop the cap and fill the column, for a tile that is alone on a screen
    rather than beside its sibling. Same modifier Product Card and Detail Card use. */
-.small-comparison-tile--fluid { max-width: none; }
+.price-card--fluid { max-width: none; }
