@@ -196,7 +196,7 @@ without the same trick.
 | screen heading | `Mobile/Title 4+ \| Bold` | `Desktop/Title 3 \| Bold` |
 | screen sub-heading | `Body 1` (18/28) | `Body 1` (18/28) |
 | question | `Subtitle 2` (bold 16/24) | same |
-| supporting text under a question | `Body 3` (14/20), `color/text/pressed` | same |
+| supporting text under a question | `Body 2` (16/24), `color/text/pressed` | same |
 | field label | `Body 3` (14/20) | same |
 | second line under an option | `Body 2` (16/24), `color/text/pressed` | same |
 | alert copy (inline and banner) | `Body 2` (16/24) | `Body 2` (16/24) |
@@ -216,6 +216,28 @@ own defaults (`Radius-16`, `Body 3`, 24px glyph) are unchanged.
 The heading **crosses type steps** rather than scaling within one — Title 4+ is
 the mobile step 003 pairs with Desktop Title 3. That is why it can't be a
 typography utility class: each of those tracks a single step across breakpoints.
+
+**Body copy is 16 unless a frame says otherwise.** Set 21 Aug 2026, and it is the
+default to reach for on any new screen: prose the reader is meant to *read* — a
+sentence explaining a question, a second line under an option, alert copy, a note
+under a CTA — takes `Body 2` (16/24). 14 is not a smaller flavour of body text; it
+is what something becomes when it stops being prose.
+
+So these stay at `Body 3` (14/20), each for a reason rather than by omission:
+
+| stays 14 | why |
+|---|---|
+| field label | a name for a control, not a sentence |
+| validation message | short functional text; the component's own size, from 003 |
+| character counter | metadata about a field, not addressed to the reader |
+| `Change` / `Compare side by side` links | actions, sized to sit inside a row |
+| `.proto__todo` drop zones | dev furniture, out before anything is shared |
+
+Anything not in that table and below 16 is a bug, not a choice. Two the rule has
+caught and left alone pending a frame: `.proto__cta-note` ("You can always change
+this later.") is prose and reads as an exception it may not deserve, and the
+validation message is only at 14 because the component is — both worth checking
+against their frames rather than my reading.
 
 ### 3.4 Responsive mechanics
 
