@@ -792,8 +792,8 @@ by what was chosen on the screen before:
   earn, so nothing to qualify.
 
 **It is not a question, so it has none of a question's furniture** — no Back, no
-Continue, no card. It leaves on its own after **eight seconds**, which is not a number
-picked for feel: it is two round trips of the Sense fan, so the animation finishes
+Continue, no card. It leaves on its own after **ten seconds**, which is not a number
+picked for feel: it is two runs of the Sense fan's 5s loop, so the animation finishes
 rather than being cut off mid-move. Standard waits the same, because the
 quote being waited for is the same quote.
 
@@ -816,8 +816,11 @@ thing.
 **The Sense cards move.** Three gift cards start almost stacked, hold for a beat,
 then fan apart — the animation 003 added to the frame, with its positions, easings and
 timings taken from Figma's own keyframes — and then the same motion runs **backwards**
-and walks them home. That out-and-back is one loop, and it makes **two** before the
-screen leaves, settling on the pile it opened with. They are
+and walks them home. 003 re-authored that on 21 Aug as a **single 5s loop** carrying
+both directions — hold, fan out, hold fanned, walk home — so the CSS no longer needs
+`alternate` to buy the return. It runs **twice**, and the screen leaves at 10s as the
+cards settle. The headline is **Title 3** (28/32 mobile, 32/36 desktop); it had been
+Title 2. They are
 built from parts (`.proto__fan`) rather than played as a picture, because the cards
 overlap and the exported artwork carries an opaque panel-coloured background. A
 by-product: the Sense illustration now follows the theme, where the flat PNG it

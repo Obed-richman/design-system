@@ -33,6 +33,14 @@ desktop, the comparison table went to 16px, and every Cross Small is now
 
 ## 1. Next up
 
+- 🔶 **The Sense fan pops once, at the 5s loop boundary — and it is authored that way.**
+  003's track ends at `translate: 0 0` but *starts* at each card's own offset, so at the
+  seam two of the three cards jump: just-eat by (22.9, 18.9) and amazon by (9.2, 6.8).
+  Reproduced faithfully rather than smoothed, because the instruction was to match the
+  design. With two runs it happens once, five seconds in. **One line fixes it** if it
+  was not intended — make the `0%` frame `translate: 0 0` like the `100%` — but that is
+  a change to the design's own timing, so it needs saying rather than doing.
+
 - **Sales Navigation's mobile height is fixed (14 Aug), and the 4px was not in the
   nav.** 003's Step Indicator puts the track at `y=28` under a 20px label — an **8px**
   gap where Onboarding Steps had 4 — so the indicator was 28 instead of 32. One token

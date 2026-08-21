@@ -691,8 +691,10 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 .proto__loading-message {
   margin:         var(--spacer-16) 0 0;
   font-weight:    var(--font-weight-bold);
-  font-size:      var(--font-size-title-2);      /* 32 / 36 */
-  line-height:    var(--line-height-title-2);
+  /* Title 3, not Title 2 — 28/32 on mobile and 32/36 on desktop, which is the pair
+     003 binds on this frame as of 21 Aug. It had been Title 2 (32/40). */
+  font-size:      var(--font-size-title-3);
+  line-height:    var(--line-height-title-3);
   letter-spacing: var(--letter-spacing-tight);   /* Figma's -2 is -2% */
   color:          var(--text-primary);
 }
@@ -777,23 +779,19 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   border-radius: var(--radius-small);           /* 8px */
   background:    var(--surface-primary);
   box-shadow:    var(--shadow-dropdown);
-  /* Out and back, three times.
+  /* One 5s loop that already contains the return journey — hold, fan out, hold fanned,
+     walk home, hold. 003 re-authored it that way on 21 Aug, so the `alternate` trick
+     this used to need is gone: the keyframes below carry both directions themselves.
 
-     `alternate` is what makes the return journey: the odd runs play the keyframes
-     forward and fan the cards apart, the even ones play them backwards and walk the
-     cards home — easings included, since CSS reverses those too. So one out-and-back
-     is TWO of Figma's 2s runs, and two of them is `iteration-count: 4` — 8s in total,
-     which is what journey.js waits (LOOPS x LOOP_MS, LOOP_MS being the round trip).
-     If either number changes, change both.
-
-     Nothing snaps: each run starts where the last one ended, and because the count is
-     even the animation finishes on the 0% frame, which is also each card's base
-     `translate` below. That base is what a reduced-motion viewer sees, and it is why
-     no fill-mode is needed to stop the cards jumping as the page leaves. */
-  animation-duration:        2s;
-  animation-direction:       alternate;
-  animation-iteration-count: 4;                 /* 2 x (out + back) */
+     Two of those loops, so the wait is 10s (journey.js holds the matching numbers as
+     LOOPS x LOOP_MS — change them together). */
+  animation-duration:        5s;
+  animation-iteration-count: 2;
   animation-timing-function: linear;
+  /* forwards, so the last loop HOLDS the pile it walks home to. The authored track ends
+     at translate 0 0, which is NOT each card's base offset below — without this they
+     would snap back to the fanned start on the same tick the page leaves. */
+  animation-fill-mode:       forwards;
 }
 
 .proto__fan-card img {
@@ -829,11 +827,14 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   animation-name: proto-fan-tesco;
 }
 @keyframes proto-fan-tesco {
-  0%      { translate: 0 0; }
-  14.59%  { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+  0%       { translate: 0 0; }
+  5.836%   { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
             translate: 0 0; }
-  70.114% { translate: -53.2px -27.6px; }
-  100%    { translate: -53.2px -27.6px; }
+  28.046%  { translate: -67.3px -30.1px; }
+  56%      { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+            translate: -67.3px -30.1px; }
+  94%      { translate: 0 0; }
+  100%     { translate: 0 0; }
 }
 
 .proto__fan-card--just-eat {
@@ -845,11 +846,14 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 /* The one card with a spring rather than a bezier — Figma resolves it to this
    linear() ramp, kept as emitted so the overshoot lands where the design does. */
 @keyframes proto-fan-just-eat {
-  0%      { translate: 22.9px 18.9px; }
-  14.59%  { animation-timing-function: linear(0, 0.0188, 0.0679, 0.1374, 0.2195, 0.308, 0.3978, 0.4856, 0.5686, 0.6452, 0.7142, 0.7753, 0.8283, 0.8735, 0.9113, 0.9423, 0.9671, 0.9866, 1.0014, 1.0123, 1.0198, 1.0247, 1.0274, 1.0283, 1.0281, 1.0268, 1.025, 1.0227, 1.0202, 1.0177, 1.0152, 1.0128, 1.0106, 1.0085, 1.0068, 1.0052, 1.0039, 1.0028, 1.0018, 1.0011, 1.0005, 1, 0.9997, 0.9995, 0.9993, 0.9992, 0.9992, 0.9992, 0.9992, 0.9993, 0.9993);
+  0%       { translate: 22.9px 18.9px; }
+  5.836%   { animation-timing-function: linear(0, 0.0188, 0.0679, 0.1374, 0.2195, 0.308, 0.3978, 0.4856, 0.5686, 0.6452, 0.7142, 0.7753, 0.8283, 0.8735, 0.9113, 0.9423, 0.9671, 0.9866, 1.0014, 1.0123, 1.0198, 1.0247, 1.0274, 1.0283, 1.0281, 1.0268, 1.025, 1.0227, 1.0202, 1.0177, 1.0152, 1.0128, 1.0106, 1.0085, 1.0068, 1.0052, 1.0039, 1.0028, 1.0018, 1.0011, 1.0005, 1, 0.9997, 0.9995, 0.9993, 0.9992, 0.9992, 0.9992, 0.9992, 0.9993, 0.9993);
             translate: 22.9px 18.9px; }
-  80.654% { translate: 70.4px -18.7px; }
-  100%    { translate: 70.4px -18.7px; }
+  32.262%  { translate: 63.4px -17.6px; }
+  56%      { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+            translate: 63.4px -17.6px; }
+  94%      { translate: 0 0; }
+  100%     { translate: 0 0; }
 }
 
 .proto__fan-card--amazon {
@@ -859,11 +863,14 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   animation-name: proto-fan-amazon;
 }
 @keyframes proto-fan-amazon {
-  0%      { translate: 9.2px 6.8px; }
-  14.59%  { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+  0%       { translate: 9.2px 6.8px; }
+  5.836%   { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
             translate: 9.2px 6.8px; }
-  70.114% { translate: 22.4px 29.4px; }
-  100%    { translate: 22.4px 29.4px; }
+  28.046%  { translate: 10.5px 30.0px; }
+  56%      { animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+            translate: 10.5px 30.0px; }
+  94%      { translate: 0 0; }
+  100%     { translate: 0 0; }
 }
 
 /* Held at the start of the loop for anyone who has asked motion to stop — the cards

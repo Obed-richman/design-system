@@ -800,19 +800,19 @@
      either — so Back from the quote returns to the question before the wait
      rather than to the wait. Both fall out of never entering history. */
 
-  /* How long the wait lasts, set by the reward fan rather than picked. One loop of
-     the fan is a round trip — the cards fan apart over 2s and come back over another
-     2s — and it makes two of them, so the screen leaves as the cards settle back into
-     the pile rather than cutting them off mid-move. `.proto__fan-card` in journey.css
-     spends the same budget as `iteration-count: 4` (two runs per loop); change the
-     two together.
+  /* How long the wait lasts, set by the reward fan rather than picked. 003 re-authored
+     the fan on 21 Aug as a single 5s loop that already contains the return journey —
+     hold, fan out, hold fanned, walk home — so a loop is one 5s run rather than two 2s
+     ones. It makes two of them, and the screen leaves as the cards settle back into the
+     pile. `.proto__fan-card` in journey.css holds the matching duration and count;
+     change them together.
 
      Both variants wait the same, because what is being waited FOR is the same quote.
-     Standard has no animation to time against, so it simply holds its illustration
-     for the eight seconds. */
-  var LOOP_MS = 4000;                 /* 2s out + 2s back */
+     Standard has no animation to time against, so it simply holds its illustration for
+     the ten seconds. */
+  var LOOP_MS = 5000;                 /* out AND back, in one run */
   var LOOPS   = 2;
-  var WAIT_MS = LOOPS * LOOP_MS;      /* 8s */
+  var WAIT_MS = LOOPS * LOOP_MS;      /* 10s */
 
   function wireWait(main) {
     var panel = main.querySelector('[data-wait-for]');
