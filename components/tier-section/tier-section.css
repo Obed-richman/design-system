@@ -51,13 +51,13 @@
   flex-direction: column;
   align-items:    center;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      588px;   /* read off 58323-28326 */
   text-align:     center;
 }
 
 .tier-section__title {
   margin:         0;
-  max-width:      516px;
+  max-width:      588px;
   text-align:     center;
   font-weight:    var(--font-weight-medium);     /* 500 */
   font-size:      var(--font-size-title-3);      /* 32px */

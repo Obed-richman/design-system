@@ -41,7 +41,7 @@
   font-family:    'Modern Era', sans-serif;
 }
 
-.onboarding-header__steps { width: 100%; max-width: 516px; }
+.onboarding-header__steps { width: 100%; max-width: 343px;   /* read off 57549-14387 */ }
 
 .onboarding-header__body {
   display:        flex;

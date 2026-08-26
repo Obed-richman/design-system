@@ -1248,7 +1248,7 @@ body { font-family: var(--font-family-base); }
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      343px;   /* read off 58329-40422 */
   text-align:     center;
 }
 .addons__title {
@@ -3147,11 +3147,14 @@ body { font-family: var(--font-family-base); }
   flex-direction: column;
   gap:            var(--gap-medium);              /* 16px */
   width:          100%;
-  max-width:      376px;
+  /* 400, read off the Calendar symbol (57549:11463) on 14 Aug — it had been 376. */
+  max-width:      400px;
   box-sizing:     border-box;
   padding:        var(--spacer-16);               /* 16px */
   background:     var(--surface-primary);
-  border-radius:  var(--radius-medium);           /* 16px */
+  /* Radius-24. Bound on the symbol but NOT on the Dates Wrapper inside it, which is
+     how the two corners are told apart: the panel keeps Radius-16, the picker takes 24. */
+  border-radius:  var(--radius-large);            /* 24px */
   box-shadow:     0 2px 6px rgba(39, 37, 45, 0.05),
                   0 4px 16px rgba(39, 37, 45, 0.10);
   font-family:    'Modern Era', sans-serif;
@@ -4953,12 +4956,19 @@ body { font-family: var(--font-family-base); }
    gets in Multiple Choice Selector — the two say the same kind of thing.
    ------------------------------------------------------------ */
 
+/* Body 2, not Body 3. This is the prose under a question — the sentence explaining
+   what is being asked for — and the journey's rule is that body copy is 16 unless a
+   frame says otherwise (JOURNEY.md §3.6). At 14 it read as a footnote to the label
+   rather than part of the question.
+
+   003's own component still says Subtitle 4 here, which is smaller again; the repo is
+   deliberately ahead of the library on support text — see KNOWN-ISSUES 2.12. */
 .input-support {
   margin:      0;
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-3);          /* 14px */
-  line-height: var(--line-height-body-3);
+  font-size:   var(--font-size-body-2);          /* 16 / 24 */
+  line-height: var(--line-height-body-2);
   color:       var(--text-pressed);
 }
 
@@ -6172,7 +6182,7 @@ body { font-family: var(--font-family-base); }
   font-family:    'Modern Era', sans-serif;
 }
 
-.onboarding-header__steps { width: 100%; max-width: 516px; }
+.onboarding-header__steps { width: 100%; max-width: 343px;   /* read off 57549-14387 */ }
 
 .onboarding-header__body {
   display:        flex;
@@ -6288,7 +6298,12 @@ body { font-family: var(--font-family-base); }
   display:         flex;
   flex-direction:  column;
   align-items:     center;
-  gap:             var(--gap-xx-small);          /* 4px */
+  /* Gap/X-Small, not XX-Small. 003's Step Indicator puts the track at y=28 under a
+     20px label — an 8px gap — which makes the mobile indicator 20 + 8 + 4 = 32 and the
+     whole component 56. At 4 it came to 28, and that was the missing 4px in the Sales
+     Navigation's mobile height (124 against 003's 128). Read off 57552:33036,
+     14 Aug 2026. */
+  gap:             var(--gap-x-small);           /* 8px */
 }
 
 .onboarding-steps__step--current  { --onb-fill: 50%; }
@@ -6318,8 +6333,12 @@ body { font-family: var(--font-family-base); }
    TRACK + FILL
    ------------------------------------------------------------ */
 
+/* Inset 2px each side of the step, not full width: 003's Step Indicator puts the track
+   at x=2 with width 69.75 in a 73.75 step (57552:33036). It keeps a hair of space
+   between one step's track and the next, which is what stops four segments reading as
+   one continuous bar. */
 .onboarding-steps__track {
-  width:         100%;
+  width:         calc(100% - 4px);
   height:        4px;
   border-radius: var(--radius-round);
   background:    var(--surface-tertiary-high);
@@ -9157,13 +9176,13 @@ body { font-family: var(--font-family-base); }
   flex-direction: column;
   align-items:    center;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      588px;   /* read off 58323-28326 */
   text-align:     center;
 }
 
 .tier-section__title {
   margin:         0;
-  max-width:      516px;
+  max-width:      588px;
   text-align:     center;
   font-weight:    var(--font-weight-medium);     /* 500 */
   font-size:      var(--font-size-title-3);      /* 32px */
@@ -10063,7 +10082,7 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   display:        flex;
   flex-direction: column;
   gap:            var(--spacer-12);
-  max-width:      516px;
+  max-width:      588px;   /* read off 6500-186189 */
   text-align:     center;
 }
 
@@ -10161,7 +10180,10 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   flex-direction:  column;
   align-items:     center;
   gap:             var(--spacer-8);
-  max-width:       516px;
+  /* 512, read off the Lockup on 6500-186189: a 512 frame with the rating text filling
+     it and the Trustpilot mark centred 8 beneath. Not 516 — that was the stale example
+     width this file shared with Modal and Total Cost. */
+  max-width:       512px;
   text-align:      center;
 }
 .tp-reviews__rating-text {

@@ -196,7 +196,7 @@ without the same trick.
 | screen heading | `Mobile/Title 4+ \| Bold` | `Desktop/Title 3 \| Bold` |
 | screen sub-heading | `Body 1` (18/28) | `Body 1` (18/28) |
 | question | `Subtitle 2` (bold 16/24) | same |
-| supporting text under a question | `Body 3` (14/20), `color/text/pressed` | same |
+| supporting text under a question | `Body 2` (16/24), `color/text/pressed` | same |
 | field label | `Body 3` (14/20) | same |
 | second line under an option | `Body 2` (16/24), `color/text/pressed` | same |
 | alert copy (inline and banner) | `Body 2` (16/24) | `Body 2` (16/24) |
@@ -216,6 +216,28 @@ own defaults (`Radius-16`, `Body 3`, 24px glyph) are unchanged.
 The heading **crosses type steps** rather than scaling within one — Title 4+ is
 the mobile step 003 pairs with Desktop Title 3. That is why it can't be a
 typography utility class: each of those tracks a single step across breakpoints.
+
+**Body copy is 16 unless a frame says otherwise.** Set 21 Aug 2026, and it is the
+default to reach for on any new screen: prose the reader is meant to *read* — a
+sentence explaining a question, a second line under an option, alert copy, a note
+under a CTA — takes `Body 2` (16/24). 14 is not a smaller flavour of body text; it
+is what something becomes when it stops being prose.
+
+So these stay at `Body 3` (14/20), each for a reason rather than by omission:
+
+| stays 14 | why |
+|---|---|
+| field label | a name for a control, not a sentence |
+| validation message | short functional text; the component's own size, from 003 |
+| character counter | metadata about a field, not addressed to the reader |
+| `Change` / `Compare side by side` links | actions, sized to sit inside a row |
+| `.proto__todo` drop zones | dev furniture, out before anything is shared |
+
+Anything not in that table and below 16 is a bug, not a choice. Two the rule has
+caught and left alone pending a frame: `.proto__cta-note` ("You can always change
+this later.") is prose and reads as an exception it may not deserve, and the
+validation message is only at 14 because the component is — both worth checking
+against their frames rather than my reading.
 
 ### 3.4 Responsive mechanics
 
@@ -770,8 +792,8 @@ by what was chosen on the screen before:
   earn, so nothing to qualify.
 
 **It is not a question, so it has none of a question's furniture** — no Back, no
-Continue, no card. It leaves on its own after **eight seconds**, which is not a number
-picked for feel: it is two round trips of the Sense fan, so the animation finishes
+Continue, no card. It leaves on its own after **ten seconds**, which is not a number
+picked for feel: it is two runs of the Sense fan's 5s loop, so the animation finishes
 rather than being cut off mid-move. Standard waits the same, because the
 quote being waited for is the same quote.
 
@@ -794,8 +816,11 @@ thing.
 **The Sense cards move.** Three gift cards start almost stacked, hold for a beat,
 then fan apart — the animation 003 added to the frame, with its positions, easings and
 timings taken from Figma's own keyframes — and then the same motion runs **backwards**
-and walks them home. That out-and-back is one loop, and it makes **two** before the
-screen leaves, settling on the pile it opened with. They are
+and walks them home. 003 re-authored that on 21 Aug as a **single 5s loop** carrying
+both directions — hold, fan out, hold fanned, walk home — so the CSS no longer needs
+`alternate` to buy the return. It runs **twice**, and the screen leaves at 10s as the
+cards settle. The headline is **Title 3** (28/32 mobile, 32/36 desktop); it had been
+Title 2. They are
 built from parts (`.proto__fan`) rather than played as a picture, because the cards
 overlap and the exported artwork carries an opaque panel-coloured background. A
 by-product: the Sense illustration now follows the theme, where the flat PNG it

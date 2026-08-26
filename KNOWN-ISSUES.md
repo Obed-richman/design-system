@@ -371,7 +371,7 @@ DS tick-small icon" in its header the whole time. That is the **fourth** reinven
 this session — the library is the first place to check, not the last.
 
 🔶 **Five of the eight are in the library but unused.** Monthly payments is the
-obvious badge for the "or pay £142.30 /month" line on `quote.html` when that screen
+obvious badge for the "or pay £142.30 /month" line on `review-quote.html` when that screen
 is built; Order 1–3 suit a numbered sequence; Public Liability and Legal Protection
 are cover-level concepts and both appear as rows in the cover-level comparison
 table, which currently has no icons in its row headers. None were wired in, since
@@ -1051,12 +1051,12 @@ three pages that use the component.
 
 **A new kind of screen.** Every page so far asks something; this one waits. So it
 carries no Back, no Continue and no card, and it is **not a slot in the flow** —
-`data-flow-as="quote.html"` borrows the quote's stepper position, and journey.js
+`data-flow-as="review-quote.html"` borrows the quote's stepper position, and journey.js
 leaves with `location.replace` after 8s — two round trips of the Sense fan, so the
 wait is set by the animation rather than by feel (`LOOPS * LOOP_MS`). Never entering history is what makes both
 the browser's Back button and the journey's own trail skip it, so Back from the quote
 lands on the policy type question. Verified: no Back control on the wait, and
-`quote.html` → `policy-type.html`.
+`review-quote.html` → `policy-type.html`.
 
 **`data-journey-field` now records a checked radio on load**, not only on change.
 Sense ships selected on the screen before, and without this the wait would have had

@@ -246,12 +246,19 @@
    gets in Multiple Choice Selector — the two say the same kind of thing.
    ------------------------------------------------------------ */
 
+/* Body 2, not Body 3. This is the prose under a question — the sentence explaining
+   what is being asked for — and the journey's rule is that body copy is 16 unless a
+   frame says otherwise (JOURNEY.md §3.6). At 14 it read as a footnote to the label
+   rather than part of the question.
+
+   003's own component still says Subtitle 4 here, which is smaller again; the repo is
+   deliberately ahead of the library on support text — see KNOWN-ISSUES 2.12. */
 .input-support {
   margin:      0;
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
-  font-size:   var(--font-size-body-3);          /* 14px */
-  line-height: var(--line-height-body-3);
+  font-size:   var(--font-size-body-2);          /* 16 / 24 */
+  line-height: var(--line-height-body-2);
   color:       var(--text-pressed);
 }
 
