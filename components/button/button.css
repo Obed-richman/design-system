@@ -45,18 +45,22 @@
    ------------------------------------------------------------ */
 
 .btn {
-  /* Layout */
+  /* Layout — a fixed-height row; the size modifiers set the height (default =
+     Large / 48px, per 003). box-sizing keeps the height exact regardless of the
+     1px border, so Large/Medium/Small land on 48/32/24. */
+  box-sizing:      border-box;
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
   gap:             var(--gap-x-small);        /* 8px between text and icon */
-  padding:         var(--gap-small) var(--gap-medium); /* 12px 16px */
+  height:          48px;                       /* Large (default) */
+  padding:         0 var(--gap-medium);        /* 16px sides; height owns the vertical */
 
   /* Typography — Modern Era Bold */
   font-family:     'Modern Era', sans-serif;
   font-weight:     700;
-  font-size:       var(--font-size-body-2);    /* 16px */
-  line-height:     24px;
+  font-size:       var(--font-size-subtitle-2); /* 16px */
+  line-height:     var(--line-height-subtitle-2); /* 24px */
   text-align:      center;
   white-space:     nowrap;
   text-decoration: none;
@@ -136,38 +140,33 @@
 
 
 /* ------------------------------------------------------------
-   SIZE — Large
-   Roomier padding for a more prominent (≈56px) button. Base size
-   (default) stays 48px; add .btn--large to step up.
+   SIZE — three heights from 003: Large 48 · Medium 32 · Small 24.
+   Each fixes the height and its type; the height owns the vertical space
+   (box-sizing: border-box on .btn), so only the sides and font change.
    ------------------------------------------------------------ */
 
+/* Large (48px) — Subtitle 2 / 16px. Same as the default. */
 .btn--large {
-  padding:   var(--gap-medium) var(--gap-large);   /* 16px 24px */
-  font-size: var(--font-size-body-2);              /* 16px */
+  height:      48px;
+  padding:     0 var(--gap-medium);                /* 16px sides */
+  font-size:   var(--font-size-subtitle-2);        /* 16px */
+  line-height: var(--line-height-subtitle-2);      /* 24px */
 }
 
-
-/* ------------------------------------------------------------
-   SIZE — Medium
-   A step below the 48px default (≈40px) — for actions inside compact
-   surfaces like the Date Picker's Cancel / Confirm row.
-   ------------------------------------------------------------ */
-
+/* Medium (32px) — Subtitle 3 / 14px. */
 .btn--medium {
-  padding:   var(--spacer-8) var(--gap-medium);    /* 8px 16px */
-  font-size: var(--font-size-body-2);              /* 16px */
+  height:      32px;
+  padding:     0 var(--gap-small);                 /* 12px sides */
+  font-size:   var(--font-size-subtitle-3);        /* 14px */
+  line-height: var(--line-height-subtitle-3);      /* 20px */
 }
 
-
-/* ------------------------------------------------------------
-   SIZE — Small
-   Compact (≈32px) button for inline actions like list-row tags.
-   ------------------------------------------------------------ */
-
+/* Small (24px) — Subtitle 4 / 12px. */
 .btn--small {
-  padding:     var(--spacer-4) var(--gap-small);   /* 4px 12px */
-  font-size:   var(--font-size-subtitle-3);        /* 14px */
-  line-height: var(--line-height-subtitle-3);
+  height:      24px;
+  padding:     0 var(--gap-x-small);               /* 8px sides */
+  font-size:   var(--font-size-subtitle-4);        /* 12px */
+  line-height: var(--line-height-subtitle-4);      /* 16px */
 }
 
 

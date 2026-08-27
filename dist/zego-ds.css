@@ -2087,18 +2087,22 @@ body { font-family: var(--font-family-base); }
    ------------------------------------------------------------ */
 
 .btn {
-  /* Layout */
+  /* Layout — a fixed-height row; the size modifiers set the height (default =
+     Large / 48px, per 003). box-sizing keeps the height exact regardless of the
+     1px border, so Large/Medium/Small land on 48/32/24. */
+  box-sizing:      border-box;
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
   gap:             var(--gap-x-small);        /* 8px between text and icon */
-  padding:         var(--gap-small) var(--gap-medium); /* 12px 16px */
+  height:          48px;                       /* Large (default) */
+  padding:         0 var(--gap-medium);        /* 16px sides; height owns the vertical */
 
   /* Typography — Modern Era Bold */
   font-family:     'Modern Era', sans-serif;
   font-weight:     700;
-  font-size:       var(--font-size-body-2);    /* 16px */
-  line-height:     24px;
+  font-size:       var(--font-size-subtitle-2); /* 16px */
+  line-height:     var(--line-height-subtitle-2); /* 24px */
   text-align:      center;
   white-space:     nowrap;
   text-decoration: none;
@@ -2178,38 +2182,33 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
-   SIZE — Large
-   Roomier padding for a more prominent (≈56px) button. Base size
-   (default) stays 48px; add .btn--large to step up.
+   SIZE — three heights from 003: Large 48 · Medium 32 · Small 24.
+   Each fixes the height and its type; the height owns the vertical space
+   (box-sizing: border-box on .btn), so only the sides and font change.
    ------------------------------------------------------------ */
 
+/* Large (48px) — Subtitle 2 / 16px. Same as the default. */
 .btn--large {
-  padding:   var(--gap-medium) var(--gap-large);   /* 16px 24px */
-  font-size: var(--font-size-body-2);              /* 16px */
+  height:      48px;
+  padding:     0 var(--gap-medium);                /* 16px sides */
+  font-size:   var(--font-size-subtitle-2);        /* 16px */
+  line-height: var(--line-height-subtitle-2);      /* 24px */
 }
 
-
-/* ------------------------------------------------------------
-   SIZE — Medium
-   A step below the 48px default (≈40px) — for actions inside compact
-   surfaces like the Date Picker's Cancel / Confirm row.
-   ------------------------------------------------------------ */
-
+/* Medium (32px) — Subtitle 3 / 14px. */
 .btn--medium {
-  padding:   var(--spacer-8) var(--gap-medium);    /* 8px 16px */
-  font-size: var(--font-size-body-2);              /* 16px */
+  height:      32px;
+  padding:     0 var(--gap-small);                 /* 12px sides */
+  font-size:   var(--font-size-subtitle-3);        /* 14px */
+  line-height: var(--line-height-subtitle-3);      /* 20px */
 }
 
-
-/* ------------------------------------------------------------
-   SIZE — Small
-   Compact (≈32px) button for inline actions like list-row tags.
-   ------------------------------------------------------------ */
-
+/* Small (24px) — Subtitle 4 / 12px. */
 .btn--small {
-  padding:     var(--spacer-4) var(--gap-small);   /* 4px 12px */
-  font-size:   var(--font-size-subtitle-3);        /* 14px */
-  line-height: var(--line-height-subtitle-3);
+  height:      24px;
+  padding:     0 var(--gap-x-small);               /* 8px sides */
+  font-size:   var(--font-size-subtitle-4);        /* 12px */
+  line-height: var(--line-height-subtitle-4);      /* 16px */
 }
 
 
@@ -5287,6 +5286,173 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 @media (max-width: 767px) {
   .header-controls__breadcrumb { display: none; }
 }
+
+
+/* ==== components/highlight-card/highlight-card.css ==== */
+/*
+ * ============================================================
+ * HIGHLIGHT CARD
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60453-34130
+ *
+ * A small tinted card that highlights one figure — a tag label, a large value,
+ * a trailing icon chip — over an accent-coloured surface, with an optional
+ * sub-content row beneath a divider. The main row is an Info Field, re-themed
+ * to the card's accent.
+ *
+ * ACCENT (the card's colour): Error (default) · Success · Warning · Information,
+ * via .highlight-card--success / --warning / --information. Each swaps the
+ * surface/border/text/icon to that semantic family through local custom props.
+ *
+ * Composes Info Field. Link its CSS (and this one) — info-field.css is imported
+ * here, so linking highlight-card.css is enough.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="highlight-card.css">
+ * ============================================================
+ */
+
+
+.highlight-card {
+  /* Accent palette — Error by default (matches 003's card). */
+  --hc-surface:      var(--surface-error-low);
+  --hc-border:       var(--border-error-low);
+  --hc-accent:       var(--text-error);
+  --hc-icon-surface: var(--colour-red-20);
+
+  display:        flex;
+  flex-direction: column;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  background:     var(--hc-surface);
+  border:         var(--border-s) solid var(--hc-border);
+  border-radius:  var(--radius-medium);            /* 16px */
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Accent variants */
+.highlight-card--success {
+  --hc-surface:      var(--surface-success-low);
+  --hc-border:       var(--border-success-low);
+  --hc-accent:       var(--text-success);
+  --hc-icon-surface: var(--colour-green-20);
+}
+.highlight-card--warning {
+  --hc-surface:      var(--surface-warning-low);
+  --hc-border:       var(--border-warning-low);
+  --hc-accent:       var(--text-warning);
+  --hc-icon-surface: var(--colour-orange-20);
+}
+.highlight-card--information {
+  --hc-surface:      var(--surface-information-low);
+  --hc-border:       var(--border-information-low);
+  --hc-accent:       var(--text-information);
+  --hc-icon-surface: var(--colour-blue-20);
+}
+
+
+/* ------------------------------------------------------------
+   The Info Field inside — re-themed to the accent, no list divider,
+   and the value stepped up to Title 4.
+   ------------------------------------------------------------ */
+
+.highlight-card .info-field {
+  align-items:   flex-start;
+  padding:       0;
+  border-bottom: none;
+}
+.highlight-card .info-field__label { color: var(--hc-accent); }
+
+/* The value sits in the action slot — a big figure, not a link. */
+.highlight-card .info-field__action {
+  color:          var(--hc-accent);
+  font-size:      var(--font-size-title-4);        /* 24px */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.02em;
+  cursor:         default;
+}
+.highlight-card .info-field__action:hover { color: var(--hc-accent); text-decoration: none; }
+
+.highlight-card .info-field__icon {
+  background: var(--hc-icon-surface);
+  color:      var(--hc-accent);
+}
+
+
+/* ------------------------------------------------------------
+   SUB CONTENT — an optional row beneath a divider
+   ------------------------------------------------------------ */
+
+.highlight-card__sub {
+  margin-top:  var(--spacer-12);
+  padding-top: var(--spacer-12);
+  border-top:  var(--border-s) solid var(--hc-border);
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--hc-accent);
+}
+
+
+/* ==== components/icon-plus/icon-plus.css ==== */
+/*
+ * ============================================================
+ * ICON+  (icon shell)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60234-75426
+ *
+ * A rounded, tinted square that holds ANY icon from the set (/icons). Drop an
+ * inline SVG inside and it inherits the shell's glyph colour (via currentColor)
+ * and is sized to the shell — so one shell works with every icon.
+ *
+ * SIZE (Figma "Size"):  72 · 48 (default) · 32   — the square, with matching radius.
+ * COLOUR (Figma "Colour"): Brand (default) · Light · Dark · Negative · Warning ·
+ *   Success — each a family-20 tint behind the semantic glyph colour, set via
+ *   the --ip-surface / --ip-glyph custom properties.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="icon-plus.css">
+ *   <span class="icon-plus icon-plus--success"><svg …>…</svg></span>
+ *   <span class="icon-plus icon-plus--72 icon-plus--dark"><svg …>…</svg></span>
+ * ============================================================
+ */
+
+.icon-plus {
+  /* Brand (default) */
+  --ip-surface: var(--colour-purple-20);
+  --ip-glyph:   var(--text-link);
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;                            /* Size 48 (default) */
+  height:          48px;
+  border-radius:   var(--radius-small);             /* 8px */
+  background:      var(--ip-surface);
+  color:           var(--ip-glyph);
+}
+.icon-plus svg { display: block; width: 56%; height: 56%; }
+
+
+/* ------------------------------------------------------------
+   SIZE — the square + its radius scale together
+   ------------------------------------------------------------ */
+
+.icon-plus--72 { width: 72px; height: 72px; border-radius: var(--radius-medium);  /* 16px */ }
+.icon-plus--32 { width: 32px; height: 32px; border-radius: var(--radius-x-small); /* 4px  */ }
+
+
+/* ------------------------------------------------------------
+   COLOUR — family-20 tint + semantic glyph
+   ------------------------------------------------------------ */
+
+.icon-plus--light    { --ip-surface: var(--surface-secondary);   --ip-glyph: var(--icon-glyph-primary); }
+.icon-plus--dark     { --ip-surface: var(--brand-3-high);        --ip-glyph: var(--colour-white); }
+.icon-plus--negative { --ip-surface: var(--colour-red-20);       --ip-glyph: var(--text-error); }
+.icon-plus--warning  { --ip-surface: var(--colour-orange-20);    --ip-glyph: var(--icon-glyph-warning-medium); }
+.icon-plus--success  { --ip-surface: var(--colour-green-20);     --ip-glyph: var(--icon-glyph-success-medium); }
 
 
 /* ==== components/info-field/info-field.css ==== */

@@ -1,0 +1,61 @@
+/*
+ * ============================================================
+ * ICON+  (icon shell)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60234-75426
+ *
+ * A rounded, tinted square that holds ANY icon from the set (/icons). Drop an
+ * inline SVG inside and it inherits the shell's glyph colour (via currentColor)
+ * and is sized to the shell — so one shell works with every icon.
+ *
+ * SIZE (Figma "Size"):  72 · 48 (default) · 32   — the square, with matching radius.
+ * COLOUR (Figma "Colour"): Brand (default) · Light · Dark · Negative · Warning ·
+ *   Success — each a family-20 tint behind the semantic glyph colour, set via
+ *   the --ip-surface / --ip-glyph custom properties.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="icon-plus.css">
+ *   <span class="icon-plus icon-plus--success"><svg …>…</svg></span>
+ *   <span class="icon-plus icon-plus--72 icon-plus--dark"><svg …>…</svg></span>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.icon-plus {
+  /* Brand (default) */
+  --ip-surface: var(--colour-purple-20);
+  --ip-glyph:   var(--text-link);
+
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;                            /* Size 48 (default) */
+  height:          48px;
+  border-radius:   var(--radius-small);             /* 8px */
+  background:      var(--ip-surface);
+  color:           var(--ip-glyph);
+}
+.icon-plus svg { display: block; width: 56%; height: 56%; }
+
+
+/* ------------------------------------------------------------
+   SIZE — the square + its radius scale together
+   ------------------------------------------------------------ */
+
+.icon-plus--72 { width: 72px; height: 72px; border-radius: var(--radius-medium);  /* 16px */ }
+.icon-plus--32 { width: 32px; height: 32px; border-radius: var(--radius-x-small); /* 4px  */ }
+
+
+/* ------------------------------------------------------------
+   COLOUR — family-20 tint + semantic glyph
+   ------------------------------------------------------------ */
+
+.icon-plus--light    { --ip-surface: var(--surface-secondary);   --ip-glyph: var(--icon-glyph-primary); }
+.icon-plus--dark     { --ip-surface: var(--brand-3-high);        --ip-glyph: var(--colour-white); }
+.icon-plus--negative { --ip-surface: var(--colour-red-20);       --ip-glyph: var(--text-error); }
+.icon-plus--warning  { --ip-surface: var(--colour-orange-20);    --ip-glyph: var(--icon-glyph-warning-medium); }
+.icon-plus--success  { --ip-surface: var(--colour-green-20);     --ip-glyph: var(--icon-glyph-success-medium); }

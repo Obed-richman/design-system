@@ -1,0 +1,106 @@
+/*
+ * ============================================================
+ * HIGHLIGHT CARD
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60453-34130
+ *
+ * A small tinted card that highlights one figure — a tag label, a large value,
+ * a trailing icon chip — over an accent-coloured surface, with an optional
+ * sub-content row beneath a divider. The main row is an Info Field, re-themed
+ * to the card's accent.
+ *
+ * ACCENT (the card's colour): Error (default) · Success · Warning · Information,
+ * via .highlight-card--success / --warning / --information. Each swaps the
+ * surface/border/text/icon to that semantic family through local custom props.
+ *
+ * Composes Info Field. Link its CSS (and this one) — info-field.css is imported
+ * here, so linking highlight-card.css is enough.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="highlight-card.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../info-field/info-field.css';
+
+
+.highlight-card {
+  /* Accent palette — Error by default (matches 003's card). */
+  --hc-surface:      var(--surface-error-low);
+  --hc-border:       var(--border-error-low);
+  --hc-accent:       var(--text-error);
+  --hc-icon-surface: var(--colour-red-20);
+
+  display:        flex;
+  flex-direction: column;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  background:     var(--hc-surface);
+  border:         var(--border-s) solid var(--hc-border);
+  border-radius:  var(--radius-medium);            /* 16px */
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Accent variants */
+.highlight-card--success {
+  --hc-surface:      var(--surface-success-low);
+  --hc-border:       var(--border-success-low);
+  --hc-accent:       var(--text-success);
+  --hc-icon-surface: var(--colour-green-20);
+}
+.highlight-card--warning {
+  --hc-surface:      var(--surface-warning-low);
+  --hc-border:       var(--border-warning-low);
+  --hc-accent:       var(--text-warning);
+  --hc-icon-surface: var(--colour-orange-20);
+}
+.highlight-card--information {
+  --hc-surface:      var(--surface-information-low);
+  --hc-border:       var(--border-information-low);
+  --hc-accent:       var(--text-information);
+  --hc-icon-surface: var(--colour-blue-20);
+}
+
+
+/* ------------------------------------------------------------
+   The Info Field inside — re-themed to the accent, no list divider,
+   and the value stepped up to Title 4.
+   ------------------------------------------------------------ */
+
+.highlight-card .info-field {
+  align-items:   flex-start;
+  padding:       0;
+  border-bottom: none;
+}
+.highlight-card .info-field__label { color: var(--hc-accent); }
+
+/* The value sits in the action slot — a big figure, not a link. */
+.highlight-card .info-field__action {
+  color:          var(--hc-accent);
+  font-size:      var(--font-size-title-4);        /* 24px */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.02em;
+  cursor:         default;
+}
+.highlight-card .info-field__action:hover { color: var(--hc-accent); text-decoration: none; }
+
+.highlight-card .info-field__icon {
+  background: var(--hc-icon-surface);
+  color:      var(--hc-accent);
+}
+
+
+/* ------------------------------------------------------------
+   SUB CONTENT — an optional row beneath a divider
+   ------------------------------------------------------------ */
+
+.highlight-card__sub {
+  margin-top:  var(--spacer-12);
+  padding-top: var(--spacer-12);
+  border-top:  var(--border-s) solid var(--hc-border);
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--hc-accent);
+}
