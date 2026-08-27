@@ -4,10 +4,10 @@ import figma, { html } from "@figma/code-connect/html";
  * Code Connect — Header Controls
  * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59979-9819
  *
- * The top-of-page region: a Header Bar (global search + notifications), a Title
- * bar (Back, Title, breadcrumb and action Buttons), and the Control Set's Tabs
- * control. Composes Text Input, Button and Control Set; the breadcrumb and the
- * notifications dot are local to this component.
+ * The top-of-page region: a Title bar (Back, Title, breadcrumb and action
+ * Buttons) and the Control Set's Tabs control (each tab separated by a right
+ * divider, last tab excepted). Composes Button and Control Set; the breadcrumb
+ * is local to this component.
  */
 
 figma.connect(
@@ -15,17 +15,6 @@ figma.connect(
   {
     example: () =>
       html`<div class="header-controls">
-  <div class="header-controls__bar">
-    <div class="input-field header-controls__search">
-      <input class="input" type="search" placeholder="Search across all sections">
-      <span class="search__glyph"><!-- search icon --></span>
-    </div>
-    <div class="header-controls__actions">
-      <span class="header-controls__notify" data-unread="true">
-        <button class="btn btn--secondary btn--fab" type="button" aria-label="Notifications"><span class="btn__icon"><!-- icons/notification.svg --></span></button>
-      </span>
-    </div>
-  </div>
   <div class="header-controls__title-bar">
     <div class="header-controls__title-left">
       <button class="btn btn--secondary btn--small btn--rounded" type="button"><!-- ← -->Back</button>

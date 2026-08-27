@@ -121,7 +121,8 @@
    ------------------------------------------------------------ */
 
 .control-set--tabs {
-  border-top:  none;
+  /* Keep the top rule (from the base .control-set) to separate the tabs from
+     whatever sits above them; drop only the padding and stretch the tabs. */
   padding:     0;
   align-items: stretch;
 }

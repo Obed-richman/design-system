@@ -4,19 +4,17 @@
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59979-9819
  *
- * The controls that sit at the top of an internal-tool page, in three stacked rows:
- *   1. Header bar   — a global search field and a notifications button (a FAB
- *                     Button with an unread dot). Ruled off below.
- *   2. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
+ * The controls that sit at the top of an internal-tool page, in two stacked rows:
+ *   1. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
  *                     primary/secondary action buttons on the right.
- *   3. Control set  — the Tabs control (.control-set--tabs) for switching views.
+ *   2. Control set  — the Tabs control (.control-set--tabs) for switching views.
+ *                     Each tab carries a right divider; the last one drops it.
  *
- * Composes Text Input (search), Button and Control Set. The breadcrumb and the
- * notifications dot are small enough to live here rather than as own components.
+ * Composes Button and Control Set. The breadcrumb is small enough to live here
+ * rather than as its own component.
  *
  * Usage — link these alongside header-controls.css:
- *   tokens.css · input.css · search.css · button.css ·
- *   control-set.css · tab/tab.css · tab-bar.css
+ *   tokens.css · button.css · control-set.css · tab/tab.css · tab-bar.css
  *   <script src="../tab-bar/tab-bar.js" defer></script>   // tab switching
  * ============================================================
  */
@@ -34,53 +32,7 @@
 
 
 /* ------------------------------------------------------------
-   ROW 1 — HEADER BAR  (search · notifications · profile)
-   ------------------------------------------------------------ */
-
-.header-controls__bar {
-  display:       flex;
-  align-items:   center;
-  gap:           var(--spacer-16);
-  padding:       var(--spacer-8) var(--spacer-16);
-  border-bottom: var(--border-s) solid var(--border-primary);
-}
-
-/* Global search — the DS Text Input, sized to the header's 40px row. */
-.header-controls__search {
-  flex:      0 1 343px;                       /* holds ~343, shrinks on narrow rows */
-  max-width: 343px;
-  height:    40px;
-  padding:   0 var(--gap-medium);            /* fixed height + centred content */
-}
-
-.header-controls__actions {
-  display:     flex;
-  align-items: center;
-  gap:         var(--spacer-16);
-  margin-left: auto;
-}
-
-/* Notifications — a FAB Button (.btn--fab) wrapped so a red unread dot can sit on
-   its corner. The wrapper only positions the dot; the button carries the look. */
-.header-controls__notify {
-  position:    relative;
-  display:     inline-flex;
-  flex:        0 0 auto;
-}
-.header-controls__notify[data-unread="true"]::after {
-  content:       '';
-  position:      absolute;
-  top:           2px;
-  right:         2px;
-  width:         6px;
-  height:        6px;
-  border-radius: var(--radius-round);
-  background:    var(--icon-glyph-error-medium, #d00909);
-  pointer-events: none;
-}
-
-/* ------------------------------------------------------------
-   ROW 2 — TITLE BAR  (back · title · breadcrumb · actions)
+   ROW 1 — TITLE BAR  (back · title · breadcrumb · actions)
    ------------------------------------------------------------ */
 
 .header-controls__title-bar {
@@ -133,18 +85,26 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 
 
 /* ------------------------------------------------------------
-   ROW 3 — the Tabs control keeps its own styling; here it just
-   picks up the page padding so it lines up with the rows above.
+   ROW 2 — TABS CONTROL
+   Reuses the Control Set tabs; here it picks up the page padding so it lines up
+   with the title bar, and each tab is separated by a right divider — the last
+   tab in the set drops it so the row doesn't end on a stray line.
    ------------------------------------------------------------ */
 
 .header-controls .control-set--tabs { padding: 0 var(--spacer-16); }
 
+.header-controls .control-set--tabs .tab-item {
+  border-right: var(--border-s) solid var(--border-primary);
+}
+.header-controls .control-set--tabs .tab-item:last-child {
+  border-right: none;
+}
+
 
 /* ------------------------------------------------------------
-   RESPONSIVE — collapse the search and stack the title actions
+   RESPONSIVE — drop the breadcrumb on narrow viewports
    ------------------------------------------------------------ */
 
 @media (max-width: 767px) {
-  .header-controls__search { max-width: none; }
   .header-controls__breadcrumb { display: none; }
 }
