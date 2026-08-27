@@ -1,0 +1,106 @@
+/*
+ * ============================================================
+ * INFO FIELD
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60300-5894
+ *
+ * A ruled list row: an optional leading icon chip, a content column (a grey
+ * label with a trailing add glyph, an add-action beneath, and optional support
+ * text), and — for the Full type — a trailing icon chip.
+ *
+ * TYPE (Figma "Type"):
+ *   Full (default) — leading icon · content · trailing icon.
+ *   Wrapped  .info-field--wrapped — no trailing icon; the content fills the row.
+ * Both icon chips are optional slots — omit them for a plain row (as the Side
+ * Modal uses it).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="info-field.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.info-field {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--gap-small);                 /* 12px */
+  padding:       var(--spacer-12) 0;
+  border-bottom: var(--border-s) solid var(--border-primary);
+  font-family:   'Modern Era', sans-serif;
+  color:         var(--text-primary);
+}
+
+
+/* Icon chip — a rounded green tile holding a glyph. Optional at either end. */
+.info-field__icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           32px;
+  height:          32px;
+  border-radius:   var(--radius-small);            /* 8px */
+  background:      var(--surface-success-low);
+  color:           var(--icon-glyph-success-medium);
+}
+.info-field__icon svg { display: block; width: 20px; height: 20px; }
+
+
+/* Content column */
+.info-field__content {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.info-field__head {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+}
+.info-field__label {
+  min-width:   0;
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-disabled);
+  overflow:    hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Trailing add glyph on the label row */
+.info-field__add {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   12px;
+  height:  12px;
+  color:   var(--icon-glyph-primary);
+}
+.info-field__add svg { display: block; width: 100%; height: 100%; }
+
+/* The add-action beneath the label */
+.info-field__action {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--spacer-8);
+  align-self:      flex-start;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-3);    /* 14px */
+  line-height:     var(--line-height-subtitle-3);
+  color:           var(--text-primary);
+  text-decoration: none;
+  cursor:          pointer;
+}
+.info-field__action svg { display: block; width: 12px; height: 12px; flex: 0 0 auto; }
+.info-field__action:hover { color: var(--text-pressed, #68676c); }
+
+/* Optional support text */
+.info-field__support {
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-disabled);
+}

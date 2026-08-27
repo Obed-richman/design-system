@@ -1,0 +1,56 @@
+<!-- Side Modal — Zego Design System
+     Paste into a page that loads dist/zego-ds.css + dist/zego-ds.js. -->
+
+<div class="side-modal">
+
+  <!-- Title bar -->
+  <div class="side-modal__title-bar">
+    <p class="side-modal__section-title">Section title</p>
+    <div class="side-modal__actions">
+      <div class="filter-select" data-open="false">
+        <div class="filter-select__trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+          <span class="filter-select__value"><span class="filter-select__label">Status</span><span class="filter-select__chips"></span></span>
+          <span class="filter-select__chevron"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="filter-select__dropdown" role="listbox">
+          <label class="checkbox filter-select__option"><input class="checkbox__input" type="checkbox" value="active" data-fs-label="Active" data-fs-variant="success"><span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="status-label status-label--rounded status-label--success">Active</span></label>
+          <label class="checkbox filter-select__option"><input class="checkbox__input" type="checkbox" value="pending" data-fs-label="Pending" data-fs-variant="warning"><span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="status-label status-label--rounded status-label--warning">Pending</span></label>
+        </div>
+      </div>
+      <button class="side-modal__close" type="button" aria-label="Close">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="side-modal__content">
+
+    <div class="side-modal__fields">
+      <div class="info-field">
+        <div class="info-field__content">
+          <div class="info-field__head">
+            <span class="info-field__label">Title</span>
+            <span class="info-field__add"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg></span>
+          </div>
+          <a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a>
+        </div>
+      </div>
+      <div class="info-field">
+        <div class="info-field__content">
+          <div class="info-field__head">
+            <span class="info-field__label">Title</span>
+            <span class="info-field__add"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg></span>
+          </div>
+          <a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-modal__footer">
+      <button class="btn btn--primary btn--pill" type="button">Button</button>
+      <button class="btn btn--secondary btn--pill" type="button">Button</button>
+    </div>
+  </div>
+
+</div>

@@ -75,6 +75,8 @@
   <link rel="stylesheet" href="components/table-item/table-item.css">
   <link rel="stylesheet" href="components/table-row/table-row.css">
   <link rel="stylesheet" href="components/data-table/data-table.css">
+  <link rel="stylesheet" href="components/side-modal/side-modal.css">
+  <link rel="stylesheet" href="components/info-field/info-field.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -203,6 +205,8 @@
     .card__preview .table-item,
     .card__preview .table-row,
     .card__preview .data-table,
+    .card__preview .side-modal,
+    .card__preview .info-field,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -1512,6 +1516,37 @@
               <div class="table-row"><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div></div>
             </div>
             <div class="data-table__footer"><span class="data-table__summary">Showing 6 of 14</span><button class="btn btn--secondary btn--rounded" type="button">Load more</button></div>
+          </div>
+        `
+      },
+      {
+        name: "Side Modal",
+        description: "A slide-in panel — a title bar (title, Filter Select, Close), a content area with ruled info-field rows, and a primary/secondary button footer.",
+        page: "components/side-modal/side-modal.html",
+        preview: `
+          <div class="side-modal" style="width:100%;box-shadow:none">
+            <div class="side-modal__title-bar" style="padding:8px 12px">
+              <p class="side-modal__section-title">Section title</p>
+              <div class="side-modal__actions"><button class="side-modal__close" type="button" aria-label="Close"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></button></div>
+            </div>
+            <div class="side-modal__content" style="padding:12px">
+              <h2 class="side-modal__title" style="font-size:24px;line-height:28px">Title</h2>
+              <div class="side-modal__fields">
+                <div class="info-field"><div class="info-field__content"><div class="info-field__head"><span class="info-field__label">Title</span></div><a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a></div></div>
+              </div>
+              <div class="side-modal__footer"><button class="btn btn--primary btn--pill" type="button">Button</button><button class="btn btn--secondary btn--pill" type="button">Button</button></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Info Field",
+        description: "A ruled list row — a leading icon chip, a grey label with a trailing add, an add-action, and (Full type) a trailing icon chip.",
+        page: "components/info-field/info-field.html",
+        preview: `
+          <div style="width:100%">
+            <div class="info-field"><span class="info-field__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 12.5C17.0315 12.7761 16.8076 13 16.5315 13H7.53164C7.2555 13 7.03164 12.7761 7.03164 12.5V11.5C7.03164 11.2239 7.2555 11 7.53164 11H16.5315C16.8076 11 17.0315 11.2239 17.0315 11.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 8.5C17.0315 8.77614 16.8076 9 16.5315 9H7.53164C7.2555 9 7.03164 8.77614 7.03164 8.5V7.5C7.03164 7.22386 7.2555 7 7.53164 7H16.5315C16.8076 7 17.0315 7.22386 17.0315 7.5V8.5Z" fill="currentColor"/><path d="M3 21V3C3 1.89543 3.89543 1 5 1H18L18.0774 1.00098C19.6985 1.04203 21 2.36902 21 4V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21ZM5 21H19V4C19 3.46499 18.5799 3.02803 18.0515 3.00122L18 3H5V21Z" fill="currentColor"/></svg></span><div class="info-field__content"><div class="info-field__head"><span class="info-field__label">Title</span><span class="info-field__add"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg></span></div><a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a></div></div>
+            <div class="info-field" style="border-bottom:none"><span class="info-field__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 12.5C17.0315 12.7761 16.8076 13 16.5315 13H7.53164C7.2555 13 7.03164 12.7761 7.03164 12.5V11.5C7.03164 11.2239 7.2555 11 7.53164 11H16.5315C16.8076 11 17.0315 11.2239 17.0315 11.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 8.5C17.0315 8.77614 16.8076 9 16.5315 9H7.53164C7.2555 9 7.03164 8.77614 7.03164 8.5V7.5C7.03164 7.22386 7.2555 7 7.53164 7H16.5315C16.8076 7 17.0315 7.22386 17.0315 7.5V8.5Z" fill="currentColor"/><path d="M3 21V3C3 1.89543 3.89543 1 5 1H18L18.0774 1.00098C19.6985 1.04203 21 2.36902 21 4V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21ZM5 21H19V4C19 3.46499 18.5799 3.02803 18.0515 3.00122L18 3H5V21Z" fill="currentColor"/></svg></span><div class="info-field__content"><div class="info-field__head"><span class="info-field__label">Title</span></div><a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a></div></div>
           </div>
         `
       }

@@ -5289,6 +5289,112 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 }
 
 
+/* ==== components/info-field/info-field.css ==== */
+/*
+ * ============================================================
+ * INFO FIELD
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60300-5894
+ *
+ * A ruled list row: an optional leading icon chip, a content column (a grey
+ * label with a trailing add glyph, an add-action beneath, and optional support
+ * text), and — for the Full type — a trailing icon chip.
+ *
+ * TYPE (Figma "Type"):
+ *   Full (default) — leading icon · content · trailing icon.
+ *   Wrapped  .info-field--wrapped — no trailing icon; the content fills the row.
+ * Both icon chips are optional slots — omit them for a plain row (as the Side
+ * Modal uses it).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="info-field.css">
+ * ============================================================
+ */
+
+.info-field {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--gap-small);                 /* 12px */
+  padding:       var(--spacer-12) 0;
+  border-bottom: var(--border-s) solid var(--border-primary);
+  font-family:   'Modern Era', sans-serif;
+  color:         var(--text-primary);
+}
+
+
+/* Icon chip — a rounded green tile holding a glyph. Optional at either end. */
+.info-field__icon {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           32px;
+  height:          32px;
+  border-radius:   var(--radius-small);            /* 8px */
+  background:      var(--surface-success-low);
+  color:           var(--icon-glyph-success-medium);
+}
+.info-field__icon svg { display: block; width: 20px; height: 20px; }
+
+
+/* Content column */
+.info-field__content {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.info-field__head {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+}
+.info-field__label {
+  min-width:   0;
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-disabled);
+  overflow:    hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Trailing add glyph on the label row */
+.info-field__add {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   12px;
+  height:  12px;
+  color:   var(--icon-glyph-primary);
+}
+.info-field__add svg { display: block; width: 100%; height: 100%; }
+
+/* The add-action beneath the label */
+.info-field__action {
+  display:         inline-flex;
+  align-items:     center;
+  gap:             var(--spacer-8);
+  align-self:      flex-start;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-3);    /* 14px */
+  line-height:     var(--line-height-subtitle-3);
+  color:           var(--text-primary);
+  text-decoration: none;
+  cursor:          pointer;
+}
+.info-field__action svg { display: block; width: 12px; height: 12px; flex: 0 0 auto; }
+.info-field__action:hover { color: var(--text-pressed, #68676c); }
+
+/* Optional support text */
+.info-field__support {
+  font-size:   var(--font-size-body-3);            /* 14px */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-disabled);
+}
+
+
 /* ==== components/input/input.css ==== */
 /*
  * ============================================================
@@ -8721,6 +8827,143 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 /* Equal-width segments (optional) */
 .segment--fill { display: flex; width: 100%; }
 .segment--fill .segment__item { flex: 1 1 0; min-width: 0; }
+
+
+/* ==== components/side-modal/side-modal.css ==== */
+/*
+ * ============================================================
+ * SIDE MODAL
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60492-126483
+ *
+ * A panel that slides in from the side of the page. Three parts:
+ *   • Title bar — a section title on the left; a Filter Select and a filled
+ *     Close button on the right. Ruled off below.
+ *   • Content — a heading, then a stack of "info fields" (a grey label with a
+ *     trailing add, and an add-action beneath), each ruled off.
+ *   • Footer — a primary and a secondary Button, side by side.
+ *
+ * Composes Filter Select, Button and Info Field (the content rows); the close
+ * glyph is local (icons from /icons: close). Pair it with the Overlay component
+ * for the page scrim.
+ *
+ * Usage — link alongside side-modal.css:
+ *   tokens.css · filter-select.css · status-label.css · button.css · info-field.css
+ *   <script src="../filter-select/filter-select.js" defer></script>
+ * ============================================================
+ */
+
+
+
+/* The content rows are Info Fields. */
+
+.side-modal {
+  display:        flex;
+  flex-direction: column;
+  width:          600px;
+  max-width:      100%;
+  box-sizing:     border-box;
+  background:     var(--surface-primary);
+  border:         var(--border-s) solid var(--border-primary);
+  border-radius:  var(--radius-medium);            /* 16px */
+  overflow:       hidden;
+  box-shadow:     0 4px 24px rgba(39, 37, 45, 0.12);
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   TITLE BAR
+   ------------------------------------------------------------ */
+
+.side-modal__title-bar {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  padding:       var(--spacer-12) var(--spacer-16);
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+.side-modal__section-title {
+  flex:        1;
+  min-width:   0;
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16px */
+  line-height: var(--line-height-subtitle-2);
+}
+.side-modal__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-12);
+  flex:        0 0 auto;
+}
+/* The Filter Select is sized down to the title bar's 40px row here. */
+.side-modal__actions .filter-select { width: 236px; }
+.side-modal__actions .filter-select__trigger { min-height: 40px; }
+
+/* Close — the filled close glyph in a tap target. */
+.side-modal__close {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           24px;
+  height:          24px;
+  padding:         0;
+  border:          none;
+  background:      transparent;
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+.side-modal__close svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   CONTENT
+   ------------------------------------------------------------ */
+
+.side-modal__content {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  padding:        var(--spacer-16);
+}
+.side-modal__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-3);        /* 32px */
+  line-height:    var(--line-height-title-3);
+  letter-spacing: -0.02em;
+}
+
+
+/* Info fields — a stack of Info Field rows (see info-field.css). */
+.side-modal__fields {
+  display:        flex;
+  flex-direction: column;
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER — primary + secondary buttons, side by side
+   ------------------------------------------------------------ */
+
+.side-modal__footer {
+  display: flex;
+  gap:     var(--spacer-12);
+}
+.side-modal__footer .btn { flex: 1; }
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — fill the viewport width on small screens
+   ------------------------------------------------------------ */
+
+@media (max-width: 640px) {
+  .side-modal { width: 100%; border-radius: 0; }
+  .side-modal__actions .filter-select { width: auto; min-width: 0; }
+}
 
 
 /* ==== components/side-nav/side-nav.css ==== */
