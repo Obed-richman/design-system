@@ -414,6 +414,140 @@
 })();
 
 
+/* ==== components/control-set/control-set.js ==== */
+/*
+ * ============================================================
+ * CONTROL SET — interactivity
+ * ============================================================
+ * • The date field opens the Date Picker as a popover. Confirm writes the
+ *   chosen date/range into the field; Clear wipes the field (and, via
+ *   date-picker.js, the picker's selection) then closes. (Date Picker rendering /
+ *   day selection / month nav come from date-picker.js.)
+ * • "Clear all" resets everything: empties the search input, unticks every
+ *   Filter Select option (which clears its chips), and clears the date field.
+ * • Clicking outside closes the date popover.
+ * Applies to every .control-set on the page.
+ * ============================================================
+ */
+(function () {
+  var MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // "YYYY-M-D" (M is 0–11) → "D Mon YYYY"
+  function format(sel) {
+    if (!sel) return "";
+    var p = sel.split("-");
+    return (+p[2]) + " " + MON[+p[1]] + " " + p[0];
+  }
+
+  function closePicker(cs) {
+    var wrap = cs.querySelector(".control-set__date-wrap");
+    if (!wrap) return;
+    wrap.setAttribute("data-open", "false");
+    var btn = wrap.querySelector(".control-set__date");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+  }
+
+  function clearAll(cs) {
+    // search
+    var search = cs.querySelector(".control-set__search .input");
+    if (search) search.value = "";
+
+    // filter select — untick every option, then let filter-select.js re-sync its chips
+    var inputs = cs.querySelectorAll('.filter-select__option input[type="checkbox"]');
+    inputs.forEach(function (i) { i.checked = false; });
+    if (inputs.length) inputs[0].dispatchEvent(new Event("change", { bubbles: true }));
+
+    // date field → placeholder, and wipe the picker's selection so it reopens fresh
+    var value = cs.querySelector(".control-set__date-value");
+    var dateBtn = cs.querySelector(".control-set__date");
+    if (value) value.textContent = value.getAttribute("data-placeholder") || "Select dates";
+    if (dateBtn) dateBtn.classList.add("control-set__date--empty");
+    var dp = cs.querySelector(".control-set__datepicker .date-picker");
+    if (dp) {
+      dp.removeAttribute("data-selected");
+      dp.removeAttribute("data-range-start");
+      dp.removeAttribute("data-range-end");
+    }
+
+    closePicker(cs);
+  }
+
+  function init(cs) {
+    if (cs.dataset.csReady) return;
+    cs.dataset.csReady = "1";
+
+    var wrap = cs.querySelector(".control-set__date-wrap");
+    var dateBtn = cs.querySelector(".control-set__date");
+
+    if (dateBtn && wrap) {
+      dateBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var open = wrap.getAttribute("data-open") === "true";
+        wrap.setAttribute("data-open", String(!open));
+        dateBtn.setAttribute("aria-expanded", String(!open));
+      });
+    }
+
+    cs.addEventListener("click", function (e) {
+      if (e.target.closest(".date-picker__clear")) {
+        // date-picker.js wipes the picker's range; here we clear the field too, then close.
+        var v = cs.querySelector(".control-set__date-value");
+        if (v) v.textContent = v.getAttribute("data-placeholder") || "Select dates";
+        if (dateBtn) dateBtn.classList.add("control-set__date--empty");
+        closePicker(cs);
+        return;
+      }
+
+      if (e.target.closest(".date-picker__confirm")) {
+        var dp = cs.querySelector(".control-set__datepicker .date-picker");
+        var value = cs.querySelector(".control-set__date-value");
+        if (dp && value) {
+          var text = "";
+          if (dp.getAttribute("data-mode") === "range") {
+            // Range field — "start → end", or just the start if no end was picked.
+            var start = dp.getAttribute("data-range-start");
+            var end = dp.getAttribute("data-range-end");
+            if (start && end) text = format(start) + " → " + format(end);
+            else if (start) text = format(start);
+          } else {
+            var sel = dp.getAttribute("data-selected");
+            if (sel) text = format(sel);
+          }
+          if (text) {
+            value.textContent = text;
+            if (dateBtn) dateBtn.classList.remove("control-set__date--empty");
+          }
+        }
+        closePicker(cs);
+        return;
+      }
+
+      if (e.target.closest(".control-set__clear")) { clearAll(cs); return; }
+    });
+
+    document.addEventListener("click", function (e) {
+      /* Use the event's composed path, not cs.contains(e.target): a day click makes
+         date-picker.js re-render the grid, which detaches the clicked node before
+         this runs, so contains() would wrongly report "outside" and close on every
+         in-calendar click. The path is captured at dispatch and survives the mutation. */
+      var path = e.composedPath ? e.composedPath() : null;
+      var inside = path ? path.indexOf(cs) !== -1 : cs.contains(e.target);
+      if (!inside) closePicker(cs);
+    });
+  }
+
+  function boot() {
+    document.querySelectorAll(".control-set").forEach(init);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+
+
 /* ==== components/date-picker/date-picker.js ==== */
 /*
  * ============================================================
@@ -431,8 +565,18 @@
  *                                   For a question that only accepts a window —
  *                                   "cover must start within 30 days".
  *
- * Weeks start on Monday. Selecting a day updates data-selected and re-renders.
- * Self-init via event delegation:  <script src="date-picker.js" defer></script>
+ * SELECTION MODE — data-mode (Figma "Selection"):
+ *   "single" (default) — one day. Click sets data-selected.
+ *   "range"            — a start and an end day, with every day between them
+ *                        highlighted as a band. The FIRST click sets the start
+ *                        (data-range-start) and clears any end; the SECOND sets
+ *                        the end (data-range-end), ordering the pair so start ≤
+ *                        end however they were clicked. A click once both are set
+ *                        begins a fresh range. Used by the Control Set date field.
+ *
+ * Weeks start on Monday. Selecting a day updates the relevant attribute and
+ * re-renders. Self-init via event delegation:
+ *   <script src="date-picker.js" defer></script>
  * ============================================================
  */
 (function () {
@@ -478,12 +622,23 @@
       cells += '<span class="date-picker__day date-picker__day--empty" aria-hidden="true"></span>';
     }
     var b = bounds(dp);
+    var range = dp.getAttribute('data-mode') === 'range';
+    var rs = range ? ord(dp.getAttribute('data-range-start')) : null;
+    var re = range ? ord(dp.getAttribute('data-range-end')) : null;
     for (var d = 1; d <= daysInMonth; d++) {
       var k = key(year, month, d);
       var cls = 'date-picker__day';
-      if (k === selected) cls += ' date-picker__day--selected';
+      var isEndpoint = false;
+      if (range) {
+        var v = ord(k);
+        if (rs !== null && v === rs) { cls += ' date-picker__day--range-start'; isEndpoint = true; }
+        else if (re !== null && v === re) { cls += ' date-picker__day--range-end'; isEndpoint = true; }
+        else if (rs !== null && re !== null && v > rs && v < re) { cls += ' date-picker__day--in-range'; }
+      } else if (k === selected) {
+        cls += ' date-picker__day--selected'; isEndpoint = true;
+      }
       if (k === today) cls += ' date-picker__day--today';
-      var pressed = k === selected ? ' aria-pressed="true"' : '';
+      var pressed = isEndpoint ? ' aria-pressed="true"' : '';
       /* Out of bounds days are shown and disabled rather than hidden: the shape
          of the month stays readable, and it is clear the day exists but can't be
          chosen. */
@@ -517,14 +672,48 @@
     var next = event.target.closest('.date-picker__next');
     if (next) { shiftMonth(next.closest('.date-picker'), 1); return; }
 
+    /* Clear — wipe the current selection (single day or range) and re-render.
+       In a consumer like the Control Set the same click also clears the field. */
+    var clear = event.target.closest('.date-picker__clear');
+    if (clear) {
+      var dpc = clear.closest('.date-picker');
+      if (dpc) {
+        dpc.removeAttribute('data-selected');
+        dpc.removeAttribute('data-range-start');
+        dpc.removeAttribute('data-range-end');
+        render(dpc);
+      }
+      return;
+    }
+
     var day = event.target.closest('.date-picker__day[data-day]');
     if (day) {
       var dp = day.closest('.date-picker');
-      dp.setAttribute('data-selected', key(
+      var clicked = key(
         parseInt(dp.getAttribute('data-year'), 10),
         parseInt(dp.getAttribute('data-month'), 10),
         parseInt(day.getAttribute('data-day'), 10)
-      ));
+      );
+
+      if (dp.getAttribute('data-mode') === 'range') {
+        var start = dp.getAttribute('data-range-start');
+        var end = dp.getAttribute('data-range-end');
+        if (!start || end) {
+          /* No range yet, or a complete one — start a fresh range. */
+          dp.setAttribute('data-range-start', clicked);
+          dp.removeAttribute('data-range-end');
+        } else if (ord(clicked) < ord(start)) {
+          /* Second click lands before the start — swap so start ≤ end. */
+          dp.setAttribute('data-range-start', clicked);
+          dp.setAttribute('data-range-end', start);
+        } else {
+          dp.setAttribute('data-range-end', clicked);
+        }
+        render(dp);
+        return;
+      }
+
+      dp.setAttribute('data-selected', clicked);
       render(dp);
       return;
     }
@@ -549,7 +738,8 @@
       rendering = false;
     }).observe(dp, { attributes: true,
       attributeFilter: ['data-year', 'data-month', 'data-selected', 'data-today',
-                        'data-min', 'data-max'] });
+                        'data-min', 'data-max', 'data-mode',
+                        'data-range-start', 'data-range-end'] });
   }
 
   function initAll() {
@@ -753,6 +943,115 @@
     var card = btn.closest('.extra-cover');
     if (card) setState(card, !card.classList.contains('extra-cover--added'));
   });
+})();
+
+
+/* ==== components/filter-select/filter-select.js ==== */
+/*
+ * ============================================================
+ * FILTER SELECT — interactivity
+ * ============================================================
+ * • Clicking the trigger opens / closes the dropdown (rotates the chevron).
+ * • Ticking an option adds its badge to the trigger as a removable chip;
+ *   unticking (or clicking a chip's ✕) removes it. The chips are always
+ *   derived from the checked options, so the two stay in sync.
+ * • The trigger reverts to its Default (placeholder) look when nothing is
+ *   selected. Clicking outside closes the dropdown.
+ * Applies to every .filter-select on the page.
+ * ============================================================
+ */
+(function () {
+  // Design-system close icon (icons/close.svg) — a filled circle + X, currentColor
+  var CLOSE =
+    '<svg viewBox="0 0 32 32" fill="none" aria-hidden="true">' +
+    '<circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/>' +
+    '<path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg>';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  // Rebuild the trigger chips from the currently-checked options.
+  function sync(fs) {
+    var chips = fs.querySelector(".filter-select__chips");
+    var checked = fs.querySelectorAll('.filter-select__option input[type="checkbox"]:checked');
+    if (chips) {
+      chips.innerHTML = Array.prototype.map.call(checked, function (inp) {
+        var label = inp.getAttribute("data-fs-label") || inp.value;
+        var variant = inp.getAttribute("data-fs-variant") || "information";
+        return (
+          '<span class="status-label status-label--rounded status-label--' + variant +
+          ' filter-select__chip">' + esc(label) +
+          '<button class="filter-select__chip-remove" type="button" aria-label="Remove ' +
+          esc(label) + '" data-fs-value="' + esc(inp.value) + '">' + CLOSE + "</button></span>"
+        );
+      }).join("");
+    }
+    fs.classList.toggle("filter-select--filtered", checked.length > 0);
+  }
+
+  function setOpen(fs, open) {
+    fs.setAttribute("data-open", String(open));
+    var trigger = fs.querySelector(".filter-select__trigger");
+    if (trigger) trigger.setAttribute("aria-expanded", String(open));
+  }
+
+  function init(fs) {
+    if (fs.dataset.fsReady) return;
+    fs.dataset.fsReady = "1";
+    var trigger = fs.querySelector(".filter-select__trigger");
+
+    if (trigger) {
+      trigger.addEventListener("click", function (e) {
+        if (e.target.closest(".filter-select__chip-remove")) return; // let the removal handler run
+        setOpen(fs, fs.getAttribute("data-open") !== "true");
+      });
+      trigger.addEventListener("keydown", function (e) {
+        if ((e.key === "Enter" || e.key === " ") && e.target === trigger) {
+          e.preventDefault();
+          setOpen(fs, fs.getAttribute("data-open") !== "true");
+        }
+      });
+    }
+
+    // Remove a chip → uncheck its option → re-sync
+    fs.addEventListener("click", function (e) {
+      var remove = e.target.closest(".filter-select__chip-remove");
+      if (!remove) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var val = remove.getAttribute("data-fs-value");
+      var input = fs.querySelector('.filter-select__option input[value="' + val + '"]');
+      if (input) {
+        input.checked = false;
+        sync(fs);
+      }
+    });
+
+    // Tick / untick an option → re-sync the chips
+    fs.addEventListener("change", function (e) {
+      if (e.target.matches('.filter-select__option input[type="checkbox"]')) sync(fs);
+    });
+
+    // Click outside → close
+    document.addEventListener("click", function (e) {
+      if (!fs.contains(e.target)) setOpen(fs, false);
+    });
+
+    sync(fs); // reflect any options that start checked
+  }
+
+  function boot() {
+    document.querySelectorAll(".filter-select").forEach(init);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();
 
 
@@ -1759,6 +2058,60 @@
       seg.setAttribute('aria-selected', selected ? 'true' : 'false');
     });
   });
+})();
+
+
+/* ==== components/side-nav/side-nav.js ==== */
+/*
+ * ============================================================
+ * SIDE NAV — interactivity
+ * ============================================================
+ * • The header toggle button switches Expanded ⇄ Collapsed
+ *   (adds/removes .side-nav--collapsed). Collapsing force-opens the
+ *   groups so their icons stay visible on the rail.
+ * • Clicking an item makes it the active one (single-select).
+ * Groups expand/collapse natively via <details> — no JS needed.
+ * Applies to every .side-nav on the page.
+ * ============================================================
+ */
+(function () {
+  function init(nav) {
+    if (nav.dataset.sideNavReady) return;
+    nav.dataset.sideNavReady = "1";
+
+    var toggle = nav.querySelector(".side-nav__toggle");
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        var collapsed = nav.classList.toggle("side-nav--collapsed");
+        toggle.setAttribute("aria-label", collapsed ? "Expand navigation" : "Collapse navigation");
+        if (collapsed) {
+          nav.querySelectorAll(".side-nav__group").forEach(function (g) { g.open = true; });
+        }
+      });
+    }
+
+    nav.addEventListener("click", function (e) {
+      var item = e.target.closest(".side-nav__item");
+      if (!item || !nav.contains(item)) return;
+      e.preventDefault();
+      nav.querySelectorAll(".side-nav__item--active").forEach(function (i) {
+        i.classList.remove("side-nav__item--active");
+        i.removeAttribute("aria-current");
+      });
+      item.classList.add("side-nav__item--active");
+      item.setAttribute("aria-current", "page");
+    });
+  }
+
+  function boot() {
+    document.querySelectorAll(".side-nav").forEach(init);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();
 
 

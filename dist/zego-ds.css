@@ -2190,6 +2190,18 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
+   SIZE — Medium
+   A step below the 48px default (≈40px) — for actions inside compact
+   surfaces like the Date Picker's Cancel / Confirm row.
+   ------------------------------------------------------------ */
+
+.btn--medium {
+  padding:   var(--spacer-8) var(--gap-medium);    /* 8px 16px */
+  font-size: var(--font-size-body-2);              /* 16px */
+}
+
+
+/* ------------------------------------------------------------
    SIZE — Small
    Compact (≈32px) button for inline actions like list-row tags.
    ------------------------------------------------------------ */
@@ -3105,6 +3117,242 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ==== components/control-set/control-set.css ==== */
+/*
+ * ============================================================
+ * CONTROL SET  (table / list-view filter toolbar)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59985-62586
+ *
+ * A toolbar row placed above a data table or list. Two types:
+ *   Filter set (default) — a search input, a date-range field, a Filter Select
+ *     and a "Clear all" button. Search / date / status can each be omitted.
+ *   Tabs control (.control-set--tabs) — a tab bar (reuses .tabs / .tab-item).
+ *
+ * Composes Text Input (search + date fields), Filter Select, Button and Tab.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../input/input.css">
+ *   <link rel="stylesheet" href="../search/search.css">
+ *   <link rel="stylesheet" href="../button/button.css">
+ *   <link rel="stylesheet" href="../filter-select/filter-select.css">
+ *   <link rel="stylesheet" href="../tab-bar/tab-bar.css">
+ *   <link rel="stylesheet" href="control-set.css">
+ * ============================================================
+ */
+
+.control-set {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-20);
+  width:       100%;
+  box-sizing:  border-box;
+  padding:     var(--spacer-8) 0;
+  border-top:  var(--border-s) solid var(--border-primary);
+  font-family: 'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   SLOTS
+   ------------------------------------------------------------ */
+
+/* Search and the date field are capped at 300; the Filter Select starts at 360
+   and grows with the chips the user ticks; Clear keeps its size. */
+.control-set__search    { flex: 1 1 auto;  min-width: 180px; max-width: 300px; }
+.control-set__date-wrap { flex: 0 1 300px; max-width: 300px; position: relative; }
+.control-set__filter    { flex: 0 1 auto;  width: fit-content; min-width: 360px; }
+.control-set__clear     { flex: 0 0 auto; }
+
+/* The Filter Select field widens with its chips instead of wrapping them onto a
+   second line, so the control grows from its 360 min as more filters are picked. */
+.control-set__filter .filter-select__value { flex-wrap: nowrap; }
+
+
+/* Date-range field — a trigger dressed like a Text Input field. Fills the 300
+   cap; a long range ellipsises rather than overflowing. */
+.control-set__date {
+  width:       100%;
+  gap:         var(--spacer-12);
+  cursor:      pointer;
+  font-family: inherit;
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+  text-align:  left;
+  /* This field IS the focusable element (a button), not an .input-field wrapper
+     around an <input>. So the outline reset that normally lives on .input has to
+     go here, and the DS focus look (which .input-field:focus-within paints for a
+     wrapped input) is stated directly below — otherwise the browser's native
+     outline shows instead of the DS aqua border + ring. */
+  outline:     none;
+}
+/* Focus — match the DS Text Input: aqua border + focus ring.
+   Keyboard focus is handled by :focus; but on macOS a native <button> does NOT
+   take focus on a mouse click, so a click that opens the picker would never ring.
+   [data-open] ties the same look to the open state, which IS the active field —
+   the way the DS select shows its active border while its menu is open. */
+.control-set__date:focus,
+.control-set__date--focused,
+.control-set__date-wrap[data-open="true"] .control-set__date {
+  border-color: var(--border-active);
+  box-shadow:   var(--shadow-focus);
+}
+.control-set__date-value {
+  flex:          1 1 auto;
+  min-width:     0;
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+.control-set__date-icon {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       20px;
+  height:      20px;
+  margin-left: var(--spacer-8);
+  color:       var(--icon-glyph-primary);
+}
+.control-set__date-icon svg { display: block; width: 100%; height: 100%; }
+/* Placeholder look once the range is cleared */
+.control-set__date--empty .control-set__date-value { color: var(--text-disabled); }
+
+/* The Date Picker opens as a popover under the field, matched to the field's
+   width — the wrap is sized to the date button, so 100% here tracks it and the
+   inner .date-picker drops its own 400px cap to fill. */
+.control-set__datepicker {
+  position: absolute;
+  top:      calc(100% + var(--spacer-4));
+  left:     0;
+  z-index:  60;
+  display:  none;
+  width:    100%;
+}
+.control-set__datepicker .date-picker { max-width: none; }
+.control-set__date-wrap[data-open="true"] .control-set__datepicker { display: block; }
+
+
+/* ------------------------------------------------------------
+   TABS CONTROL — a tab bar instead of filter inputs
+   ------------------------------------------------------------ */
+
+.control-set--tabs {
+  border-top:  none;
+  padding:     0;
+  align-items: stretch;
+}
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — wrap the controls on narrow viewports
+   ------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .control-set { flex-wrap: wrap; }
+  .control-set__search { flex: 1 1 100%; }
+  .control-set__clear  { margin-left: auto; }
+}
+
+
+/* ==== components/data-table/data-table.css ==== */
+/*
+ * ============================================================
+ * DATA TABLE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60438-9302
+ *
+ * The whole data table, assembled from the smaller pieces:
+ *   • a Control Set toolbar (search · date range · Filter Select · Clear all)
+ *   • a grey header Table Row whose Title cells can carry a sort control
+ *   • a body of Table Rows (Table Items)
+ *   • a footer — a summary line on the left, a "Load more" Button on the right
+ *
+ * Composes Control Set, Table Row, Table Item and Button. Link their CSS (and
+ * everything Control Set needs — input, search, filter-select, date-picker, tab,
+ * tab-bar — plus checkbox, toggle, status-label for the rows) alongside this
+ * file, and the Control Set / Filter Select / Date Picker scripts to make the
+ * toolbar interactive.
+ * ============================================================
+ */
+
+
+
+.data-table {
+  width:         100%;
+  box-sizing:    border-box;
+  border:        var(--border-s) solid var(--border-primary);
+  border-radius: var(--radius-medium);             /* 16px */
+  overflow:      hidden;
+  background:    var(--surface-primary);
+  font-family:   'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   TOOLBAR — a Control Set, re-seated for the table header (no top rule,
+   its own padding, and it never wraps its tabs here).
+   ------------------------------------------------------------ */
+
+.data-table__toolbar.control-set {
+  border-top: none;
+  padding:    var(--spacer-12) var(--spacer-16);
+  gap:        var(--spacer-12);
+}
+
+
+/* ------------------------------------------------------------
+   TABLE — header + body rows
+   ------------------------------------------------------------ */
+
+.data-table__head.table-row { border-top: var(--border-s) solid var(--border-primary); }
+
+/* Sortable header cell — Title text plus a small up/down control. */
+.data-table__sort {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacer-4);
+  cursor:      pointer;
+}
+.data-table__sort-icon {
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  flex:        0 0 auto;
+  color:       var(--icon-glyph-primary);
+}
+.data-table__sort-icon svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   FOOTER — summary text + Load more
+   ------------------------------------------------------------ */
+
+.data-table__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-16);
+  border-top:      var(--border-s) solid var(--border-primary);
+}
+.data-table__summary {
+  font-size:   var(--font-size-body-3);            /* 14 */
+  line-height: var(--line-height-body-3);
+  color:       var(--colour-grey-60);
+}
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — let the toolbar wrap on narrow viewports (Control Set
+   already handles its own wrapping); stack the footer.
+   ------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .data-table__footer { flex-direction: column; align-items: stretch; }
+}
+
+
 /* ==== components/date-picker/date-picker.css ==== */
 /*
  * ============================================================
@@ -3261,6 +3509,28 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
+   SELECTION = RANGE  (data-mode="range")
+   The start, the end and every day between are each highlighted as their own
+   tile — the light-aqua fill sits inside the day cell's own Radius-8 corners, so
+   the range reads as a run of rounded number-item tiles rather than one sharp
+   rectangle. Only the two ENDPOINTS carry the full aqua ring, all the way round;
+   the in-between days fill without a border, so the range reads start → end.
+   ------------------------------------------------------------ */
+
+.date-picker__day--in-range,
+.date-picker__day--range-start,
+.date-picker__day--range-end {
+  background: var(--surface-focus);               /* #cefdfd */
+  color:      var(--text-primary);
+}
+/* Endpoints — full aqua border all round */
+.date-picker__day--range-start,
+.date-picker__day--range-end { border-color: var(--border-active); }
+/* In-between — fill only, no border */
+.date-picker__day--in-range { border-color: transparent; }
+
+
+/* ------------------------------------------------------------
    FOOTER OPTION ROW (reuses Text + Icon Item) + ACTIONS
    ------------------------------------------------------------ */
 
@@ -3301,6 +3571,36 @@ body { font-family: var(--font-family-base); }
 /* The heading is a Display Row with a trailing checkbox — "use this date every month"
    rather than a title. It brings its own dividers, so nothing is added here. */
 .date-picker--set-date .display-row { padding-inline: var(--spacer-12); }
+
+
+/* ------------------------------------------------------------
+   COMPACT  (.date-picker--compact)
+   For tight popovers — e.g. the Control Set's 300px date field — where the full
+   400px calendar's 16px day numbers feel cramped. Steps the day numbers and the
+   weekday row down to Subtitle 3 (14px, the Small number-item size) and tightens
+   the paddings/gaps so the whole calendar reads comfortably in the smaller space.
+   ------------------------------------------------------------ */
+
+.date-picker--compact {
+  gap:     var(--gap-small);                        /* 12px */
+  padding: var(--spacer-12);
+}
+.date-picker--compact .date-picker__title {
+  font-size:   var(--font-size-subtitle-3);         /* 14px */
+  line-height: var(--line-height-subtitle-3);
+}
+.date-picker--compact .date-picker__grid {
+  gap:     var(--spacer-2, 2px);
+  padding: var(--spacer-4);                          /* 4px */
+}
+.date-picker--compact .date-picker__weekday {
+  padding:   var(--spacer-4) 0;                      /* 4px */
+  font-size: var(--font-size-body-4, 12px);
+}
+/* The smaller item numbers — Subtitle 3 (14px), matching the Small number-item. */
+.date-picker--compact .date-picker__day {
+  font-size: var(--font-size-subtitle-3);            /* 14px */
+}
 
 
 /* ==== components/detail-card/detail-card.css ==== */
@@ -4415,6 +4715,174 @@ body { font-family: var(--font-family-base); }
 .extra-cover--added .extra-cover__add-minus { display: inline-flex; }
 
 
+/* ==== components/filter-select/filter-select.css ==== */
+/*
+ * ============================================================
+ * FILTER SELECT COMPONENT
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60055-15049
+ *
+ * A select-style filter. The trigger looks like a Text Input field with a label
+ * and chevron; it opens a dropdown of options — each a checkbox paired with a
+ * Status-label badge. Ticking options adds them to the trigger inline as
+ * removable chips (and vice-versa). Reverts to its placeholder look when empty.
+ *
+ * Structure:
+ *   .filter-select                – wrapper (positions the dropdown)
+ *     .filter-select__trigger     – the field (label + chips + chevron)
+ *     .filter-select__dropdown    – the option menu
+ *       .filter-select__option    – a .checkbox row + a .status-label badge
+ *
+ * Reuses Text Input (field look), Checkbox and Status label.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../checkbox/checkbox.css">
+ *   <link rel="stylesheet" href="../status-label/status-label.css">
+ *   <link rel="stylesheet" href="filter-select.css">
+ *   <script src="filter-select.js" defer></script>
+ * ============================================================
+ */
+
+
+
+.filter-select {
+  position:    relative;
+  display:     block;
+  width:       100%;
+  min-width:   240px;
+  font-family: 'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   TRIGGER — a field dressed like a Text Input
+   ------------------------------------------------------------ */
+
+.filter-select__trigger {
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+  gap:              var(--spacer-8);
+  width:            100%;
+  min-height:       48px;
+  padding:          var(--spacer-8) var(--gap-medium);     /* 8px 16px */
+  box-sizing:       border-box;
+
+  background-color: var(--background-primary);
+  border:           var(--border-m) solid var(--border-secondary);   /* 2px #d4d3d5 */
+  border-radius:    var(--radius-small);                   /* 8px */
+
+  font-size:        var(--font-size-body-2);               /* 16 / 24 */
+  line-height:      var(--line-height-body-2);
+  color:            var(--text-primary);
+  text-align:       left;
+  cursor:           pointer;
+  transition:       border-color 150ms ease, box-shadow 150ms ease;
+}
+.filter-select__trigger:hover { border-color: var(--border-active); }
+/* Focus — aqua border + ring on ANY focus (like the DS Text Input), not only
+   keyboard :focus-visible: this trigger is opened by mouse, so a keyboard-only
+   ring never showed. --focused forces the look for showcases/demos. */
+.filter-select__trigger:focus,
+.filter-select__trigger--focused {
+  outline:      none;
+  border-color: var(--border-active);
+  box-shadow:   var(--shadow-focus);
+}
+.filter-select--disabled .filter-select__trigger {
+  cursor:           not-allowed;
+  background-color: var(--surface-secondary);
+  color:            var(--text-disabled);
+}
+
+
+/* Value — label + chips */
+.filter-select__value {
+  display:     flex;
+  flex:        1 1 auto;
+  min-width:   0;
+  align-items: center;
+  gap:         var(--spacer-8);
+  flex-wrap:   wrap;
+}
+.filter-select__chips { display: contents; }
+.filter-select__label { color: var(--text-disabled); }
+.filter-select--filtered .filter-select__label { color: var(--text-primary); }
+
+
+/* Chip — a Status label with a remove control */
+.filter-select__chip {
+  gap:           var(--spacer-4);
+  padding-right: var(--spacer-4);
+}
+.filter-select__chip-remove {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           16px;
+  height:          16px;
+  padding:         0;
+  border:          none;
+  background:      none;
+  cursor:          pointer;
+  color:           inherit;
+  flex:            0 0 auto;
+}
+.filter-select__chip-remove svg { display: block; width: 16px; height: 16px; }
+
+
+/* Chevron */
+.filter-select__chevron {
+  display:    inline-flex;
+  flex:       0 0 auto;
+  width:      16px;
+  height:     16px;
+  color:      var(--icon-glyph-primary);
+  transition: transform 150ms ease;
+}
+.filter-select__chevron svg { display: block; width: 100%; height: 100%; }
+.filter-select[data-open="true"] .filter-select__chevron { transform: rotate(180deg); }
+
+
+/* ------------------------------------------------------------
+   DROPDOWN — the option menu
+   ------------------------------------------------------------ */
+
+.filter-select__dropdown {
+  position:       absolute;
+  top:            calc(100% + var(--spacer-4));
+  left:           0;
+  right:          0;
+  z-index:        50;
+  display:        none;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  max-height:     288px;
+  overflow-y:     auto;
+  box-sizing:     border-box;
+  padding:        var(--spacer-8);
+  background:     var(--surface-primary);
+  border:         var(--border-s) solid var(--border-primary);
+  border-radius:  var(--radius-medium);         /* 16px */
+  box-shadow:     var(--shadow-dropdown);
+}
+.filter-select[data-open="true"] .filter-select__dropdown { display: flex; }
+
+/* Option — a checkbox row + a status badge */
+.filter-select__option {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-12);
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       var(--spacer-8) var(--spacer-12);
+  border-radius: var(--radius-small);
+  cursor:        pointer;
+}
+.filter-select__option:hover { background: var(--surface-secondary); }
+
+
 /* ==== components/footer-sales/footer-sales.css ==== */
 /*
  * ============================================================
@@ -4707,6 +5175,156 @@ body { font-family: var(--font-family-base); }
 
 @media (prefers-reduced-motion: reduce) {
   .global-alert .alert { transition: none; }
+}
+
+
+/* ==== components/header-controls/header-controls.css ==== */
+/*
+ * ============================================================
+ * HEADER CONTROLS  (page-header region)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59979-9819
+ *
+ * The controls that sit at the top of an internal-tool page, in three stacked rows:
+ *   1. Header bar   — a global search field and a notifications button (a FAB
+ *                     Button with an unread dot). Ruled off below.
+ *   2. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
+ *                     primary/secondary action buttons on the right.
+ *   3. Control set  — the Tabs control (.control-set--tabs) for switching views.
+ *
+ * Composes Text Input (search), Button and Control Set. The breadcrumb and the
+ * notifications dot are small enough to live here rather than as own components.
+ *
+ * Usage — link these alongside header-controls.css:
+ *   tokens.css · input.css · search.css · button.css ·
+ *   control-set.css · tab/tab.css · tab-bar.css
+ *   <script src="../tab-bar/tab-bar.js" defer></script>   // tab switching
+ * ============================================================
+ */
+
+.header-controls {
+  width:       100%;
+  box-sizing:  border-box;
+  background:  var(--surface-primary);
+  font-family: 'Modern Era', sans-serif;
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ROW 1 — HEADER BAR  (search · notifications · profile)
+   ------------------------------------------------------------ */
+
+.header-controls__bar {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  padding:       var(--spacer-8) var(--spacer-16);
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+
+/* Global search — the DS Text Input, sized to the header's 40px row. */
+.header-controls__search {
+  flex:      0 1 343px;                       /* holds ~343, shrinks on narrow rows */
+  max-width: 343px;
+  height:    40px;
+  padding:   0 var(--gap-medium);            /* fixed height + centred content */
+}
+
+.header-controls__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  margin-left: auto;
+}
+
+/* Notifications — a FAB Button (.btn--fab) wrapped so a red unread dot can sit on
+   its corner. The wrapper only positions the dot; the button carries the look. */
+.header-controls__notify {
+  position:    relative;
+  display:     inline-flex;
+  flex:        0 0 auto;
+}
+.header-controls__notify[data-unread="true"]::after {
+  content:       '';
+  position:      absolute;
+  top:           2px;
+  right:         2px;
+  width:         6px;
+  height:        6px;
+  border-radius: var(--radius-round);
+  background:    var(--icon-glyph-error-medium, #d00909);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   ROW 2 — TITLE BAR  (back · title · breadcrumb · actions)
+   ------------------------------------------------------------ */
+
+.header-controls__title-bar {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  padding:     var(--spacer-12) var(--spacer-16);
+}
+.header-controls__title-left {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  min-width:   0;
+}
+.header-controls__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);       /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  white-space: nowrap;
+}
+.header-controls__title-actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-12);
+  margin-left: auto;
+}
+
+/* Breadcrumb — grey trail, items separated by a dot. */
+.header-controls__breadcrumb {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  min-width:   0;
+  font-size:   var(--font-size-body-3, 14px);
+  line-height: var(--line-height-body-3, 20px);
+  color:       var(--text-disabled);
+}
+.header-controls__crumb {
+  color:           inherit;
+  text-decoration: none;
+  white-space:     nowrap;
+}
+a.header-controls__crumb:hover { color: var(--text-primary); }
+.header-controls__crumb + .header-controls__crumb::before {
+  content:      '\00B7';                           /* middle dot */
+  margin-right: var(--spacer-8);
+  color:        var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   ROW 3 — the Tabs control keeps its own styling; here it just
+   picks up the page padding so it lines up with the rows above.
+   ------------------------------------------------------------ */
+
+.header-controls .control-set--tabs { padding: 0 var(--spacer-16); }
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — collapse the search and stack the title actions
+   ------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .header-controls__search { max-width: none; }
+  .header-controls__breadcrumb { display: none; }
 }
 
 
@@ -6056,8 +6674,13 @@ body { font-family: var(--font-family-base); }
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3781
  *
- * A single 48×48 cell holding one number — a verification-code / OTP cell.
- * Compose several in a row to build a code input.
+ * A single cell holding one number — a verification-code / OTP cell, or a day
+ * in the Set date picker. Compose several in a row to build a code input.
+ *
+ * Sizes (Figma "Size"):
+ *   Medium (default) — 48×48, Subtitle 2 (16px)
+ *   Small  .number-item--small — 32×32, Subtitle 3 (14px). Same 8px radius and
+ *          2px border as Medium, for tighter rows.
  *
  * States:
  *   default (borderless) | inactive | hover | focused | active | error
@@ -6069,7 +6692,7 @@ body { font-family: var(--font-family-base); }
  *
  *   <span class="number-item">0</span>
  *   <span class="number-item number-item--active">4</span>
- *   <span class="number-item number-item--error">9</span>
+ *   <span class="number-item number-item--small number-item--error">9</span>
  * ============================================================
  */
 
@@ -6094,6 +6717,20 @@ body { font-family: var(--font-family-base); }
   line-height:      var(--line-height-subtitle-2);        /* 24px */
 
   transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   SIZE — Small
+   A 32px cell with Subtitle 3 (14px). Radius and border are unchanged from
+   Medium, so only the box and the type step down.
+   ------------------------------------------------------------ */
+
+.number-item--small {
+  width:       32px;
+  height:      32px;
+  font-size:   var(--font-size-subtitle-3);               /* 14px */
+  line-height: var(--line-height-subtitle-3);             /* 20px */
 }
 
 
@@ -8125,6 +8762,235 @@ body { font-family: var(--font-family-base); }
 .segment--fill .segment__item { flex: 1 1 0; min-width: 0; }
 
 
+/* ==== components/side-nav/side-nav.css ==== */
+/*
+ * ============================================================
+ * SIDE NAVIGATION  (Console left sidebar)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59916-795961
+ *
+ * The primary navigation panel for Console: a fixed left sidebar with
+ * top-level items, expandable section groups (Agents, Internal Tools) and a
+ * Settings item pinned to the bottom. Two states:
+ *   Expanded (default) — full labelled navigation
+ *   Collapsed (.side-nav--collapsed) — compact icon-only rail
+ *
+ * The active item is highlighted with a filled (aqua) background. Groups use
+ * native <details> so they expand/collapse without JS; side-nav.js drives the
+ * Expanded ⇄ Collapsed toggle.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="side-nav.css">
+ *   <script src="side-nav.js" defer></script>
+ * ============================================================
+ */
+
+.side-nav {
+  display:        flex;
+  flex-direction: column;
+  width:          240px;
+  height:         100%;
+  box-sizing:     border-box;
+  background:     var(--background-primary);
+  border-right:   var(--border-s) solid var(--border-primary);
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — brand + collapse toggle
+   ------------------------------------------------------------ */
+
+.side-nav__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-16) var(--spacer-24);
+  border-bottom:   var(--border-s) solid var(--border-primary);
+}
+.side-nav__brand {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  min-width:   0;
+}
+.side-nav__brand-logo {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  color:       var(--brand-3-high);           /* Zego navy */
+}
+.side-nav__brand-logo svg { display: block; width: 100%; height: 100%; }
+.side-nav__brand-name {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);   /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+  white-space: nowrap;
+}
+
+.side-nav__toggle {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           24px;
+  height:          24px;
+  padding:         0;
+  border:          none;
+  background:      none;
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+/* chevron-right glyph: point it left (collapse) when expanded, right when collapsed */
+.side-nav__toggle svg { display: block; width: 16px; height: 16px; transform: rotate(180deg); transition: transform 150ms ease; }
+.side-nav--collapsed .side-nav__toggle svg { transform: rotate(0deg); }
+
+
+/* ------------------------------------------------------------
+   BODY — scrollable navigation
+   ------------------------------------------------------------ */
+
+.side-nav__body {
+  flex:       1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding:    var(--spacer-12) var(--spacer-8) var(--spacer-8);
+}
+.side-nav__list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+
+
+/* ------------------------------------------------------------
+   ITEM
+   ------------------------------------------------------------ */
+
+.side-nav__item {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-12) var(--spacer-16);
+  border-radius:   var(--radius-medium);      /* 16px */
+  background:      transparent;
+  color:           var(--text-primary);
+  text-decoration: none;
+  cursor:          pointer;
+  border:          none;
+  width:           100%;
+  box-sizing:      border-box;
+  font-family:     inherit;
+}
+.side-nav__item:hover { background: var(--surface-secondary); }
+.side-nav__item--active,
+.side-nav__item--active:hover { background: var(--surface-focus); }   /* aqua tint */
+
+.side-nav__icon {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+}
+.side-nav__icon svg { display: block; width: 100%; height: 100%; }
+
+.side-nav__label {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);       /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ------------------------------------------------------------
+   GROUP — expandable section (native <details>)
+   ------------------------------------------------------------ */
+
+.side-nav__group { width: 100%; }
+.side-nav__group-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  padding:         var(--spacer-12) var(--spacer-16);
+  border-radius:   var(--radius-medium);
+  cursor:          pointer;
+  list-style:      none;
+  user-select:     none;
+}
+.side-nav__group-header::-webkit-details-marker { display: none; }
+.side-nav__group-header:hover { background: var(--surface-secondary); }
+.side-nav__group-title {
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-body-2);
+  line-height:    var(--line-height-body-2);
+  color:          var(--text-pressed);        /* muted grey heading */
+  text-transform: uppercase;
+  white-space:    nowrap;
+}
+.side-nav__group-chevron {
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+  transition:  transform 150ms ease;
+}
+.side-nav__group-chevron svg { display: block; width: 100%; height: 100%; }
+.side-nav__group[open] .side-nav__group-chevron { transform: rotate(180deg); }
+
+.side-nav__sublist {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin-top:     var(--spacer-4);
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER — pinned Settings, divider above
+   ------------------------------------------------------------ */
+
+.side-nav__footer {
+  border-top: var(--border-s) solid var(--border-primary);
+  padding:    var(--spacer-12) var(--spacer-8);
+}
+
+
+/* ------------------------------------------------------------
+   COLLAPSED — icon-only rail
+   ------------------------------------------------------------ */
+
+.side-nav--collapsed { width: 64px; }
+.side-nav--collapsed .side-nav__header { justify-content: center; padding-inline: 0; }
+.side-nav--collapsed .side-nav__brand,
+.side-nav--collapsed .side-nav__label,
+.side-nav--collapsed .side-nav__group-title,
+.side-nav--collapsed .side-nav__group-chevron { display: none; }
+
+/* Items become centred icon squares */
+.side-nav--collapsed .side-nav__item,
+.side-nav--collapsed .side-nav__group-header { justify-content: center; gap: 0; padding-inline: 0; }
+
+/* A collapsed group shows its icons straight through, with a divider on top */
+.side-nav--collapsed .side-nav__group-header { display: none; }
+.side-nav--collapsed .side-nav__sublist { margin-top: 0; }
+.side-nav--collapsed .side-nav__group + .side-nav__group,
+.side-nav--collapsed .side-nav__group {
+  border-top: var(--border-s) solid var(--border-primary);
+  padding-top: var(--spacer-4);
+  margin-top: var(--spacer-4);
+}
+
+
 /* ==== components/spinner/spinner.css ==== */
 /*
  * ============================================================
@@ -8227,6 +9093,8 @@ body { font-family: var(--font-family-base); }
  * Variants:
  *   State — brand | information | success | warning | error | inactive | disabled
  *   Style — pill (default) | rounded (.status-label--rounded)
+ *   Icons — an optional leading and/or trailing 8px glyph (.status-label__icon),
+ *           defaulting to a status dot that inherits the label colour.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -8234,6 +9102,12 @@ body { font-family: var(--font-family-base); }
  *
  *   <span class="status-label status-label--information">Information</span>
  *   <span class="status-label status-label--success status-label--rounded">Success</span>
+ *
+ *   <!-- With a leading status dot -->
+ *   <span class="status-label status-label--success">
+ *     <span class="status-label__icon"><svg viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg></span>
+ *     Active
+ *   </span>
  * ============================================================
  */
 
@@ -8246,8 +9120,9 @@ body { font-family: var(--font-family-base); }
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
+  gap:             var(--gap-x-small);     /* 8px — between an icon and the text */
   height:          24px;
-  padding:         0 var(--gap-x-small);   /* 8px horizontal */
+  padding:         var(--spacer-4) var(--gap-x-small);   /* 4px 8px */
   box-sizing:      border-box;
 
   border:          var(--border-s) solid transparent;
@@ -8259,6 +9134,21 @@ body { font-family: var(--font-family-base); }
   line-height:     1;
   white-space:     nowrap;
 }
+
+
+/* ------------------------------------------------------------
+   ICON — optional leading / trailing 8px glyph
+   Sits before or after the text. Defaults to a status dot that
+   inherits the label's colour (currentColor); swap in any glyph.
+   ------------------------------------------------------------ */
+
+.status-label__icon {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   8px;
+  height:  8px;
+}
+.status-label__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------
@@ -8700,6 +9590,190 @@ body { font-family: var(--font-family-base); }
   border-bottom-color: transparent;
   cursor:              not-allowed;
 }
+
+
+/* ==== components/table-item/table-item.css ==== */
+/*
+ * ============================================================
+ * TABLE ITEM  (a single table cell)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=871-86400
+ *
+ * One cell of a data table. A cell is a flex row that vertically centres its
+ * content and comes in two heights:
+ *   Large (default) — 56px row, 16px text
+ *   Small  .table-item--small — 40px row, 14px text
+ *
+ * TYPE (Figma "Type") — the content the cell holds:
+ *   Title    .table-item--title   — bold text (a row heading / first column)
+ *   Text     .table-item--text    — regular body text
+ *   Action   .table-item--action  — a link (Text/Link colour, bold)
+ *   Tick     a success badge  (.table-item__badge--tick)
+ *   Cross    a neutral badge  (.table-item__badge--cross)
+ *   Checkbox · Toggle · Button · Label · Icon — the cell simply holds the DS
+ *            Checkbox, Toggle, Button, Status Label or an icon.
+ *
+ * Composes Checkbox, Toggle, Button and Status Label — link their CSS alongside
+ * this file. Icons come from /icons (tick, cross, edit).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="table-item.css">
+ *   <div class="table-item table-item--title">Title</div>
+ *   <div class="table-item table-item--tick"><span class="table-item__badge table-item__badge--tick">…</span></div>
+ * ============================================================
+ */
+
+.table-item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  min-height:  56px;                               /* Large */
+  padding:     0 var(--spacer-16);
+  box-sizing:  border-box;
+  background:  var(--surface-primary);
+
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);            /* 16 */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+/* Size — Small (40px row, 14px text) */
+.table-item--small {
+  min-height:  40px;
+  font-size:   var(--font-size-body-3);            /* 14 */
+  line-height: var(--line-height-body-3);
+}
+
+
+/* ------------------------------------------------------------
+   TEXT TYPES — Title / Text / Action
+   ------------------------------------------------------------ */
+
+.table-item--title { font-weight: var(--font-weight-bold); }
+.table-item--text  { font-weight: var(--font-weight-regular); }
+
+/* Action — a link cell. Text/Link colour, bold; underlines on hover. */
+.table-item--action,
+.table-item__link {
+  color:           var(--text-link);               /* #4b059f */
+  font-weight:     var(--font-weight-bold);
+  text-decoration: none;
+  cursor:          pointer;
+}
+.table-item__link:hover { text-decoration: underline; }
+
+
+/* ------------------------------------------------------------
+   BADGES — Tick (success) / Cross (neutral)
+   A filled disc holding a glyph. Tick is success-green with a white glyph;
+   Cross is a translucent-dark (grey) disc with a dark glyph.
+   ------------------------------------------------------------ */
+
+.table-item__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           24px;
+  height:          24px;
+  border-radius:   var(--radius-round);
+}
+.table-item--small .table-item__badge { width: 20px; height: 20px; }
+.table-item__badge svg { display: block; width: 62%; height: 62%; }
+
+.table-item__badge--tick {
+  background: var(--icon-glyph-success-medium);    /* #05b14c */
+  color:      var(--colour-white, #fff);
+}
+.table-item__badge--cross {
+  background: var(--overlay-dark-medium);          /* translucent dark → grey */
+  color:      var(--icon-glyph-primary);           /* #27252d */
+}
+
+
+/* ------------------------------------------------------------
+   ICON TYPE
+   ------------------------------------------------------------ */
+
+.table-item__icon {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.table-item--small .table-item__icon { width: 20px; height: 20px; }
+.table-item__icon svg { display: block; width: 100%; height: 100%; }
+
+
+/* Control types (Checkbox / Toggle / Button / Label) keep their own styling;
+   the cell only centres them, so nothing extra is needed here. */
+
+
+/* ==== components/table-row/table-row.css ==== */
+/*
+ * ============================================================
+ * TABLE ROW  (a row of Table Items)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=871-86863
+ *
+ * One row of a data table: a horizontal strip of Table Item cells — usually a
+ * leading select checkbox, then content columns (Title / Text / Action) and
+ * trailing controls (Toggle / Tick / Cross / Icon).
+ *
+ * Background (Figma "Background") — for zebra striping:
+ *   White (default)          — surface/primary
+ *   Grey  .table-row--grey   — surface/secondary (#f5f5f5)
+ *
+ * Columns (Figma "Columns", 2–8) is just how many cells you place in the row.
+ * Content cells share the width equally; add .table-item--fit to a cell (the
+ * checkbox and the trailing controls) to shrink it to its content instead.
+ *
+ * Breakpoint (Figma "Desktop" / "Mobile") is the row's own width — it lays out
+ * the same way in a wide table or a narrow one; a mobile table simply uses fewer
+ * columns.
+ *
+ * Composes Table Item (and, through it, Checkbox / Toggle / Button / Status
+ * Label). Link those CSS files alongside this one.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../checkbox/checkbox.css"> … toggle, button, status-label
+ *   <link rel="stylesheet" href="table-row.css">
+ * ============================================================
+ */
+
+
+.table-row {
+  display:       flex;
+  align-items:   stretch;
+  width:         100%;
+  box-sizing:    border-box;
+  background:    var(--surface-primary);           /* White */
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+
+/* Grey — the alternate (zebra) background */
+.table-row--grey { background: var(--surface-secondary); }   /* #f5f5f5 */
+
+
+/* ------------------------------------------------------------
+   CELLS
+   Content cells share the row width equally; .table-item--fit cells (the leading
+   checkbox and trailing controls) shrink to their content. The cells inherit the
+   row's background so a grey row stays grey through and through.
+   ------------------------------------------------------------ */
+
+.table-row > .table-item {
+  flex:       1 1 0;
+  min-width:  0;
+  background: transparent;
+}
+.table-row > .table-item--fit    { flex: 0 0 auto; }
+.table-row > .table-item--center { justify-content: center; }
 
 
 /* ==== components/text-icon-item/text-icon-item.css ==== */

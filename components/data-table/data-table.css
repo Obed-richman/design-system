@@ -1,0 +1,98 @@
+/*
+ * ============================================================
+ * DATA TABLE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60438-9302
+ *
+ * The whole data table, assembled from the smaller pieces:
+ *   • a Control Set toolbar (search · date range · Filter Select · Clear all)
+ *   • a grey header Table Row whose Title cells can carry a sort control
+ *   • a body of Table Rows (Table Items)
+ *   • a footer — a summary line on the left, a "Load more" Button on the right
+ *
+ * Composes Control Set, Table Row, Table Item and Button. Link their CSS (and
+ * everything Control Set needs — input, search, filter-select, date-picker, tab,
+ * tab-bar — plus checkbox, toggle, status-label for the rows) alongside this
+ * file, and the Control Set / Filter Select / Date Picker scripts to make the
+ * toolbar interactive.
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../control-set/control-set.css';
+@import '../table-row/table-row.css';
+
+
+.data-table {
+  width:         100%;
+  box-sizing:    border-box;
+  border:        var(--border-s) solid var(--border-primary);
+  border-radius: var(--radius-medium);             /* 16px */
+  overflow:      hidden;
+  background:    var(--surface-primary);
+  font-family:   'Modern Era', sans-serif;
+}
+
+
+/* ------------------------------------------------------------
+   TOOLBAR — a Control Set, re-seated for the table header (no top rule,
+   its own padding, and it never wraps its tabs here).
+   ------------------------------------------------------------ */
+
+.data-table__toolbar.control-set {
+  border-top: none;
+  padding:    var(--spacer-12) var(--spacer-16);
+  gap:        var(--spacer-12);
+}
+
+
+/* ------------------------------------------------------------
+   TABLE — header + body rows
+   ------------------------------------------------------------ */
+
+.data-table__head.table-row { border-top: var(--border-s) solid var(--border-primary); }
+
+/* Sortable header cell — Title text plus a small up/down control. */
+.data-table__sort {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacer-4);
+  cursor:      pointer;
+}
+.data-table__sort-icon {
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  flex:        0 0 auto;
+  color:       var(--icon-glyph-primary);
+}
+.data-table__sort-icon svg { display: block; width: 100%; height: 100%; }
+
+
+/* ------------------------------------------------------------
+   FOOTER — summary text + Load more
+   ------------------------------------------------------------ */
+
+.data-table__footer {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-16);
+  border-top:      var(--border-s) solid var(--border-primary);
+}
+.data-table__summary {
+  font-size:   var(--font-size-body-3);            /* 14 */
+  line-height: var(--line-height-body-3);
+  color:       var(--colour-grey-60);
+}
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — let the toolbar wrap on narrow viewports (Control Set
+   already handles its own wrapping); stack the footer.
+   ------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .data-table__footer { flex-direction: column; align-items: stretch; }
+}

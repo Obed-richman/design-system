@@ -14,8 +14,18 @@
  *                                   For a question that only accepts a window —
  *                                   "cover must start within 30 days".
  *
- * Weeks start on Monday. Selecting a day updates data-selected and re-renders.
- * Self-init via event delegation:  <script src="date-picker.js" defer></script>
+ * SELECTION MODE — data-mode (Figma "Selection"):
+ *   "single" (default) — one day. Click sets data-selected.
+ *   "range"            — a start and an end day, with every day between them
+ *                        highlighted as a band. The FIRST click sets the start
+ *                        (data-range-start) and clears any end; the SECOND sets
+ *                        the end (data-range-end), ordering the pair so start ≤
+ *                        end however they were clicked. A click once both are set
+ *                        begins a fresh range. Used by the Control Set date field.
+ *
+ * Weeks start on Monday. Selecting a day updates the relevant attribute and
+ * re-renders. Self-init via event delegation:
+ *   <script src="date-picker.js" defer></script>
  * ============================================================
  */
 (function () {
@@ -61,12 +71,23 @@
       cells += '<span class="date-picker__day date-picker__day--empty" aria-hidden="true"></span>';
     }
     var b = bounds(dp);
+    var range = dp.getAttribute('data-mode') === 'range';
+    var rs = range ? ord(dp.getAttribute('data-range-start')) : null;
+    var re = range ? ord(dp.getAttribute('data-range-end')) : null;
     for (var d = 1; d <= daysInMonth; d++) {
       var k = key(year, month, d);
       var cls = 'date-picker__day';
-      if (k === selected) cls += ' date-picker__day--selected';
+      var isEndpoint = false;
+      if (range) {
+        var v = ord(k);
+        if (rs !== null && v === rs) { cls += ' date-picker__day--range-start'; isEndpoint = true; }
+        else if (re !== null && v === re) { cls += ' date-picker__day--range-end'; isEndpoint = true; }
+        else if (rs !== null && re !== null && v > rs && v < re) { cls += ' date-picker__day--in-range'; }
+      } else if (k === selected) {
+        cls += ' date-picker__day--selected'; isEndpoint = true;
+      }
       if (k === today) cls += ' date-picker__day--today';
-      var pressed = k === selected ? ' aria-pressed="true"' : '';
+      var pressed = isEndpoint ? ' aria-pressed="true"' : '';
       /* Out of bounds days are shown and disabled rather than hidden: the shape
          of the month stays readable, and it is clear the day exists but can't be
          chosen. */
@@ -100,14 +121,48 @@
     var next = event.target.closest('.date-picker__next');
     if (next) { shiftMonth(next.closest('.date-picker'), 1); return; }
 
+    /* Clear — wipe the current selection (single day or range) and re-render.
+       In a consumer like the Control Set the same click also clears the field. */
+    var clear = event.target.closest('.date-picker__clear');
+    if (clear) {
+      var dpc = clear.closest('.date-picker');
+      if (dpc) {
+        dpc.removeAttribute('data-selected');
+        dpc.removeAttribute('data-range-start');
+        dpc.removeAttribute('data-range-end');
+        render(dpc);
+      }
+      return;
+    }
+
     var day = event.target.closest('.date-picker__day[data-day]');
     if (day) {
       var dp = day.closest('.date-picker');
-      dp.setAttribute('data-selected', key(
+      var clicked = key(
         parseInt(dp.getAttribute('data-year'), 10),
         parseInt(dp.getAttribute('data-month'), 10),
         parseInt(day.getAttribute('data-day'), 10)
-      ));
+      );
+
+      if (dp.getAttribute('data-mode') === 'range') {
+        var start = dp.getAttribute('data-range-start');
+        var end = dp.getAttribute('data-range-end');
+        if (!start || end) {
+          /* No range yet, or a complete one — start a fresh range. */
+          dp.setAttribute('data-range-start', clicked);
+          dp.removeAttribute('data-range-end');
+        } else if (ord(clicked) < ord(start)) {
+          /* Second click lands before the start — swap so start ≤ end. */
+          dp.setAttribute('data-range-start', clicked);
+          dp.setAttribute('data-range-end', start);
+        } else {
+          dp.setAttribute('data-range-end', clicked);
+        }
+        render(dp);
+        return;
+      }
+
+      dp.setAttribute('data-selected', clicked);
       render(dp);
       return;
     }
@@ -132,7 +187,8 @@
       rendering = false;
     }).observe(dp, { attributes: true,
       attributeFilter: ['data-year', 'data-month', 'data-selected', 'data-today',
-                        'data-min', 'data-max'] });
+                        'data-min', 'data-max', 'data-mode',
+                        'data-range-start', 'data-range-end'] });
   }
 
   function initAll() {

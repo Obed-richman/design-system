@@ -68,6 +68,13 @@
   <link rel="stylesheet" href="components/bottom-nav/bottom-nav.css">
   <link rel="stylesheet" href="components/mobile-nav/mobile-nav.css">
   <link rel="stylesheet" href="components/tooltip/tooltip.css">
+  <link rel="stylesheet" href="components/side-nav/side-nav.css">
+  <link rel="stylesheet" href="components/filter-select/filter-select.css">
+  <link rel="stylesheet" href="components/control-set/control-set.css">
+  <link rel="stylesheet" href="components/header-controls/header-controls.css">
+  <link rel="stylesheet" href="components/table-item/table-item.css">
+  <link rel="stylesheet" href="components/table-row/table-row.css">
+  <link rel="stylesheet" href="components/data-table/data-table.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
 
@@ -189,6 +196,13 @@
     .card__preview .bottom-nav,
     .card__preview .mobile-nav,
     .card__preview .tooltip,
+    .card__preview .side-nav,
+    .card__preview .filter-select,
+    .card__preview .control-set,
+    .card__preview .header-controls,
+    .card__preview .table-item,
+    .card__preview .table-row,
+    .card__preview .data-table,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -1412,6 +1426,97 @@
         page: "components/tooltip/tooltip.html",
         preview: `
           <div class="tooltip tooltip--down" style="max-width:240px"><p class="tooltip__text">Drive well and keep your discount for next year.</p></div>
+        `
+      },
+      {
+        name: "Side Navigation",
+        description: "Console left sidebar with expandable groups, an active item and a pinned Settings footer; expanded & collapsed states.",
+        page: "components/side-nav/side-nav.html",
+        preview: `
+          <nav class="side-nav" style="width:220px;height:auto"><div class="side-nav__header"><span class="side-nav__brand"><span class="side-nav__brand-logo"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M25.7695 8.7179H6.03995C5.47542 8.7179 5.0297 8.2869 5.0297 7.74097V3.97692C5.0297 3.431 5.47542 3 6.03995 3H25.7695C26.3341 3 26.7798 3.431 26.7798 3.97692V7.74097C26.7798 8.2869 26.3043 8.7179 25.7695 8.7179ZM12.9631 23.4868L19.9753 15.9873C20.3319 15.614 20.3319 15.0104 19.9458 14.6369L17.1824 11.9647C16.7664 11.5625 16.1127 11.5912 15.7264 11.9935L5.26741 23.1993C5.08914 23.3719 5 23.6016 5 23.8604V28.2278C5 28.7737 5.44569 29.2047 6.01025 29.2047H25.7397C26.3043 29.2047 26.75 28.7737 26.75 28.2278V24.4637C26.75 23.9178 26.3043 23.4868 25.7397 23.4868H12.9631Z" fill="currentColor"/></svg></span><span class="side-nav__brand-name">Console</span></span><span class="side-nav__toggle"><span class="side-nav__toggle-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0727 12.6309L8.31543 22.2278C8.1293 22.4318 7.81305 22.4463 7.60907 22.2601L6.87038 21.5861C6.6664 21.4 6.65193 21.0837 6.83806 20.8797L15.011 11.9231L6.83806 2.96651C6.65193 2.76253 6.6664 2.44628 6.87038 2.26014L7.60907 1.58609C7.81305 1.39996 8.1293 1.41442 8.31543 1.61841L17.0727 11.2154C17.4385 11.6163 17.4385 12.2299 17.0727 12.6309Z" fill="currentColor"/></svg></span></span></div><div class="side-nav__body" style="overflow:hidden"><div class="side-nav__list"><span class="side-nav__item"><span class="side-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7544 1.46356C11.4834 0.883241 12.5166 0.88324 13.2456 1.46356L22.2456 8.62787C22.7223 9.00732 23 9.58336 23 10.1926V21.5002C23 22.3286 22.3284 23.0002 21.5 23.0002H16C15.1716 23.0002 14.5 22.3286 14.5 21.5002V16.0002H9.5V21.5002C9.5 22.3286 8.82843 23.0002 8 23.0002H2.5C1.67157 23.0002 1 22.3286 1 21.5002V10.1926C1 9.58336 1.27772 9.00732 1.7544 8.62787L10.7544 1.46356ZM21 10.1926L12 3.02832L3 10.1926L3 21.0002H7.5V15.5002C7.5 14.6717 8.17157 14.0002 9 14.0002H15C15.8284 14.0002 16.5 14.6717 16.5 15.5002V21.0002H21V10.1926Z" fill="currentColor"/></svg></span><span class="side-nav__label">Home</span></span><span class="side-nav__item side-nav__item--active"><span class="side-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 5.5C7.5 3.01472 9.51472 1 12 1C14.4853 1 16.5 3.01472 16.5 5.5C16.5 7.98528 14.4853 10 12 10C9.51472 10 7.5 7.98528 7.5 5.5ZM12 3C10.6193 3 9.5 4.11929 9.5 5.5C9.5 6.88071 10.6193 8 12 8C13.3807 8 14.5 6.88071 14.5 5.5C14.5 4.11929 13.3807 3 12 3Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M4 13C4 11.8954 4.89543 11 6 11H18C19.1046 11 20 11.8954 20 13V15C20 19.4183 16.4183 23 12 23C7.58172 23 4 19.4183 4 15V13ZM18 13H6V15C6 18.3137 8.68629 21 12 21C15.3137 21 18 18.3137 18 15V13Z" fill="currentColor"/></svg></span><span class="side-nav__label">Customers</span></span><span class="side-nav__item"><span class="side-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 10.5C16 10.7761 15.7761 11 15.5 11H8.5C8.22386 11 8 10.7761 8 10.5V9.5C8 9.22386 8.22386 9 8.5 9H15.5C15.7761 9 16 9.22386 16 9.5V10.5Z" fill="currentColor"/> <path d="M13.5 15C13.7761 15 14 14.7761 14 14.5V13.5C14 13.2239 13.7761 13 13.5 13H8.5C8.22386 13 8 13.2239 8 13.5V14.5C8 14.7761 8.22386 15 8.5 15H13.5Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M3 3C3 1.89543 3.89543 1 5 1H13.4737C14.2548 1 15.005 1.30458 15.565 1.84902L20.0912 6.24955C20.6722 6.81439 21 7.59023 21 8.40053V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21V3ZM13.4737 3L5 3V21L19 21V8.40053C19 8.13043 18.8907 7.87182 18.6971 7.68354L14.1708 3.28301C13.9842 3.10153 13.7341 3 13.4737 3Z" fill="currentColor"/></svg></span><span class="side-nav__label">Policies</span></span><span class="side-nav__item"><span class="side-nav__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10.2639 9.75C11.3529 9.75 12.3484 10.3654 12.8354 11.3394C12.9443 11.5572 12.856 11.822 12.6382 11.9309L11.8618 12.3191C11.644 12.428 11.3792 12.3397 11.2703 12.1218C11.0797 11.7407 10.69 11.5 10.2639 11.5H10.125C9.50368 11.5 9 12.0037 9 12.625V13.625H10.25C10.5261 13.625 10.75 13.8489 10.75 14.125V14.875C10.75 15.1511 10.5261 15.375 10.25 15.375H9V16.625H12.25C12.5261 16.625 12.75 16.8489 12.75 17.125V17.875C12.75 18.1511 12.5261 18.375 12.25 18.375H7.75C7.47386 18.375 7.25 18.1511 7.25 17.875V12.625C7.25 11.0372 8.53718 9.75 10.125 9.75H10.2639Z" fill="currentColor"/> <path fill-rule="evenodd" clip-rule="evenodd" d="M10 5C14.9706 5 19 9.02944 19 14C19 18.9706 14.9706 23 10 23C5.02944 23 1 18.9706 1 14C1 9.02944 5.02944 5 10 5ZM10 7C6.13401 7 3 10.134 3 14C3 17.866 6.13401 21 10 21C13.866 21 17 17.866 17 14C17 10.134 13.866 7 10 7Z" fill="currentColor"/> <path d="M20.5 1C20.7761 1 21 1.22386 21 1.5V3H22.5C22.7761 3 23 3.22386 23 3.5V4.5C23 4.77614 22.7761 5 22.5 5H21V6.5C21 6.77614 20.7761 7 20.5 7H19.5C19.2239 7 19 6.77614 19 6.5V5H17.5C17.2239 5 17 4.77614 17 4.5V3.5C17 3.22386 17.2239 3 17.5 3H19V1.5C19 1.22386 19.2239 1 19.5 1H20.5Z" fill="currentColor"/></svg></span><span class="side-nav__label">Quotes</span></span></div></div></nav>
+        `
+      },
+      {
+        name: "Filter Select",
+        description: "Filter a list from a dropdown of checkbox + status-badge options; picks show inline as removable chips.",
+        page: "components/filter-select/filter-select.html",
+        preview: `
+          <div class="filter-select filter-select--filtered" style="max-width:300px">
+            <div class="filter-select__trigger">
+              <span class="filter-select__value">
+                <span class="filter-select__label">Status</span>
+                <span class="status-label status-label--rounded status-label--success filter-select__chip">Active<span class="filter-select__chip-remove"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></span></span>
+                <span class="status-label status-label--rounded status-label--warning filter-select__chip">Pending<span class="filter-select__chip-remove"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></span></span>
+              </span>
+              <span class="filter-select__chevron"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg></span>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Control Set",
+        description: "Filter toolbar above a table or list — search, date range, status filter and clear, or a tab bar.",
+        page: "components/control-set/control-set.html",
+        preview: `
+          <div class="control-set" style="flex-wrap:wrap;gap:12px;border-top:none;padding:0"><div class="input-field control-set__search" style="flex:1 1 100%;min-width:0"><input class="input" type="search" placeholder="Search…"><span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span></div><div class="filter-select filter-select--filtered control-set__filter" style="flex:1 1 100%;min-width:0"><div class="filter-select__trigger"><span class="filter-select__value"><span class="filter-select__label">Status</span><span class="status-label status-label--rounded status-label--success filter-select__chip">Active<span class="filter-select__chip-remove"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></span></span><span class="status-label status-label--rounded status-label--warning filter-select__chip">Pending<span class="filter-select__chip-remove"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="currentColor" fill-opacity="0.2"/><path d="M19.6433 21.7856C19.9026 22.0519 20.3296 22.0547 20.5924 21.7919L21.5351 20.8492C21.793 20.5913 21.7958 20.174 21.5413 19.9127L17.7498 16.0186L21.6567 12.2147C21.923 11.9554 21.9258 11.5285 21.663 11.2657L20.7203 10.3229C20.4624 10.065 20.0451 10.0623 19.7838 10.3167L15.8897 14.1082L12.0861 10.2016C11.8268 9.9353 11.3998 9.93245 11.137 10.1953L10.1943 11.138C9.93638 11.3959 9.9336 11.8131 10.188 12.0745L13.9793 15.9683L10.0727 19.772C9.8064 20.0312 9.80355 20.4582 10.0664 20.721L11.0091 21.6638C11.267 21.9216 11.6842 21.9244 11.9456 21.67L15.8394 17.8787L19.6433 21.7856Z" fill="currentColor"/></svg></span></span></span><span class="filter-select__chevron"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg></span></div></div><button class="btn btn--secondary btn--rounded control-set__clear" style="flex:0 0 auto">Clear all</button></div>
+        `
+      },
+      {
+        name: "Header Controls",
+        description: "Page-header region — global search and notifications, then a title bar with Back, breadcrumb and actions, then the Tabs control.",
+        page: "components/header-controls/header-controls.html",
+        preview: `
+          <div class="header-controls" style="width:100%;border:1px solid var(--border-primary);border-radius:12px;overflow:hidden">
+            <div class="header-controls__bar" style="padding:8px 12px">
+              <div class="input-field header-controls__search" style="flex:1 1 auto;max-width:none"><input class="input" type="search" placeholder="Search across all sections"><span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span></div>
+              <div class="header-controls__actions"><span class="header-controls__notify" data-unread="true"><button class="btn btn--secondary btn--fab" type="button" aria-label="Notifications"><span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0131 4.02325C8.7017 4.02325 6.01306 6.71502 6.01306 10.0407C6.01306 10.1552 6.01624 10.2689 6.0225 10.3816L6.02988 10.5146L6.01306 10.5938V13.0712L5.18121 16H18.8851C18.8783 15.9746 18.8711 15.9482 18.8633 15.9209C18.7831 15.6371 18.6733 15.3207 18.5521 14.9792C18.539 14.9423 18.5257 14.9049 18.5123 14.8672C18.4069 14.5706 18.2945 14.2545 18.207 13.9678C18.1157 13.6684 18.0131 13.2841 18.0131 12.932V10.8572C18.0126 10.8535 18.0122 10.8502 18.0118 10.8473C18.0097 10.8295 18.0085 10.8149 18.0077 10.8058C18.0063 10.7878 18.0056 10.7726 18.0052 10.7639C18.0047 10.754 18.0044 10.7447 18.0042 10.7368C18.0034 10.7073 18.0029 10.6689 18.0026 10.6237C18.0023 10.5765 18.0021 10.5152 18.0021 10.4371V10.4093L18.0036 10.3816C18.0099 10.2689 18.0131 10.1552 18.0131 10.0407C18.0131 6.71502 15.3244 4.02325 12.0131 4.02325ZM20.0123 10.578C20.0123 10.5775 20.0123 10.5774 20.0123 10.578V10.578ZM20.0046 10.4125C20.0102 10.2892 20.0131 10.1653 20.0131 10.0407C20.0131 5.61516 16.4337 2.02325 12.0131 2.02325C7.59243 2.02325 4.01306 5.61516 4.01306 10.0407C4.01306 10.1582 4.01559 10.2751 4.02059 10.3914C4.0156 10.4411 4.01306 10.4914 4.01306 10.542V12.7927L3 16.3595V16.4987C3 17.3255 3.66922 18 4.5 18H19.4761C20.3069 18 20.9761 17.3255 20.9761 16.4987C20.9761 16.1201 20.8844 15.7182 20.788 15.3771C20.6876 15.0219 20.5567 14.6479 20.4371 14.3106C20.4237 14.2728 20.4104 14.2356 20.3974 14.1989C20.2891 13.8942 20.1932 13.6243 20.12 13.3843C20.0798 13.2523 20.0511 13.1443 20.0331 13.0584C20.014 12.9675 20.0131 12.9304 20.0131 12.932V10.542C20.0131 10.5397 20.0131 10.5319 20.0129 10.5222C20.0128 10.5184 20.0126 10.505 20.0117 10.4883C20.0114 10.4839 20.0108 10.474 20.0104 10.4684C20.0099 10.461 20.0083 10.4435 20.0073 10.4334C20.0067 10.4286 20.0058 10.4211 20.0046 10.4125ZM19.2836 9.77135C19.281 9.77046 19.2784 9.76959 19.2759 9.76877C19.2596 9.76503 19.2402 9.76149 19.2189 9.75823C19.2407 9.76226 19.2622 9.76664 19.2836 9.77135Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.988 21.5C14.988 21.7761 14.7642 22 14.488 22L9.48804 22C9.21189 22 8.98804 21.7761 8.98804 21.5L8.98804 20.5C8.98804 20.2239 9.21189 20 9.48804 20L14.488 20C14.7642 20 14.988 20.2239 14.988 20.5L14.988 21.5Z" fill="currentColor"/></svg></span></button></span></div>
+            </div>
+            <div class="header-controls__title-bar" style="padding:10px 12px">
+              <div class="header-controls__title-left"><button class="btn btn--secondary btn--small btn--rounded" type="button"><span class="btn__icon"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Back</button><span class="header-controls__title">Title</span></div>
+              <div class="header-controls__title-actions"><button class="btn btn--primary btn--small btn--rounded" type="button">Button</button></div>
+            </div>
+            <div class="control-set control-set--tabs"><div class="tabs" role="tablist" aria-label="Views"><button class="tab-item tab-item--active" role="tab" aria-selected="true">Item</button><button class="tab-item" role="tab" aria-selected="false">Item</button><button class="tab-item" role="tab" aria-selected="false">Item</button></div></div>
+          </div>
+        `
+      },
+      {
+        name: "Table Item",
+        description: "A single data-table cell — Title, Text, Action, Tick/Cross, Checkbox, Toggle, Button, Label or Icon — at Large (56px) or Small (40px).",
+        page: "components/table-item/table-item.html",
+        preview: `
+          <div style="width:100%;border:1px solid var(--border-primary);border-radius:12px;overflow:hidden">
+            <div class="table-item table-item--title" style="border-bottom:1px solid var(--border-primary)">Jane Cooper</div>
+            <div class="table-item table-item--action" style="border-bottom:1px solid var(--border-primary)"><a class="table-item__link" href="#">View details</a></div>
+            <div class="table-item table-item--tick" style="border-bottom:1px solid var(--border-primary)"><span class="table-item__badge table-item__badge--tick"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="table-item"><span class="status-label status-label--rounded status-label--information">Information</span></div>
+          </div>
+        `
+      },
+      {
+        name: "Table Row",
+        description: "A row of Table Item cells — leading select checkbox, content columns and trailing controls. White or Grey (zebra), 2–8 columns.",
+        page: "components/table-row/table-row.html",
+        preview: `
+          <div style="width:100%;border:1px solid var(--border-primary);border-radius:12px;overflow:hidden">
+            <div class="table-row"><div class="table-item table-item--fit"><label class="checkbox"><input class="checkbox__input" type="checkbox" checked><span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label></div><div class="table-item table-item--title">Jane Cooper</div><div class="table-item table-item--action"><a class="table-item__link" href="#">View</a></div><div class="table-item table-item--fit table-item--center"><span class="table-item__badge table-item__badge--tick"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="table-row table-row--grey"><div class="table-item table-item--fit"><label class="checkbox"><input class="checkbox__input" type="checkbox"><span class="checkbox__box"><svg class="checkbox__tick" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 12.5l3.8 3.8L18 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label></div><div class="table-item table-item--title">Cody Fisher</div><div class="table-item table-item--action"><a class="table-item__link" href="#">View</a></div><div class="table-item table-item--fit table-item--center"><span class="table-item__badge table-item__badge--cross"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></span></div></div>
+          </div>
+        `
+      },
+      {
+        name: "Data Table",
+        description: "The whole table — a Control Set toolbar, a sortable header row, body rows, and a footer with a summary and Load more.",
+        page: "components/data-table/data-table.html",
+        preview: `
+          <div class="data-table" style="width:100%">
+            <div class="control-set data-table__toolbar" style="gap:8px"><div class="input-field control-set__search" style="max-width:none"><input class="input" type="search" placeholder="Search"><span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span></div></div>
+            <div class="data-table__body">
+              <div class="table-row table-row--grey data-table__head"><div class="table-item table-item--title">Title</div><div class="table-item table-item--title">Title</div><div class="table-item table-item--title">Title</div></div>
+              <div class="table-row"><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div></div>
+              <div class="table-row"><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div><div class="table-item table-item--text">Text</div></div>
+            </div>
+            <div class="data-table__footer"><span class="data-table__summary">Showing 6 of 14</span><button class="btn btn--secondary btn--rounded" type="button">Load more</button></div>
+          </div>
         `
       }
     ];
