@@ -9,6 +9,8 @@
  * Variants:
  *   State — brand | information | success | warning | error | inactive | disabled
  *   Style — pill (default) | rounded (.status-label--rounded)
+ *   Icons — an optional leading and/or trailing 8px glyph (.status-label__icon),
+ *           defaulting to a status dot that inherits the label colour.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -16,6 +18,12 @@
  *
  *   <span class="status-label status-label--information">Information</span>
  *   <span class="status-label status-label--success status-label--rounded">Success</span>
+ *
+ *   <!-- With a leading status dot -->
+ *   <span class="status-label status-label--success">
+ *     <span class="status-label__icon"><svg viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg></span>
+ *     Active
+ *   </span>
  * ============================================================
  */
 
@@ -31,8 +39,9 @@
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
+  gap:             var(--gap-x-small);     /* 8px — between an icon and the text */
   height:          24px;
-  padding:         0 var(--gap-x-small);   /* 8px horizontal */
+  padding:         var(--spacer-4) var(--gap-x-small);   /* 4px 8px */
   box-sizing:      border-box;
 
   border:          var(--border-s) solid transparent;
@@ -44,6 +53,21 @@
   line-height:     1;
   white-space:     nowrap;
 }
+
+
+/* ------------------------------------------------------------
+   ICON — optional leading / trailing 8px glyph
+   Sits before or after the text. Defaults to a status dot that
+   inherits the label's colour (currentColor); swap in any glyph.
+   ------------------------------------------------------------ */
+
+.status-label__icon {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   8px;
+  height:  8px;
+}
+.status-label__icon svg { display: block; width: 100%; height: 100%; }
 
 
 /* ------------------------------------------------------------

@@ -6,6 +6,7 @@ import figma, { html } from "@figma/code-connect/html";
  *
  * A single verification-code cell. Hover / Focused / Active come from real
  * interaction in production; here they map to force-state modifier classes.
+ * Size = Medium (48px, default) or Small (32px).
  */
 
 figma.connect(
@@ -22,8 +23,12 @@ figma.connect(
         Disabled: "number-item--disabled",
         "Disabled (Active)": "number-item--disabled-active",
       }),
+      size: figma.enum("Size", {
+        Medium: "",
+        Small: "number-item--small",
+      }),
     },
-    example: ({ state }) =>
-      html`<span class="number-item ${state}">0</span>`,
+    example: ({ state, size }) =>
+      html`<span class="number-item ${size} ${state}">0</span>`,
   }
 );

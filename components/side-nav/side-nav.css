@@ -1,0 +1,229 @@
+/*
+ * ============================================================
+ * SIDE NAVIGATION  (Console left sidebar)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59916-795961
+ *
+ * The primary navigation panel for Console: a fixed left sidebar with
+ * top-level items, expandable section groups (Agents, Internal Tools) and a
+ * Settings item pinned to the bottom. Two states:
+ *   Expanded (default) — full labelled navigation
+ *   Collapsed (.side-nav--collapsed) — compact icon-only rail
+ *
+ * The active item is highlighted with a filled (aqua) background. Groups use
+ * native <details> so they expand/collapse without JS; side-nav.js drives the
+ * Expanded ⇄ Collapsed toggle.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="side-nav.css">
+ *   <script src="side-nav.js" defer></script>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.side-nav {
+  display:        flex;
+  flex-direction: column;
+  width:          240px;
+  height:         100%;
+  box-sizing:     border-box;
+  background:     var(--background-primary);
+  border-right:   var(--border-s) solid var(--border-primary);
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   HEADER — brand + collapse toggle
+   ------------------------------------------------------------ */
+
+.side-nav__header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-16) var(--spacer-24);
+  border-bottom:   var(--border-s) solid var(--border-primary);
+}
+.side-nav__brand {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  min-width:   0;
+}
+.side-nav__brand-logo {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  color:       var(--brand-3-high);           /* Zego navy */
+}
+.side-nav__brand-logo svg { display: block; width: 100%; height: 100%; }
+.side-nav__brand-name {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);   /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+  white-space: nowrap;
+}
+
+.side-nav__toggle {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           24px;
+  height:          24px;
+  padding:         0;
+  border:          none;
+  background:      none;
+  color:           var(--icon-glyph-primary);
+  cursor:          pointer;
+}
+/* chevron-right glyph: point it left (collapse) when expanded, right when collapsed */
+.side-nav__toggle svg { display: block; width: 16px; height: 16px; transform: rotate(180deg); transition: transform 150ms ease; }
+.side-nav--collapsed .side-nav__toggle svg { transform: rotate(0deg); }
+
+
+/* ------------------------------------------------------------
+   BODY — scrollable navigation
+   ------------------------------------------------------------ */
+
+.side-nav__body {
+  flex:       1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding:    var(--spacer-12) var(--spacer-8) var(--spacer-8);
+}
+.side-nav__list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+
+
+/* ------------------------------------------------------------
+   ITEM
+   ------------------------------------------------------------ */
+
+.side-nav__item {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-16);
+  padding:         var(--spacer-12) var(--spacer-16);
+  border-radius:   var(--radius-medium);      /* 16px */
+  background:      transparent;
+  color:           var(--text-primary);
+  text-decoration: none;
+  cursor:          pointer;
+  border:          none;
+  width:           100%;
+  box-sizing:      border-box;
+  font-family:     inherit;
+}
+.side-nav__item:hover { background: var(--surface-secondary); }
+.side-nav__item--active,
+.side-nav__item--active:hover { background: var(--surface-focus); }   /* aqua tint */
+
+.side-nav__icon {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+}
+.side-nav__icon svg { display: block; width: 100%; height: 100%; }
+
+.side-nav__label {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);       /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+  white-space: nowrap;
+  overflow:    hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ------------------------------------------------------------
+   GROUP — expandable section (native <details>)
+   ------------------------------------------------------------ */
+
+.side-nav__group { width: 100%; }
+.side-nav__group-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  padding:         var(--spacer-12) var(--spacer-16);
+  border-radius:   var(--radius-medium);
+  cursor:          pointer;
+  list-style:      none;
+  user-select:     none;
+}
+.side-nav__group-header::-webkit-details-marker { display: none; }
+.side-nav__group-header:hover { background: var(--surface-secondary); }
+.side-nav__group-title {
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-body-2);
+  line-height:    var(--line-height-body-2);
+  color:          var(--text-pressed);        /* muted grey heading */
+  text-transform: uppercase;
+  white-space:    nowrap;
+}
+.side-nav__group-chevron {
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+  transition:  transform 150ms ease;
+}
+.side-nav__group-chevron svg { display: block; width: 100%; height: 100%; }
+.side-nav__group[open] .side-nav__group-chevron { transform: rotate(180deg); }
+
+.side-nav__sublist {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin-top:     var(--spacer-4);
+}
+
+
+/* ------------------------------------------------------------
+   FOOTER — pinned Settings, divider above
+   ------------------------------------------------------------ */
+
+.side-nav__footer {
+  border-top: var(--border-s) solid var(--border-primary);
+  padding:    var(--spacer-12) var(--spacer-8);
+}
+
+
+/* ------------------------------------------------------------
+   COLLAPSED — icon-only rail
+   ------------------------------------------------------------ */
+
+.side-nav--collapsed { width: 64px; }
+.side-nav--collapsed .side-nav__header { justify-content: center; padding-inline: 0; }
+.side-nav--collapsed .side-nav__brand,
+.side-nav--collapsed .side-nav__label,
+.side-nav--collapsed .side-nav__group-title,
+.side-nav--collapsed .side-nav__group-chevron { display: none; }
+
+/* Items become centred icon squares */
+.side-nav--collapsed .side-nav__item,
+.side-nav--collapsed .side-nav__group-header { justify-content: center; gap: 0; padding-inline: 0; }
+
+/* A collapsed group shows its icons straight through, with a divider on top */
+.side-nav--collapsed .side-nav__group-header { display: none; }
+.side-nav--collapsed .side-nav__sublist { margin-top: 0; }
+.side-nav--collapsed .side-nav__group + .side-nav__group,
+.side-nav--collapsed .side-nav__group {
+  border-top: var(--border-s) solid var(--border-primary);
+  padding-top: var(--spacer-4);
+  margin-top: var(--spacer-4);
+}

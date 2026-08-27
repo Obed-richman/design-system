@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Header Controls — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="../input/input.css">
+  <link rel="stylesheet" href="../search/search.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="../control-set/control-set.css">
+  <link rel="stylesheet" href="../tab/tab.css">
+  <link rel="stylesheet" href="../tab-bar/tab-bar.css">
+  <link rel="stylesheet" href="header-controls.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo svg { width: 110px; height: 32px; display: block; color: var(--colour-white); }
+    .content { max-width: 1000px; margin: 0 auto; padding: 24px 24px 96px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); margin: 0; }
+    .component-header__description { font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .frame { border: 1px solid var(--border-primary); border-radius: 16px; overflow: hidden; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+  <script src="../tab-bar/tab-bar.js" defer></script>
+</head>
+<body>
+  <header class="header"><span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span></header>
+  <main class="content">
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+    <div class="component-header">
+      <h1 class="component-header__name">Header Controls</h1>
+      <p class="component-header__description">The top-of-page region — global search and notifications, then a title bar with Back, breadcrumb and actions, then the Tabs control. Composes Text Input, Button and Control Set — Zego Design System</p>
+    </div>
+
+    <div class="frame">
+      <div class="header-controls">
+
+        <div class="header-controls__bar">
+          <div class="input-field header-controls__search">
+            <input class="input" type="search" placeholder="Search across all sections">
+            <span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span>
+          </div>
+          <div class="header-controls__actions">
+            <span class="header-controls__notify" data-unread="true">
+              <button class="btn btn--secondary btn--fab" type="button" aria-label="Notifications">
+                <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0131 4.02325C8.7017 4.02325 6.01306 6.71502 6.01306 10.0407C6.01306 10.1552 6.01624 10.2689 6.0225 10.3816L6.02988 10.5146L6.01306 10.5938V13.0712L5.18121 16H18.8851C18.8783 15.9746 18.8711 15.9482 18.8633 15.9209C18.7831 15.6371 18.6733 15.3207 18.5521 14.9792C18.539 14.9423 18.5257 14.9049 18.5123 14.8672C18.4069 14.5706 18.2945 14.2545 18.207 13.9678C18.1157 13.6684 18.0131 13.2841 18.0131 12.932V10.8572C18.0126 10.8535 18.0122 10.8502 18.0118 10.8473C18.0097 10.8295 18.0085 10.8149 18.0077 10.8058C18.0063 10.7878 18.0056 10.7726 18.0052 10.7639C18.0047 10.754 18.0044 10.7447 18.0042 10.7368C18.0034 10.7073 18.0029 10.6689 18.0026 10.6237C18.0023 10.5765 18.0021 10.5152 18.0021 10.4371V10.4093L18.0036 10.3816C18.0099 10.2689 18.0131 10.1552 18.0131 10.0407C18.0131 6.71502 15.3244 4.02325 12.0131 4.02325ZM20.0123 10.578C20.0123 10.5775 20.0123 10.5774 20.0123 10.578V10.578ZM20.0046 10.4125C20.0102 10.2892 20.0131 10.1653 20.0131 10.0407C20.0131 5.61516 16.4337 2.02325 12.0131 2.02325C7.59243 2.02325 4.01306 5.61516 4.01306 10.0407C4.01306 10.1582 4.01559 10.2751 4.02059 10.3914C4.0156 10.4411 4.01306 10.4914 4.01306 10.542V12.7927L3 16.3595V16.4987C3 17.3255 3.66922 18 4.5 18H19.4761C20.3069 18 20.9761 17.3255 20.9761 16.4987C20.9761 16.1201 20.8844 15.7182 20.788 15.3771C20.6876 15.0219 20.5567 14.6479 20.4371 14.3106C20.4237 14.2728 20.4104 14.2356 20.3974 14.1989C20.2891 13.8942 20.1932 13.6243 20.12 13.3843C20.0798 13.2523 20.0511 13.1443 20.0331 13.0584C20.014 12.9675 20.0131 12.9304 20.0131 12.932V10.542C20.0131 10.5397 20.0131 10.5319 20.0129 10.5222C20.0128 10.5184 20.0126 10.505 20.0117 10.4883C20.0114 10.4839 20.0108 10.474 20.0104 10.4684C20.0099 10.461 20.0083 10.4435 20.0073 10.4334C20.0067 10.4286 20.0058 10.4211 20.0046 10.4125ZM19.2836 9.77135C19.281 9.77046 19.2784 9.76959 19.2759 9.76877C19.2596 9.76503 19.2402 9.76149 19.2189 9.75823C19.2407 9.76226 19.2622 9.76664 19.2836 9.77135Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.988 21.5C14.988 21.7761 14.7642 22 14.488 22L9.48804 22C9.21189 22 8.98804 21.7761 8.98804 21.5L8.98804 20.5C8.98804 20.2239 9.21189 20 9.48804 20L14.488 20C14.7642 20 14.988 20.2239 14.988 20.5L14.988 21.5Z" fill="currentColor"/></svg></span>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="header-controls__title-bar">
+          <div class="header-controls__title-left">
+            <button class="btn btn--secondary btn--small btn--rounded" type="button">
+              <span class="btn__icon"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              Back
+            </button>
+            <h1 class="header-controls__title">Title</h1>
+            <nav class="header-controls__breadcrumb" aria-label="Breadcrumb">
+              <a class="header-controls__crumb" href="#">Home</a>
+              <a class="header-controls__crumb" href="#">Step</a>
+              <span class="header-controls__crumb" aria-current="page">Step</span>
+            </nav>
+          </div>
+          <div class="header-controls__title-actions">
+            <button class="btn btn--secondary btn--small btn--rounded" type="button">
+              <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              Button
+            </button>
+            <button class="btn btn--primary btn--small btn--rounded" type="button">
+              <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+              Button
+            </button>
+          </div>
+        </div>
+
+        <div class="control-set control-set--tabs">
+          <div class="tabs" role="tablist" aria-label="Views">
+            <button class="tab-item tab-item--active" role="tab" aria-selected="true">Item</button>
+            <button class="tab-item" role="tab" aria-selected="false">Item</button>
+            <button class="tab-item" role="tab" aria-selected="false">Item</button>
+            <button class="tab-item" role="tab" aria-selected="false">Item</button>
+            <button class="tab-item" role="tab" aria-selected="false">Item</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>

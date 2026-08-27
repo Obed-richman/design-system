@@ -1,0 +1,150 @@
+/*
+ * ============================================================
+ * HEADER CONTROLS  (page-header region)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59979-9819
+ *
+ * The controls that sit at the top of an internal-tool page, in three stacked rows:
+ *   1. Header bar   — a global search field and a notifications button (a FAB
+ *                     Button with an unread dot). Ruled off below.
+ *   2. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
+ *                     primary/secondary action buttons on the right.
+ *   3. Control set  — the Tabs control (.control-set--tabs) for switching views.
+ *
+ * Composes Text Input (search), Button and Control Set. The breadcrumb and the
+ * notifications dot are small enough to live here rather than as own components.
+ *
+ * Usage — link these alongside header-controls.css:
+ *   tokens.css · input.css · search.css · button.css ·
+ *   control-set.css · tab/tab.css · tab-bar.css
+ *   <script src="../tab-bar/tab-bar.js" defer></script>   // tab switching
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.header-controls {
+  width:       100%;
+  box-sizing:  border-box;
+  background:  var(--surface-primary);
+  font-family: 'Modern Era', sans-serif;
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ROW 1 — HEADER BAR  (search · notifications · profile)
+   ------------------------------------------------------------ */
+
+.header-controls__bar {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  padding:       var(--spacer-8) var(--spacer-16);
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+
+/* Global search — the DS Text Input, sized to the header's 40px row. */
+.header-controls__search {
+  flex:      0 1 343px;                       /* holds ~343, shrinks on narrow rows */
+  max-width: 343px;
+  height:    40px;
+  padding:   0 var(--gap-medium);            /* fixed height + centred content */
+}
+
+.header-controls__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  margin-left: auto;
+}
+
+/* Notifications — a FAB Button (.btn--fab) wrapped so a red unread dot can sit on
+   its corner. The wrapper only positions the dot; the button carries the look. */
+.header-controls__notify {
+  position:    relative;
+  display:     inline-flex;
+  flex:        0 0 auto;
+}
+.header-controls__notify[data-unread="true"]::after {
+  content:       '';
+  position:      absolute;
+  top:           2px;
+  right:         2px;
+  width:         6px;
+  height:        6px;
+  border-radius: var(--radius-round);
+  background:    var(--icon-glyph-error-medium, #d00909);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   ROW 2 — TITLE BAR  (back · title · breadcrumb · actions)
+   ------------------------------------------------------------ */
+
+.header-controls__title-bar {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  padding:     var(--spacer-12) var(--spacer-16);
+}
+.header-controls__title-left {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  min-width:   0;
+}
+.header-controls__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);       /* 18px */
+  line-height: var(--line-height-subtitle-1);
+  white-space: nowrap;
+}
+.header-controls__title-actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-12);
+  margin-left: auto;
+}
+
+/* Breadcrumb — grey trail, items separated by a dot. */
+.header-controls__breadcrumb {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  min-width:   0;
+  font-size:   var(--font-size-body-3, 14px);
+  line-height: var(--line-height-body-3, 20px);
+  color:       var(--text-disabled);
+}
+.header-controls__crumb {
+  color:           inherit;
+  text-decoration: none;
+  white-space:     nowrap;
+}
+a.header-controls__crumb:hover { color: var(--text-primary); }
+.header-controls__crumb + .header-controls__crumb::before {
+  content:      '\00B7';                           /* middle dot */
+  margin-right: var(--spacer-8);
+  color:        var(--text-disabled);
+}
+
+
+/* ------------------------------------------------------------
+   ROW 3 — the Tabs control keeps its own styling; here it just
+   picks up the page padding so it lines up with the rows above.
+   ------------------------------------------------------------ */
+
+.header-controls .control-set--tabs { padding: 0 var(--spacer-16); }
+
+
+/* ------------------------------------------------------------
+   RESPONSIVE — collapse the search and stack the title actions
+   ------------------------------------------------------------ */
+
+@media (max-width: 767px) {
+  .header-controls__search { max-width: none; }
+  .header-controls__breadcrumb { display: none; }
+}

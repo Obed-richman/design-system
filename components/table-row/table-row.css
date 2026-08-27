@@ -1,0 +1,63 @@
+/*
+ * ============================================================
+ * TABLE ROW  (a row of Table Items)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=871-86863
+ *
+ * One row of a data table: a horizontal strip of Table Item cells — usually a
+ * leading select checkbox, then content columns (Title / Text / Action) and
+ * trailing controls (Toggle / Tick / Cross / Icon).
+ *
+ * Background (Figma "Background") — for zebra striping:
+ *   White (default)          — surface/primary
+ *   Grey  .table-row--grey   — surface/secondary (#f5f5f5)
+ *
+ * Columns (Figma "Columns", 2–8) is just how many cells you place in the row.
+ * Content cells share the width equally; add .table-item--fit to a cell (the
+ * checkbox and the trailing controls) to shrink it to its content instead.
+ *
+ * Breakpoint (Figma "Desktop" / "Mobile") is the row's own width — it lays out
+ * the same way in a wide table or a narrow one; a mobile table simply uses fewer
+ * columns.
+ *
+ * Composes Table Item (and, through it, Checkbox / Toggle / Button / Status
+ * Label). Link those CSS files alongside this one.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="../checkbox/checkbox.css"> … toggle, button, status-label
+ *   <link rel="stylesheet" href="table-row.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../table-item/table-item.css';
+
+
+.table-row {
+  display:       flex;
+  align-items:   stretch;
+  width:         100%;
+  box-sizing:    border-box;
+  background:    var(--surface-primary);           /* White */
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+
+/* Grey — the alternate (zebra) background */
+.table-row--grey { background: var(--surface-secondary); }   /* #f5f5f5 */
+
+
+/* ------------------------------------------------------------
+   CELLS
+   Content cells share the row width equally; .table-item--fit cells (the leading
+   checkbox and trailing controls) shrink to their content. The cells inherit the
+   row's background so a grey row stays grey through and through.
+   ------------------------------------------------------------ */
+
+.table-row > .table-item {
+  flex:       1 1 0;
+  min-width:  0;
+  background: transparent;
+}
+.table-row > .table-item--fit    { flex: 0 0 auto; }
+.table-row > .table-item--center { justify-content: center; }

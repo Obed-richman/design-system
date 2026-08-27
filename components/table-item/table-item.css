@@ -1,0 +1,121 @@
+/*
+ * ============================================================
+ * TABLE ITEM  (a single table cell)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=871-86400
+ *
+ * One cell of a data table. A cell is a flex row that vertically centres its
+ * content and comes in two heights:
+ *   Large (default) — 56px row, 16px text
+ *   Small  .table-item--small — 40px row, 14px text
+ *
+ * TYPE (Figma "Type") — the content the cell holds:
+ *   Title    .table-item--title   — bold text (a row heading / first column)
+ *   Text     .table-item--text    — regular body text
+ *   Action   .table-item--action  — a link (Text/Link colour, bold)
+ *   Tick     a success badge  (.table-item__badge--tick)
+ *   Cross    a neutral badge  (.table-item__badge--cross)
+ *   Checkbox · Toggle · Button · Label · Icon — the cell simply holds the DS
+ *            Checkbox, Toggle, Button, Status Label or an icon.
+ *
+ * Composes Checkbox, Toggle, Button and Status Label — link their CSS alongside
+ * this file. Icons come from /icons (tick, cross, edit).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="table-item.css">
+ *   <div class="table-item table-item--title">Title</div>
+ *   <div class="table-item table-item--tick"><span class="table-item__badge table-item__badge--tick">…</span></div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.table-item {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  min-height:  56px;                               /* Large */
+  padding:     0 var(--spacer-16);
+  box-sizing:  border-box;
+  background:  var(--surface-primary);
+
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);            /* 16 */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+/* Size — Small (40px row, 14px text) */
+.table-item--small {
+  min-height:  40px;
+  font-size:   var(--font-size-body-3);            /* 14 */
+  line-height: var(--line-height-body-3);
+}
+
+
+/* ------------------------------------------------------------
+   TEXT TYPES — Title / Text / Action
+   ------------------------------------------------------------ */
+
+.table-item--title { font-weight: var(--font-weight-bold); }
+.table-item--text  { font-weight: var(--font-weight-regular); }
+
+/* Action — a link cell. Text/Link colour, bold; underlines on hover. */
+.table-item--action,
+.table-item__link {
+  color:           var(--text-link);               /* #4b059f */
+  font-weight:     var(--font-weight-bold);
+  text-decoration: none;
+  cursor:          pointer;
+}
+.table-item__link:hover { text-decoration: underline; }
+
+
+/* ------------------------------------------------------------
+   BADGES — Tick (success) / Cross (neutral)
+   A filled disc holding a glyph. Tick is success-green with a white glyph;
+   Cross is a translucent-dark (grey) disc with a dark glyph.
+   ------------------------------------------------------------ */
+
+.table-item__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           24px;
+  height:          24px;
+  border-radius:   var(--radius-round);
+}
+.table-item--small .table-item__badge { width: 20px; height: 20px; }
+.table-item__badge svg { display: block; width: 62%; height: 62%; }
+
+.table-item__badge--tick {
+  background: var(--icon-glyph-success-medium);    /* #05b14c */
+  color:      var(--colour-white, #fff);
+}
+.table-item__badge--cross {
+  background: var(--overlay-dark-medium);          /* translucent dark → grey */
+  color:      var(--icon-glyph-primary);           /* #27252d */
+}
+
+
+/* ------------------------------------------------------------
+   ICON TYPE
+   ------------------------------------------------------------ */
+
+.table-item__icon {
+  display:     inline-flex;
+  flex:        0 0 auto;
+  width:       24px;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.table-item--small .table-item__icon { width: 20px; height: 20px; }
+.table-item__icon svg { display: block; width: 100%; height: 100%; }
+
+
+/* Control types (Checkbox / Toggle / Button / Label) keep their own styling;
+   the cell only centres them, so nothing extra is needed here. */

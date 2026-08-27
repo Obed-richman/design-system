@@ -4,8 +4,13 @@
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3781
  *
- * A single 48×48 cell holding one number — a verification-code / OTP cell.
- * Compose several in a row to build a code input.
+ * A single cell holding one number — a verification-code / OTP cell, or a day
+ * in the Set date picker. Compose several in a row to build a code input.
+ *
+ * Sizes (Figma "Size"):
+ *   Medium (default) — 48×48, Subtitle 2 (16px)
+ *   Small  .number-item--small — 32×32, Subtitle 3 (14px). Same 8px radius and
+ *          2px border as Medium, for tighter rows.
  *
  * States:
  *   default (borderless) | inactive | hover | focused | active | error
@@ -17,7 +22,7 @@
  *
  *   <span class="number-item">0</span>
  *   <span class="number-item number-item--active">4</span>
- *   <span class="number-item number-item--error">9</span>
+ *   <span class="number-item number-item--small number-item--error">9</span>
  * ============================================================
  */
 
@@ -45,6 +50,20 @@
   line-height:      var(--line-height-subtitle-2);        /* 24px */
 
   transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+
+/* ------------------------------------------------------------
+   SIZE — Small
+   A 32px cell with Subtitle 3 (14px). Radius and border are unchanged from
+   Medium, so only the box and the type step down.
+   ------------------------------------------------------------ */
+
+.number-item--small {
+  width:       32px;
+  height:      32px;
+  font-size:   var(--font-size-subtitle-3);               /* 14px */
+  line-height: var(--line-height-subtitle-3);             /* 20px */
 }
 
 

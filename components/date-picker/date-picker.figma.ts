@@ -6,6 +6,9 @@ import figma, { html } from "@figma/code-connect/html";
  *
  * A calendar in a floating card. The grid is rendered from data attributes by
  * date-picker.js (data-year / data-month / data-selected / data-today).
+ * Add data-mode="range" for a start→end range: the first click sets the start,
+ * the second the end, and the days between are highlighted as a band
+ * (data-range-start / data-range-end).
  * Composes Button (nav FABs + Cancel/Confirm) and arrow icons.
  */
 
@@ -24,8 +27,8 @@ figma.connect(
   </div>
   <div class="date-picker__grid"><!-- days rendered by date-picker.js --></div>
   <div class="date-picker__actions">
-    <button class="btn btn--secondary btn--pill" type="button">Cancel</button>
-    <button class="btn btn--primary btn--pill" type="button">Confirm</button>
+    <button class="btn btn--secondary btn--rounded btn--medium date-picker__clear" type="button">Clear</button>
+    <button class="btn btn--primary btn--rounded btn--medium" type="button">Confirm</button>
   </div>
 </div>`,
   }

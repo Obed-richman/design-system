@@ -27,6 +27,11 @@
 @import url('../components/checkbox/checkbox.css');
 @import url('../components/choice-selector/choice-selector.css');
 @import url('../components/comparison-tile/comparison-tile.css');
+@import url('../components/control-set/control-set.css');
+@import url('../components/header-controls/header-controls.css');
+@import url('../components/table-item/table-item.css');
+@import url('../components/table-row/table-row.css');
+@import url('../components/data-table/data-table.css');
 @import url('../components/conditional-selector/conditional-selector.css');
 @import url('../components/date-picker/date-picker.css');
 @import url('../components/detail-card/detail-card.css');
@@ -40,6 +45,7 @@
 @import url('../components/footer-sales/footer-sales.css');
 @import url('../components/global-alert/global-alert.css');
 @import url('../components/input/input.css');
+@import url('../components/filter-select/filter-select.css');
 @import url('../components/marketing-banner/marketing-banner.css');
 @import url('../components/modal/modal.css');
 @import url('../components/mobile-nav/mobile-nav.css');
@@ -60,6 +66,7 @@
 @import url('../components/search/search.css');
 @import url('../components/price-card/price-card.css');
 @import url('../components/segment/segment.css');
+@import url('../components/side-nav/side-nav.css');
 @import url('../components/spinner/spinner.css');
 @import url('../components/status-label/status-label.css');
 @import url('../components/stepper/stepper.css');

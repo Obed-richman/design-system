@@ -156,6 +156,28 @@
 
 
 /* ------------------------------------------------------------
+   SELECTION = RANGE  (data-mode="range")
+   The start, the end and every day between are each highlighted as their own
+   tile — the light-aqua fill sits inside the day cell's own Radius-8 corners, so
+   the range reads as a run of rounded number-item tiles rather than one sharp
+   rectangle. Only the two ENDPOINTS carry the full aqua ring, all the way round;
+   the in-between days fill without a border, so the range reads start → end.
+   ------------------------------------------------------------ */
+
+.date-picker__day--in-range,
+.date-picker__day--range-start,
+.date-picker__day--range-end {
+  background: var(--surface-focus);               /* #cefdfd */
+  color:      var(--text-primary);
+}
+/* Endpoints — full aqua border all round */
+.date-picker__day--range-start,
+.date-picker__day--range-end { border-color: var(--border-active); }
+/* In-between — fill only, no border */
+.date-picker__day--in-range { border-color: transparent; }
+
+
+/* ------------------------------------------------------------
    FOOTER OPTION ROW (reuses Text + Icon Item) + ACTIONS
    ------------------------------------------------------------ */
 
@@ -196,3 +218,33 @@
 /* The heading is a Display Row with a trailing checkbox — "use this date every month"
    rather than a title. It brings its own dividers, so nothing is added here. */
 .date-picker--set-date .display-row { padding-inline: var(--spacer-12); }
+
+
+/* ------------------------------------------------------------
+   COMPACT  (.date-picker--compact)
+   For tight popovers — e.g. the Control Set's 300px date field — where the full
+   400px calendar's 16px day numbers feel cramped. Steps the day numbers and the
+   weekday row down to Subtitle 3 (14px, the Small number-item size) and tightens
+   the paddings/gaps so the whole calendar reads comfortably in the smaller space.
+   ------------------------------------------------------------ */
+
+.date-picker--compact {
+  gap:     var(--gap-small);                        /* 12px */
+  padding: var(--spacer-12);
+}
+.date-picker--compact .date-picker__title {
+  font-size:   var(--font-size-subtitle-3);         /* 14px */
+  line-height: var(--line-height-subtitle-3);
+}
+.date-picker--compact .date-picker__grid {
+  gap:     var(--spacer-2, 2px);
+  padding: var(--spacer-4);                          /* 4px */
+}
+.date-picker--compact .date-picker__weekday {
+  padding:   var(--spacer-4) 0;                      /* 4px */
+  font-size: var(--font-size-body-4, 12px);
+}
+/* The smaller item numbers — Subtitle 3 (14px), matching the Small number-item. */
+.date-picker--compact .date-picker__day {
+  font-size: var(--font-size-subtitle-3);            /* 14px */
+}
