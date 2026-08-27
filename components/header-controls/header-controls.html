@@ -38,15 +38,33 @@
     </a>
     <div class="component-header">
       <h1 class="component-header__name">Header Controls</h1>
-      <p class="component-header__description">The top-of-page region — a title bar with Back, breadcrumb and actions, then the Tabs control (each tab divided by a right border). Composes Button and Control Set — Zego Design System</p>
+      <p class="component-header__description">The top-of-page region — a header bar (search, notifications, profile), a title bar with Back, breadcrumb and Large action buttons, then the Tabs control (each tab divided by a right border). Composes Text Input, Button and Control Set — Zego Design System</p>
     </div>
 
     <div class="frame">
       <div class="header-controls">
 
+        <div class="header-controls__bar">
+          <div class="input-field header-controls__search">
+            <input class="input" type="search" placeholder="Search across all sections">
+            <span class="search__glyph"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0867 1C5.06825 1 1 5.06825 1 10.0867C1 15.1051 5.06825 19.1734 10.0867 19.1734C12.2322 19.1734 14.204 18.4298 15.7585 17.1863L21.4243 22.8521C21.6214 23.0493 21.9411 23.0493 22.1382 22.8521L22.8521 22.1382C23.0493 21.9411 23.0493 21.6214 22.8521 21.4243L17.1863 15.7585C18.4298 14.204 19.1734 12.2322 19.1734 10.0867C19.1734 5.06825 15.1051 1 10.0867 1ZM3.01926 10.0867C3.01926 6.18346 6.18346 3.01926 10.0867 3.01926C13.9899 3.01926 17.1541 6.18346 17.1541 10.0867C17.1541 13.9899 13.9899 17.1541 10.0867 17.1541C6.18346 17.1541 3.01926 13.9899 3.01926 10.0867Z" fill="currentColor"/></svg></span>
+          </div>
+          <div class="header-controls__actions">
+            <span class="header-controls__notify" data-unread="true">
+              <button class="btn btn--secondary btn--fab" type="button" aria-label="Notifications">
+                <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0131 4.02325C8.7017 4.02325 6.01306 6.71502 6.01306 10.0407C6.01306 10.1552 6.01624 10.2689 6.0225 10.3816L6.02988 10.5146L6.01306 10.5938V13.0712L5.18121 16H18.8851C18.8783 15.9746 18.8711 15.9482 18.8633 15.9209C18.7831 15.6371 18.6733 15.3207 18.5521 14.9792C18.539 14.9423 18.5257 14.9049 18.5123 14.8672C18.4069 14.5706 18.2945 14.2545 18.207 13.9678C18.1157 13.6684 18.0131 13.2841 18.0131 12.932V10.542C18.0131 10.5397 18.0131 10.5319 18.0129 10.5222C18.0099 10.2689 18.0131 10.1552 18.0131 10.0407C18.0131 6.71502 15.3244 4.02325 12.0131 4.02325ZM20.0131 10.0407C20.0131 5.61516 16.4337 2.02325 12.0131 2.02325C7.59243 2.02325 4.01306 5.61516 4.01306 10.0407C4.01306 10.1582 4.01559 10.2751 4.02059 10.3914C4.0156 10.4411 4.01306 10.4914 4.01306 10.542V12.7927L3 16.3595V16.4987C3 17.3255 3.66922 18 4.5 18H19.4761C20.3069 18 20.9761 17.3255 20.9761 16.4987C20.9761 16.1201 20.8844 15.7182 20.788 15.3771C20.6876 15.0219 20.5567 14.6479 20.4371 14.3106C20.2891 13.8942 20.1932 13.6243 20.12 13.3843C20.014 12.9675 20.0131 12.9304 20.0131 12.932V10.0407Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.988 21.5C14.988 21.7761 14.7642 22 14.488 22L9.48804 22C9.21189 22 8.98804 21.7761 8.98804 21.5L8.98804 20.5C8.98804 20.2239 9.21189 20 9.48804 20L14.488 20C14.7642 20 14.988 20.2239 14.988 20.5L14.988 21.5Z" fill="currentColor"/></svg></span>
+              </button>
+            </span>
+            <button class="header-controls__profile" type="button" aria-label="Account">
+              <span class="header-controls__avatar">U</span>
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg>
+            </button>
+          </div>
+        </div>
+
         <div class="header-controls__title-bar">
           <div class="header-controls__title-left">
-            <button class="btn btn--secondary btn--small btn--rounded" type="button">
+            <button class="btn btn--secondary btn--large btn--rounded" type="button">
               <span class="btn__icon"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
               Back
             </button>
@@ -58,11 +76,11 @@
             </nav>
           </div>
           <div class="header-controls__title-actions">
-            <button class="btn btn--secondary btn--small btn--rounded" type="button">
+            <button class="btn btn--secondary btn--large btn--rounded" type="button">
               <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
               Button
             </button>
-            <button class="btn btn--primary btn--small btn--rounded" type="button">
+            <button class="btn btn--primary btn--large btn--rounded" type="button">
               <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
               Button
             </button>

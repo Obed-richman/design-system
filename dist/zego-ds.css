@@ -5185,17 +5185,20 @@ body { font-family: var(--font-family-base); }
  * ============================================================
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59979-9819
  *
- * The controls that sit at the top of an internal-tool page, in two stacked rows:
- *   1. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
- *                     primary/secondary action buttons on the right.
- *   2. Control set  — the Tabs control (.control-set--tabs) for switching views.
+ * The controls that sit at the top of an internal-tool page, in three stacked rows:
+ *   1. Header bar   — a global search field, a notifications button (FAB + unread
+ *                     dot) and a profile avatar. Ruled off below.
+ *   2. Title bar    — a Back button, the page Title, a breadcrumb, and the page's
+ *                     primary/secondary action buttons (Large) on the right.
+ *   3. Control set  — the Tabs control (.control-set--tabs) for switching views.
  *                     Each tab carries a right divider; the last one drops it.
  *
- * Composes Button and Control Set. The breadcrumb is small enough to live here
- * rather than as its own component.
+ * Composes Text Input (search), Button and Control Set. The breadcrumb and the
+ * notifications dot are small enough to live here rather than as own components.
  *
  * Usage — link these alongside header-controls.css:
- *   tokens.css · button.css · control-set.css · tab/tab.css · tab-bar.css
+ *   tokens.css · input.css · search.css · button.css ·
+ *   control-set.css · tab/tab.css · tab-bar.css
  *   <script src="../tab-bar/tab-bar.js" defer></script>   // tab switching
  * ============================================================
  */
@@ -5210,7 +5213,75 @@ body { font-family: var(--font-family-base); }
 
 
 /* ------------------------------------------------------------
-   ROW 1 — TITLE BAR  (back · title · breadcrumb · actions)
+   ROW 1 — HEADER BAR  (search · notifications · profile)
+   ------------------------------------------------------------ */
+
+.header-controls__bar {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  padding:       var(--spacer-8) var(--spacer-16);
+  border-bottom: var(--border-s) solid var(--border-primary);
+}
+/* Global search — the DS Text Input, sized to the header's 40px row. */
+.header-controls__search {
+  flex:      0 1 343px;
+  max-width: 343px;
+  height:    40px;
+  padding:   0 var(--gap-medium);
+}
+.header-controls__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  margin-left: auto;
+}
+/* Notifications — a FAB Button wrapped so a red unread dot can sit on its corner. */
+.header-controls__notify {
+  position: relative;
+  display:  inline-flex;
+  flex:     0 0 auto;
+}
+.header-controls__notify[data-unread="true"]::after {
+  content:        '';
+  position:       absolute;
+  top:            2px;
+  right:          2px;
+  width:          6px;
+  height:         6px;
+  border-radius:  var(--radius-round);
+  background:     var(--icon-glyph-error-medium, #d00909);
+  pointer-events: none;
+}
+/* Profile — a coloured avatar disc with an initial, plus a chevron. */
+.header-controls__profile {
+  display:     inline-flex;
+  align-items: center;
+  gap:         var(--spacer-4);
+  padding:     0;
+  border:      none;
+  background:  transparent;
+  cursor:      pointer;
+  color:       var(--icon-glyph-primary);
+}
+.header-controls__avatar {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  width:           24px;
+  height:          24px;
+  border-radius:   var(--radius-round);
+  background:      var(--brand-2-medium, #a458ff);
+  color:           var(--text-on-color-fixed, #fff);
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-4, 12px);
+  line-height:     1;
+}
+.header-controls__profile svg { display: block; width: 8px; height: 8px; }
+
+
+/* ------------------------------------------------------------
+   ROW 2 — TITLE BAR  (back · title · breadcrumb · actions)
    ------------------------------------------------------------ */
 
 .header-controls__title-bar {
@@ -5263,7 +5334,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 
 
 /* ------------------------------------------------------------
-   ROW 2 — TABS CONTROL
+   ROW 3 — TABS CONTROL
    Reuses the Control Set tabs; here it picks up the page padding so it lines up
    with the title bar, and each tab is separated by a right divider — the last
    tab in the set drops it so the row doesn't end on a stray line.
@@ -5284,6 +5355,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
    ------------------------------------------------------------ */
 
 @media (max-width: 767px) {
+  .header-controls__search { max-width: none; }
   .header-controls__breadcrumb { display: none; }
 }
 
