@@ -18,7 +18,10 @@ figma.connect(
         Horizontal: "",
         Vertical: " marketing-banner--vertical",
       }),
-      button: figma.boolean("Button"),
+      button: figma.boolean("Button", {
+        true: html`<button class="btn btn--secondary btn--pill btn--small" type="button">Button</button>`,
+        false: "",
+      }),
     },
     example: ({ layout, button }) =>
       html`<div class="marketing-banner${layout}">
@@ -27,7 +30,7 @@ figma.connect(
       <p class="marketing-banner__title">Title</p>
       <p class="marketing-banner__paragraph">Paragraph</p>
     </div>
-    ${button ? html`<button class="btn btn--secondary btn--pill btn--small" type="button">Button</button>` : ""}
+    ${button}
   </div>
   <div class="marketing-banner__image"><!-- <img src="..." alt=""> --></div>
 </div>`,

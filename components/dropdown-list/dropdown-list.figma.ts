@@ -14,16 +14,20 @@ figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4049-53004",
   {
     props: {
-      selector: figma.enum("Style", { Default: false, Selector: true }),
-      scrollBar: figma.boolean("Scroll Bar"),
+      row: figma.enum("Style", {
+        Default: html`<button class="dropdown-item" type="button"><span class="dropdown-item__label">Item</span></button>`,
+        Selector: html`<label class="dropdown-item"><input class="checkbox__input" type="checkbox" /><span class="checkbox__box"></span><span class="dropdown-item__label">Item</span></label>`,
+      }),
+      scrollBar: figma.boolean("Scroll Bar", {
+        true: html`<div class="dropdown-list__scrollbar"><div class="dropdown-list__scroller"></div></div>`,
+        false: "",
+      }),
     },
-    example: ({ selector, scrollBar }) =>
+    example: ({ row, scrollBar }) =>
       html`<div class="dropdown-list">
-  ${selector
-        ? html`<label class="dropdown-item"><input class="checkbox__input" type="checkbox" /><span class="checkbox__box"></span><span class="dropdown-item__label">Item</span></label>`
-        : html`<button class="dropdown-item" type="button"><span class="dropdown-item__label">Item</span></button>`}
+  ${row}
   <!-- …repeat one Dropdown Item per option (1–10)… -->
-  ${scrollBar ? html`<div class="dropdown-list__scrollbar"><div class="dropdown-list__scroller"></div></div>` : ""}
+  ${scrollBar}
 </div>`,
   }
 );
