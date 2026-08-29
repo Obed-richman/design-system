@@ -34,7 +34,8 @@
 }
 
 
-/* Icon chip — a rounded green tile holding a glyph. Optional at either end. */
+/* Icon chip — the Icon+ shell at Size 32 (Success tint). Optional at either end.
+   32px tile · 4px radius · green-20 surface · 24px glyph inset 4px. */
 .info-field__icon {
   display:         inline-flex;
   align-items:     center;
@@ -42,11 +43,11 @@
   flex:            0 0 auto;
   width:           32px;
   height:          32px;
-  border-radius:   var(--radius-small);            /* 8px */
-  background:      var(--surface-success-low);
+  border-radius:   var(--radius-x-small);          /* 4px */
+  background:      var(--colour-green-20);
   color:           var(--icon-glyph-success-medium);
 }
-.info-field__icon svg { display: block; width: 20px; height: 20px; }
+.info-field__icon svg { display: block; width: 24px; height: 24px; }
 
 
 /* Content column */
@@ -67,7 +68,7 @@
   min-width:   0;
   font-size:   var(--font-size-body-3);            /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-disabled);
+  color:       var(--text-pressed);
   overflow:    hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -89,8 +90,8 @@
   gap:             var(--spacer-8);
   align-self:      flex-start;
   font-weight:     var(--font-weight-bold);
-  font-size:       var(--font-size-subtitle-3);    /* 14px */
-  line-height:     var(--line-height-subtitle-3);
+  font-size:       var(--font-size-subtitle-2);    /* 16px */
+  line-height:     var(--line-height-subtitle-2);
   color:           var(--text-primary);
   text-decoration: none;
   cursor:          pointer;
@@ -102,5 +103,5 @@
 .info-field__support {
   font-size:   var(--font-size-body-3);            /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-disabled);
+  color:       var(--text-pressed);
 }

@@ -5447,9 +5447,11 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .highlight-card .info-field__action:hover { color: var(--hc-accent); text-decoration: none; }
 
 .highlight-card .info-field__icon {
-  background: var(--hc-icon-surface);
-  color:      var(--hc-accent);
+  background:    var(--hc-icon-surface);
+  color:         var(--hc-accent);
+  border-radius: var(--radius-small);              /* 8px — the card keeps its own chip */
 }
+.highlight-card .info-field__icon svg { width: 20px; height: 20px; }
 
 
 /* ------------------------------------------------------------
@@ -5561,7 +5563,8 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 }
 
 
-/* Icon chip — a rounded green tile holding a glyph. Optional at either end. */
+/* Icon chip — the Icon+ shell at Size 32 (Success tint). Optional at either end.
+   32px tile · 4px radius · green-20 surface · 24px glyph inset 4px. */
 .info-field__icon {
   display:         inline-flex;
   align-items:     center;
@@ -5569,11 +5572,11 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   flex:            0 0 auto;
   width:           32px;
   height:          32px;
-  border-radius:   var(--radius-small);            /* 8px */
-  background:      var(--surface-success-low);
+  border-radius:   var(--radius-x-small);          /* 4px */
+  background:      var(--colour-green-20);
   color:           var(--icon-glyph-success-medium);
 }
-.info-field__icon svg { display: block; width: 20px; height: 20px; }
+.info-field__icon svg { display: block; width: 24px; height: 24px; }
 
 
 /* Content column */
@@ -5594,7 +5597,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   min-width:   0;
   font-size:   var(--font-size-body-3);            /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-disabled);
+  color:       var(--text-pressed);
   overflow:    hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -5616,8 +5619,8 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   gap:             var(--spacer-8);
   align-self:      flex-start;
   font-weight:     var(--font-weight-bold);
-  font-size:       var(--font-size-subtitle-3);    /* 14px */
-  line-height:     var(--line-height-subtitle-3);
+  font-size:       var(--font-size-subtitle-2);    /* 16px */
+  line-height:     var(--line-height-subtitle-2);
   color:           var(--text-primary);
   text-decoration: none;
   cursor:          pointer;
@@ -5629,7 +5632,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .info-field__support {
   font-size:   var(--font-size-body-3);            /* 14px */
   line-height: var(--line-height-body-3);
-  color:       var(--text-disabled);
+  color:       var(--text-pressed);
 }
 
 
@@ -9081,19 +9084,21 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
  *     trailing add, and an add-action beneath), each ruled off.
  *   • Footer — a primary and a secondary Button, side by side.
  *
- * Composes Filter Select, Button and Info Field (the content rows); the close
- * glyph is local (icons from /icons: close). Pair it with the Overlay component
- * for the page scrim.
+ * Composes Filter Select, Button, Alert (an optional notice above the rows) and
+ * Info Field (the content rows); the close glyph is local (icons from /icons:
+ * close). Pair it with the Overlay component for the page scrim.
  *
  * Usage — link alongside side-modal.css:
- *   tokens.css · filter-select.css · status-label.css · button.css · info-field.css
+ *   tokens.css · filter-select.css · status-label.css · button.css ·
+ *   info-field.css · alert.css
  *   <script src="../filter-select/filter-select.js" defer></script>
  * ============================================================
  */
 
 
 
-/* The content rows are Info Fields. */
+/* The content rows are Info Fields; an optional Alert can sit above them. */
+
 
 .side-modal {
   display:        flex;

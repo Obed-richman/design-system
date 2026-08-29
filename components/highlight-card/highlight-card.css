@@ -87,9 +87,11 @@
 .highlight-card .info-field__action:hover { color: var(--hc-accent); text-decoration: none; }
 
 .highlight-card .info-field__icon {
-  background: var(--hc-icon-surface);
-  color:      var(--hc-accent);
+  background:    var(--hc-icon-surface);
+  color:         var(--hc-accent);
+  border-radius: var(--radius-small);              /* 8px — the card keeps its own chip */
 }
+.highlight-card .info-field__icon svg { width: 20px; height: 20px; }
 
 
 /* ------------------------------------------------------------

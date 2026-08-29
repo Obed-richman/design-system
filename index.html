@@ -1528,7 +1528,7 @@
       },
       {
         name: "Side Modal",
-        description: "A slide-in panel — a title bar (title, Filter Select, Close), a content area with ruled info-field rows, and a primary/secondary button footer.",
+        description: "A slide-in panel — a title bar (title, Filter Select, Close), a content area with an optional Alert and ruled info-field rows, and a primary/secondary button footer.",
         page: "components/side-modal/side-modal.html",
         preview: `
           <div class="side-modal" style="width:100%;box-shadow:none">
@@ -1538,6 +1538,7 @@
             </div>
             <div class="side-modal__content" style="padding:12px">
               <h2 class="side-modal__title" style="font-size:24px;line-height:28px">Title</h2>
+              <div class="alert alert--negative"><span class="alert__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 12.5C11 12.7761 11.2239 13 11.5 13H12.5C12.7761 13 13 12.7761 13 12.5L13 7.5C13 7.22386 12.7761 7 12.5 7L11.5 7C11.2239 7 11 7.22386 11 7.5L11 12.5Z" fill="currentColor"/><path d="M12 17C12.6904 17 13.25 16.4404 13.25 15.75C13.25 15.0596 12.6904 14.5 12 14.5C11.3096 14.5 10.75 15.0596 10.75 15.75C10.75 16.4404 11.3096 17 12 17Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.92487 1 1 5.92487 1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1ZM3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12Z" fill="currentColor"/></svg></span><div class="alert__content"><p class="alert__title">Negative</p><p class="alert__description">Description</p></div></div>
               <div class="side-modal__fields">
                 <div class="info-field"><div class="info-field__content"><div class="info-field__head"><span class="info-field__label">Title</span></div><a class="info-field__action" href="#"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11.4999 20.9999C11.2238 20.9999 10.9999 20.7761 10.9999 20.4999V12.9999H3.4812C3.20506 12.9999 2.9812 12.7761 2.9812 12.4999V11.4999C2.9812 11.2238 3.20506 10.9999 3.4812 10.9999H10.9999V3.4624C10.9999 3.18626 11.2238 2.9624 11.4999 2.9624H12.4999C12.7761 2.9624 12.9999 3.18626 12.9999 3.4624V10.9999H20.5187C20.7948 10.9999 21.0187 11.2238 21.0187 11.4999V12.4999C21.0187 12.776 20.7948 12.9999 20.5187 12.9999H12.9999V20.4999C12.9999 20.7761 12.7761 20.9999 12.4999 20.9999H11.4999Z" fill="currentColor"/></svg>Information</a></div></div>
               </div>
