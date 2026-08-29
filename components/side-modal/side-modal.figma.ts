@@ -6,7 +6,7 @@ import figma, { html } from "@figma/code-connect/html";
  *
  * A slide-in side panel: a title bar (section title + Filter Select + Close),
  * a content area (heading + optional Alert + Info Field rows), and a footer with
- * a primary and secondary Button. Composes Filter Select, Button, Alert and Info
+ * a primary and tertiary Button. Composes Filter Select, Button, Alert and Info
  * Field; the close glyph is local. Kept static — the fields and toolbar are
  * content the consumer composes, not Figma component properties.
  */
@@ -41,8 +41,8 @@ figma.connect(
       <!-- …more .info-field rows… -->
     </div>
     <div class="side-modal__footer">
-      <button class="btn btn--primary btn--pill" type="button">Button</button>
-      <button class="btn btn--secondary btn--pill" type="button">Button</button>
+      <button class="btn btn--primary btn--rounded" type="button">Button</button>
+      <button class="btn btn--tertiary btn--rounded" type="button">Button</button>
     </div>
   </div>
 </div>`,

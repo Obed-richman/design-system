@@ -9,7 +9,7 @@
  *     Close button on the right. Ruled off below.
  *   • Content — a heading, then a stack of "info fields" (a grey label with a
  *     trailing add, and an add-action beneath), each ruled off.
- *   • Footer — a primary and a secondary Button, side by side.
+ *   • Footer — a primary and a tertiary Button, side by side.
  *
  * Composes Filter Select, Button, Alert (an optional notice above the rows) and
  * Info Field (the content rows); the close glyph is local (icons from /icons:
@@ -119,12 +119,12 @@
 
 
 /* ------------------------------------------------------------
-   FOOTER — primary + secondary buttons, side by side
+   FOOTER — primary + tertiary buttons, side by side
    ------------------------------------------------------------ */
 
 .side-modal__footer {
   display: flex;
-  gap:     var(--spacer-12);
+  gap:     var(--spacer-20);
 }
 .side-modal__footer .btn { flex: 1; }
 
