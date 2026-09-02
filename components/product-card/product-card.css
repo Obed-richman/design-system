@@ -318,7 +318,7 @@
 .product-card__banner .marketing-banner {
   width:         100%;                           /* not the standalone's 343 */
   border-radius: var(--radius-small);            /* 8, not the standalone's 16 */
-  background:    var(--surface-tertiary-low);    /* #F8F5F3, not the aqua */
+  background:    var(--surface-primary-low);    /* #F8F5F3, not the aqua */
   transition:    background-color 150ms ease;
 }
 
@@ -380,7 +380,7 @@
   overflow:      hidden;
   transform:     rotate(-7.5deg);
   box-shadow:    0 0 10px rgba(39,37,45,0.08), 0 1px 2px rgba(0,0,0,0.1);
-  background:    var(--surface-tertiary-high);   /* shows through until art loads */
+  background:    var(--surface-primary-high);   /* shows through until art loads */
 }
 .product-card__reward:first-child   { margin-left: 0; }
 .product-card__reward:nth-child(1)  { z-index: 3; }

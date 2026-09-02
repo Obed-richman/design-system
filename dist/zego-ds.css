@@ -38,7 +38,29 @@
    the Figma Variables panel (source of truth).
    Dark mode is explicit via [data-theme="dark"].
 
-   Last checked against Figma variables: 2026-07-31. Updates applied:
+   Last checked against Figma variables: 2026-08-29. ALL colour groups
+   (background, surface, border, brand, rating, overlay, icon/glyph,
+   icon/link, text) reconciled against the Figma "2. Color" variable tables
+   for BOTH Light and Dark — the authoritative source (user-supplied). Light
+   was already almost exact; most fixes were Dark-mode values that the MCP
+   cannot read. Second-pass Dark fixes: border primary→Black50, secondary→
+   Black40, {success,error,warning,information}-low → the -100-30% tints,
+   brand-2-low→Purple100-20%, information inherits Blue70; overlay light-*
+   → White 30/20/10%, dark-medium/low → White 20/10%; icon-glyph +tertiary
+   Black90, +success-low Green100-30%, brand-3-high→Navy90-50%, information
+   inherits Blue70; icon-link on-dark→Aqua70, on-dark-pressed→Aqua80 (Light);
+   text +disabled Grey60. Earlier same-day background/surface work below.
+   • background/ + surface/ groups reconciled. Notable:
+     - background/primary (+ -fixed) = Ecru 20 (was White).
+     - background/tertiary (+ -fixed) = White (was ecru-20); background/disabled
+       dark = Black 70 (was Black 80).
+     - surface/tertiary = White base (+ tertiary-fixed White; dark tertiary Black 70).
+     - Ecru tints renamed surface/tertiary-* → surface/primary-* (low/med/high).
+     - surface/primary-hover|pressed renamed → surface/active-hover|pressed.
+     - surface/information-fixed renamed → surface/information-low-fixed.
+     - Dark alpha fixes: surface error-low → Red 70-10%, warning-low → Orange
+       70-10%, brand-1-low → Aqua 90-20% (were the -100/-90-10 variants).
+   2026-07-31 updates:
    • Primitives — Blue/Green/Orange/Red 40·30·20·10 tints refreshed
      (+ derived alphas red-20-40, green-30-30).
    • Semantics — surface-success → Green 60; border-error → Red 70;
@@ -338,30 +360,33 @@ body { font-family: var(--font-family-base); }
 :root {
 
   /* --- background --- */
-  --background-primary:         var(--colour-white);
+  --background-primary:         var(--colour-ecru-20);   /* Figma: background/primary = Ecru 20 */
   --background-secondary:       var(--colour-grey-20);
-  --background-tertiary:        var(--colour-ecru-20);
+  --background-tertiary:        var(--colour-white);
   --background-inverse:         var(--colour-black-80);
   --background-inverse-fixed:   var(--colour-black-80);
   --background-disabled:        var(--colour-grey-50);
-  --background-primary-fixed:   var(--colour-white);
+  --background-primary-fixed:   var(--colour-ecru-20);   /* fixed — Ecru 20 in both modes */
   --background-secondary-fixed: var(--colour-grey-20);
-  --background-tertiary-fixed:  var(--colour-ecru-20);
+  --background-tertiary-fixed:  var(--colour-white);
   --background-page:            var(--colour-grey-20);   /* app shell — not a Figma token */
 
   /* --- surface --- */
   --surface-primary:            var(--colour-white);
-  --surface-primary-hover:      var(--colour-aqua-60);
-  --surface-primary-pressed:    var(--colour-aqua-70);
   --surface-primary-fixed:      var(--colour-white);
   --surface-secondary:          var(--colour-grey-30);
   --surface-secondary-hover:    var(--colour-grey-40);
   --surface-secondary-pressed:  var(--colour-grey-50);
-  --surface-tertiary-low:       var(--colour-ecru-20);
-  --surface-tertiary-medium:    var(--colour-ecru-30);
-  --surface-tertiary-high:      var(--colour-ecru-40);
+  --surface-tertiary:           var(--colour-white);
+  --surface-tertiary-fixed:     var(--colour-white);
+  /* Warm ecru tints — surface/primary-* (renamed from surface/tertiary-*). */
+  --surface-primary-low:        var(--colour-ecru-20);
+  --surface-primary-medium:     var(--colour-ecru-30);
+  --surface-primary-high:       var(--colour-ecru-40);
   --surface-inverse:            var(--colour-black-80);
   --surface-active:             var(--colour-aqua-50);
+  --surface-active-hover:       var(--colour-aqua-60);
+  --surface-active-pressed:     var(--colour-aqua-70);
   --surface-focus:              var(--colour-aqua-10);
   --surface-information:        var(--colour-blue-50);
   --surface-success:            var(--colour-green-60);
@@ -371,21 +396,16 @@ body { font-family: var(--font-family-base); }
   --surface-warning-low:        var(--colour-orange-10);
   --surface-success-low:        var(--colour-green-10);
   --surface-information-low:    var(--colour-blue-10);
-  /* fixed (mode-independent) status + brand surfaces — new in Figma */
-  --surface-error-low-fixed:    var(--colour-red-10);
-  --surface-warning-low-fixed:  var(--colour-orange-10);
-  --surface-success-low-fixed:  var(--colour-green-10);
-  --surface-information-fixed:  var(--colour-blue-10);
-  --surface-brand-2-low:        var(--colour-purple-10);
-  /* NOT CONFIRMED — surface/brand-1-low and brand-4-low exist as Figma
-     variables but are not placed on the colour documentation frame, so their
-     light values can't be read through the MCP. These mirror brand/N-low,
-     which is how the readable surface/brand-2-low behaves (both #EDE0FE).
-     Confirm against Figma — see KNOWN-ISSUES.md. */
+  /* fixed (mode-independent) status + brand surfaces */
+  --surface-error-low-fixed:      var(--colour-red-10);
+  --surface-warning-low-fixed:    var(--colour-orange-10);
+  --surface-success-low-fixed:    var(--colour-green-10);
+  --surface-information-low-fixed: var(--colour-blue-10);
   --surface-brand-1-low:        var(--colour-aqua-10);
-  --surface-brand-4-low:        var(--colour-yellow-10);
+  --surface-brand-2-low:        var(--colour-purple-10);
   --surface-brand-2-low-fixed:  var(--colour-purple-10);
   --surface-brand-3-high:       var(--colour-navy-90);
+  --surface-brand-4-low:        var(--colour-yellow-10);
 
   /* --- border --- */
   --border-primary:             var(--colour-grey-50);
@@ -476,8 +496,8 @@ body { font-family: var(--font-family-base); }
   /* --- icon / link --- */
   --icon-link-primary:         var(--colour-purple-90);
   --icon-link-pressed:         var(--colour-purple-70);
-  --icon-link-on-dark:         var(--colour-aqua-50);
-  --icon-link-on-dark-pressed: var(--colour-aqua-40);
+  --icon-link-on-dark:         var(--colour-aqua-70);
+  --icon-link-on-dark-pressed: var(--colour-aqua-80);
 
   /* --- text --- */
   --text-primary:              var(--colour-black-80);
@@ -515,10 +535,10 @@ body { font-family: var(--font-family-base); }
   --background-secondary: var(--colour-black-90);
   --background-tertiary:  var(--colour-black-80);
   --background-inverse:   var(--colour-white);
-  --background-disabled:  var(--colour-black-80);
-  --background-primary-fixed:   var(--colour-white);
+  --background-disabled:  var(--colour-black-70);
+  --background-primary-fixed:   var(--colour-ecru-20);   /* fixed — Ecru 20 both modes */
   --background-secondary-fixed: var(--colour-grey-20);
-  --background-tertiary-fixed:  var(--colour-ecru-20);
+  --background-tertiary-fixed:  var(--colour-white);   /* fixed — mirrors light */
   --background-page:      var(--colour-black-90);
 
   /* surface */
@@ -526,73 +546,69 @@ body { font-family: var(--font-family-base); }
   --surface-secondary:         var(--colour-white-20);
   --surface-secondary-hover:   var(--colour-white-40);
   --surface-secondary-pressed: var(--colour-grey-90);
-  --surface-tertiary-low:      var(--colour-black-80);
-  --surface-tertiary-medium:   var(--colour-black-70);
-  --surface-tertiary-high:     var(--colour-black-60);
+  --surface-tertiary:          var(--colour-black-70);
+  --surface-primary-low:       var(--colour-black-80);
+  --surface-primary-medium:    var(--colour-black-70);
+  --surface-primary-high:      var(--colour-black-60);
   --surface-inverse:           var(--colour-white-80);
   --surface-active:            var(--colour-aqua-80);
   --surface-focus:             var(--colour-aqua-90-20);
   --surface-success:           var(--colour-green-80);
-  --surface-error-low:         var(--colour-red-100-10);
+  --surface-error-low:         var(--colour-red-70-10);
   --surface-error:             var(--colour-red-70);
   --surface-error-low-fixed:   var(--colour-red-10);
-  --surface-warning-low:       var(--colour-orange-100-10);
+  --surface-warning-low:       var(--colour-orange-70-10);
   --surface-warning:           var(--colour-orange-70);
   --surface-warning-low-fixed: var(--colour-orange-10);
   --surface-success-low:       var(--colour-green-100-30);
   --surface-success-low-fixed: var(--colour-green-10);
   --surface-information-low:   var(--colour-blue-90-20);
-  --surface-information-fixed: var(--colour-blue-10);   /* Figma: surface/information-fixed (no "low") */
-  --surface-brand-1-low:            var(--colour-aqua-90-10);
+  --surface-information-low-fixed: var(--colour-blue-10);
+  --surface-brand-1-low:            var(--colour-aqua-90-20);
   --surface-brand-2-low:            var(--colour-purple-70-10);
   --surface-brand-3-high:           var(--colour-black-70);
   --surface-brand-4-low:            var(--colour-yellow-90-20);
 
   /* border */
-  --border-primary:         var(--colour-black-60);
-  --border-secondary:       var(--colour-black-50);
+  --border-primary:         var(--colour-black-50);
+  --border-secondary:       var(--colour-black-40);
   --border-tertiary:        var(--colour-grey-90);
   --border-on-light:        var(--colour-white);
   --border-active:          var(--colour-aqua-80);
-  --border-error:           var(--colour-red-70);
-  --border-information:     var(--colour-blue-60);
-  --border-success-low:     var(--colour-green-90);
-  --border-error-low:       var(--colour-red-90);
-  --border-warning-low:     var(--colour-orange-90);
-  --border-information-low: var(--colour-blue-90);
-  --border-brand-2-low:     var(--colour-purple-70-10);
-  --border-brand-2-medium:  var(--colour-purple-70);
+  --border-success-low:     var(--colour-green-100-30);
+  --border-error-low:       var(--colour-red-100-30);
+  --border-warning-low:     var(--colour-orange-100-30);
+  --border-information-low: var(--colour-blue-100-30);
+  --border-brand-2-low:     var(--colour-purple-100-20);
   --border-on-light-fixed:  var(--colour-black-80);
 
   /* overlay */
-  --overlay-light-high:   var(--colour-black-80-80);
-  --overlay-light-medium: var(--colour-black-80-40);
-  --overlay-light-low:    var(--colour-black-80-30);
+  --overlay-light-high:   var(--colour-white-30);
+  --overlay-light-medium: var(--colour-white-20);
+  --overlay-light-low:    var(--colour-white-10);
   --overlay-dark-high:    var(--colour-white-80);
-  --overlay-dark-medium:  var(--colour-white-30);
-  --overlay-dark-low:     var(--colour-white-30);
+  --overlay-dark-medium:  var(--colour-white-20);
+  --overlay-dark-low:     var(--colour-white-10);
 
   /* icon */
   --icon-glyph-primary:     var(--colour-white);
   --icon-glyph-on-color:    var(--colour-black-80);
-  --icon-glyph-information: var(--colour-blue-60);
+  --icon-glyph-tertiary:    var(--colour-black-90);
   --icon-glyph-error-low:   var(--colour-red-70-10);
   --icon-glyph-error-high:  var(--colour-red-70);
   --icon-glyph-warning-high:  var(--colour-orange-70);
   --icon-glyph-warning-low:  var(--colour-orange-70-10);
   --icon-glyph-success-high:  var(--colour-green-70);
+  --icon-glyph-success-low:   var(--colour-green-100-30);
   --icon-glyph-brand-2-high:  var(--colour-purple-50);
   --icon-glyph-brand-2-low:   var(--colour-purple-90-20);
-  --icon-glyph-brand-3-high:  var(--colour-purple-90-50);
+  --icon-glyph-brand-3-high:  var(--colour-navy-90-50);
   --icon-link-primary:      var(--colour-purple-70);
   --icon-glyph-active:      var(--colour-aqua-80); /* aqua-80 is the same as aqua-60 in light mode, but aqua-80 is used in dark mode for active icons */
 
   /* text */
   --text-primary:          var(--colour-white);
-  /* NOT CONFIRMED against Figma (dark modes can't be read — see KNOWN-ISSUES 1.4).
-     Light grey-80 (#68676C) left unchanged in dark measured 2.43:1 on the dark
-     card, under the 4.5:1 AA floor for body copy. grey-60 gives 9.12:1 and is
-     already the dark pressed grey below, so the pair stays consistent. */
+  --text-disabled:         var(--colour-grey-60);
   --text-pressed:          var(--colour-grey-60);
   --text-on-color:         var(--colour-black-80);
   --text-on-color-pressed: var(--colour-grey-60);
@@ -2013,7 +2029,7 @@ body { font-family: var(--font-family-base); }
 .bullet-points--card {
   gap:           var(--spacer-8);                /* 8px */
   padding:       var(--spacer-16);
-  background:    var(--surface-tertiary-medium);
+  background:    var(--surface-primary-medium);
   border-radius: var(--radius-small);            /* 8px */
 }
 
@@ -2059,7 +2075,7 @@ body { font-family: var(--font-family-base); }
  * .btn--focused) render the same look statically for showcase/demo pages.
  *
  * State colour progression (primary): brand-1-medium (default)
- *   -> surface-primary-hover (hover) -> surface-primary-pressed (pressed).
+ *   -> surface-active-hover (hover) -> surface-active-pressed (pressed).
  * brand-1-medium is the brand aqua and is identical in both modes, so the
  * primary fill no longer darkens in dark mode the way surface-active does.
  *
@@ -2226,13 +2242,13 @@ body { font-family: var(--font-family-base); }
 /* Hover — deeper aqua */
 .btn--primary:hover,
 .btn--primary.btn--hover {
-  background-color: var(--surface-primary-hover); /* Aqua 60 */
+  background-color: var(--surface-active-hover); /* Aqua 60 */
 }
 
 /* Pressed — deepest aqua (mouse down) */
 .btn--primary:active,
 .btn--primary.btn--pressed {
-  background-color: var(--surface-primary-pressed); /* Aqua 70 */
+  background-color: var(--surface-active-pressed); /* Aqua 70 */
 }
 
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
@@ -2256,11 +2272,11 @@ body { font-family: var(--font-family-base); }
 }
 .btn--primary.btn--text:hover,
 .btn--primary.btn--text.btn--hover {
-  color: var(--surface-primary-hover);
+  color: var(--surface-active-hover);
 }
 .btn--primary.btn--text:active,
 .btn--primary.btn--text.btn--pressed {
-  color: var(--surface-primary-pressed);
+  color: var(--surface-active-pressed);
 }
 
 
@@ -3081,7 +3097,7 @@ body { font-family: var(--font-family-base); }
   box-sizing:     border-box;
   width:          100%;
   padding:        var(--spacer-16);        /* 16px */
-  background:     var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:     var(--surface-primary-medium);   /* #f2ede9 */
   border-radius:  var(--radius-small);     /* 8px */
 }
 
@@ -3112,7 +3128,7 @@ body { font-family: var(--font-family-base); }
    ------------------------------------------------------------ */
 
 [data-theme="dark"] .conditional-selector__panel {
-  background: var(--surface-tertiary-low);   /* #27252d */
+  background: var(--surface-primary-low);   /* #27252d */
 }
 
 
@@ -3683,7 +3699,7 @@ body { font-family: var(--font-family-base); }
   align-items:   center;
   gap:           var(--spacer-24);                /* 24px */
   padding:       var(--spacer-20);                /* 20px */
-  background:    var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:    var(--surface-primary-medium);   /* #f2ede9 */
   border-radius: var(--radius-small) var(--radius-small) 0 0;  /* round top corners */
 }
 
@@ -6086,7 +6102,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   padding:       0 var(--spacer-16);
   border:        none;
   border-radius: var(--radius-small) 0 0 var(--radius-small);
-  background:    var(--surface-tertiary-medium);  /* #f2ede9 */
+  background:    var(--surface-primary-medium);  /* #f2ede9 */
   cursor:        pointer;
   font-family:   'Modern Era', sans-serif;
 }
@@ -7286,7 +7302,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   width:         calc(100% - 4px);
   height:        4px;
   border-radius: var(--radius-round);
-  background:    var(--surface-tertiary-high);
+  background:    var(--surface-primary-high);
   overflow:      hidden;
 }
 
@@ -7593,7 +7609,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
    to a dark grey in dark mode, where the fixed plate ink would fall to ~1.3:1
    contrast and disappear. */
 .plate--neutral {
-  background-color: var(--surface-tertiary-high);
+  background-color: var(--surface-primary-high);
   color:            var(--text-primary);
 }
 
@@ -7715,7 +7731,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   margin-top:    var(--spacer-16);
   padding:       var(--spacer-12);
   border-radius: var(--radius-small);                       /* 8 */
-  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
+  background:    var(--surface-primary-low);               /* #F8F5F3 */
   transition:    background-color 150ms ease;
 }
 
@@ -8238,7 +8254,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .product-card__banner .marketing-banner {
   width:         100%;                           /* not the standalone's 343 */
   border-radius: var(--radius-small);            /* 8, not the standalone's 16 */
-  background:    var(--surface-tertiary-low);    /* #F8F5F3, not the aqua */
+  background:    var(--surface-primary-low);    /* #F8F5F3, not the aqua */
   transition:    background-color 150ms ease;
 }
 
@@ -8300,7 +8316,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   overflow:      hidden;
   transform:     rotate(-7.5deg);
   box-shadow:    0 0 10px rgba(39,37,45,0.08), 0 1px 2px rgba(0,0,0,0.1);
-  background:    var(--surface-tertiary-high);   /* shows through until art loads */
+  background:    var(--surface-primary-high);   /* shows through until art loads */
 }
 .product-card__reward:first-child   { margin-left: 0; }
 .product-card__reward:nth-child(1)  { z-index: 3; }
@@ -8492,7 +8508,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   /* Figma binds the fill to surface/primary-hover, not border/active — the same
      Aqua 60 in light, but they part company in dark (border/active steps to
      Aqua 80 there, the dot doesn't). */
-  background:    var(--surface-primary-hover);
+  background:    var(--surface-active-hover);
   opacity:       0;
   transition:    opacity 120ms ease;
 }
@@ -8820,7 +8836,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 
 .sales-nav__hours {
   padding:       var(--spacer-8) var(--gap-small);   /* 8px 12px */
-  background:    var(--surface-tertiary-low);
+  background:    var(--surface-primary-low);
   border-radius: var(--radius-small);                /* 8px */
 }
 .sales-nav__hours-title {
@@ -11957,7 +11973,7 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   height:       100%;
   flex-shrink:  0;
   padding:      0 var(--spacer-16);              /* 16px */
-  background:   var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:   var(--surface-primary-medium);   /* #f2ede9 */
 }
 
 .veh-reg__flag {

@@ -106,7 +106,7 @@
   width:         calc(100% - 4px);
   height:        4px;
   border-radius: var(--radius-round);
-  background:    var(--surface-tertiary-high);
+  background:    var(--surface-primary-high);
   overflow:      hidden;
 }
 

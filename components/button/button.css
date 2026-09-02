@@ -15,7 +15,7 @@
  * .btn--focused) render the same look statically for showcase/demo pages.
  *
  * State colour progression (primary): brand-1-medium (default)
- *   -> surface-primary-hover (hover) -> surface-primary-pressed (pressed).
+ *   -> surface-active-hover (hover) -> surface-active-pressed (pressed).
  * brand-1-medium is the brand aqua and is identical in both modes, so the
  * primary fill no longer darkens in dark mode the way surface-active does.
  *
@@ -184,13 +184,13 @@
 /* Hover — deeper aqua */
 .btn--primary:hover,
 .btn--primary.btn--hover {
-  background-color: var(--surface-primary-hover); /* Aqua 60 */
+  background-color: var(--surface-active-hover); /* Aqua 60 */
 }
 
 /* Pressed — deepest aqua (mouse down) */
 .btn--primary:active,
 .btn--primary.btn--pressed {
-  background-color: var(--surface-primary-pressed); /* Aqua 70 */
+  background-color: var(--surface-active-pressed); /* Aqua 70 */
 }
 
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
@@ -214,11 +214,11 @@
 }
 .btn--primary.btn--text:hover,
 .btn--primary.btn--text.btn--hover {
-  color: var(--surface-primary-hover);
+  color: var(--surface-active-hover);
 }
 .btn--primary.btn--text:active,
 .btn--primary.btn--text.btn--pressed {
-  color: var(--surface-primary-pressed);
+  color: var(--surface-active-pressed);
 }
 
 

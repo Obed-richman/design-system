@@ -109,7 +109,7 @@
   margin-top:    var(--spacer-16);
   padding:       var(--spacer-12);
   border-radius: var(--radius-small);                       /* 8 */
-  background:    var(--surface-tertiary-low);               /* #F8F5F3 */
+  background:    var(--surface-primary-low);               /* #F8F5F3 */
   transition:    background-color 150ms ease;
 }
 

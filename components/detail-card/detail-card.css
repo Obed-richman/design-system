@@ -80,7 +80,7 @@
   align-items:   center;
   gap:           var(--spacer-24);                /* 24px */
   padding:       var(--spacer-20);                /* 20px */
-  background:    var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:    var(--surface-primary-medium);   /* #f2ede9 */
   border-radius: var(--radius-small) var(--radius-small) 0 0;  /* round top corners */
 }
 

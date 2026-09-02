@@ -96,7 +96,7 @@
 .bullet-points--card {
   gap:           var(--spacer-8);                /* 8px */
   padding:       var(--spacer-16);
-  background:    var(--surface-tertiary-medium);
+  background:    var(--surface-primary-medium);
   border-radius: var(--radius-small);            /* 8px */
 }
 

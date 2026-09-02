@@ -250,7 +250,7 @@
 
 .sales-nav__hours {
   padding:       var(--spacer-8) var(--gap-small);   /* 8px 12px */
-  background:    var(--surface-tertiary-low);
+  background:    var(--surface-primary-low);
   border-radius: var(--radius-small);                /* 8px */
 }
 .sales-nav__hours-title {

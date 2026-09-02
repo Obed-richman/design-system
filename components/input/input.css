@@ -450,7 +450,7 @@
   padding:       0 var(--spacer-16);
   border:        none;
   border-radius: var(--radius-small) 0 0 var(--radius-small);
-  background:    var(--surface-tertiary-medium);  /* #f2ede9 */
+  background:    var(--surface-primary-medium);  /* #f2ede9 */
   cursor:        pointer;
   font-family:   'Modern Era', sans-serif;
 }

@@ -134,7 +134,7 @@
   height:       100%;
   flex-shrink:  0;
   padding:      0 var(--spacer-16);              /* 16px */
-  background:   var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:   var(--surface-primary-medium);   /* #f2ede9 */
 }
 
 .veh-reg__flag {

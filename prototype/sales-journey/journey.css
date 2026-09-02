@@ -610,7 +610,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 
 .compare__col-header {
   padding:     var(--spacer-12) var(--spacer-8);
-  background:  var(--surface-tertiary-medium);   /* #F2EDE9 */
+  background:  var(--surface-primary-medium);   /* #F2EDE9 */
   font-weight: var(--font-weight-bold);
   /* Body 2, not Body 3. At 14 the table read as small print next to the cards it is
      comparing, which are all 16 — and this is the screen where someone is reading
@@ -671,7 +671,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   border-radius:   var(--radius-large);
   /* tertiary-MEDIUM (#F2EDE9), a step deeper than the page's tertiary-low, which
      is what makes the panel read as a panel with no border and no shadow. */
-  background:      var(--surface-tertiary-medium);
+  background:      var(--surface-primary-medium);
   padding:         var(--spacer-24) var(--spacer-16);
 }
 
@@ -916,7 +916,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
    white cards leaves the cards with no edge to sit against, and the whole dialogue
    reads as one flat sheet. Scoped to the edit dialogues rather than changed on Modal,
    because a dialogue whose content is plain text still wants the white. */
-.modal[id^="edit-"] .modal__panel { background: var(--surface-tertiary-low); }
+.modal[id^="edit-"] .modal__panel { background: var(--surface-primary-low); }
 
 /* TOTAL COST inside a Change dialogue. The component is built to close a page — its
    own top rule and generous block padding — and here it closes a panel that already

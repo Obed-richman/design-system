@@ -105,7 +105,7 @@
   /* Figma binds the fill to surface/primary-hover, not border/active — the same
      Aqua 60 in light, but they part company in dark (border/active steps to
      Aqua 80 there, the dot doesn't). */
-  background:    var(--surface-primary-hover);
+  background:    var(--surface-active-hover);
   opacity:       0;
   transition:    opacity 120ms ease;
 }

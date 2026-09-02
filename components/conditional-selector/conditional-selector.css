@@ -67,7 +67,7 @@
   box-sizing:     border-box;
   width:          100%;
   padding:        var(--spacer-16);        /* 16px */
-  background:     var(--surface-tertiary-medium);   /* #f2ede9 */
+  background:     var(--surface-primary-medium);   /* #f2ede9 */
   border-radius:  var(--radius-small);     /* 8px */
 }
 
@@ -98,5 +98,5 @@
    ------------------------------------------------------------ */
 
 [data-theme="dark"] .conditional-selector__panel {
-  background: var(--surface-tertiary-low);   /* #27252d */
+  background: var(--surface-primary-low);   /* #27252d */
 }
