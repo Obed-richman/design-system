@@ -9058,7 +9058,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .segment__item--active,
 .segment__item[aria-selected="true"] {
   background-color: var(--surface-tertiary);
-  color:            var(--text-primary-fixed);
+  color:            var(--text-primary);
 }
 
 

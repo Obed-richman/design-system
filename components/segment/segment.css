@@ -70,7 +70,7 @@
 .segment__item--active,
 .segment__item[aria-selected="true"] {
   background-color: var(--surface-tertiary);
-  color:            var(--text-primary-fixed);
+  color:            var(--text-primary);
 }
 
 
