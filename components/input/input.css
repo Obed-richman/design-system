@@ -112,7 +112,7 @@
   width:            100%;
   box-sizing:       border-box;
 
-  background-color: var(--background-primary);             /* white */
+  background-color: var(--background-tertiary);            /* white */
   border:           var(--border-m) solid var(--border-secondary); /* 2px #d4d3d5 */
   border-radius:    var(--radius-small);                   /* 8px */
 

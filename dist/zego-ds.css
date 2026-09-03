@@ -2286,15 +2286,15 @@ body { font-family: var(--font-family-base); }
    ------------------------------------------------------------ */
 
 .btn--secondary {
-  background-color: var(--background-primary);  /* White */
-  border-color:     var(--border-primary); /* Grey 40 */
+  background-color: var(--surface-secondary);   /* Grey 30 */
+  border-color:     var(--border-primary); /* Grey 50 */
   color:            var(--text-primary-fixed);
 }
 
-/* Hover — subtle grey fill */
+/* Hover — one step deeper grey fill */
 .btn--secondary:hover,
 .btn--secondary.btn--hover {
-  background-color: var(--surface-secondary);
+  background-color: var(--surface-secondary-hover);
   border-color:     var(--border-primary);
 }
 
@@ -2306,16 +2306,16 @@ body { font-family: var(--font-family-base); }
   color:            var(--text-pressed);
 }
 
-/* Focused — white fill + border + focus ring */
+/* Focused — resting fill + border + focus ring */
 .btn--secondary:focus-visible,
 .btn--secondary.btn--focused {
-  background-color: var(--background-primary);
+  background-color: var(--surface-secondary);
   border-color:     var(--border-primary);
 }
 
 .btn--secondary:disabled,
 .btn--secondary.btn--disabled {
-  background-color: var(--background-primary);
+  background-color: var(--background-disabled);
   border-color:     var(--background-disabled);
   color:            var(--text-disabled);
   cursor:           not-allowed;
@@ -5764,7 +5764,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   width:            100%;
   box-sizing:       border-box;
 
-  background-color: var(--background-primary);             /* white */
+  background-color: var(--background-tertiary);            /* white */
   border:           var(--border-m) solid var(--border-secondary); /* 2px #d4d3d5 */
   border-radius:    var(--radius-small);                   /* 8px */
 
@@ -9255,7 +9255,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
   width:          240px;
   height:         100%;
   box-sizing:     border-box;
-  background:     var(--background-primary);
+  background:     var(--surface-tertiary);
   border-right:   var(--border-s) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
@@ -9290,8 +9290,8 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .side-nav__brand-logo svg { display: block; width: 100%; height: 100%; }
 .side-nav__brand-name {
   font-weight: var(--font-weight-bold);
-  font-size:   var(--font-size-subtitle-3);   /* 14 / 20 */
-  line-height: var(--line-height-subtitle-3);
+  font-size:   var(--font-size-subtitle-1);   /* 18 / 24 */
+  line-height: var(--line-height-subtitle-1);
   white-space: nowrap;
 }
 

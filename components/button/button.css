@@ -228,15 +228,15 @@
    ------------------------------------------------------------ */
 
 .btn--secondary {
-  background-color: var(--background-primary);  /* White */
-  border-color:     var(--border-primary); /* Grey 40 */
+  background-color: var(--surface-secondary);   /* Grey 30 */
+  border-color:     var(--border-primary); /* Grey 50 */
   color:            var(--text-primary-fixed);
 }
 
-/* Hover — subtle grey fill */
+/* Hover — one step deeper grey fill */
 .btn--secondary:hover,
 .btn--secondary.btn--hover {
-  background-color: var(--surface-secondary);
+  background-color: var(--surface-secondary-hover);
   border-color:     var(--border-primary);
 }
 
@@ -248,16 +248,16 @@
   color:            var(--text-pressed);
 }
 
-/* Focused — white fill + border + focus ring */
+/* Focused — resting fill + border + focus ring */
 .btn--secondary:focus-visible,
 .btn--secondary.btn--focused {
-  background-color: var(--background-primary);
+  background-color: var(--surface-secondary);
   border-color:     var(--border-primary);
 }
 
 .btn--secondary:disabled,
 .btn--secondary.btn--disabled {
-  background-color: var(--background-primary);
+  background-color: var(--background-disabled);
   border-color:     var(--background-disabled);
   color:            var(--text-disabled);
   cursor:           not-allowed;
