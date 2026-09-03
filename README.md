@@ -4,7 +4,7 @@ A coded component library that mirrors our Figma design system.
 This repository is the source of truth for design tokens and UI components,
 and is connected to our Figma file via Code Connect.
 
-**Figma file:** [Design-System-003](https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003)
+**Figma file:** [002-Components](https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN)
 
 ---
 
