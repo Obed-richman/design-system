@@ -54,7 +54,7 @@
   padding:          var(--spacer-8) var(--gap-medium);     /* 8px 16px */
   box-sizing:       border-box;
 
-  background-color: var(--background-primary);
+  background-color: var(--background-tertiary);
   border:           var(--border-m) solid var(--border-secondary);   /* 2px #d4d3d5 */
   border-radius:    var(--radius-small);                   /* 8px */
 
