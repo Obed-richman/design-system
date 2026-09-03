@@ -69,7 +69,7 @@
 /* Selected — raised white pill */
 .segment__item--active,
 .segment__item[aria-selected="true"] {
-  background-color: var(--background-primary);
+  background-color: var(--surface-tertiary);
   color:            var(--text-primary-fixed);
 }
 
