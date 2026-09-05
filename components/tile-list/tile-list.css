@@ -1,0 +1,69 @@
+/*
+ * ============================================================
+ * TILE LIST
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4080-20660
+ *
+ * A grouped set of navigable / selectable options: an optional heading above a
+ * white card that holds a gap-separated stack of Display Tiles. Set as many
+ * tiles as you need (Figma "List=1…10").
+ *
+ * The tiles ARE the Display Tile component (`.display-tile`) — this file only
+ * provides the heading + outer card wrapper. Style tiles via display-tile.css.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="tile-list.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* Each tile is a Display Tile. */
+@import '../display-tile/display-tile.css';
+
+
+.tile-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* Heading — sits above the card, aligned to the tile text. */
+.tile-list__title {
+  margin:      0;
+  padding:     0 var(--spacer-16);
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+
+
+/* ------------------------------------------------------------
+   CARD — the white container that holds the tiles
+   ------------------------------------------------------------ */
+
+.tile-list__card {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  background:     var(--surface-tertiary);         /* white */
+  border-radius:  var(--radius-medium);            /* 16px */
+  padding:        var(--spacer-16);
+}
+.tile-list__card-title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+
+.tile-list__tiles {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+}

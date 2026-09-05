@@ -13,7 +13,8 @@
  *   - a trailing chevron / radio / button (.display-row__trailing)
  *
  * Reuses Radio and Button for the trailing slot — link radio.css / button.css
- * when those are used.
+ * when those are used. The inline Button is Medium (btn--medium, 32px) so the
+ * row stays compact, matching Figma.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">

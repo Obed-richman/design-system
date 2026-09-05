@@ -1,0 +1,133 @@
+/*
+ * ============================================================
+ * ROW LIST
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4104-27101
+ *
+ * A stack of list rows inside a white rounded card, with an optional heading
+ * above it and an optional "Edit" action button below the rows. Consecutive
+ * rows are separated by a hairline divider.
+ *
+ * DIVIDER (Figma "Full div"):
+ *   Default        — dividers are INSET, respecting the card's 16px padding.
+ *   .row-list--full-divider — dividers span the card EDGE TO EDGE.
+ *
+ * Rows are slots: put a label (+ optional trailing value/control) in each
+ * `.row-list__row`. The count of rows is up to you (Figma "List=1…10").
+ *
+ * Usage — link alongside row-list.css:
+ *   tokens.css · button.css (only if you use the Edit action)
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The optional bottom action reuses the Button component. */
+@import '../button/button.css';
+
+
+.row-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   HEADING — sits above the card, aligned to the row text
+   ------------------------------------------------------------ */
+
+.row-list__title {
+  margin:      0;
+  padding:     0 var(--spacer-16);
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+
+
+/* ------------------------------------------------------------
+   CARD — the white rounded container holding the rows
+   ------------------------------------------------------------ */
+
+.row-list__card {
+  display:        flex;
+  flex-direction: column;
+  background:     var(--surface-tertiary);         /* white */
+  border-radius:  var(--radius-medium);            /* 16px */
+  padding:        0 var(--spacer-16);              /* inset dividers by default */
+}
+
+/* Optional title inside the card (above the rows). */
+.row-list__card-title {
+  margin:      0;
+  padding:     var(--spacer-16) 0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+
+/* A divider sits above every item except the first. */
+.row-list__card > * + * {
+  border-top: var(--border-s) solid var(--border-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ROW — a slot: label on the left, optional value on the right
+   ------------------------------------------------------------ */
+
+.row-list__row {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  padding:     var(--spacer-16) 0;
+  min-width:   0;
+}
+.row-list__label {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-medium);
+  font-size:   var(--font-size-body-2);            /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+}
+.row-list__value {
+  flex:        0 0 auto;
+  font-size:   var(--font-size-body-2);
+  line-height: var(--line-height-body-2);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   ACTION — optional helper text + full-width Edit button
+   ------------------------------------------------------------ */
+
+.row-list__action {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  padding:        var(--spacer-16) 0;
+}
+.row-list__action-text {
+  margin:      0;
+  font-size:   var(--font-size-body-3);            /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+.row-list__action .btn { width: 100%; }
+
+
+/* ------------------------------------------------------------
+   FULL DIVIDER — move the horizontal padding from the card onto
+   the items so the hairline rules span the card edge to edge.
+   ------------------------------------------------------------ */
+
+.row-list--full-divider .row-list__card { padding: 0; }
+.row-list--full-divider .row-list__card > * {
+  padding-left:  var(--spacer-16);
+  padding-right: var(--spacer-16);
+}

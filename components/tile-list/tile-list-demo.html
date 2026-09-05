@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tile List — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="tile-list.css">
+  <style>body { margin: 0; padding: 24px; background: var(--background-page); font-family: var(--font-family-base); }
+    .stage { width: 343px; max-width: 100%; }</style>
+</head>
+<body>
+  <div class="stage">
+    <div class="tile-list">
+      <h3 class="tile-list__title">Title</h3>
+      <div class="tile-list__card">
+        <div class="tile-list__tiles">
+          <a class="display-tile" href="#">
+            <span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span>
+            <span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span>
+            <span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+          </a>
+          <a class="display-tile" href="#">
+            <span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span>
+            <span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span>
+            <span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+          </a>
+          <a class="display-tile" href="#">
+            <span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span>
+            <span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span>
+            <span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+/*
+ * ============================================================
+ * LIST ITEM  (Figma "_Base List Item")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=128-98700
+ *
+ * A foundational list row, ruled top and bottom. It's built from slots you
+ * mix and match:
+ *   • a leading icon (or a leading Checkbox),
+ *   • a main text block — a bold Title with an optional Description beneath,
+ *   • an optional trailing text block (right-aligned),
+ *   • trailing controls — a Checkbox and/or a Chevron,
+ *   • an optional timeline Spine down the left (modifier .list-item--spine),
+ *   • an optional Link/action row beneath.
+ *
+ * Stack several `.list-item`s together; consecutive rows share a single rule
+ * (the top border collapses) so you don't get double hairlines.
+ *
+ * INTERACTION STATES (Figma "_Row state"): a row rendered as an <a>/<button>
+ * (or given .list-item--interactive) is tappable — Pressed fills the row with
+ * surface/secondary and mutes the title (also forceable via .list-item--pressed);
+ * .list-item--disabled mutes the label + icon and blocks interaction.
+ *
+ * Usage — link alongside list-item.css:
+ *   tokens.css · checkbox.css (only if you use a Checkbox)
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* Trailing / leading Checkbox reuses the Checkbox component. */
+@import '../checkbox/checkbox.css';
+
+
+.list-item {
+  display:       flex;
+  align-items:   stretch;
+  width:         100%;
+  box-sizing:    border-box;
+  border-top:    var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-s) solid var(--border-primary);
+  font-family:   'Modern Era', sans-serif;
+  color:         var(--text-primary);
+}
+/* Stacked rows share one rule instead of doubling up. */
+.list-item + .list-item { border-top: none; }
+
+
+/* ------------------------------------------------------------
+   INTERACTION STATES (Figma "_Row state": Default / Pressed / Disabled)
+   Applies when the row is interactive — an <a>/<button>, or .list-item--interactive.
+   ------------------------------------------------------------ */
+
+a.list-item,
+button.list-item,
+.list-item--interactive {
+  cursor:          pointer;
+  text-align:      left;
+  font:            inherit;
+  color:           var(--text-primary);
+  background:      transparent;
+  text-decoration: none;
+  transition:      background-color 150ms ease, color 150ms ease;
+}
+
+/* Pressed — grey fill (surface/secondary) + muted label. */
+a.list-item:active,
+button.list-item:active,
+.list-item--interactive:active,
+.list-item--pressed {
+  background: var(--surface-secondary);
+}
+a.list-item:active .list-item__title,
+button.list-item:active .list-item__title,
+.list-item--interactive:active .list-item__title,
+.list-item--pressed .list-item__title { color: var(--text-pressed); }
+
+/* Focus ring for keyboard users. */
+a.list-item:focus-visible,
+button.list-item:focus-visible,
+.list-item--interactive:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* Disabled — muted label + icon, non-interactive. */
+.list-item--disabled { pointer-events: none; }
+.list-item--disabled .list-item__title,
+.list-item--disabled .list-item__description,
+.list-item--disabled .list-item__icon { color: var(--text-disabled); }
+
+
+/* ------------------------------------------------------------
+   CONTENT — the padded row; children are laid out left → right
+   ------------------------------------------------------------ */
+
+.list-item__content {
+  display:     flex;
+  flex:        1 1 auto;
+  min-width:   0;
+  align-items: flex-start;
+  gap:         var(--spacer-16);
+  padding:     var(--spacer-16) 0;
+}
+
+
+/* Leading icon — nudged down to sit level with the Title. */
+.list-item__icon {
+  flex:        0 0 auto;
+  width:       16px;
+  height:      16px;
+  padding-top: var(--spacer-4);
+  box-sizing:  content-box;
+  color:       var(--icon-glyph-primary);
+}
+.list-item__icon svg { display: block; width: 16px; height: 16px; }
+
+
+/* ------------------------------------------------------------
+   TEXT — a bold Title with an optional Description beneath
+   ------------------------------------------------------------ */
+
+.list-item__text {
+  flex:            1 1 auto;
+  min-width:       0;
+  display:         flex;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             var(--spacer-4);
+}
+.list-item__title {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+.list-item__description {
+  font-size:   var(--font-size-body-3);            /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+/* Trailing text block — right-aligned, hugs its content. */
+.list-item__text--trailing {
+  flex:       0 0 auto;
+  align-items: flex-end;
+  text-align: right;
+}
+
+
+/* ------------------------------------------------------------
+   TRAILING CONTROLS — Checkbox and/or Chevron
+   ------------------------------------------------------------ */
+
+.list-item__chevron {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--icon-glyph-primary);
+}
+.list-item__chevron svg { display: block; width: 16px; height: 16px; }
+
+/* The composed Checkbox sits flush to the top of the row here. */
+.list-item__content > .checkbox { flex: 0 0 auto; }
+
+
+/* ------------------------------------------------------------
+   SPINE — an optional timeline connector down the left edge
+   ------------------------------------------------------------ */
+
+.list-item--spine .list-item__spine {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  align-self:      stretch;
+  flex:            0 0 auto;
+  padding:         0 var(--spacer-4);
+}
+.list-item__spine-line {
+  width:      2px;
+  flex:       1 1 auto;
+  background: var(--background-disabled);
+}
+.list-item__spine-line--head { flex: 0 0 auto; height: 23px; }
+.list-item__spine-dot {
+  flex:          0 0 auto;
+  width:         12px;
+  height:        12px;
+  border-radius: var(--radius-round);
+  border:        var(--border-m) solid var(--brand-1-medium);
+  background:    var(--surface-tertiary);
+  box-sizing:    border-box;
+}
+
+
+/* ------------------------------------------------------------
+   LINK — an optional action row beneath the content
+   ------------------------------------------------------------ */
+
+.list-item__link {
+  display:         inline-flex;
+  align-items:     center;
+  padding:         0 var(--spacer-32) var(--spacer-16);
+  border:          none;
+  background:      transparent;
+  font-family:     inherit;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-4);    /* 12 / 16 */
+  line-height:     var(--line-height-subtitle-4);
+  color:           var(--text-link);
+  text-decoration: none;
+  cursor:          pointer;
+}

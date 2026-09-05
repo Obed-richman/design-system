@@ -31,7 +31,7 @@
   max-width:      603px;
   box-sizing:     border-box;
   border-radius:  var(--radius-medium);          /* 16px */
-  background:     var(--background-primary);
+  background:     var(--background-tertiary);     /* Figma: background/tertiary = white */
   border:         var(--border-s) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
@@ -65,7 +65,7 @@
   width:           48px;
   height:          48px;
   border-radius:   var(--radius-small);          /* 8px */
-  background:      var(--brand-2-low);            /* light purple */
+  background:      var(--icon-glyph-brand-2-low); /* Figma: icon/glyph/brand-2-low = purple-20 */
   color:           var(--brand-3-high);           /* navy glyph */
 }
 .extra-cover__badge svg { display: block; width: 24px; height: 24px; }

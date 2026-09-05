@@ -69,6 +69,7 @@
   <link rel="stylesheet" href="components/mobile-nav/mobile-nav.css">
   <link rel="stylesheet" href="components/tooltip/tooltip.css">
   <link rel="stylesheet" href="components/side-nav/side-nav.css">
+  <link rel="stylesheet" href="components/row-list/row-list.css">
   <link rel="stylesheet" href="components/filter-select/filter-select.css">
   <link rel="stylesheet" href="components/control-set/control-set.css">
   <link rel="stylesheet" href="components/header-controls/header-controls.css">
@@ -77,6 +78,9 @@
   <link rel="stylesheet" href="components/data-table/data-table.css">
   <link rel="stylesheet" href="components/side-modal/side-modal.css">
   <link rel="stylesheet" href="components/info-field/info-field.css">
+  <link rel="stylesheet" href="components/list-item/list-item.css">
+  <link rel="stylesheet" href="components/display-tile/display-tile.css">
+  <link rel="stylesheet" href="components/tile-list/tile-list.css">
   <link rel="stylesheet" href="components/highlight-card/highlight-card.css">
   <link rel="stylesheet" href="components/icon-plus/icon-plus.css">
   <style>
@@ -219,7 +223,11 @@
     .card__preview .data-table,
     .card__preview .side-modal,
     .card__preview .info-field,
+    .card__preview .list-item,
+    .card__preview .display-tile,
+    .card__preview .tile-list,
     .card__preview .highlight-card,
+    .card__preview .row-list,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -1576,6 +1584,69 @@
           <div class="highlight-card" style="width:100%">
             <div class="info-field"><div class="info-field__content"><div class="info-field__head"><span class="info-field__label">Overdue</span></div><span class="info-field__action">&pound;113.00</span></div><span class="info-field__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 12.5C17.0315 12.7761 16.8076 13 16.5315 13H7.53164C7.2555 13 7.03164 12.7761 7.03164 12.5V11.5C7.03164 11.2239 7.2555 11 7.53164 11H16.5315C16.8076 11 17.0315 11.2239 17.0315 11.5V12.5Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.0315 8.5C17.0315 8.77614 16.8076 9 16.5315 9H7.53164C7.2555 9 7.03164 8.77614 7.03164 8.5V7.5C7.03164 7.22386 7.2555 7 7.53164 7H16.5315C16.8076 7 17.0315 7.22386 17.0315 7.5V8.5Z" fill="currentColor"/><path d="M3 21V3C3 1.89543 3.89543 1 5 1H18L18.0774 1.00098C19.6985 1.04203 21 2.36902 21 4V21C21 22.1046 20.1046 23 19 23H5C3.89543 23 3 22.1046 3 21ZM5 21H19V4C19 3.46499 18.5799 3.02803 18.0515 3.00122L18 3H5V21Z" fill="currentColor"/></svg></span></div>
             <div class="highlight-card__sub">Payment due 3 days ago</div>
+          </div>
+        `
+      },
+      {
+        name: "List Item",
+        description: "A ruled base list row — a leading icon or checkbox, a title with optional description, an optional trailing text block, and trailing controls. Interactive with default / pressed / disabled states.",
+        page: "components/list-item/list-item.html",
+        preview: `
+          <div style="width:100%">
+            <div class="list-item">
+              <div class="list-item__content">
+                <span class="list-item__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span>
+                <div class="list-item__text"><span class="list-item__title">Delivery</span><span class="list-item__description">Paragraph</span></div>
+                <div class="list-item__text list-item__text--trailing"><span class="list-item__title">£48.00</span></div>
+                <span class="list-item__chevron"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.2163 17.0716L1.61934 8.3144C1.41536 8.12826 1.40089 7.81201 1.58703 7.60803L2.26108 6.86934C2.44721 6.66536 2.76346 6.65089 2.96744 6.83703L11.9241 15.0099L20.8807 6.83702C21.0846 6.65089 21.4009 6.66536 21.587 6.86934L22.2611 7.60803C22.4472 7.81201 22.4327 8.12826 22.2288 8.3144L12.6318 17.0716C12.2309 17.4375 11.6172 17.4375 11.2163 17.0716Z" fill="currentColor"/></svg></span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Display Tile",
+        description: "A single tappable tile — a bordered rounded row with an optional icon, a title with optional support/second column, and a trailing chevron, radio or checkbox. Hover / active / focus / disabled states. The atom the Tile List stacks.",
+        page: "components/display-tile/display-tile.html",
+        preview: `
+          <div style="width:100%;display:flex;flex-direction:column;gap:8px">
+            <a class="display-tile" href="#" style="pointer-events:none"><span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span><span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span><span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span></a>
+            <div class="display-tile"><span class="display-tile__text"><span class="display-tile__title">Standard cover</span><span class="display-tile__support">Included</span></span><span class="display-tile__text display-tile__text--right"><span class="display-tile__title">£182</span></span></div>
+          </div>
+        `
+      },
+      {
+        name: "Tile List",
+        description: "A grouped set of navigable options — an optional heading above a white card holding a gap-separated stack of bordered tiles (icon · title · chevron).",
+        page: "components/tile-list/tile-list.html",
+        preview: `
+          <div style="width:100%;background:var(--background-secondary);border-radius:12px;padding:16px">
+            <div class="tile-list">
+              <h3 class="tile-list__title">Title</h3>
+              <div class="tile-list__card">
+                <div class="tile-list__tiles">
+                  <div class="display-tile"><span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span><span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span><span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span></div>
+                  <div class="display-tile"><span class="display-tile__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4866 13.5577L15.1072 8.93704C15.3025 8.74178 15.6191 8.74178 15.8143 8.93704L16.5214 9.64415C16.7167 9.83941 16.7167 10.156 16.5214 10.3513L10.8513 16.0214C10.656 16.2167 10.3394 16.2167 10.1442 16.0214L7.60355 13.4808C7.40829 13.2856 7.40829 12.969 7.60355 12.7737L8.29953 12.0778C8.4948 11.8825 8.81138 11.8825 9.00664 12.0778L10.4866 13.5577Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3ZM1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12Z" fill="currentColor"/></svg></span><span class="display-tile__text"><span class="display-tile__title">Subtitle</span></span><span class="display-tile__chevron"><svg viewBox="0 0 7 12" fill="none" aria-hidden="true"><path d="M1.98792 0.169026C1.75193 -0.0595573 1.37599 -0.0558328 1.14457 0.177381L0.174098 1.1554C-0.061348 1.39267 -0.0574932 1.7766 0.18267 2.0091L3.77064 5.48258C3.93167 5.63848 3.9332 5.89626 3.77401 6.05405L0.285904 9.51164C0.0495571 9.74592 0.049031 10.1278 0.284731 10.3627L1.26078 11.3356C1.49447 11.5685 1.8724 11.569 2.10674 11.3367L6.29663 7.18351C7.09241 6.39469 7.08497 5.10608 6.28013 4.32651L1.98792 0.169026Z" fill="currentColor"/></svg></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        name: "Row List",
+        description: "A stack of list rows in a white rounded card, with an optional heading and Edit action. Dividers inset by default or edge-to-edge (Full divider).",
+        page: "components/row-list/row-list.html",
+        preview: `
+          <div style="width:100%;background:var(--background-secondary);border-radius:12px;padding:16px">
+            <div class="row-list">
+              <h3 class="row-list__title">Title</h3>
+              <div class="row-list__card">
+                <div class="row-list__row"><span class="row-list__label">Delivery</span></div>
+                <div class="row-list__row"><span class="row-list__label">Delivery</span></div>
+                <div class="row-list__row"><span class="row-list__label">Delivery</span></div>
+              </div>
+            </div>
           </div>
         `
       },
