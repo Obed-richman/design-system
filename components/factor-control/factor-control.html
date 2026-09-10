@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factor Control — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="factor-control.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo svg { width: 110px; height: 32px; display: block; color: var(--colour-white); }
+    .content { max-width: 960px; margin: 0 auto; padding: 24px 24px 96px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); margin: 0; }
+    .component-header__description { font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--text-pressed); margin: 4px 0 0; }
+    .variants { display: flex; flex-direction: column; gap: 28px; }
+    .variant { display: flex; flex-direction: column; gap: 12px; }
+    .variant__label { font-weight: var(--font-weight-bold); font-size: var(--font-size-subtitle-4); line-height: var(--line-height-subtitle-4); letter-spacing: 0.04em; text-transform: uppercase; color: var(--colour-grey-60); }
+    .stage { background: var(--background-secondary); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 16px; max-width: 391px; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+</head>
+<body>
+  <header class="header"><span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span></header>
+  <main class="content">
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+    <div class="component-header">
+      <h1 class="component-header__name">Factor Control</h1>
+      <p class="component-header__description">A card for one telematics factor — a labelled icon (with an optional help icon) above a Factor Indicator bar. Types: Acceleration, Braking, Phone distractions, Speeding, Rest (Fatigue). Composes Factor Indicator.</p>
+    </div>
+    <div class="variants">
+      <div class="variant">
+        <span class="variant__label">Factor types</span>
+        <div class="stage">
+          <div class="factor-control">
+    <div class="factor-control__head">
+      <span class="factor-control__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12C3 7.02944 7.02944 3 12 3C12.4845 3 12.9594 3.03819 13.4221 3.11157C13.6948 3.15483 13.9608 2.98483 14.0192 2.71494L14.2308 1.73756C14.2892 1.46766 14.1179 1.20034 13.8456 1.15431C13.2449 1.05278 12.6283 1 12 1C5.92487 1 1 5.92487 1 12C1 14.8271 2.06765 17.4065 3.81985 19.3544C4.00453 19.5597 4.32202 19.5613 4.51877 19.3676L5.23123 18.6659C5.42798 18.4721 5.42924 18.1564 5.24661 17.9493C3.84749 16.3625 3 14.2811 3 12Z" fill="currentColor"/>
+  <path d="M20.9057 10.6915C20.9678 11.1182 21 11.5551 21 12C21 14.2811 20.1525 16.3625 18.7534 17.9493C18.5708 18.1564 18.572 18.4721 18.7688 18.6659L19.4812 19.3676C19.678 19.5613 19.9955 19.5597 20.1802 19.3544C21.9323 17.4065 23 14.8271 23 12C23 11.42 22.955 10.8499 22.8682 10.2932C22.8257 10.0203 22.5606 9.8456 22.29 9.90053L21.31 10.0995C21.0393 10.1544 20.8659 10.4182 20.9057 10.6915Z" fill="currentColor"/>
+  <path d="M20.8087 4.58178C21.0039 4.38652 21.0039 4.06993 20.8087 3.87467L20.1016 3.16756C19.9063 2.9723 19.5897 2.9723 19.3944 3.16756L12.8965 9.66554C12.6182 9.55861 12.3159 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12C9.5 13.3807 10.6193 14.5 12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 11.6711 14.4365 11.357 14.3211 11.0694L20.8087 4.58178Z" fill="currentColor"/>
+  <path d="M10 18.5C10 18.7761 9.77614 19 9.5 19H8.5C8.22386 19 8 18.7761 8 18.5V17.5C8 17.2239 8.22386 17 8.5 17H9.5C9.77614 17 10 17.2239 10 17.5V18.5Z" fill="currentColor"/>
+  <path d="M13 18.5C13 18.7761 12.7761 19 12.5 19H11.5C11.2239 19 11 18.7761 11 18.5V17.5C11 17.2239 11.2239 17 11.5 17H12.5C12.7761 17 13 17.2239 13 17.5V18.5Z" fill="currentColor"/>
+  <path d="M15.5 19C15.7761 19 16 18.7761 16 18.5V17.5C16 17.2239 15.7761 17 15.5 17H14.5C14.2239 17 14 17.2239 14 17.5V18.5C14 18.7761 14.2239 19 14.5 19H15.5Z" fill="currentColor"/>
+  <path d="M16 22.5C16 22.7761 15.7761 23 15.5 23H8.5C8.22386 23 8 22.7761 8 22.5V21.5C8 21.2239 8.22386 21 8.5 21H15.5C15.7761 21 16 21.2239 16 21.5V22.5Z" fill="currentColor"/></svg></span>
+      <span class="factor-control__title">Acceleration</span>
+      
+    </div>
+    <div class="factor-indicator" role="img" aria-label="Good"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange"></span><span class="factor-indicator__zone factor-indicator__zone--green factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span></div>
+  </div>
+          <div class="factor-control">
+    <div class="factor-control__head">
+      <span class="factor-control__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 12.9999C11.2239 12.9999 11 12.7761 11 12.4999V7.49991C11 7.22377 11.2239 6.99991 11.5 6.99991H12.5C12.7761 6.99991 13 7.22377 13 7.49991V12.4999C13 12.7761 12.7761 12.9999 12.5 12.9999H11.5ZM12 16.9999C12.6904 16.9999 13.25 16.4403 13.25 15.7499C13.25 15.0596 12.6904 14.4999 12 14.4999C11.3096 14.4999 10.75 15.0596 10.75 15.7499C10.75 16.4403 11.3096 16.9999 12 16.9999Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.30029 4.39897C6.46613 4.61976 6.42058 4.93216 6.20927 5.10994C4.24541 6.76222 3 9.2355 3 11.9999C3 14.7135 4.2 17.1465 6.10164 18.7979C6.31014 18.9789 6.3508 19.292 6.18151 19.5102L5.56849 20.3002C5.3992 20.5184 5.08428 20.5589 4.874 20.3799C2.50514 18.3636 1 15.3573 1 11.9999C1 8.58025 2.56141 5.52501 5.00655 3.50888C5.21961 3.3332 5.53387 3.3786 5.69971 3.5994L6.30029 4.39897ZM21 11.9999C21 9.2355 19.7546 6.76222 17.7907 5.10994C17.5794 4.93216 17.5339 4.61976 17.6997 4.39897L18.3003 3.5994C18.4661 3.3786 18.7804 3.3332 18.9934 3.50888C21.4386 5.52501 23 8.58025 23 11.9999C23 15.4196 21.4386 18.4748 18.9934 20.4909C18.7804 20.6666 18.4661 20.6212 18.3003 20.4004L17.6997 19.6009C17.5339 19.3801 17.5794 19.0677 17.7907 18.8899C19.7546 17.2376 21 14.7643 21 11.9999Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M8.11767 8.10408C8.3126 8.29968 8.30984 8.61482 8.13452 8.82816C7.42487 9.69169 7 10.7955 7 11.9999C7 13.2044 7.42487 14.3081 8.13452 15.1717C8.30984 15.385 8.3126 15.7002 8.11767 15.8958L7.41179 16.6041C7.21686 16.7997 6.89877 16.8013 6.71752 16.593C5.64855 15.3644 5 13.7571 5 11.9999C5 10.2427 5.64855 8.63546 6.71752 7.40683C6.89877 7.1985 7.21686 7.20015 7.41179 7.39575L8.11767 8.10408ZM17 11.9999C17 10.7955 16.5751 9.69169 15.8655 8.82816C15.6902 8.61482 15.6874 8.29968 15.8823 8.10408L16.5882 7.39575C16.7831 7.20015 17.1012 7.1985 17.2825 7.40683C18.3515 8.63546 19 10.2427 19 11.9999C19 13.7483 18.3579 15.3484 17.2984 16.5747C17.1179 16.7836 16.7998 16.7831 16.6042 16.5881L15.8958 15.8822C15.7002 15.6873 15.7019 15.3722 15.8765 15.1582C16.5795 14.2967 17 13.1981 17 11.9999Z" fill="currentColor"/></svg></span>
+      <span class="factor-control__title">Braking</span>
+      
+    </div>
+    <div class="factor-indicator" role="img" aria-label="Average"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span><span class="factor-indicator__zone factor-indicator__zone--green"></span></div>
+  </div>
+          <div class="factor-control">
+    <div class="factor-control__head">
+      <span class="factor-control__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19C12.5523 19 13 18.5523 13 18C13 17.4477 12.5523 17 12 17C11.4477 17 11 17.4477 11 18C11 18.5523 11.4477 19 12 19Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M7 1C5.89543 1 5 1.89543 5 3V21C5 22.1046 5.89543 23 7 23H17C18.1046 23 19 22.1046 19 21V3C19 1.89543 18.1046 1 17 1L7 1ZM7 3L17 3V21H7V3Z" fill="currentColor"/></svg></span>
+      <span class="factor-control__title">Phone distractions</span>
+      <span class="factor-control__help" title="More info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.7754 10.9502C13.05 10.6748 13.1921 10.2944 13.1987 9.87834C13.1977 9.15053 12.6565 8.5651 11.7934 8.5651C11.2862 8.5651 10.9216 8.72332 10.6831 8.97139C10.4431 9.22104 10.304 9.58975 10.304 10.0603C10.304 10.2248 10.1478 10.3444 9.98898 10.3017L8.44594 9.88614C8.33164 9.85536 8.2546 9.74864 8.26135 9.63047C8.36787 7.76749 9.80886 6.5 11.7653 6.5C13.8067 6.5 15.3399 7.90993 15.3399 9.81094C15.3399 11.1962 14.5582 12.4317 13.0253 12.9328L13.0253 13.5C13.0253 13.7762 12.8014 14 12.5253 14H11.5C11.2239 14 11 13.7761 11 13.5L11 11.8736C11 11.6214 11.2045 11.4169 11.4567 11.4169C12.0758 11.4169 12.5023 11.2241 12.7754 10.9502Z" fill="currentColor"/>
+  <path d="M12 17.5C12.6904 17.5 13.25 16.9404 13.25 16.25C13.25 15.5596 12.6904 15 12 15C11.3096 15 10.75 15.5596 10.75 16.25C10.75 16.9404 11.3096 17.5 12 17.5Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z" fill="currentColor"/></svg></span>
+    </div>
+    <div class="factor-indicator" role="img" aria-label="Poor"><span class="factor-indicator__zone factor-indicator__zone--red factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span><span class="factor-indicator__zone factor-indicator__zone--orange"></span><span class="factor-indicator__zone factor-indicator__zone--green"></span></div>
+  </div>
+          <div class="factor-control">
+    <div class="factor-control__head">
+      <span class="factor-control__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.0963 7.02133L17.0882 7.02922L13.2643 10.8531C13.0691 11.0483 12.7525 11.0483 12.5572 10.8531L11.8501 10.146C11.6549 9.9507 11.6549 9.63411 11.8501 9.43885L14.2744 7.01457H6.5C6.22386 7.01457 6 6.79072 6 6.51457V5.51457C6 5.23843 6.22386 5.01457 6.5 5.01457H14.3824L11.8855 2.51769C11.6902 2.32243 11.6902 2.00585 11.8855 1.81058L12.5926 1.10348C12.7879 0.908216 13.1045 0.908216 13.2997 1.10348L17.0876 4.89137L17.0963 4.89982L17.8034 5.60693C17.9109 5.7145 17.9593 5.85889 17.9483 5.99954C17.9394 6.11425 17.8911 6.22649 17.8034 6.31423L17.0963 7.02133Z" fill="currentColor"/>
+  <path d="M18.2678 22.8531L22.0893 19.0316L22.0998 19.0213L22.8069 18.3142C22.9694 18.1517 22.9967 17.9052 22.8887 17.7145C22.8669 17.676 22.8396 17.6398 22.8068 17.6069L22.0997 16.8998L22.0942 16.8944L18.3033 13.1035C18.108 12.9082 17.7914 12.9082 17.5962 13.1035L16.889 13.8106C16.6938 14.0058 16.6938 14.3224 16.889 14.5177L19.3859 17.0146H11.5C11.2239 17.0146 11 17.2384 11 17.5146V18.5146C11 18.7907 11.2239 19.0146 11.5 19.0146H19.2778L16.8536 21.4389C16.6583 21.6341 16.6583 21.9507 16.8536 22.146L17.5607 22.8531C17.7559 23.0483 18.0725 23.0483 18.2678 22.8531Z" fill="currentColor"/>
+  <path d="M4.5 6.99992C4.77614 6.99992 5 6.77607 5 6.49992V5.49992C5 5.22378 4.77614 4.99992 4.5 4.99992H3.5C3.22386 4.99992 3 5.22378 3 5.49992V6.49992C3 6.77607 3.22386 6.99992 3.5 6.99992H4.5Z" fill="currentColor"/>
+  <path d="M6.5 18.5146C6.5 18.7907 6.27614 19.0146 6 19.0146H5.5C5.22386 19.0146 5 18.7907 5 18.5146V17.5146C5 17.2384 5.22386 17.0146 5.5 17.0146H6C6.27614 17.0146 6.5 17.2384 6.5 17.5146V18.5146Z" fill="currentColor"/>
+  <path d="M9.5 19.0146C9.77614 19.0146 10 18.7907 10 18.5146V17.5146C10 17.2384 9.77614 17.0146 9.5 17.0146H8C7.72386 17.0146 7.5 17.2384 7.5 17.5146V18.5146C7.5 18.7907 7.72386 19.0146 8 19.0146H9.5Z" fill="currentColor"/>
+  <path d="M2 6.49992C2 6.77607 1.77614 6.99992 1.5 6.99992C1.22386 6.99992 1 6.77607 1 6.49992V5.49992C1 5.22378 1.22386 4.99992 1.5 4.99992C1.77614 4.99992 2 5.22378 2 5.49992V6.49992Z" fill="currentColor"/>
+  <path d="M3.5 19.0146C3.77614 19.0146 4 18.7907 4 18.5146V17.5146C4 17.2384 3.77614 17.0146 3.5 17.0146C3.22386 17.0146 3 17.2384 3 17.5146V18.5146C3 18.7907 3.22386 19.0146 3.5 19.0146Z" fill="currentColor"/></svg></span>
+      <span class="factor-control__title">Speeding</span>
+      
+    </div>
+    <div class="factor-indicator" role="img" aria-label="Good"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange"></span><span class="factor-indicator__zone factor-indicator__zone--green factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span></div>
+  </div>
+          <div class="factor-control">
+    <div class="factor-control__head">
+      <span class="factor-control__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.9854 6.5C10.9854 6.22386 11.2092 6 11.4854 6H12.4854C12.7615 6 12.9854 6.22386 12.9854 6.5V11.3863C12.9854 11.5174 13.0368 11.6433 13.1287 11.7368L15.2964 13.9425C15.4899 14.1394 15.4872 14.456 15.2902 14.6495L14.577 15.3505C14.38 15.544 14.0635 15.5413 13.8699 15.3443L11.1287 12.5551C11.0368 12.4616 10.9854 12.3357 10.9854 12.2046V6.5Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0519 3C7.08941 3 3.06653 7.02288 3.06653 11.9854C3.06653 16.9478 7.08941 20.9707 12.0519 20.9707C17.0144 20.9707 21.0372 16.9478 21.0372 11.9854C21.0372 7.02288 17.0144 3 12.0519 3ZM1.06653 11.9854C1.06653 5.91831 5.98484 1 12.0519 1C18.1189 1 23.0372 5.91831 23.0372 11.9854C23.0372 18.0524 18.1189 22.9707 12.0519 22.9707C5.98484 22.9707 1.06653 18.0524 1.06653 11.9854Z" fill="currentColor"/></svg></span>
+      <span class="factor-control__title">Rest (Fatigue)</span>
+      <span class="factor-control__help" title="More info"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12.7754 10.9502C13.05 10.6748 13.1921 10.2944 13.1987 9.87834C13.1977 9.15053 12.6565 8.5651 11.7934 8.5651C11.2862 8.5651 10.9216 8.72332 10.6831 8.97139C10.4431 9.22104 10.304 9.58975 10.304 10.0603C10.304 10.2248 10.1478 10.3444 9.98898 10.3017L8.44594 9.88614C8.33164 9.85536 8.2546 9.74864 8.26135 9.63047C8.36787 7.76749 9.80886 6.5 11.7653 6.5C13.8067 6.5 15.3399 7.90993 15.3399 9.81094C15.3399 11.1962 14.5582 12.4317 13.0253 12.9328L13.0253 13.5C13.0253 13.7762 12.8014 14 12.5253 14H11.5C11.2239 14 11 13.7761 11 13.5L11 11.8736C11 11.6214 11.2045 11.4169 11.4567 11.4169C12.0758 11.4169 12.5023 11.2241 12.7754 10.9502Z" fill="currentColor"/>
+  <path d="M12 17.5C12.6904 17.5 13.25 16.9404 13.25 16.25C13.25 15.5596 12.6904 15 12 15C11.3096 15 10.75 15.5596 10.75 16.25C10.75 16.9404 11.3096 17.5 12 17.5Z" fill="currentColor"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3Z" fill="currentColor"/></svg></span>
+    </div>
+    <div class="factor-indicator" role="img" aria-label="Average"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span><span class="factor-indicator__zone factor-indicator__zone--green"></span></div>
+  </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

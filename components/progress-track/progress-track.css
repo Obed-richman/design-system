@@ -1,0 +1,71 @@
+/*
+ * ============================================================
+ * PROGRESS TRACK
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2986-13284
+ *
+ * A horizontal progress bar showing a driver's position within a score range —
+ * a translucent track with a coloured fill that grows left→right and a white
+ * position indicator at the fill's leading edge.
+ *
+ * VALUE: set --progress-track-value (0–100) inline. 0 = empty track, 100 = full
+ *        (both hide the indicator); anything between shows the marker.
+ * The track colour (overlay/light-low, translucent white) is made for a
+ * COLOURED surface — place it on a dark/brand background.
+ *
+ * OPTIONS:
+ *   --progress-track-fill  override the fill colour (defaults to rating/risk red).
+ *
+ * Usage:
+ *   <div class="progress-track" style="--progress-track-value: 50"
+ *        role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+ *     <div class="progress-track__fill"><span class="progress-track__indicator"></span></div>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.progress-track {
+  --progress-track-value: 0;
+  position:      relative;
+  display:       block;
+  width:         100%;
+  height:        16px;
+  box-sizing:    border-box;
+  border-radius: var(--radius-x-small);             /* 4px */
+  background:    var(--overlay-light-low);          /* translucent white track */
+}
+
+.progress-track__fill {
+  position:        absolute;
+  left:            0;
+  top:             0;
+  bottom:          0;
+  width:           calc(var(--progress-track-value) * 1%);
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-end;
+  background:      var(--progress-track-fill, var(--rating-risk));  /* red-50 */
+  border-radius:   var(--radius-x-small) 0 0 var(--radius-x-small);
+  transition:      width 400ms ease;
+}
+
+/* The white position marker at the fill's leading edge (overflows the track). */
+.progress-track__indicator {
+  flex:          0 0 auto;
+  width:         2px;
+  height:        24px;
+  margin-right:  -1px;                              /* centre on the fill edge */
+  border-radius: var(--radius-round);
+  background:    var(--surface-tertiary);           /* white */
+}
+
+/* Full — round the fill fully and drop the indicator. Empty — no indicator. */
+.progress-track[style*="value: 100"] .progress-track__fill { border-radius: var(--radius-x-small); }
+.progress-track[style*="value: 100"] .progress-track__indicator,
+.progress-track[style*="value: 0"]   .progress-track__indicator { display: none; }
+
+/* Keep the marker even on a full segment (e.g. Driver Rating "At risk"). */
+.progress-track.progress-track--marker .progress-track__indicator { display: block; }

@@ -1,0 +1,67 @@
+/*
+ * ============================================================
+ * TOP PROGRESS INDICATORS
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4826-1600
+ *
+ * A header progress bar for a multi-step flow — a centred row of Track Items
+ * (2–6) that fill as the user advances, with an optional "Skip" button pinned
+ * to the right. The row stays centred whether or not Skip is shown.
+ *
+ * Set the number of steps and how many have lapsed by the Track Items you place;
+ * the first N carry .track-item--lapsed.
+ *
+ * Usage — link alongside top-progress.css:
+ *   tokens.css · track-item.css
+ *
+ *   <div class="top-progress">
+ *     <div class="top-progress__track">
+ *       <span class="track-item track-item--lapsed"></span>
+ *       <span class="track-item"></span>
+ *       …
+ *     </div>
+ *     <button class="top-progress__skip" type="button">Skip</button>  <!-- optional -->
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The segments are Track Items. */
+@import '../track-item/track-item.css';
+
+
+.top-progress {
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  min-height:      16px;
+  box-sizing:      border-box;
+  font-family:     'Modern Era', sans-serif;
+}
+
+/* Centred row of fixed-width segments. */
+.top-progress__track {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);                     /* 8px */
+}
+
+/* Optional tertiary "Skip" — pinned right, doesn't shift the centred track. */
+.top-progress__skip {
+  position:    absolute;
+  right:       0;
+  top:         50%;
+  transform:   translateY(-50%);
+  padding:     0;
+  border:      none;
+  background:  transparent;
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);         /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+  cursor:      pointer;
+}
+.top-progress__skip:hover { color: var(--text-pressed); }

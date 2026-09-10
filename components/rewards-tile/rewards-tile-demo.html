@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards Tile — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="rewards-tile.css">
+  <style>body { margin: 0; padding: 24px; background: var(--background-page); font-family: var(--font-family-base); }
+    .row { display: flex; gap: 12px; max-width: 360px; }
+    .row > .rewards-tile { flex: 1 1 0; }</style>
+</head>
+<body>
+  <div class="row">
+
+    <div class="rewards-tile rewards-tile--progress">
+      <p class="rewards-tile__title">Progress</p>
+      <div class="rewards-tile__media">
+        <div class="counter-ring counter-ring--large rewards-tile__ring" style="--counter-ring-value: 60" role="img" aria-label="60 percent">
+          <svg class="counter-ring__svg" viewBox="0 0 36 36" aria-hidden="true"><circle class="counter-ring__track" cx="18" cy="18" r="15.5" pathLength="100"/><circle class="counter-ring__arc" cx="18" cy="18" r="15.5" pathLength="100"/></svg>
+          <span class="counter-ring__text"><span class="counter-ring__number">300</span></span>
+        </div>
+      </div>
+      <p class="rewards-tile__caption">500 points = &pound;5</p>
+    </div>
+
+    <div class="rewards-tile rewards-tile--discover">
+      <p class="rewards-tile__title">Discover</p>
+      <div class="rewards-tile__media">
+        <div class="rewards-tile__preview" role="img" aria-label="Popular gift cards">
+          <span style="flex:1;height:64px;border-radius:8px;background:var(--brand-3-medium)"></span>
+          <span style="flex:1.1;height:80px;border-radius:8px;background:var(--rating-improving)"></span>
+          <span style="flex:1;height:64px;border-radius:8px;background:var(--surface-inverse)"></span>
+        </div>
+      </div>
+      <p class="rewards-tile__caption">Popular gift cards</p>
+    </div>
+
+  </div>
+</body>
+</html>

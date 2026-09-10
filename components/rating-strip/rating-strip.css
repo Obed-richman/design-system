@@ -1,0 +1,62 @@
+/*
+ * ============================================================
+ * RATING STRIP
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6224-2097
+ *
+ * A prominent banner for a driver's current performance rating — the tier label
+ * with an optional rewards-points callout on the left, and the matching Rating
+ * Badge on the right, over a dark brand (navy) background.
+ *
+ * Set the tier by the title text + the Rating Badge you drop in; hide the points
+ * line by omitting .rating-strip__points.
+ *
+ * Usage — link alongside rating-strip.css:
+ *   tokens.css · rating-badge.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The badge is the Rating Badge component. */
+@import '../rating-badge/rating-badge.css';
+
+
+.rating-strip {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       var(--spacer-16);
+  background:    var(--surface-brand-3-high);       /* navy-90 */
+  border-radius: var(--radius-medium);              /* 16px */
+  font-family:   'Modern Era', sans-serif;
+  color:         var(--text-on-color);              /* white */
+}
+
+
+.rating-strip__status {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.rating-strip__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;
+  line-height:    24px;
+  letter-spacing: -0.4px;
+  color:          var(--text-on-color);
+}
+.rating-strip__points {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-on-color);
+}
+
+/* The Rating Badge holds its own size (48px); keep it from shrinking. */
+.rating-strip .rating-badge { flex: 0 0 auto; }

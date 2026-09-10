@@ -1,0 +1,71 @@
+/*
+ * ============================================================
+ * FACTOR INDICATOR
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2112-891
+ *
+ * A single-factor telematics gauge — a three-zone red / amber / green bar with a
+ * vertical pointer that sits in the zone matching the mode:
+ *   Poor    → pointer in the red zone
+ *   Average → pointer in the amber zone
+ *   Good    → pointer in the green zone
+ *
+ * The active zone splits around the pointer; put the pointer markup inside that
+ * zone (see factor-indicator-demo.html). The pointer takes the zone's colour.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="factor-indicator.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.factor-indicator {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-4);                     /* 4px between zones */
+  width:       100%;
+  max-width:   123px;
+  box-sizing:  border-box;
+}
+
+
+/* The three zones — equal thirds, 8px tall. */
+.factor-indicator__zone {
+  flex:          1 1 0;
+  height:        8px;
+  border-radius: var(--radius-x-small);             /* 4px */
+}
+.factor-indicator__zone--red    { background: var(--surface-error); }    /* red-60 */
+.factor-indicator__zone--orange { background: var(--surface-warning); }  /* orange-50 */
+.factor-indicator__zone--green  { background: var(--surface-success); }  /* green-60 */
+
+
+/* Active zone — splits into two halves around a centred pointer. */
+.factor-indicator__zone--active {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-4);
+  height:          auto;
+  background:      transparent;
+  border-radius:   0;
+}
+.factor-indicator__half { flex: 1 1 0; height: 8px; }
+.factor-indicator__half:first-child { border-radius: var(--radius-x-small) 0 0 var(--radius-x-small); }
+.factor-indicator__half:last-child  { border-radius: 0 var(--radius-x-small) var(--radius-x-small) 0; }
+.factor-indicator__pointer {
+  flex:          0 0 auto;
+  width:         6px;
+  height:        24px;
+  border-radius: var(--radius-x-small);
+}
+
+/* Halves + pointer take the active zone's colour. */
+.factor-indicator__zone--red .factor-indicator__half,
+.factor-indicator__zone--red .factor-indicator__pointer    { background: var(--surface-error); }
+.factor-indicator__zone--orange .factor-indicator__half,
+.factor-indicator__zone--orange .factor-indicator__pointer { background: var(--surface-warning); }
+.factor-indicator__zone--green .factor-indicator__half,
+.factor-indicator__zone--green .factor-indicator__pointer  { background: var(--surface-success); }

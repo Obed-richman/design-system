@@ -26,6 +26,17 @@
        real component sits over a scrim — unpinned for this page only, and given
        a hairline so its edge is visible against the white card behind it. */
     .docs-panel { position: static; box-shadow: none; border: 1px solid var(--border-primary); }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>

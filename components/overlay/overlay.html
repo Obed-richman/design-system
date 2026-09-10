@@ -28,6 +28,17 @@
               background: repeating-linear-gradient(135deg, var(--surface-primary) 0 14px, var(--surface-primary-medium) 14px 28px); }
     .swatch .overlay { position: absolute; }
     .swatch__name { font-size: var(--font-size-body-3); color: var(--text-pressed); margin: 8px 0 0; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>

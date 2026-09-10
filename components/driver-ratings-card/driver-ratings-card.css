@@ -1,0 +1,156 @@
+/*
+ * ============================================================
+ * DRIVER RATINGS CARD  (Figma "Driver Ratings Card")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59087-61847
+ *
+ * A navy card showing a driver's current rating tier: a status title + Rating
+ * Badge (48px) over a Driver Rating Progress bar, with optional actions.
+ * Two "in progress" states replace the rating with a Status Label + message and
+ * a background supergraphic (Rebuilding · Calculating).
+ *
+ * STATUSES (rating): Excellent · Great · Good · Improving · At Risk
+ * STATES  (message): Rebuilding · Calculating
+ *
+ * Composes Rating Badge, Driver Rating Progress and Status Label.
+ *
+ * Usage — link alongside driver-ratings-card.css:
+ *   tokens.css · rating-badge.css · driver-rating.css · progress-track.css · status-label.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The badge, bar and message pill are existing components. */
+@import '../rating-badge/rating-badge.css';
+@import '../driver-rating/driver-rating.css';
+@import '../status-label/status-label.css';
+
+
+.driver-ratings-card {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  max-width:      343px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  overflow:       hidden;
+  background:     var(--surface-brand-3-high);      /* navy-90 */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-on-color-fixed);       /* white */
+}
+
+
+/* ------------------------------------------------------------
+   RATING ROW — status title + Rating Badge
+   ------------------------------------------------------------ */
+.driver-ratings-card__rating {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  width:       100%;
+}
+.driver-ratings-card__status {
+  flex:          1 1 0;
+  min-width:     0;
+  word-break:    break-word;
+  font-weight:   var(--font-weight-bold);
+  font-size:     28px;                              /* Mobile / Title 3 */
+  line-height:   32px;
+  letter-spacing: -0.56px;
+  color:         var(--text-on-color-fixed);
+}
+/* The Rating Badge sits at its native 48px (size M). */
+
+
+/* ------------------------------------------------------------
+   ACTIONS — "View insights" pill + more (ellipsis) button
+   Outlined for a coloured surface: white border, transparent fill.
+   ------------------------------------------------------------ */
+.driver-ratings-card__actions {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+}
+.driver-ratings-card__insights,
+.driver-ratings-card__more {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  border:          var(--border-s) solid var(--border-on-color);   /* white */
+  background:      transparent;
+  color:           var(--text-on-color-fixed);
+  border-radius:   var(--radius-round);
+  cursor:          pointer;
+  transition:      background-color 0.15s ease;
+}
+.driver-ratings-card__insights {
+  height:      40px;
+  padding:     0 var(--spacer-20);
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+}
+.driver-ratings-card__more {
+  flex:   0 0 auto;
+  width:  40px;
+  height: 40px;
+  padding: 0;
+}
+.driver-ratings-card__more svg { display: block; width: 24px; height: 24px; }
+.driver-ratings-card__insights:hover,
+.driver-ratings-card__more:hover { background: var(--overlay-light-low); }
+
+
+/* ------------------------------------------------------------
+   IN-PROGRESS STATES — Rebuilding · Calculating
+   Status Label + message, over a background supergraphic.
+   ------------------------------------------------------------ */
+.driver-ratings-card--progress {
+  min-height:      188px;
+  justify-content: space-between;   /* status label top · message bottom */
+}
+/* Decorative supergraphic — nested translucent hexagons, top-right. */
+.driver-ratings-card__graphic {
+  position:       absolute;
+  top:            -196px;
+  right:          -175px;
+  width:          351px;
+  height:         388px;
+  pointer-events: none;
+}
+.driver-ratings-card__graphic svg { display: block; width: 100%; height: 100%; }
+
+/* Content sits above the graphic; status label at top, message at the bottom. */
+.driver-ratings-card--progress .status-label,
+.driver-ratings-card__message { position: relative; z-index: 1; }
+
+.driver-ratings-card--progress .status-label { align-self: flex-start; }
+
+.driver-ratings-card__message {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  width:          100%;
+}
+.driver-ratings-card__title {
+  margin:        0;
+  font-weight:   var(--font-weight-bold);
+  font-size:     28px;                              /* Mobile / Title 3 */
+  line-height:   32px;
+  letter-spacing: -0.56px;
+  color:         var(--text-on-color-fixed);
+}
+.driver-ratings-card__desc {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-on-color-fixed);
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress Track — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="progress-track.css">
+  <style>body { margin: 0; padding: 24px; background: var(--surface-brand-3-high); font-family: var(--font-family-base); }
+    .row { display: flex; gap: 12px; align-items: center; }</style>
+</head>
+<body>
+  <div class="row">
+  <div class="progress-track" style="--progress-track-value: 0;width:37.5px" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div>
+  <div class="progress-track" style="--progress-track-value: 25;width:37.5px" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div>
+  <div class="progress-track" style="--progress-track-value: 50;width:37.5px" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div>
+  <div class="progress-track" style="--progress-track-value: 75;width:37.5px" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div>
+  <div class="progress-track" style="--progress-track-value: 100;width:37.5px" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div>
+  </div>
+</body>
+</html>

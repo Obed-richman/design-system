@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rating Strip — Design System</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="../../tokens/typography.css">
+  <link rel="stylesheet" href="../button/button.css">
+  <link rel="stylesheet" href="rating-strip.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--background-page); color: var(--text-primary); font-family: var(--font-family-base); min-height: 100vh; }
+    .header { width: 100%; height: 104px; background: var(--brand-3-high); display: flex; align-items: center; justify-content: center; }
+    .header__logo svg { width: 110px; height: 32px; display: block; color: var(--colour-white); }
+    .content { max-width: 960px; margin: 0 auto; padding: 24px 24px 96px; }
+    .back-btn { margin-bottom: 24px; }
+    .component-header { margin-bottom: 24px; }
+    .component-header__name { font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); margin: 0; }
+    .component-header__description { font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--text-pressed); margin: 4px 0 0; }
+    .variants { display: flex; flex-direction: column; gap: 28px; }
+    .variant { display: flex; flex-direction: column; gap: 12px; }
+    .variant__label { font-weight: var(--font-weight-bold); font-size: var(--font-size-subtitle-4); line-height: var(--line-height-subtitle-4); letter-spacing: 0.04em; text-transform: uppercase; color: var(--colour-grey-60); }
+    .stage { background: var(--background-secondary); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; gap: 12px; max-width: 391px; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
+  </style>
+  <link rel="stylesheet" href="../../pages/showcase-controls.css">
+  <script src="../../pages/showcase-controls.js" defer></script>
+</head>
+<body>
+  <header class="header"><span class="header__logo"><svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zego"><path d="M22.1028 8.61685H2.3732C1.80867 8.61685 1.36296 8.18585 1.36296 7.63993V3.87587C1.36296 3.32995 1.80867 2.89895 2.3732 2.89895H22.1028C22.6673 2.89895 23.113 3.32995 23.113 3.87587V7.63993C23.113 8.18585 22.6375 8.61685 22.1028 8.61685ZM48.9931 28.1267V24.3626C48.9931 23.8167 48.5474 23.3857 47.9828 23.3857H28.7583C28.1938 23.3857 27.7481 23.8167 27.7481 24.3626V28.1267C27.7481 28.6726 28.1938 29.1037 28.7583 29.1037H47.9828C48.5474 29.1037 48.9931 28.6726 48.9931 28.1267ZM9.29637 23.3857L16.3085 15.8862C16.6651 15.5129 16.6651 14.9094 16.279 14.5359L13.5156 11.8637C13.0997 11.4614 12.446 11.4902 12.0597 11.8924L1.60067 23.0983C1.42239 23.2708 1.33325 23.5006 1.33325 23.7593V28.1267C1.33325 28.6726 1.77894 29.1037 2.3435 29.1037H22.073C22.6376 29.1037 23.0832 28.6726 23.0832 28.1267V24.3626C23.0832 23.8167 22.6376 23.3857 22.073 23.3857H9.29637ZM48.9931 7.63993V3.87587C48.9931 3.32995 48.5474 2.89895 47.9828 2.89895H28.7583C28.1938 2.89895 27.7481 3.32995 27.7481 3.87587V17.8688C27.7481 18.415 28.1938 18.8457 28.7583 18.8457H44.12C44.6846 18.8457 45.1303 18.415 45.1303 17.8688V14.1336C45.1303 13.5877 44.6846 13.1567 44.12 13.1567H33.6612V8.61685H47.9828C48.5474 8.61685 48.9931 8.18585 48.9931 7.63993ZM71.3374 22.0352L74.1006 24.7073C74.5165 25.1096 74.487 25.7706 74.0411 26.1439C68.4848 30.7126 60.076 30.3678 54.995 25.0521C50.1222 19.9952 50.1222 12.0361 54.995 6.95034C60.076 1.6347 68.4848 1.26118 74.0411 5.85847C74.487 6.232 74.5165 6.89285 74.1006 7.29513L71.3374 9.96731C70.9808 10.3121 70.3865 10.3408 70.0004 10.0535C66.7912 7.58246 62.0075 7.8698 59.1847 10.973C56.5698 13.8175 56.5698 18.185 59.1847 21.0296C62.0075 24.1326 66.7912 24.4488 70.0004 21.9491C70.4163 21.6616 70.9808 21.6903 71.3374 22.0352ZM107.171 16.0014C107.171 23.357 100.991 29.3334 93.3844 29.3334C85.7779 29.3334 79.5976 23.357 79.5976 16.0014C79.5976 8.64557 85.7779 2.66911 93.3844 2.66911C100.991 2.66911 107.171 8.64557 107.171 16.0014ZM101.258 16.0014C101.258 11.8062 97.7225 8.38698 93.3844 8.38698C89.0464 8.38698 85.5104 11.8062 85.5104 16.0014C85.5104 20.1962 89.0464 23.6155 93.3844 23.6155C97.7523 23.6155 101.258 20.1962 101.258 16.0014ZM76.6559 17.8688V14.1336C76.6559 13.5877 76.2102 13.1567 75.6457 13.1567H64.4439C63.8793 13.1567 63.4336 13.5877 63.4336 14.1336V17.8688C63.4336 18.415 63.8793 18.8457 64.4439 18.8457H75.6457C76.2102 18.8457 76.6559 18.415 76.6559 17.8688Z" fill="currentColor"/></svg></span></header>
+  <main class="content">
+    <a class="btn btn--secondary btn--large btn--pill back-btn" href="../../index.html">
+      <span class="btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 8H3M7 12l-4-4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Back
+    </a>
+    <div class="component-header">
+      <h1 class="component-header__name">Rating Strip</h1>
+      <p class="component-header__description">A prominent navy banner for a driver's performance rating — the tier label + a rewards-points callout, with the matching Rating Badge. Five tiers; points can be hidden. Composes Rating Badge.</p>
+    </div>
+    <div class="variants">
+      <div class="variant">
+        <span class="variant__label">Tiers</span>
+        <div class="stage">
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">Excellent</p>
+      <p class="rating-strip__points">+8 rewards points</p>
+    </div>
+    <span class="rating-badge rating-badge--excellent" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M16.298 22.1227C16.2066 21.7258 16.6284 21.4081 16.9847 21.6056L19.9806 23.2662C20.2079 23.3921 20.4943 23.31 20.6202 23.0827L23.5848 17.7346C23.7639 17.4116 24.2281 17.4113 24.4076 17.734L27.3831 23.0834C27.5094 23.3103 27.7955 23.3921 28.0226 23.2661L31.0107 21.6084C31.3676 21.4104 31.79 21.7296 31.6971 22.127L29.8613 29.9809C29.7618 30.4066 29.3821 30.7077 28.9449 30.7077H19.0246C18.5862 30.7077 18.2059 30.4051 18.1075 29.9779L16.298 22.1227Z" fill="#fff"/></svg></span>
+  </div>
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">Great</p>
+      <p class="rating-strip__points">+8 rewards points</p>
+    </div>
+    <span class="rating-badge rating-badge--great" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M28.0854 18.6691C28.3212 18.6691 28.5425 18.7796 28.6841 18.966L28.7113 19.0043L31.4193 23.0712L31.4516 23.1243C31.5907 23.3758 31.574 23.6855 31.4086 23.9205L31.3708 23.9697L24.576 32.1131C24.2849 32.462 23.7566 32.4731 23.4505 32.1462L23.4216 32.1135L16.6292 23.9808C16.4155 23.7249 16.3958 23.3588 16.5808 23.0815L19.3013 19.0038L19.3285 18.9655C19.4701 18.7794 19.6912 18.6691 19.9268 18.6691H28.0854Z" fill="#fff"/></svg></span>
+  </div>
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">Good</p>
+      <p class="rating-strip__points">+8 rewards points</p>
+    </div>
+    <span class="rating-badge rating-badge--good" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M23.2277 16.7598C23.5513 16.1277 24.4491 16.1277 24.7727 16.7598L26.8289 20.7756C26.9117 20.9374 27.0426 21.0691 27.2032 21.1525L31.1925 23.2223C31.8204 23.5481 31.8204 24.4519 31.1925 24.7777L27.2032 26.8475C27.0426 26.9309 26.9117 27.0626 26.8289 27.2244L24.7727 31.2402C24.4491 31.8723 23.5513 31.8723 23.2277 31.2402L21.1715 27.2244C21.0887 27.0626 20.9579 26.9309 20.7972 26.8475L16.8079 24.7777C16.18 24.4519 16.18 23.5481 16.8079 23.2223L20.7972 21.1525C20.9579 21.0691 21.0887 20.9374 21.1715 20.7756L23.2277 16.7598Z" fill="#fff"/></svg></span>
+  </div>
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">Needs improving</p>
+      <p class="rating-strip__points">+8 rewards points</p>
+    </div>
+    <span class="rating-badge rating-badge--needs-improvement" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M23.1839 18.4712C23.5467 17.8429 24.4535 17.8429 24.8162 18.4712L30.6562 28.5864C31.019 29.2147 30.5656 30 29.8401 30H18.1601C17.4346 30 16.9812 29.2147 17.3439 28.5864L23.1839 18.4712Z" fill="#fff"/></svg></span>
+  </div>
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">At risk</p>
+      <p class="rating-strip__points">+8 rewards points</p>
+    </div>
+    <span class="rating-badge rating-badge--at-risk" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M22.5176 17.5135C22.5176 17.3088 22.6835 17.1429 22.8882 17.1429H25.1119C25.3166 17.1429 25.4826 17.3088 25.4826 17.5135V25.2965C25.4826 25.5012 25.3166 25.6671 25.1119 25.6671H22.8882C22.6835 25.6671 22.5176 25.5012 22.5176 25.2965V17.5135Z" fill="#fff"/><path d="M22.147 29.004C22.147 27.9806 22.9766 27.1509 24.0001 27.1509C25.0235 27.1509 25.8532 27.9806 25.8532 29.004C25.8532 30.0275 25.0235 30.8571 24.0001 30.8571C22.9766 30.8571 22.147 30.0275 22.147 29.004Z" fill="#fff"/></svg></span>
+  </div>
+        </div>
+      </div>
+      <div class="variant">
+        <span class="variant__label">Without points</span>
+        <div class="stage">
+          <div class="rating-strip">
+    <div class="rating-strip__status">
+      <p class="rating-strip__title">Excellent</p>
+    </div>
+    <span class="rating-badge rating-badge--excellent" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M16.298 22.1227C16.2066 21.7258 16.6284 21.4081 16.9847 21.6056L19.9806 23.2662C20.2079 23.3921 20.4943 23.31 20.6202 23.0827L23.5848 17.7346C23.7639 17.4116 24.2281 17.4113 24.4076 17.734L27.3831 23.0834C27.5094 23.3103 27.7955 23.3921 28.0226 23.2661L31.0107 21.6084C31.3676 21.4104 31.79 21.7296 31.6971 22.127L29.8613 29.9809C29.7618 30.4066 29.3821 30.7077 28.9449 30.7077H19.0246C18.5862 30.7077 18.2059 30.4051 18.1075 29.9779L16.298 22.1227Z" fill="#fff"/></svg></span>
+  </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

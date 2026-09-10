@@ -1222,6 +1222,69 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ==== components/action-tile/action-tile.css ==== */
+/*
+ * ============================================================
+ * ACTION TILE  (Figma "Tiles" — Property 1=Action)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59611-25610
+ *
+ * A compact, tappable shortcut card: a centred Icon+ badge over a short bold
+ * label, on a white elevated card. Arrange several in a row or grid. The badge
+ * is the Icon+ component — swap the glyph and pick a colour variant to give
+ * each tile its own accent.
+ *
+ * Usage — link alongside action-tile.css:
+ *   tokens.css · icon-plus.css (badge)
+ *
+ *   <button class="action-tile" type="button">
+ *     <span class="icon-plus icon-plus--32"><svg>…documents…</svg></span>
+ *     <span class="action-tile__label">View my documents</span>
+ *   </button>
+ * ============================================================
+ */
+
+/* The badge is an Icon+ chip. */
+
+.action-tile {
+  display:         inline-flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--spacer-8);
+  box-sizing:      border-box;
+  min-width:       109px;
+  max-width:       167.5px;
+  padding:         var(--spacer-16);
+  background:      var(--surface-tertiary);         /* white */
+  border:          none;
+  border-radius:   var(--radius-medium);            /* 16px */
+  box-shadow:      var(--shadow-dropdown);          /* Elevation Low */
+  font-family:     'Modern Era', sans-serif;
+  color:           var(--text-primary);
+  text-align:      center;
+  text-decoration: none;
+  cursor:          pointer;
+  transition:      box-shadow 150ms ease, transform 150ms ease;
+}
+a.action-tile, button.action-tile { font: inherit; }
+.action-tile:hover {
+  box-shadow: 0 6px 12px rgba(39, 37, 45, 0.12), 0 2px 4px rgba(39, 37, 45, 0.06);
+}
+.action-tile:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* The badge is Icon+ at Size 32; render its glyph at 24px to match Figma. */
+.action-tile .icon-plus--32 svg { width: 24px; height: 24px; }
+
+.action-tile__label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+
+
 /* ==== components/addons-section/addons-section.css ==== */
 /*
  * ============================================================
@@ -3271,6 +3334,123 @@ body { font-family: var(--font-family-base); }
 }
 
 
+/* ==== components/counter-ring/counter-ring.css ==== */
+/*
+ * ============================================================
+ * COUNTER RING
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59137-2480
+ *
+ * A circular progress ring — a purple arc over a grey track — with a number in
+ * the centre. Reads a metric at a glance: a filling context (rewards progress)
+ * or an emptying one (days remaining).
+ *
+ * SIZE:  .counter-ring--large (80, default) · --medium (64) · --small (48)
+ * VALUE: set --counter-ring-value (0–100) inline; the arc fills clockwise from
+ *        12 o'clock. 100 = full ring, 0 = empty track.
+ * OPTIONS:
+ *   .counter-ring--pad   a white circular pad behind the ring (for use on a
+ *                        coloured surface).
+ *   .counter-ring__days  a small "days" label beneath the number.
+ *   --counter-ring-arc   override the arc colour (defaults to brand-2 purple;
+ *                        e.g. the Rewards tile sets it to brand-1 aqua).
+ *
+ * Usage:
+ *   <div class="counter-ring" style="--counter-ring-value: 80" role="img"
+ *        aria-label="80%">
+ *     <svg class="counter-ring__svg" viewBox="0 0 36 36" aria-hidden="true">
+ *       <circle class="counter-ring__track" cx="18" cy="18" r="15.5" pathLength="100"/>
+ *       <circle class="counter-ring__arc"   cx="18" cy="18" r="15.5" pathLength="100"/>
+ *     </svg>
+ *     <span class="counter-ring__text"><span class="counter-ring__number">1</span></span>
+ *   </div>
+ * ============================================================
+ */
+
+.counter-ring {
+  --counter-ring-value: 100;
+  position:     relative;
+  display:      inline-flex;
+  width:        80px;                               /* Large (default) */
+  height:       80px;
+  flex:         0 0 auto;
+  font-family:  'Modern Era', sans-serif;
+}
+.counter-ring--large  { width: 80px; height: 80px; }
+.counter-ring--medium { width: 64px; height: 64px; }
+.counter-ring--small  { width: 48px; height: 48px; }
+
+/* Optional white pad behind the ring (for coloured surfaces). */
+.counter-ring--pad::before {
+  content:       "";
+  position:      absolute;
+  inset:         0;
+  border-radius: var(--radius-round);
+  background:    var(--surface-tertiary);           /* white */
+}
+
+
+/* ------------------------------------------------------------
+   RING — a grey track with a purple arc, drawn from 12 o'clock
+   ------------------------------------------------------------ */
+
+.counter-ring__svg {
+  display:   block;
+  width:     100%;
+  height:    100%;
+  transform: rotate(-90deg);                        /* start the arc at the top */
+}
+.counter-ring__track,
+.counter-ring__arc {
+  fill:         none;
+  stroke-width: 4;                                  /* viewBox units */
+}
+.counter-ring__track { stroke: var(--surface-secondary); }   /* grey-30 track */
+.counter-ring__arc {
+  stroke:            var(--counter-ring-arc, var(--brand-2-medium)); /* purple-50 default; themeable */
+  stroke-linecap:    round;
+  stroke-dasharray:  100;
+  stroke-dashoffset: calc(100 - var(--counter-ring-value));
+  transition:        stroke-dashoffset 400ms ease;
+}
+/* An empty ring (value 0) shows the track only — no arc (and no round-cap dot).
+   Values 20/50/80/100 never contain the substring "value: 0", so only 0 matches. */
+.counter-ring[style*="value: 0"] .counter-ring__arc,
+.counter-ring[style*="value:0"]  .counter-ring__arc { display: none; }
+
+
+/* ------------------------------------------------------------
+   CENTRE — a number, with an optional "days" label
+   ------------------------------------------------------------ */
+
+.counter-ring__text {
+  position:        absolute;
+  inset:           0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  color:           var(--text-primary);
+  text-align:      center;
+}
+.counter-ring__number {
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;
+  line-height:    24px;
+  letter-spacing: -0.4px;
+}
+.counter-ring--medium .counter-ring__number { font-size: 16px; line-height: 20px; }
+.counter-ring--small  .counter-ring__number { font-size: 14px; line-height: 18px; }
+
+.counter-ring__days {
+  font-weight: var(--font-weight-regular);
+  font-size:   12px;
+  line-height: 16px;
+  color:       var(--text-primary);
+}
+.counter-ring--small .counter-ring__days { font-size: 10px; line-height: 12px; }
+
+
 /* ==== components/data-table/data-table.css ==== */
 /*
  * ============================================================
@@ -4401,6 +4581,226 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 }
 
 
+/* ==== components/driver-rating/driver-rating.css ==== */
+/*
+ * ============================================================
+ * DRIVER RATING PROGRESS
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6222-12810
+ *
+ * A colour-coded, five-segment progress bar for a driver's performance rating,
+ * from At risk (left) to Excellent (right), with end labels. Each tier fills the
+ * corresponding number of Progress Track segments in that tier's rating colour;
+ * At risk shows a white position marker on its single segment.
+ *
+ * TIERS (set the tier colour + fill the matching number of segments):
+ *   .driver-rating--excellent   5 segments · green
+ *   .driver-rating--great       4 · lime
+ *   .driver-rating--good        3 · yellow
+ *   .driver-rating--improving   2 · orange
+ *   .driver-rating--at-risk     1 · red  (+ marker)
+ *   (no rating)                 0 · all empty
+ *
+ * Made for a coloured (dark/brand) surface — the empty track is translucent.
+ *
+ * Usage — link alongside driver-rating.css:
+ *   tokens.css · progress-track.css
+ * ============================================================
+ */
+
+/* The segments are Progress Tracks. */
+
+.driver-rating {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Five equal segments. */
+.driver-rating__bars {
+  display: flex;
+  gap:     var(--spacer-8);
+}
+.driver-rating__bars .progress-track { flex: 1 1 0; }
+
+/* End labels — At risk (left) · Excellent (right). */
+.driver-rating__labels {
+  display:         flex;
+  justify-content: space-between;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-4);     /* 12 / 16 */
+  line-height:     var(--line-height-subtitle-4);
+  color:           var(--text-on-color-fixed);      /* white */
+}
+
+
+/* Tier colour applied to the filled segments' fill. */
+.driver-rating--excellent { --progress-track-fill: var(--rating-excellent); }
+.driver-rating--great     { --progress-track-fill: var(--rating-great); }
+.driver-rating--good      { --progress-track-fill: var(--rating-good); }
+.driver-rating--improving { --progress-track-fill: var(--rating-improving); }
+.driver-rating--at-risk   { --progress-track-fill: var(--rating-risk); }
+
+
+/* ==== components/driver-ratings-card/driver-ratings-card.css ==== */
+/*
+ * ============================================================
+ * DRIVER RATINGS CARD  (Figma "Driver Ratings Card")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59087-61847
+ *
+ * A navy card showing a driver's current rating tier: a status title + Rating
+ * Badge (48px) over a Driver Rating Progress bar, with optional actions.
+ * Two "in progress" states replace the rating with a Status Label + message and
+ * a background supergraphic (Rebuilding · Calculating).
+ *
+ * STATUSES (rating): Excellent · Great · Good · Improving · At Risk
+ * STATES  (message): Rebuilding · Calculating
+ *
+ * Composes Rating Badge, Driver Rating Progress and Status Label.
+ *
+ * Usage — link alongside driver-ratings-card.css:
+ *   tokens.css · rating-badge.css · driver-rating.css · progress-track.css · status-label.css
+ * ============================================================
+ */
+
+/* The badge, bar and message pill are existing components. */
+
+
+
+.driver-ratings-card {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  max-width:      343px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  overflow:       hidden;
+  background:     var(--surface-brand-3-high);      /* navy-90 */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-on-color-fixed);       /* white */
+}
+
+
+/* ------------------------------------------------------------
+   RATING ROW — status title + Rating Badge
+   ------------------------------------------------------------ */
+.driver-ratings-card__rating {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);
+  width:       100%;
+}
+.driver-ratings-card__status {
+  flex:          1 1 0;
+  min-width:     0;
+  word-break:    break-word;
+  font-weight:   var(--font-weight-bold);
+  font-size:     28px;                              /* Mobile / Title 3 */
+  line-height:   32px;
+  letter-spacing: -0.56px;
+  color:         var(--text-on-color-fixed);
+}
+/* The Rating Badge sits at its native 48px (size M). */
+
+
+/* ------------------------------------------------------------
+   ACTIONS — "View insights" pill + more (ellipsis) button
+   Outlined for a coloured surface: white border, transparent fill.
+   ------------------------------------------------------------ */
+.driver-ratings-card__actions {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+}
+.driver-ratings-card__insights,
+.driver-ratings-card__more {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  box-sizing:      border-box;
+  border:          var(--border-s) solid var(--border-on-color);   /* white */
+  background:      transparent;
+  color:           var(--text-on-color-fixed);
+  border-radius:   var(--radius-round);
+  cursor:          pointer;
+  transition:      background-color 0.15s ease;
+}
+.driver-ratings-card__insights {
+  height:      40px;
+  padding:     0 var(--spacer-20);
+  font-family: 'Modern Era', sans-serif;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+}
+.driver-ratings-card__more {
+  flex:   0 0 auto;
+  width:  40px;
+  height: 40px;
+  padding: 0;
+}
+.driver-ratings-card__more svg { display: block; width: 24px; height: 24px; }
+.driver-ratings-card__insights:hover,
+.driver-ratings-card__more:hover { background: var(--overlay-light-low); }
+
+
+/* ------------------------------------------------------------
+   IN-PROGRESS STATES — Rebuilding · Calculating
+   Status Label + message, over a background supergraphic.
+   ------------------------------------------------------------ */
+.driver-ratings-card--progress {
+  min-height:      188px;
+  justify-content: space-between;   /* status label top · message bottom */
+}
+/* Decorative supergraphic — nested translucent hexagons, top-right. */
+.driver-ratings-card__graphic {
+  position:       absolute;
+  top:            -196px;
+  right:          -175px;
+  width:          351px;
+  height:         388px;
+  pointer-events: none;
+}
+.driver-ratings-card__graphic svg { display: block; width: 100%; height: 100%; }
+
+/* Content sits above the graphic; status label at top, message at the bottom. */
+.driver-ratings-card--progress .status-label,
+.driver-ratings-card__message { position: relative; z-index: 1; }
+
+.driver-ratings-card--progress .status-label { align-self: flex-start; }
+
+.driver-ratings-card__message {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  width:          100%;
+}
+.driver-ratings-card__title {
+  margin:        0;
+  font-weight:   var(--font-weight-bold);
+  font-size:     28px;                              /* Mobile / Title 3 */
+  line-height:   32px;
+  letter-spacing: -0.56px;
+  color:         var(--text-on-color-fixed);
+}
+.driver-ratings-card__desc {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-on-color-fixed);
+}
+
+
 /* ==== components/driving-licence/driving-licence.css ==== */
 /*
  * ============================================================
@@ -4870,6 +5270,154 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 .extra-cover .extra-cover__add-minus { display: none; }
 .extra-cover--added .extra-cover__add-plus  { display: none; }
 .extra-cover--added .extra-cover__add-minus { display: inline-flex; }
+
+
+/* ==== components/factor-control/factor-control.css ==== */
+/*
+ * ============================================================
+ * FACTOR CONTROL  (Figma "Factors (Control)")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2686-73507
+ *
+ * A card showing a driver's performance on one telematics factor — a labelled
+ * icon (with an optional help/tooltip icon) above a Factor Indicator bar.
+ * Types: Acceleration, Braking, Phone distractions, Speeding, Rest (Fatigue).
+ *
+ * Usage — link alongside factor-control.css:
+ *   tokens.css · factor-indicator.css
+ *
+ *   <div class="factor-control">
+ *     <div class="factor-control__head">
+ *       <span class="factor-control__icon"><svg>…telematics icon…</svg></span>
+ *       <span class="factor-control__title">Braking</span>
+ *       <span class="factor-control__help"><svg>…help…</svg></span>   <!-- optional -->
+ *     </div>
+ *     <div class="factor-indicator">…</div>
+ *   </div>
+ * ============================================================
+ */
+
+/* The bar is the Factor Indicator component. */
+
+.factor-control {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  box-sizing:     border-box;
+  padding:        var(--spacer-20) var(--spacer-24) var(--spacer-24);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-small);              /* 8px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* Icon + title (+ optional help). */
+.factor-control__head {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+}
+.factor-control__icon {
+  flex:   0 0 auto;
+  width:  24px;
+  height: 24px;
+  color:  var(--icon-glyph-primary);
+}
+.factor-control__icon svg { display: block; width: 24px; height: 24px; }
+
+.factor-control__title {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);         /* 18 / 24 */
+  line-height: var(--line-height-subtitle-1);
+}
+
+.factor-control__help {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--icon-glyph-primary);
+  cursor: help;
+}
+.factor-control__help svg { display: block; width: 16px; height: 16px; }
+
+
+/* The Factor Indicator fills the card width here. */
+.factor-control .factor-indicator { max-width: none; }
+
+
+/* ==== components/factor-indicator/factor-indicator.css ==== */
+/*
+ * ============================================================
+ * FACTOR INDICATOR
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2112-891
+ *
+ * A single-factor telematics gauge — a three-zone red / amber / green bar with a
+ * vertical pointer that sits in the zone matching the mode:
+ *   Poor    → pointer in the red zone
+ *   Average → pointer in the amber zone
+ *   Good    → pointer in the green zone
+ *
+ * The active zone splits around the pointer; put the pointer markup inside that
+ * zone (see factor-indicator-demo.html). The pointer takes the zone's colour.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="factor-indicator.css">
+ * ============================================================
+ */
+
+.factor-indicator {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-4);                     /* 4px between zones */
+  width:       100%;
+  max-width:   123px;
+  box-sizing:  border-box;
+}
+
+
+/* The three zones — equal thirds, 8px tall. */
+.factor-indicator__zone {
+  flex:          1 1 0;
+  height:        8px;
+  border-radius: var(--radius-x-small);             /* 4px */
+}
+.factor-indicator__zone--red    { background: var(--surface-error); }    /* red-60 */
+.factor-indicator__zone--orange { background: var(--surface-warning); }  /* orange-50 */
+.factor-indicator__zone--green  { background: var(--surface-success); }  /* green-60 */
+
+
+/* Active zone — splits into two halves around a centred pointer. */
+.factor-indicator__zone--active {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-4);
+  height:          auto;
+  background:      transparent;
+  border-radius:   0;
+}
+.factor-indicator__half { flex: 1 1 0; height: 8px; }
+.factor-indicator__half:first-child { border-radius: var(--radius-x-small) 0 0 var(--radius-x-small); }
+.factor-indicator__half:last-child  { border-radius: 0 var(--radius-x-small) var(--radius-x-small) 0; }
+.factor-indicator__pointer {
+  flex:          0 0 auto;
+  width:         6px;
+  height:        24px;
+  border-radius: var(--radius-x-small);
+}
+
+/* Halves + pointer take the active zone's colour. */
+.factor-indicator__zone--red .factor-indicator__half,
+.factor-indicator__zone--red .factor-indicator__pointer    { background: var(--surface-error); }
+.factor-indicator__zone--orange .factor-indicator__half,
+.factor-indicator__zone--orange .factor-indicator__pointer { background: var(--surface-warning); }
+.factor-indicator__zone--green .factor-indicator__half,
+.factor-indicator__zone--green .factor-indicator__pointer  { background: var(--surface-success); }
 
 
 /* ==== components/filter-select/filter-select.css ==== */
@@ -7971,6 +8519,121 @@ button.list-item:focus-visible,
 .plate--12 { font-size: 12px; }   /* Small */
 
 
+/* ==== components/policy-dash-card/policy-dash-card.css ==== */
+/*
+ * ============================================================
+ * POLICY DASH CARD  (Figma "Cards / Policy / Dash")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59608-25437
+ *
+ * A white dashboard card for a single policy: the vehicle registration + an
+ * overflow (ellipsis) menu, a coloured status dot with a label, and one or two
+ * contextual action buttons.
+ *
+ * STATES (dot colour · status · actions):
+ *   Active  green  · "Active"          · Manage
+ *   Renew   amber  · "28 days left"    · Renew + Manage
+ *   Ending  red    · "Ends in 5 days"  · Renew + Manage
+ *   Ready   blue   · "Starts on Oct 5" · Manage
+ *
+ * Composes Button (primary / secondary, fab menu). Dot colours are the semantic
+ * status surfaces, which match the Status Dots component exactly.
+ *
+ * Usage — link alongside policy-dash-card.css:
+ *   tokens.css · button.css
+ * ============================================================
+ */
+
+/* The menu and action buttons are the Button component. */
+
+.policy-dash {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  max-width:      343px;
+  min-width:      285px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   POLICY — registration + menu, then the status line
+   ------------------------------------------------------------ */
+.policy-dash__policy {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  width:          100%;
+}
+
+/* Registration title (flex) + overflow menu, top-aligned. */
+.policy-dash__cover {
+  display:     flex;
+  align-items: flex-start;
+  gap:         var(--spacer-8);
+  width:       100%;
+}
+.policy-dash__reg {
+  flex:           1 1 0;
+  min-width:      0;
+  margin:         0;
+  word-break:     break-word;
+  font-weight:    var(--font-weight-bold);
+  font-size:      28px;                             /* Mobile / Title 3 */
+  line-height:    32px;
+  letter-spacing: -0.56px;
+  color:          var(--text-primary);
+}
+.policy-dash__menu { flex: 0 0 auto; }              /* .btn.btn--secondary.btn--fab */
+
+
+/* Status dot + label. */
+.policy-dash__status {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  width:       100%;
+}
+.policy-dash__dot {
+  flex:          0 0 auto;
+  width:         12px;
+  height:        12px;
+  border-radius: var(--radius-round);
+  background:    var(--surface-success);            /* default: green */
+}
+.policy-dash__dot--active  { background: var(--surface-success); }      /* green-60 */
+.policy-dash__dot--warning { background: var(--surface-warning); }      /* orange-50 */
+.policy-dash__dot--ending  { background: var(--surface-error); }        /* red-60 */
+.policy-dash__dot--ready   { background: var(--surface-information); }  /* blue-50 */
+
+.policy-dash__status-text {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   ACTIONS — one or two buttons sharing the row equally
+   ------------------------------------------------------------ */
+.policy-dash__actions {
+  display: flex;
+  gap:     var(--spacer-8);
+  width:   100%;
+}
+.policy-dash__actions .btn {
+  flex:      1 1 0;
+  min-width: 0;
+}
+
+
 /* ==== components/price-card/price-card.css ==== */
 /*
  * ============================================================
@@ -8680,6 +9343,77 @@ button.list-item:focus-visible,
 }
 
 
+/* ==== components/progress-track/progress-track.css ==== */
+/*
+ * ============================================================
+ * PROGRESS TRACK
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2986-13284
+ *
+ * A horizontal progress bar showing a driver's position within a score range —
+ * a translucent track with a coloured fill that grows left→right and a white
+ * position indicator at the fill's leading edge.
+ *
+ * VALUE: set --progress-track-value (0–100) inline. 0 = empty track, 100 = full
+ *        (both hide the indicator); anything between shows the marker.
+ * The track colour (overlay/light-low, translucent white) is made for a
+ * COLOURED surface — place it on a dark/brand background.
+ *
+ * OPTIONS:
+ *   --progress-track-fill  override the fill colour (defaults to rating/risk red).
+ *
+ * Usage:
+ *   <div class="progress-track" style="--progress-track-value: 50"
+ *        role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+ *     <div class="progress-track__fill"><span class="progress-track__indicator"></span></div>
+ *   </div>
+ * ============================================================
+ */
+
+.progress-track {
+  --progress-track-value: 0;
+  position:      relative;
+  display:       block;
+  width:         100%;
+  height:        16px;
+  box-sizing:    border-box;
+  border-radius: var(--radius-x-small);             /* 4px */
+  background:    var(--overlay-light-low);          /* translucent white track */
+}
+
+.progress-track__fill {
+  position:        absolute;
+  left:            0;
+  top:             0;
+  bottom:          0;
+  width:           calc(var(--progress-track-value) * 1%);
+  display:         flex;
+  align-items:     center;
+  justify-content: flex-end;
+  background:      var(--progress-track-fill, var(--rating-risk));  /* red-50 */
+  border-radius:   var(--radius-x-small) 0 0 var(--radius-x-small);
+  transition:      width 400ms ease;
+}
+
+/* The white position marker at the fill's leading edge (overflows the track). */
+.progress-track__indicator {
+  flex:          0 0 auto;
+  width:         2px;
+  height:        24px;
+  margin-right:  -1px;                              /* centre on the fill edge */
+  border-radius: var(--radius-round);
+  background:    var(--surface-tertiary);           /* white */
+}
+
+/* Full — round the fill fully and drop the indicator. Empty — no indicator. */
+.progress-track[style*="value: 100"] .progress-track__fill { border-radius: var(--radius-x-small); }
+.progress-track[style*="value: 100"] .progress-track__indicator,
+.progress-track[style*="value: 0"]   .progress-track__indicator { display: none; }
+
+/* Keep the marker even on a full segment (e.g. Driver Rating "At risk"). */
+.progress-track.progress-track--marker .progress-track__indicator { display: block; }
+
+
 /* ==== components/radio-list/radio-list.css ==== */
 /*
  * ============================================================
@@ -8933,6 +9667,195 @@ button.list-item:focus-visible,
 .radio--disabled .radio__control::after { background: var(--icon-glyph-disabled); }
 .radio--disabled .radio__tick { color: var(--icon-glyph-disabled); }
 .radio--disabled .radio__label { color: var(--text-disabled); }
+
+
+/* ==== components/rating-badge/rating-badge.css ==== */
+/*
+ * ============================================================
+ * RATING BADGE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59087-61747
+ *
+ * A colour-coded hexagonal badge for a driver's performance rating — a tier
+ * colour (the rating/* tokens) with a white tier glyph. Five tiers:
+ *   .rating-badge--at-risk           Red    · exclamation
+ *   .rating-badge--needs-improvement Orange · triangle
+ *   .rating-badge--good              Yellow · star
+ *   .rating-badge--great             Lime   · diamond
+ *   .rating-badge--excellent         Green  · crown
+ *
+ * The hexagon fills with the tier colour via `currentColor`; the glyph is white.
+ * 48px by default — resize by setting width/height on .rating-badge.
+ *
+ * Usage: link tokens.css + rating-badge.css, then use the markup for the tier
+ * (see rating-badge-demo.html — each tier has its own glyph path).
+ * ============================================================
+ */
+
+.rating-badge {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   48px;
+  height:  48px;
+  color:   var(--rating-excellent);                /* default tier colour */
+}
+.rating-badge svg { display: block; width: 100%; height: 100%; }
+
+
+/* Tier colours — the hexagon reads `currentColor`. */
+.rating-badge--at-risk           { color: var(--rating-risk); }       /* red-50 */
+.rating-badge--needs-improvement { color: var(--rating-improving); }  /* orange-50 */
+.rating-badge--good              { color: var(--rating-good); }       /* yellow-50 */
+.rating-badge--great             { color: var(--rating-great); }      /* lime-50 */
+.rating-badge--excellent         { color: var(--rating-excellent); }  /* green-60 */
+
+
+/* ==== components/rating-strip/rating-strip.css ==== */
+/*
+ * ============================================================
+ * RATING STRIP
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6224-2097
+ *
+ * A prominent banner for a driver's current performance rating — the tier label
+ * with an optional rewards-points callout on the left, and the matching Rating
+ * Badge on the right, over a dark brand (navy) background.
+ *
+ * Set the tier by the title text + the Rating Badge you drop in; hide the points
+ * line by omitting .rating-strip__points.
+ *
+ * Usage — link alongside rating-strip.css:
+ *   tokens.css · rating-badge.css
+ * ============================================================
+ */
+
+/* The badge is the Rating Badge component. */
+
+.rating-strip {
+  display:       flex;
+  align-items:   center;
+  gap:           var(--spacer-16);
+  width:         100%;
+  box-sizing:    border-box;
+  padding:       var(--spacer-16);
+  background:    var(--surface-brand-3-high);       /* navy-90 */
+  border-radius: var(--radius-medium);              /* 16px */
+  font-family:   'Modern Era', sans-serif;
+  color:         var(--text-on-color);              /* white */
+}
+
+
+.rating-strip__status {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.rating-strip__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;
+  line-height:    24px;
+  letter-spacing: -0.4px;
+  color:          var(--text-on-color);
+}
+.rating-strip__points {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-on-color);
+}
+
+/* The Rating Badge holds its own size (48px); keep it from shrinking. */
+.rating-strip .rating-badge { flex: 0 0 auto; }
+
+
+/* ==== components/rewards-tile/rewards-tile.css ==== */
+/*
+ * ============================================================
+ * REWARDS TILE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59611-25583
+ *
+ * A compact dashboard card surfacing rewards content. Two states:
+ *   .rewards-tile--progress  a Counter Ring (points total) + a conversion line.
+ *   .rewards-tile--discover  a preview image of the rewards catalogue + a label.
+ *
+ * Each card is a title, a centred media area, and a supporting caption. The
+ * Progress ring is the Counter Ring component, tinted aqua here via the
+ * --counter-ring-arc custom property.
+ *
+ * Usage — link alongside rewards-tile.css:
+ *   tokens.css · counter-ring.css (Progress state)
+ * ============================================================
+ */
+
+/* The Progress state composes the Counter Ring. */
+
+.rewards-tile {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-12);
+  box-sizing:     border-box;
+  width:          100%;
+  min-width:      150px;
+  padding:        var(--spacer-12) var(--spacer-16);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* Title + caption run full width, left-aligned; the media sits centred. */
+.rewards-tile__title {
+  margin:      0;
+  width:       100%;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+}
+.rewards-tile__caption {
+  margin:      0;
+  width:       100%;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+}
+
+.rewards-tile__media {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+}
+
+
+/* ------------------------------------------------------------
+   PROGRESS — the Counter Ring, tinted aqua (brand-1)
+   ------------------------------------------------------------ */
+
+.rewards-tile__ring { --counter-ring-arc: var(--brand-1-medium); }
+
+
+/* ------------------------------------------------------------
+   DISCOVER — a preview image of the catalogue (a swappable slot)
+   ------------------------------------------------------------ */
+
+.rewards-tile__preview {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--spacer-8);
+  width:           100%;
+  height:          80px;
+  border-radius:   var(--radius-small);             /* 8px */
+  overflow:        hidden;
+}
+.rewards-tile__preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 
 /* ==== components/row-list/row-list.css ==== */
@@ -10916,6 +11839,65 @@ button.list-item:focus-visible,
 .text-icon-item--disabled-active .radio__control::after { background: var(--icon-glyph-disabled); }
 
 
+/* ==== components/thumbnail/thumbnail.css ==== */
+/*
+ * ============================================================
+ * THUMBNAIL  (Figma "Thumbnail" / Challenge Image)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=8432-28363
+ *
+ * A fixed-ratio image tile with a centred badge — used in the Challenge
+ * feature. The badge is a swappable slot (any icon / image sits in it).
+ *
+ * STATE:
+ *   Default (Active) — an information-blue field.
+ *   .thumbnail--disabled — a grey field; the badge greys out.
+ *
+ * The badge is an Icon+-style chip (purple-20 tile). Drop an inline SVG or an
+ * <img> inside it — e.g. icons/launch.svg (a two-tone rocket).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="thumbnail.css">
+ * ============================================================
+ */
+
+.thumbnail {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           148px;                          /* Figma 147.5 — resize as needed */
+  aspect-ratio:    148 / 92.5;                      /* ≈ 16:10 */
+  box-sizing:      border-box;
+  background:      var(--surface-information);      /* blue-50 */
+  font-family:     'Modern Era', sans-serif;
+}
+
+/* Disabled — grey field, badge desaturated. */
+.thumbnail--disabled { background: var(--background-disabled); }   /* grey-50 */
+.thumbnail--disabled .thumbnail__badge { filter: grayscale(1); }
+
+
+/* Badge — a purple-20 chip holding a swappable glyph. */
+.thumbnail__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-medium);           /* 16px */
+  background:      var(--icon-glyph-brand-2-low);  /* purple-20 #dbbffd */
+  overflow:        hidden;
+}
+.thumbnail__badge svg,
+.thumbnail__badge img {
+  display: block;
+  width:   28px;                                    /* ≈ 58% of the 48px chip */
+  height:  28px;
+}
+
+
 /* ==== components/tier-card/tier-card.css ==== */
 /*
  * ============================================================
@@ -11872,6 +12854,73 @@ html[data-viewport="mobile"] .top-nav__panel { right: var(--spacer-16); left: va
 html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
 
 
+/* ==== components/top-progress/top-progress.css ==== */
+/*
+ * ============================================================
+ * TOP PROGRESS INDICATORS
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4826-1600
+ *
+ * A header progress bar for a multi-step flow — a centred row of Track Items
+ * (2–6) that fill as the user advances, with an optional "Skip" button pinned
+ * to the right. The row stays centred whether or not Skip is shown.
+ *
+ * Set the number of steps and how many have lapsed by the Track Items you place;
+ * the first N carry .track-item--lapsed.
+ *
+ * Usage — link alongside top-progress.css:
+ *   tokens.css · track-item.css
+ *
+ *   <div class="top-progress">
+ *     <div class="top-progress__track">
+ *       <span class="track-item track-item--lapsed"></span>
+ *       <span class="track-item"></span>
+ *       …
+ *     </div>
+ *     <button class="top-progress__skip" type="button">Skip</button>  <!-- optional -->
+ *   </div>
+ * ============================================================
+ */
+
+/* The segments are Track Items. */
+
+.top-progress {
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  min-height:      16px;
+  box-sizing:      border-box;
+  font-family:     'Modern Era', sans-serif;
+}
+
+/* Centred row of fixed-width segments. */
+.top-progress__track {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);                     /* 8px */
+}
+
+/* Optional tertiary "Skip" — pinned right, doesn't shift the centred track. */
+.top-progress__skip {
+  position:    absolute;
+  right:       0;
+  top:         50%;
+  transform:   translateY(-50%);
+  padding:     0;
+  border:      none;
+  background:  transparent;
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);         /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+  cursor:      pointer;
+}
+.top-progress__skip:hover { color: var(--text-pressed); }
+
+
 /* ==== components/total-cost/total-cost.css ==== */
 /*
  * ============================================================
@@ -12010,6 +13059,50 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
    regular — "£500 today, then 11 x £216/mo". The figures are what is being compared;
    the connecting words are just grammar. */
 .total-cost__sub strong { font-weight: var(--font-weight-bold); }
+
+
+/* ==== components/track-item/track-item.css ==== */
+/*
+ * ============================================================
+ * TRACK ITEM
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60737-867583
+ *
+ * A single segment of a progress track — a small rounded pill that reads filled
+ * (lapsed / completed) or faint (pending).
+ *
+ *   .track-item            pending — a faint track colour.
+ *   .track-item--lapsed    completed — a solid inverse fill.
+ *
+ * Compose several in a `.track` row to make a progress track; inside a .track
+ * the segments stretch to share the width evenly.
+ *
+ * Usage:
+ *   <div class="track">
+ *     <span class="track-item track-item--lapsed"></span>
+ *     <span class="track-item track-item--lapsed"></span>
+ *     <span class="track-item"></span>
+ *   </div>
+ * ============================================================
+ */
+
+.track-item {
+  display:       block;
+  flex:          0 0 auto;
+  width:         24px;
+  height:        4px;
+  border-radius: var(--radius-round);
+  background:    var(--overlay-dark-medium);        /* faint track (black-80 @30%) */
+}
+.track-item--lapsed { background: var(--background-inverse); }  /* solid inverse fill */
+
+
+/* Optional track — a row of segments sharing the width. */
+.track {
+  display: flex;
+  gap:     var(--spacer-4);
+}
+.track .track-item { flex: 1 1 auto; }
 
 
 /* ==== components/trustpilot-lockup/trustpilot-lockup.css ==== */

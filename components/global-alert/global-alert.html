@@ -27,6 +27,17 @@
        sits here and not in global-alert.css. */
     .docs-stack { position: static; max-width: none; padding-inline: 0; }
     .row { display: flex; flex-wrap: wrap; gap: 12px; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>

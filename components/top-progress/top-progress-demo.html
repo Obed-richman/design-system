@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top Progress Indicators — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="top-progress.css">
+  <style>body { margin: 0; padding: 24px; background: var(--background-page); font-family: var(--font-family-base); }
+    .stage { width: 343px; }</style>
+</head>
+<body>
+  <div class="stage">
+  <div class="top-progress" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="3">
+    <div class="top-progress__track"><span class="track-item track-item--lapsed"></span><span class="track-item track-item--lapsed"></span><span class="track-item track-item--lapsed"></span><span class="track-item"></span><span class="track-item"></span><span class="track-item"></span></div>
+    <button class="top-progress__skip" type="button">Skip</button>
+  </div>
+  </div>
+</body>
+</html>

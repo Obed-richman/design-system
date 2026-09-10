@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factor Indicator — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="factor-indicator.css">
+  <style>body { margin: 0; padding: 24px; background: var(--background-page); font-family: var(--font-family-base); display: flex; flex-direction: column; gap: 20px; }</style>
+</head>
+<body>
+  <div class="factor-indicator" role="img" aria-label="Poor"><span class="factor-indicator__zone factor-indicator__zone--red factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span><span class="factor-indicator__zone factor-indicator__zone--orange"></span><span class="factor-indicator__zone factor-indicator__zone--green"></span></div>
+  <div class="factor-indicator" role="img" aria-label="Average"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span><span class="factor-indicator__zone factor-indicator__zone--green"></span></div>
+  <div class="factor-indicator" role="img" aria-label="Good"><span class="factor-indicator__zone factor-indicator__zone--red"></span><span class="factor-indicator__zone factor-indicator__zone--orange"></span><span class="factor-indicator__zone factor-indicator__zone--green factor-indicator__zone--active"><span class="factor-indicator__half"></span><span class="factor-indicator__pointer"></span><span class="factor-indicator__half"></span></span></div>
+</body>
+</html>

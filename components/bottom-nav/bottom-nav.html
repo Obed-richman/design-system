@@ -18,7 +18,7 @@
     .back-btn { margin-bottom: 24px; }
     .component-header { margin-bottom: 24px; }
     .component-header__name { font-family: var(--font-family-base); font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); color: var(--text-primary); margin: 0; }
-    .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--text-pressed); margin: 4px 0 0; }
     .variants { background: var(--colour-white); border-radius: 16px; border: 1px solid var(--border-primary); padding: 40px 24px; display: flex; flex-direction: column; gap: 40px; }
     [data-theme="dark"] .variants { background: var(--surface-primary); }
     .variant-group__label { font-family: var(--font-family-base); font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 0 0 16px; }
@@ -29,6 +29,17 @@
     /* Mock content backdrop so the iOS glass blur/translucency reads */
     .ios-stage { position: relative; max-width: 390px; border-radius: 16px; overflow: hidden; padding-top: 140px; background: linear-gradient(140deg, #08f0f0 0%, #4b059f 55%, #fcff5f 100%); }
     .ios-stage .bottom-nav { position: relative; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>

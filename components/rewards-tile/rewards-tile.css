@@ -1,0 +1,86 @@
+/*
+ * ============================================================
+ * REWARDS TILE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59611-25583
+ *
+ * A compact dashboard card surfacing rewards content. Two states:
+ *   .rewards-tile--progress  a Counter Ring (points total) + a conversion line.
+ *   .rewards-tile--discover  a preview image of the rewards catalogue + a label.
+ *
+ * Each card is a title, a centred media area, and a supporting caption. The
+ * Progress ring is the Counter Ring component, tinted aqua here via the
+ * --counter-ring-arc custom property.
+ *
+ * Usage — link alongside rewards-tile.css:
+ *   tokens.css · counter-ring.css (Progress state)
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The Progress state composes the Counter Ring. */
+@import '../counter-ring/counter-ring.css';
+
+
+.rewards-tile {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            var(--spacer-12);
+  box-sizing:     border-box;
+  width:          100%;
+  min-width:      150px;
+  padding:        var(--spacer-12) var(--spacer-16);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* Title + caption run full width, left-aligned; the media sits centred. */
+.rewards-tile__title {
+  margin:      0;
+  width:       100%;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+}
+.rewards-tile__caption {
+  margin:      0;
+  width:       100%;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+}
+
+.rewards-tile__media {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+}
+
+
+/* ------------------------------------------------------------
+   PROGRESS — the Counter Ring, tinted aqua (brand-1)
+   ------------------------------------------------------------ */
+
+.rewards-tile__ring { --counter-ring-arc: var(--brand-1-medium); }
+
+
+/* ------------------------------------------------------------
+   DISCOVER — a preview image of the catalogue (a swappable slot)
+   ------------------------------------------------------------ */
+
+.rewards-tile__preview {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--spacer-8);
+  width:           100%;
+  height:          80px;
+  border-radius:   var(--radius-small);             /* 8px */
+  overflow:        hidden;
+}
+.rewards-tile__preview img { display: block; width: 100%; height: 100%; object-fit: cover; }

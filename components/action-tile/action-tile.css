@@ -1,0 +1,63 @@
+/*
+ * ============================================================
+ * ACTION TILE  (Figma "Tiles" — Property 1=Action)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59611-25610
+ *
+ * A compact, tappable shortcut card: a centred Icon+ badge over a short bold
+ * label, on a white elevated card. Arrange several in a row or grid. The badge
+ * is the Icon+ component — swap the glyph and pick a colour variant to give
+ * each tile its own accent.
+ *
+ * Usage — link alongside action-tile.css:
+ *   tokens.css · icon-plus.css (badge)
+ *
+ *   <button class="action-tile" type="button">
+ *     <span class="icon-plus icon-plus--32"><svg>…documents…</svg></span>
+ *     <span class="action-tile__label">View my documents</span>
+ *   </button>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The badge is an Icon+ chip. */
+@import '../icon-plus/icon-plus.css';
+
+
+.action-tile {
+  display:         inline-flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             var(--spacer-8);
+  box-sizing:      border-box;
+  min-width:       109px;
+  max-width:       167.5px;
+  padding:         var(--spacer-16);
+  background:      var(--surface-tertiary);         /* white */
+  border:          none;
+  border-radius:   var(--radius-medium);            /* 16px */
+  box-shadow:      var(--shadow-dropdown);          /* Elevation Low */
+  font-family:     'Modern Era', sans-serif;
+  color:           var(--text-primary);
+  text-align:      center;
+  text-decoration: none;
+  cursor:          pointer;
+  transition:      box-shadow 150ms ease, transform 150ms ease;
+}
+a.action-tile, button.action-tile { font: inherit; }
+.action-tile:hover {
+  box-shadow: 0 6px 12px rgba(39, 37, 45, 0.12), 0 2px 4px rgba(39, 37, 45, 0.06);
+}
+.action-tile:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+
+/* The badge is Icon+ at Size 32; render its glyph at 24px to match Figma. */
+.action-tile .icon-plus--32 svg { width: 24px; height: 24px; }
+
+.action-tile__label {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+  color:       var(--text-primary);
+}

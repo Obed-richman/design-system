@@ -1,0 +1,41 @@
+/*
+ * ============================================================
+ * RATING BADGE
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59087-61747
+ *
+ * A colour-coded hexagonal badge for a driver's performance rating — a tier
+ * colour (the rating/* tokens) with a white tier glyph. Five tiers:
+ *   .rating-badge--at-risk           Red    · exclamation
+ *   .rating-badge--needs-improvement Orange · triangle
+ *   .rating-badge--good              Yellow · star
+ *   .rating-badge--great             Lime   · diamond
+ *   .rating-badge--excellent         Green  · crown
+ *
+ * The hexagon fills with the tier colour via `currentColor`; the glyph is white.
+ * 48px by default — resize by setting width/height on .rating-badge.
+ *
+ * Usage: link tokens.css + rating-badge.css, then use the markup for the tier
+ * (see rating-badge-demo.html — each tier has its own glyph path).
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.rating-badge {
+  display: inline-flex;
+  flex:    0 0 auto;
+  width:   48px;
+  height:  48px;
+  color:   var(--rating-excellent);                /* default tier colour */
+}
+.rating-badge svg { display: block; width: 100%; height: 100%; }
+
+
+/* Tier colours — the hexagon reads `currentColor`. */
+.rating-badge--at-risk           { color: var(--rating-risk); }       /* red-50 */
+.rating-badge--needs-improvement { color: var(--rating-improving); }  /* orange-50 */
+.rating-badge--good              { color: var(--rating-good); }       /* yellow-50 */
+.rating-badge--great             { color: var(--rating-great); }      /* lime-50 */
+.rating-badge--excellent         { color: var(--rating-excellent); }  /* green-60 */

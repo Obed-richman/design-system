@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Ratings Card — Demo</title>
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+  <link rel="stylesheet" href="driver-ratings-card.css">
+  <style>body { margin: 0; padding: 24px; background: var(--background-secondary); font-family: var(--font-family-base); display: flex; justify-content: center; }</style>
+</head>
+<body>
+  <div class="driver-ratings-card">
+    <div class="driver-ratings-card__rating">
+      <span class="driver-ratings-card__status">Great</span>
+      <span class="rating-badge rating-badge--great" role="img" aria-label="Great"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M20.9334 4.25027C22.831 3.15467 25.169 3.15467 27.0666 4.25027L39.5705 11.4694C41.4681 12.565 42.6371 14.5897 42.6371 16.7809V31.2191C42.6371 33.4103 41.4681 35.435 39.5705 36.5306L27.0666 43.7497C25.169 44.8453 22.831 44.8453 20.9334 43.7497L8.42954 36.5306C6.53191 35.435 5.36293 33.4103 5.36293 31.2191V16.7809C5.36293 14.5897 6.53191 12.565 8.42954 11.4694L20.9334 4.25027Z" fill="currentColor"/><path d="M28.0854 18.6691C28.3212 18.6691 28.5425 18.7796 28.6841 18.966L28.7113 19.0043L31.4193 23.0712L31.4516 23.1243C31.5907 23.3758 31.574 23.6855 31.4086 23.9205L31.3708 23.9697L24.576 32.1131C24.2849 32.462 23.7566 32.4731 23.4505 32.1462L23.4216 32.1135L16.6292 23.9808C16.4155 23.7249 16.3958 23.3588 16.5808 23.0815L19.3013 19.0038L19.3285 18.9655C19.4701 18.7794 19.6912 18.6691 19.9268 18.6691H28.0854Z" fill="#fff"/></svg></span>
+    </div>
+    <div class="driver-rating driver-rating--great" role="img" aria-label="Driver rating: great"><div class="driver-rating__bars"><div class="progress-track" style="--progress-track-value: 100"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div><div class="progress-track" style="--progress-track-value: 100"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div><div class="progress-track" style="--progress-track-value: 100"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div><div class="progress-track" style="--progress-track-value: 100"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div><div class="progress-track" style="--progress-track-value: 0"><div class="progress-track__fill"><span class="progress-track__indicator"></span></div></div></div><div class="driver-rating__labels"><span>At risk</span><span>Excellent</span></div></div>
+    <div class="driver-ratings-card__actions"><button type="button" class="driver-ratings-card__insights">View insights</button><button type="button" class="driver-ratings-card__more" aria-label="More options"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5.5 10.5C5.77614 10.5 6 10.7239 6 11V13C6 13.2761 5.77614 13.5 5.5 13.5H3.5C3.22386 13.5 3 13.2761 3 13V11C3 10.7239 3.22386 10.5 3.5 10.5H5.5Z" fill="currentColor"/><path d="M13 10.5C13.2761 10.5 13.5 10.7239 13.5 11V13C13.5 13.2761 13.2761 13.5 13 13.5H11C10.7239 13.5 10.5 13.2761 10.5 13V11C10.5 10.7239 10.7239 10.5 11 10.5H13Z" fill="currentColor"/><path d="M20.5 10.5C20.7761 10.5 21 10.7239 21 11V13C21 13.2761 20.7761 13.5 20.5 13.5H18.5C18.2239 13.5 18 13.2761 18 13V11C18 10.7239 18.2239 10.5 18.5 10.5H20.5Z" fill="currentColor"/></svg></button></div>
+  </div>
+</body>
+</html>

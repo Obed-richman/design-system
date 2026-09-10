@@ -1,0 +1,44 @@
+/*
+ * ============================================================
+ * TRACK ITEM
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60737-867583
+ *
+ * A single segment of a progress track — a small rounded pill that reads filled
+ * (lapsed / completed) or faint (pending).
+ *
+ *   .track-item            pending — a faint track colour.
+ *   .track-item--lapsed    completed — a solid inverse fill.
+ *
+ * Compose several in a `.track` row to make a progress track; inside a .track
+ * the segments stretch to share the width evenly.
+ *
+ * Usage:
+ *   <div class="track">
+ *     <span class="track-item track-item--lapsed"></span>
+ *     <span class="track-item track-item--lapsed"></span>
+ *     <span class="track-item"></span>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.track-item {
+  display:       block;
+  flex:          0 0 auto;
+  width:         24px;
+  height:        4px;
+  border-radius: var(--radius-round);
+  background:    var(--overlay-dark-medium);        /* faint track (black-80 @30%) */
+}
+.track-item--lapsed { background: var(--background-inverse); }  /* solid inverse fill */
+
+
+/* Optional track — a row of segments sharing the width. */
+.track {
+  display: flex;
+  gap:     var(--spacer-4);
+}
+.track .track-item { flex: 1 1 auto; }

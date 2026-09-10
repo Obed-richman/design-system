@@ -1,0 +1,117 @@
+/*
+ * ============================================================
+ * COUNTER RING
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59137-2480
+ *
+ * A circular progress ring — a purple arc over a grey track — with a number in
+ * the centre. Reads a metric at a glance: a filling context (rewards progress)
+ * or an emptying one (days remaining).
+ *
+ * SIZE:  .counter-ring--large (80, default) · --medium (64) · --small (48)
+ * VALUE: set --counter-ring-value (0–100) inline; the arc fills clockwise from
+ *        12 o'clock. 100 = full ring, 0 = empty track.
+ * OPTIONS:
+ *   .counter-ring--pad   a white circular pad behind the ring (for use on a
+ *                        coloured surface).
+ *   .counter-ring__days  a small "days" label beneath the number.
+ *   --counter-ring-arc   override the arc colour (defaults to brand-2 purple;
+ *                        e.g. the Rewards tile sets it to brand-1 aqua).
+ *
+ * Usage:
+ *   <div class="counter-ring" style="--counter-ring-value: 80" role="img"
+ *        aria-label="80%">
+ *     <svg class="counter-ring__svg" viewBox="0 0 36 36" aria-hidden="true">
+ *       <circle class="counter-ring__track" cx="18" cy="18" r="15.5" pathLength="100"/>
+ *       <circle class="counter-ring__arc"   cx="18" cy="18" r="15.5" pathLength="100"/>
+ *     </svg>
+ *     <span class="counter-ring__text"><span class="counter-ring__number">1</span></span>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.counter-ring {
+  --counter-ring-value: 100;
+  position:     relative;
+  display:      inline-flex;
+  width:        80px;                               /* Large (default) */
+  height:       80px;
+  flex:         0 0 auto;
+  font-family:  'Modern Era', sans-serif;
+}
+.counter-ring--large  { width: 80px; height: 80px; }
+.counter-ring--medium { width: 64px; height: 64px; }
+.counter-ring--small  { width: 48px; height: 48px; }
+
+/* Optional white pad behind the ring (for coloured surfaces). */
+.counter-ring--pad::before {
+  content:       "";
+  position:      absolute;
+  inset:         0;
+  border-radius: var(--radius-round);
+  background:    var(--surface-tertiary);           /* white */
+}
+
+
+/* ------------------------------------------------------------
+   RING — a grey track with a purple arc, drawn from 12 o'clock
+   ------------------------------------------------------------ */
+
+.counter-ring__svg {
+  display:   block;
+  width:     100%;
+  height:    100%;
+  transform: rotate(-90deg);                        /* start the arc at the top */
+}
+.counter-ring__track,
+.counter-ring__arc {
+  fill:         none;
+  stroke-width: 4;                                  /* viewBox units */
+}
+.counter-ring__track { stroke: var(--surface-secondary); }   /* grey-30 track */
+.counter-ring__arc {
+  stroke:            var(--counter-ring-arc, var(--brand-2-medium)); /* purple-50 default; themeable */
+  stroke-linecap:    round;
+  stroke-dasharray:  100;
+  stroke-dashoffset: calc(100 - var(--counter-ring-value));
+  transition:        stroke-dashoffset 400ms ease;
+}
+/* An empty ring (value 0) shows the track only — no arc (and no round-cap dot).
+   Values 20/50/80/100 never contain the substring "value: 0", so only 0 matches. */
+.counter-ring[style*="value: 0"] .counter-ring__arc,
+.counter-ring[style*="value:0"]  .counter-ring__arc { display: none; }
+
+
+/* ------------------------------------------------------------
+   CENTRE — a number, with an optional "days" label
+   ------------------------------------------------------------ */
+
+.counter-ring__text {
+  position:        absolute;
+  inset:           0;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  color:           var(--text-primary);
+  text-align:      center;
+}
+.counter-ring__number {
+  font-weight:    var(--font-weight-bold);
+  font-size:      20px;
+  line-height:    24px;
+  letter-spacing: -0.4px;
+}
+.counter-ring--medium .counter-ring__number { font-size: 16px; line-height: 20px; }
+.counter-ring--small  .counter-ring__number { font-size: 14px; line-height: 18px; }
+
+.counter-ring__days {
+  font-weight: var(--font-weight-regular);
+  font-size:   12px;
+  line-height: 16px;
+  color:       var(--text-primary);
+}
+.counter-ring--small .counter-ring__days { font-size: 10px; line-height: 12px; }

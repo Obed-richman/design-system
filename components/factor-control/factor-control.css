@@ -1,0 +1,77 @@
+/*
+ * ============================================================
+ * FACTOR CONTROL  (Figma "Factors (Control)")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=2686-73507
+ *
+ * A card showing a driver's performance on one telematics factor — a labelled
+ * icon (with an optional help/tooltip icon) above a Factor Indicator bar.
+ * Types: Acceleration, Braking, Phone distractions, Speeding, Rest (Fatigue).
+ *
+ * Usage — link alongside factor-control.css:
+ *   tokens.css · factor-indicator.css
+ *
+ *   <div class="factor-control">
+ *     <div class="factor-control__head">
+ *       <span class="factor-control__icon"><svg>…telematics icon…</svg></span>
+ *       <span class="factor-control__title">Braking</span>
+ *       <span class="factor-control__help"><svg>…help…</svg></span>   <!-- optional -->
+ *     </div>
+ *     <div class="factor-indicator">…</div>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The bar is the Factor Indicator component. */
+@import '../factor-indicator/factor-indicator.css';
+
+
+.factor-control {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-16);
+  width:          100%;
+  box-sizing:     border-box;
+  padding:        var(--spacer-20) var(--spacer-24) var(--spacer-24);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-small);              /* 8px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* Icon + title (+ optional help). */
+.factor-control__head {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+}
+.factor-control__icon {
+  flex:   0 0 auto;
+  width:  24px;
+  height: 24px;
+  color:  var(--icon-glyph-primary);
+}
+.factor-control__icon svg { display: block; width: 24px; height: 24px; }
+
+.factor-control__title {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);         /* 18 / 24 */
+  line-height: var(--line-height-subtitle-1);
+}
+
+.factor-control__help {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--icon-glyph-primary);
+  cursor: help;
+}
+.factor-control__help svg { display: block; width: 16px; height: 16px; }
+
+
+/* The Factor Indicator fills the card width here. */
+.factor-control .factor-indicator { max-width: none; }

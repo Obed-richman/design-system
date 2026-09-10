@@ -1,0 +1,64 @@
+/*
+ * ============================================================
+ * DRIVER RATING PROGRESS
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=6222-12810
+ *
+ * A colour-coded, five-segment progress bar for a driver's performance rating,
+ * from At risk (left) to Excellent (right), with end labels. Each tier fills the
+ * corresponding number of Progress Track segments in that tier's rating colour;
+ * At risk shows a white position marker on its single segment.
+ *
+ * TIERS (set the tier colour + fill the matching number of segments):
+ *   .driver-rating--excellent   5 segments · green
+ *   .driver-rating--great       4 · lime
+ *   .driver-rating--good        3 · yellow
+ *   .driver-rating--improving   2 · orange
+ *   .driver-rating--at-risk     1 · red  (+ marker)
+ *   (no rating)                 0 · all empty
+ *
+ * Made for a coloured (dark/brand) surface — the empty track is translucent.
+ *
+ * Usage — link alongside driver-rating.css:
+ *   tokens.css · progress-track.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The segments are Progress Tracks. */
+@import '../progress-track/progress-track.css';
+
+
+.driver-rating {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  width:          100%;
+  box-sizing:     border-box;
+  font-family:    'Modern Era', sans-serif;
+}
+
+/* Five equal segments. */
+.driver-rating__bars {
+  display: flex;
+  gap:     var(--spacer-8);
+}
+.driver-rating__bars .progress-track { flex: 1 1 0; }
+
+/* End labels — At risk (left) · Excellent (right). */
+.driver-rating__labels {
+  display:         flex;
+  justify-content: space-between;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-4);     /* 12 / 16 */
+  line-height:     var(--line-height-subtitle-4);
+  color:           var(--text-on-color-fixed);      /* white */
+}
+
+
+/* Tier colour applied to the filled segments' fill. */
+.driver-rating--excellent { --progress-track-fill: var(--rating-excellent); }
+.driver-rating--great     { --progress-track-fill: var(--rating-great); }
+.driver-rating--good      { --progress-track-fill: var(--rating-good); }
+.driver-rating--improving { --progress-track-fill: var(--rating-improving); }
+.driver-rating--at-risk   { --progress-track-fill: var(--rating-risk); }

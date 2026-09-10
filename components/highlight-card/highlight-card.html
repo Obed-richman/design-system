@@ -17,10 +17,21 @@
     .back-btn { margin-bottom: 24px; }
     .component-header { margin-bottom: 24px; }
     .component-header__name { font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); margin: 0; }
-    .component-header__description { font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--colour-grey-60); margin: 4px 0 0; }
+    .component-header__description { font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--text-pressed); margin: 4px 0 0; }
     .variants { background: var(--colour-white); border-radius: 16px; border: 1px solid var(--border-primary); padding: 32px; display: flex; flex-direction: column; gap: 32px; }
     .variant-group__label { font-size: var(--font-size-subtitle-3); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); margin: 0 0 12px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  
+/* === consistent demo frame (injected) === */
+    .variants > *:not([class*="__label"]) {
+      background: var(--background-tertiary);
+      border: 1px solid var(--border-primary);
+      border-radius: 16px;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+      /* === flatten whole-list card (injected) === */
+    .variants { background: transparent; border: 0; padding: 0; }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>

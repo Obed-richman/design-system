@@ -1,0 +1,59 @@
+/*
+ * ============================================================
+ * THUMBNAIL  (Figma "Thumbnail" / Challenge Image)
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=8432-28363
+ *
+ * A fixed-ratio image tile with a centred badge — used in the Challenge
+ * feature. The badge is a swappable slot (any icon / image sits in it).
+ *
+ * STATE:
+ *   Default (Active) — an information-blue field.
+ *   .thumbnail--disabled — a grey field; the badge greys out.
+ *
+ * The badge is an Icon+-style chip (purple-20 tile). Drop an inline SVG or an
+ * <img> inside it — e.g. icons/launch.svg (a two-tone rocket).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="thumbnail.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.thumbnail {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           148px;                          /* Figma 147.5 — resize as needed */
+  aspect-ratio:    148 / 92.5;                      /* ≈ 16:10 */
+  box-sizing:      border-box;
+  background:      var(--surface-information);      /* blue-50 */
+  font-family:     'Modern Era', sans-serif;
+}
+
+/* Disabled — grey field, badge desaturated. */
+.thumbnail--disabled { background: var(--background-disabled); }   /* grey-50 */
+.thumbnail--disabled .thumbnail__badge { filter: grayscale(1); }
+
+
+/* Badge — a purple-20 chip holding a swappable glyph. */
+.thumbnail__badge {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  width:           48px;
+  height:          48px;
+  border-radius:   var(--radius-medium);           /* 16px */
+  background:      var(--icon-glyph-brand-2-low);  /* purple-20 #dbbffd */
+  overflow:        hidden;
+}
+.thumbnail__badge svg,
+.thumbnail__badge img {
+  display: block;
+  width:   28px;                                    /* ≈ 58% of the 48px chip */
+  height:  28px;
+}
