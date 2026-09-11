@@ -1797,7 +1797,7 @@ a.action-tile, button.action-tile { font: inherit; }
   width:           100%;
   box-sizing:      border-box;
   padding:         var(--spacer-8) var(--spacer-8);
-  background:      var(--background-primary);
+  background:      var(--background-tertiary);
   border-top:      var(--border-s) solid var(--border-primary);
   font-family:     'Modern Era', sans-serif;
 }
@@ -9678,10 +9678,10 @@ button.list-item:focus-visible,
 .rating-badge svg { display: block; width: 100%; height: 100%; }
 
 
-/* Inner glyph — the "white bit" uses the fixed light overlay token rather than
-   a hard-coded white. The hexagon keeps `fill="currentColor"`; every other path
-   (the glyph) is recoloured here (CSS `fill` overrides the inline attribute). */
-.rating-badge svg path:not([fill="currentColor"]) { fill: var(--overlay-light-fixed); }
+/* Inner glyph — uses the fixed dark overlay token rather than a hard-coded
+   white. The hexagon keeps `fill="currentColor"`; every other path (the glyph)
+   is recoloured here (CSS `fill` overrides the inline attribute). */
+.rating-badge svg path:not([fill="currentColor"]) { fill: var(--overlay-dark-fixed); }
 
 
 /* Tier colours — the hexagon reads `currentColor`. */
