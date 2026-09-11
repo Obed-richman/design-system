@@ -33,6 +33,12 @@
 .rating-badge svg { display: block; width: 100%; height: 100%; }
 
 
+/* Inner glyph — the "white bit" uses the fixed light overlay token rather than
+   a hard-coded white. The hexagon keeps `fill="currentColor"`; every other path
+   (the glyph) is recoloured here (CSS `fill` overrides the inline attribute). */
+.rating-badge svg path:not([fill="currentColor"]) { fill: var(--overlay-light-fixed); }
+
+
 /* Tier colours — the hexagon reads `currentColor`. */
 .rating-badge--at-risk           { color: var(--rating-risk); }       /* red-50 */
 .rating-badge--needs-improvement { color: var(--rating-improving); }  /* orange-50 */

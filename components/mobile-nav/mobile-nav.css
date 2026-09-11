@@ -19,6 +19,8 @@
  */
 
 @import '../tokens/tokens.css';
+/* The rewards pill is a Button (tertiary · medium). */
+@import '../button/button.css';
 
 
 .mobile-nav {
@@ -77,40 +79,14 @@
 .mobile-nav__slot--right { justify-content: flex-end; }
 
 
-/* Profile avatar button — a bordered circle holding a 24px glyph */
-.mobile-nav__avatar {
-  display:         inline-flex;
-  align-items:     center;
-  justify-content: center;
-  width:           40px;
-  height:          40px;
-  padding:         0;
-  border:          var(--border-m) solid var(--border-on-light);
-  border-radius:   var(--radius-round);
-  background:      transparent;
-  color:           var(--icon-glyph-primary);
-  cursor:          pointer;
-}
-.mobile-nav__avatar svg { display: block; width: 22px; height: 22px; }
+/* Profile avatar button — a Button (tertiary · fab) holding the DS profile
+   glyph. Styling comes from the Button component; .mobile-nav__avatar is kept
+   only as a hook. */
 
 
-/* Rewards pill — hexagon glyph + points balance */
-.mobile-nav__rewards {
-  display:       inline-flex;
-  align-items:   center;
-  gap:           var(--spacer-8);
-  height:        40px;
-  padding:       0 var(--spacer-16);
-  border:        var(--border-m) solid var(--border-on-light);
-  border-radius: var(--radius-round);
-  background:    transparent;
-  color:         var(--text-primary);
-  font-weight:   var(--font-weight-bold);
-  font-size:     var(--font-size-subtitle-3);   /* 14 / 20 */
-  line-height:   var(--line-height-subtitle-3);
-  cursor:        pointer;
-}
-.mobile-nav__rewards svg { display: block; width: 20px; height: 20px; }
+/* Rewards pill — a Button (tertiary · medium · pill) with a leading hexagon
+   glyph and the points balance. Styling comes from the Button component;
+   .mobile-nav__rewards is kept only as a hook. */
 
 
 /* ------------------------------------------------------------

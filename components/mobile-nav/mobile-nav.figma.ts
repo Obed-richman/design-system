@@ -21,10 +21,10 @@ figma.connect(
   </div>
   <div class="mobile-nav__bar">
     <div class="mobile-nav__slot">
-      <button class="mobile-nav__avatar" type="button" aria-label="Profile"><!-- profile icon --></button>
+      <button class="btn btn--tertiary btn--fab mobile-nav__avatar" type="button" aria-label="Profile"><span class="btn__icon"><!-- icons/profile.svg --></span></button>
     </div>
     <div class="mobile-nav__slot mobile-nav__slot--right">
-      <button class="mobile-nav__rewards" type="button"><!-- hexagon -->0,000</button>
+      <button class="btn btn--tertiary btn--medium btn--pill mobile-nav__rewards" type="button"><span class="btn__icon"><!-- hexagon --></span>0,000</button>
     </div>
   </div>
   <div class="mobile-nav__title"><h1>Page title</h1></div>
