@@ -1,0 +1,105 @@
+/*
+ * ============================================================
+ * PROGRESS CARD  (Figma "Progress card")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=60763-870410
+ *
+ * A white card tracking progress towards a goal/reward: an Icon+ badge, an
+ * amount block (tag · title · support), a divider, and a progress stepper — a
+ * row of step icons (green filled tick = done, grey ring = remaining).
+ *
+ * Composes Icon+ and Divider. The step icons are the DS Interface / Correct /
+ * Filled and Interface / Null glyphs; their colours are token-driven.
+ *
+ * Usage — link alongside progress-card.css:
+ *   tokens.css · icon-plus.css · divider.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../icon-plus/icon-plus.css';
+@import '../divider/divider.css';
+
+
+.progress-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-start;
+  gap:            var(--spacer-16);
+  width:          100%;
+  max-width:      343px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  overflow:       hidden;
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   AMOUNT BLOCK — tag, then title + support on one row
+   ------------------------------------------------------------ */
+.progress-card__amount {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  width:          100%;
+}
+.progress-card__tag {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);         /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-primary);
+}
+.progress-card__row {
+  display:         flex;
+  align-items:     flex-end;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+}
+.progress-card__title {
+  margin:         0;
+  font-weight:    var(--font-weight-bold);
+  font-size:      var(--font-size-title-4);          /* 20 / 24 */
+  line-height:    var(--line-height-title-4);
+  letter-spacing: -0.4px;
+  color:          var(--text-primary);
+}
+.progress-card__support {
+  margin:      0;
+  flex:        0 0 auto;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-4);         /* 12 / 16 */
+  line-height: var(--line-height-subtitle-4);
+  color:       var(--text-disabled);
+  text-align:  right;
+  white-space: nowrap;
+}
+
+
+/* The divider spans the card; drop its default helper margins. */
+.progress-card .divider { width: 100%; margin: 0; }
+
+
+/* ------------------------------------------------------------
+   PROGRESS STEPPER — step icons spread across the width
+   ------------------------------------------------------------ */
+.progress-card__stepper {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  width:           100%;
+}
+.progress-card__step {
+  flex:   0 0 auto;
+  width:  24px;
+  height: 24px;
+  color:  var(--border-primary);                    /* empty ring — grey-50 */
+}
+.progress-card__step svg { display: block; width: 100%; height: 100%; }
+/* Completed step — the circle takes the success green; the tick stays white. */
+.progress-card__step--done { color: var(--surface-success); }
