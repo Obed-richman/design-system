@@ -1,0 +1,178 @@
+/*
+ * ============================================================
+ * POLICY CARD — LARGE  (Figma "Policy Cards / Large")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59025-26078
+ *
+ * A white policy card: the vehicle registration + type (with an optional
+ * Telematics label), a status band that changes per lifecycle state, and two
+ * actions (Documents · Policy details).
+ *
+ * STATES:
+ *   Active    dates + a green cover-period progress bar
+ *   Pending   dates + an empty progress bar (cover not started)
+ *   Renewing  full-bleed amber band — "N days to renew" + Renew now
+ *   Expiring  full-bleed red band — "Ends in N days" + Renew now
+ *
+ * Composes Button (Documents / Policy details / Renew now) and Status Label
+ * (the optional Telematics tag). The status dots reuse the semantic status
+ * surfaces, matching the Status Dots component.
+ *
+ * Usage — link alongside policy-card-large.css:
+ *   tokens.css · button.css · status-label.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../button/button.css';
+/* The optional Telematics tag is a Status Label. */
+@import '../status-label/status-label.css';
+
+
+.policy-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    stretch;
+  gap:            var(--spacer-16);
+  width:          100%;
+  max-width:      343px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16) 0;               /* 0 sides so the status band can bleed */
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+/* Inset blocks — everything except the full-bleed status band. */
+.policy-card__info,
+.policy-card__progress,
+.policy-card__actions {
+  box-sizing:     border-box;
+  width:          100%;
+  padding-inline: var(--spacer-16);
+}
+
+
+/* ------------------------------------------------------------
+   POLICY INFO — registration (+ optional Telematics) and type
+   ------------------------------------------------------------ */
+.policy-card__info {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+}
+.policy-card__cover {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  min-height:  32px;
+}
+.policy-card__reg {
+  flex:           1 1 0;
+  min-width:      0;
+  margin:         0;
+  word-break:     break-word;
+  font-weight:    var(--font-weight-bold);
+  font-size:      28px;                             /* Mobile / Title 3 */
+  line-height:    32px;
+  letter-spacing: -0.56px;
+}
+.policy-card__telematics { flex: 0 0 auto; }        /* .status-label */
+.policy-card__type {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);         /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+
+
+/* ------------------------------------------------------------
+   PROGRESS — cover-period dates + bar (Active · Pending)
+   ------------------------------------------------------------ */
+.policy-card__progress {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+}
+.policy-card__dates {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+}
+.policy-card__date {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+.policy-card__date strong { font-weight: var(--font-weight-bold); }
+.policy-card__date--end   { text-align: right; }
+
+/* The bar — a grey track with a green fill driven by --policy-progress (0–100). */
+.policy-card__bar {
+  position:      relative;
+  height:        8px;
+  border-radius: var(--radius-round);
+  background:    var(--surface-secondary);          /* grey track */
+  overflow:      hidden;
+}
+.policy-card__bar-fill {
+  position:      absolute;
+  left:          0;
+  top:           0;
+  height:        100%;
+  width:         calc(var(--policy-progress, 0) * 1%);
+  background:    var(--icon-glyph-success-medium);  /* green */
+  border-radius: var(--radius-round);
+}
+
+
+/* ------------------------------------------------------------
+   STATUS BAND — full-bleed (Renewing · Expiring)
+   ------------------------------------------------------------ */
+.policy-card__status {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-8);
+  width:       100%;
+  box-sizing:  border-box;
+  padding:     var(--spacer-8) var(--spacer-16);
+}
+.policy-card__status--renewing { background: var(--surface-warning-low); }
+.policy-card__status--expiring { background: var(--surface-error-low); }
+
+.policy-card__dot {
+  flex:          0 0 auto;
+  width:         12px;
+  height:        12px;
+  border-radius: var(--radius-round);
+}
+.policy-card__status--renewing .policy-card__dot { background: var(--surface-warning); }  /* amber */
+.policy-card__status--expiring  .policy-card__dot { background: var(--surface-error); }    /* red */
+
+.policy-card__status-text {
+  flex:        1 1 auto;
+  min-width:   0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+.policy-card__status-text strong { font-weight: var(--font-weight-bold); }
+.policy-card__status .btn { flex: 0 0 auto; }
+
+
+/* ------------------------------------------------------------
+   ACTIONS — Documents · Policy details (equal halves)
+   ------------------------------------------------------------ */
+.policy-card__actions {
+  display:         flex;
+  gap:             var(--spacer-16);
+  justify-content: center;
+}
+.policy-card__actions .btn {
+  flex:      1 1 0;
+  min-width: 0;
+}
