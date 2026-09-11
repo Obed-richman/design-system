@@ -2595,6 +2595,113 @@ a.action-tile, button.action-tile { font: inherit; }
 }
 
 
+/* ==== components/callout-card/callout-card.css ==== */
+/*
+ * ============================================================
+ * CALL OUT CARD  (Figma "Call out Card")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=3093-42012
+ *
+ * A compact card highlighting a product feature or add-on: an Icon+ badge with
+ * an optional status label ("Added"), a title + short description, and an
+ * optional "More details" footer link.
+ *
+ * OPTIONS (all independently show/hide):
+ *   .icon-plus                        the product badge (top-left)
+ *   .status-label                     a status tag (top-right, e.g. "Added")
+ *   a.callout-card__button            the "More details →" footer
+ *
+ * Composes Icon+ and Status Label; the footer uses the DS arrow-right icon.
+ *
+ * Usage — link alongside callout-card.css:
+ *   tokens.css · icon-plus.css · status-label.css
+ * ============================================================
+ */
+
+
+
+.callout-card {
+  display:        flex;
+  flex-direction: column;
+  align-items:    stretch;
+  width:          100%;
+  max-width:      232px;
+  box-sizing:     border-box;
+  overflow:       hidden;
+  background:     var(--surface-primary-low);        /* ecru-20 */
+  border-radius:  var(--radius-small);               /* 8px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   CONTENT — badge + label, then title + description
+   ------------------------------------------------------------ */
+.callout-card__content {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+  padding:        var(--spacer-16);
+}
+.callout-card__top {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  width:           100%;
+}
+/* .icon-plus (badge) and .status-label sit at their native sizes. */
+
+.callout-card__text {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+}
+.callout-card__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);          /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+  color:       var(--text-primary);
+}
+.callout-card__desc {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);              /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   BUTTON — a "More details" footer link with a trailing arrow
+   ------------------------------------------------------------ */
+.callout-card__button {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+  padding:         var(--spacer-16);
+  border-top:      var(--border-s) solid var(--border-primary);
+  color:           var(--text-primary);
+  text-decoration: none;
+  font-weight:     var(--font-weight-bold);
+  font-size:       var(--font-size-subtitle-3);      /* 14 / 20 */
+  line-height:     var(--line-height-subtitle-3);
+  cursor:          pointer;
+  transition:      background-color 0.15s ease;
+}
+.callout-card__button:hover { background: var(--surface-primary-medium); }
+.callout-card__arrow {
+  flex:   0 0 auto;
+  width:  16px;
+  height: 16px;
+  color:  var(--icon-glyph-primary);
+}
+.callout-card__arrow svg { display: block; width: 16px; height: 16px; }
+
+
 /* ==== components/checkbox/checkbox.css ==== */
 /*
  * ============================================================
