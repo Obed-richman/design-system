@@ -17,6 +17,8 @@ figma.connect(
       html`<div class="row-list">
   <h3 class="row-list__title">Title</h3>
   <div class="row-list__card">
+    <!-- optional inner-text section heading (Figma "Inner text"); no divider below it -->
+    <p class="row-list__inner-text">Order summary</p>
     <div class="row-list__row"><span class="row-list__label">Delivery</span></div>
     <div class="row-list__row"><span class="row-list__label">Delivery</span></div>
     <!-- more row-list__row items (Figma List=1 to 10); add .row-list--full-divider for edge-to-edge rules -->

@@ -10309,8 +10309,16 @@ button.list-item:focus-visible,
  * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=4104-27101
  *
  * A stack of list rows inside a white rounded card, with an optional heading
- * above it and an optional "Edit" action button below the rows. Consecutive
- * rows are separated by a hairline divider.
+ * above the card, an optional descriptive heading INSIDE the card (Figma "Inner
+ * text"), and an optional "Edit" action button below the rows. Consecutive rows
+ * are separated by a hairline divider.
+ *
+ * SECTIONS:
+ *   .row-list__title       — heading ABOVE the card (Figma "Title").
+ *   .row-list__inner-text  — heading INSIDE the card, above the rows (Figma
+ *                            "Inner text"). It's a section header, so no divider
+ *                            sits between it and the first row.
+ *   .row-list__action      — optional helper text + full-width Edit button.
  *
  * DIVIDER (Figma "Full div"):
  *   Default        — dividers are INSET, respecting the card's 16px padding.
@@ -10362,8 +10370,11 @@ button.list-item:focus-visible,
   padding:        0 var(--spacer-16);              /* inset dividers by default */
 }
 
-/* Optional title inside the card (above the rows). */
-.row-list__card-title {
+/* INNER TEXT (Figma "Inner text") — an optional descriptive heading inside the
+   card, above the rows. It is its own section, so no divider separates it from
+   the first row; the padding alone sets it apart. */
+.row-list__inner-text,
+.row-list__card-title {                            /* card-title kept as an alias */
   margin:      0;
   padding:     var(--spacer-16) 0;
   font-weight: var(--font-weight-bold);
@@ -10374,6 +10385,12 @@ button.list-item:focus-visible,
 /* A divider sits above every item except the first. */
 .row-list__card > * + * {
   border-top: var(--border-s) solid var(--border-primary);
+}
+/* …but the inner-text heading is a section, not a row — the item right after it
+   keeps no divider so the heading reads as a header, not a separated row. */
+.row-list__card > .row-list__inner-text + *,
+.row-list__card > .row-list__card-title + * {
+  border-top: none;
 }
 
 
