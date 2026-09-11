@@ -38,7 +38,7 @@ figma.connect(
   <div class="policy-card__status policy-card__status--renewing">
     <span class="policy-card__dot"></span>
     <span class="policy-card__status-text"><strong>21 days</strong> to renew</span>
-    <button class="btn btn--secondary btn--pill btn--small">Renew now</button>
+    <button class="btn btn--tertiary btn--pill btn--small">Renew now</button>
   </div> -->
 
   <div class="policy-card__actions">
