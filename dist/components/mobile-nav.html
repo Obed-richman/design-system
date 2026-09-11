@@ -1,7 +1,8 @@
 <!-- Mobile Nav — Zego Design System
      Paste into a page that loads dist/zego-ds.css + dist/zego-ds.js. -->
 
-<!-- Top navigation: status bar + nav bar (profile / rewards) + page title -->
+<!-- Top navigation: status bar + nav bar (profile / rewards) + page title.
+     Scrolling collapses the large title and reveals the centred bar title. -->
 <div class="phone">
   <div class="mobile-nav">
     <div class="mobile-nav__status">
@@ -19,6 +20,7 @@
         </button>
         <span class="mobile-nav__status-chip"><span class="mobile-nav__status-dot"></span>Active</span>
       </div>
+      <p class="mobile-nav__center-title">Page title</p>
       <div class="mobile-nav__slot mobile-nav__slot--right">
         <button class="btn btn--tertiary btn--medium btn--pill mobile-nav__rewards" type="button">
           <span class="btn__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><g transform="translate(1.66,0.75)"><path d="M8.43555 1.51341C9.61476 0.829312 11.0698 0.829293 12.249 1.51341L17.791 4.72825C18.9629 5.40809 19.6846 6.6606 19.6846 8.01536V14.4861C19.6846 15.8408 18.9629 17.0933 17.791 17.7732L12.249 20.988C11.0698 21.6721 9.61476 21.6721 8.43555 20.988L2.89355 17.7732C1.72172 17.0933 1 15.8408 1 14.4861V8.01536C1 6.6606 1.72172 5.40809 2.89355 4.72825L8.43555 1.51341Z" stroke="currentColor" stroke-width="2"/></g></svg></span>
@@ -27,6 +29,13 @@
       </div>
     </div>
     <div class="mobile-nav__title"></div>
+  </div>
+  <div class="demo-page">
+    <div class="demo-block demo-block--md"></div>
+    <div class="demo-block demo-block--sm"></div>
+    <div class="demo-block demo-block--lg"></div>
+    <div class="demo-block demo-block--md"></div>
+    <div class="demo-block demo-block--lg"></div>
   </div>
 </div>
 

@@ -7468,7 +7468,7 @@ button.list-item:focus-visible,
   width:       375px;
   max-width:   100%;
   box-sizing:  border-box;
-  background:  var(--background-primary);
+  background:  var(--surface-tertiary);
   color:       var(--text-primary);
   font-family: 'Modern Era', sans-serif;
 }
@@ -7505,12 +7505,38 @@ button.list-item:focus-visible,
    ------------------------------------------------------------ */
 
 .mobile-nav__bar {
+  position:        relative;                         /* anchors the centred title */
   display:         flex;
   align-items:     center;
   justify-content: space-between;
   min-height:      48px;
   padding:         0 var(--spacer-16);
   box-sizing:      border-box;
+}
+
+/* Centre title — the page name shown in the bar once the large title collapses
+   on scroll. Absolutely centred so it doesn't shift the left / right slots. */
+.mobile-nav__center-title {
+  position:      absolute;
+  left:          50%;
+  transform:     translateX(-50%);
+  max-width:     55%;
+  margin:        0;
+  text-align:    center;
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-2);        /* 16 / 24 */
+  line-height:   var(--line-height-subtitle-2);
+  color:         var(--text-primary);
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+  opacity:       0;                                  /* hidden until scrolled */
+  pointer-events: none;
+  transition:    opacity 0.2s ease;
+}
+.mobile-nav--scrolled .mobile-nav__center-title {
+  opacity:        1;
+  pointer-events: auto;
 }
 .mobile-nav__slot {
   display:     flex;
@@ -7560,7 +7586,11 @@ button.list-item:focus-visible,
    ------------------------------------------------------------ */
 
 .mobile-nav__title {
-  padding: var(--spacer-8) var(--spacer-16) 0;
+  padding:    var(--spacer-8) var(--spacer-16) 0;
+  overflow:   hidden;
+  max-height: 56px;
+  opacity:    1;
+  transition: max-height 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
 }
 .mobile-nav__title h1,
 .mobile-nav__title p {
@@ -7569,6 +7599,15 @@ button.list-item:focus-visible,
   font-size:      var(--font-size-title-4);      /* 20 */
   line-height:    var(--line-height-title-4);
   letter-spacing: -0.4px;
+}
+
+/* Scrolled — the large title collapses to free space and the centre title in
+   the bar takes over the page name. Toggled by mobile-nav.js. */
+.mobile-nav--scrolled .mobile-nav__title {
+  max-height:     0;
+  opacity:        0;
+  padding-top:    0;
+  padding-bottom: 0;
 }
 
 
