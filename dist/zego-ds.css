@@ -7412,6 +7412,31 @@ button.list-item:focus-visible,
 }
 .mobile-nav__slot--right { justify-content: flex-end; }
 
+/* Status chip — a neutral pill with a status dot + label (e.g. telematics
+   "Active"). Sits in the left toolbar group beside the profile avatar. */
+.mobile-nav__status-chip {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           var(--spacer-8);
+  height:        32px;
+  padding:       0 var(--gap-small);                /* 12px sides */
+  box-sizing:    border-box;
+  border-radius: var(--radius-round);
+  background:    var(--surface-secondary);          /* subtle neutral pill */
+  color:         var(--text-primary);
+  font-weight:   var(--font-weight-bold);
+  font-size:     var(--font-size-subtitle-3);       /* 14 / 20 */
+  line-height:   var(--line-height-subtitle-3);
+  white-space:   nowrap;
+}
+.mobile-nav__status-dot {
+  flex:          0 0 auto;
+  width:         8px;
+  height:        8px;
+  border-radius: var(--radius-round);
+  background:    var(--surface-success);            /* green — active */
+}
+
 
 /* Profile avatar button — a Button (tertiary · fab) holding the DS profile
    glyph. Styling comes from the Button component; .mobile-nav__avatar is kept

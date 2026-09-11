@@ -22,6 +22,7 @@ figma.connect(
   <div class="mobile-nav__bar">
     <div class="mobile-nav__slot">
       <button class="btn btn--tertiary btn--fab mobile-nav__avatar" type="button" aria-label="Profile"><span class="btn__icon"><!-- icons/profile.svg --></span></button>
+      <span class="mobile-nav__status-chip"><span class="mobile-nav__status-dot"></span>Active</span>
     </div>
     <div class="mobile-nav__slot mobile-nav__slot--right">
       <button class="btn btn--tertiary btn--medium btn--pill mobile-nav__rewards" type="button"><span class="btn__icon"><!-- hexagon --></span>0,000</button>
