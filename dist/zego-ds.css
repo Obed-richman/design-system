@@ -9831,11 +9831,18 @@ button.list-item:focus-visible,
   display:         flex;
   align-items:     center;
   justify-content: center;
-  gap:             var(--spacer-8);
+  gap:             0;                               /* logo holders sit flush — no gap */
   width:           100%;
   height:          80px;
-  border-radius:   var(--radius-small);             /* 8px */
-  overflow:        hidden;
+}
+.rewards-tile__preview > * { position: relative; }
+
+/* The middle logo holder floats above the two beside it — it overlaps their
+   inner edges and lifts with a soft shadow. */
+.rewards-tile__preview > :nth-child(2) {
+  z-index:       1;
+  margin-inline: -12px;                             /* overlap its neighbours */
+  box-shadow:    0 6px 16px rgba(39, 37, 45, 0.20);
 }
 .rewards-tile__preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
