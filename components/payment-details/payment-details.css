@@ -1,0 +1,152 @@
+/*
+ * ============================================================
+ * PAYMENT DETAILS  (Figma "Payment details")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59689-74225
+ *
+ * A card that collects card-payment information for lending / checkout flows —
+ * a payment-method selector, card detail inputs (with detected card brands),
+ * country & postcode, a disclosures panel and a consent acknowledgement.
+ *
+ * Composes: Input, Payment Set, Display Row, Acknowledge (+ Checkbox). The
+ * method tiles and disclosures panel are laid out here.
+ *
+ * Usage — link alongside payment-details.css:
+ *   tokens.css · input.css · payment-set.css · display-row.css · acknowledge.css · checkbox.css
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+@import '../input/input.css';
+@import '../payment-set/payment-set.css';
+@import '../display-row/display-row.css';
+@import '../acknowledge/acknowledge.css';
+@import '../checkbox/checkbox.css';
+
+
+.payment-details {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-24);
+  width:          100%;
+  max-width:      343px;
+  box-sizing:     border-box;
+  padding:        var(--spacer-16);
+  background:     var(--surface-tertiary);          /* white */
+  border-radius:  var(--radius-medium);             /* 16px */
+  font-family:    'Modern Era', sans-serif;
+  color:          var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   HEADING
+   ------------------------------------------------------------ */
+.payment-details__text {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-8);
+}
+.payment-details__title {
+  margin:      0;
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-2);         /* 16 / 24 */
+  line-height: var(--line-height-subtitle-2);
+}
+.payment-details__support {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-3);             /* 14 / 20 */
+  line-height: var(--line-height-body-3);
+  color:       var(--text-pressed);
+}
+
+
+/* ------------------------------------------------------------
+   PAYMENT-METHOD TILES — a horizontal single-choice selector
+   ------------------------------------------------------------ */
+.payment-details__methods {
+  display: flex;
+  gap:     var(--spacer-8);
+  margin:  0;
+  padding: 0;
+  border:  0;
+}
+.payment-details__method {
+  position:        relative;
+  flex:            1 1 0;
+  min-width:       0;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  height:          48px;
+  box-sizing:      border-box;
+  border:          var(--border-m) solid var(--border-secondary);   /* 2px */
+  border-radius:   var(--radius-small);
+  background:      var(--background-tertiary);
+  cursor:          pointer;
+  transition:      border-color 0.15s ease;
+}
+/* Selected — aqua border (live via :has, plus a static --selected hook). */
+.payment-details__method:has(.payment-details__method-input:checked),
+.payment-details__method--selected {
+  border-color: var(--brand-1-medium);
+}
+.payment-details__method-input {
+  position:       absolute;
+  opacity:        0;
+  pointer-events: none;
+}
+.payment-details__method-icon {
+  display:     inline-flex;
+  align-items: center;
+  height:      24px;
+  color:       var(--icon-glyph-primary);
+}
+.payment-details__method-icon svg { display: block; height: 24px; width: auto; }
+.payment-details__method-label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-3);         /* 14 / 20 */
+  line-height: var(--line-height-subtitle-3);
+}
+
+
+/* ------------------------------------------------------------
+   FIELD AFFIXES — brand logos / dropdown chevron inside a field
+   ------------------------------------------------------------ */
+/* The card-number field shows detected brands; tighten the Payment Set gap. */
+.payment-details__brands { flex: 0 0 auto; gap: var(--spacer-8); flex-wrap: nowrap; }
+
+.payment-details__chevron {
+  flex:        0 0 auto;
+  display:     inline-flex;
+  width:       16px;
+  height:      16px;
+  color:       var(--icon-glyph-primary);
+}
+.payment-details__chevron svg { display: block; width: 16px; height: 16px; }
+
+
+/* ------------------------------------------------------------
+   HORIZONTAL INPUT PAIR — expiry + security code
+   ------------------------------------------------------------ */
+.payment-details__row {
+  display: flex;
+  gap:     var(--spacer-16);
+}
+.payment-details__row .input-group { flex: 1 1 0; min-width: 0; }
+
+
+/* ------------------------------------------------------------
+   DISCLOSURES — a bordered panel of bullet-point Display Rows
+   ------------------------------------------------------------ */
+.payment-details__disclosures {
+  border:        var(--border-m) solid var(--border-primary);
+  border-radius: var(--radius-small);
+  padding:       0 var(--spacer-16);
+}
+/* Only keep the hairline between rows — the panel border does the rest. */
+.payment-details__disclosures .display-row:first-child { border-top: none; }
+.payment-details__disclosures .display-row:last-child  { border-bottom: none; margin-bottom: 0; }
+/* Bullet markers take the brand purple. */
+.payment-details__disclosures .display-row__icon { color: var(--icon-glyph-brand-2-medium); }

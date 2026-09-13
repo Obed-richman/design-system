@@ -1,0 +1,38 @@
+/*
+ * ============================================================
+ * PAYMENT SET  (Figma "Payment Set")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=5221-43348
+ *
+ * A row of accepted payment-method logos, shown at checkout or on pricing pages
+ * to reassure users of the available payment options.
+ *
+ * The logos are the official brand marks (from the design system) at 24px tall,
+ * spaced 16px apart, in a fixed order: Mastercard · Amex · Visa · PayPal ·
+ * Apple Pay · Premium Credit · Klarna. Show 2–7 by including that many, in order
+ * (Figma "Set" = 2…7 — Mastercard and Amex are always present).
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="payment-set.css">
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+.payment-set {
+  display:     flex;
+  align-items: center;
+  gap:         var(--spacer-16);                    /* 16px between logos */
+  flex-wrap:   wrap;
+}
+
+/* Each logo sits in a 24px-tall slot; the SVG keeps its own intrinsic size. */
+.payment-set__item {
+  display:     inline-flex;
+  align-items: center;
+  height:      24px;
+  flex:        0 0 auto;
+}
+.payment-set__item svg { display: block; }
