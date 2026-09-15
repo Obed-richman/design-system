@@ -138,14 +138,16 @@
    STATES
    ------------------------------------------------------------ */
 
-/* Hover — aqua border (enabled) */
-.radio:hover .radio__input:not(:disabled) + .radio__control {
-  border-color: var(--border-active);
-}
-
-/* Focus */
+/* The focus ring shows on any focused control (error keeps its own red border). */
 .radio__input:focus-visible + .radio__control {
   box-shadow: var(--shadow-focus);
+}
+
+/* Hover and Focus preview selection with the aqua active border — except in the
+   error state, which stays red. */
+.radio:not(.radio--error):hover .radio__input:not(:disabled) + .radio__control,
+.radio:not(.radio--error) .radio__input:focus-visible + .radio__control {
+  border-color: var(--border-active);
 }
 
 /* Checked — aqua border + reveal dot / tick */

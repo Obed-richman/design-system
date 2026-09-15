@@ -102,14 +102,16 @@
    STATES
    ------------------------------------------------------------ */
 
-/* Hover (unchecked, enabled) */
-.checkbox:hover .checkbox__input:not(:checked):not(:disabled) + .checkbox__box {
-  border-color: var(--border-secondary);
-}
-
-/* Focus */
+/* The focus ring shows on any focused box (error keeps its own red border). */
 .checkbox__input:focus-visible + .checkbox__box {
   box-shadow: var(--shadow-focus);
+}
+
+/* Hover (unchecked, enabled) and Focus preview selection with the aqua active
+   border — except in the error state, which stays red. */
+.checkbox:not(.checkbox--error):hover .checkbox__input:not(:checked):not(:disabled) + .checkbox__box,
+.checkbox:not(.checkbox--error) .checkbox__input:focus-visible + .checkbox__box {
+  border-color: var(--border-active);
 }
 
 /* Checked — no fill, aqua border + dark tick */

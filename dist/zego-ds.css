@@ -2804,14 +2804,16 @@ a.action-tile, button.action-tile { font: inherit; }
    STATES
    ------------------------------------------------------------ */
 
-/* Hover (unchecked, enabled) */
-.checkbox:hover .checkbox__input:not(:checked):not(:disabled) + .checkbox__box {
-  border-color: var(--border-secondary);
-}
-
-/* Focus */
+/* The focus ring shows on any focused box (error keeps its own red border). */
 .checkbox__input:focus-visible + .checkbox__box {
   box-shadow: var(--shadow-focus);
+}
+
+/* Hover (unchecked, enabled) and Focus preview selection with the aqua active
+   border — except in the error state, which stays red. */
+.checkbox:not(.checkbox--error):hover .checkbox__input:not(:checked):not(:disabled) + .checkbox__box,
+.checkbox:not(.checkbox--error) .checkbox__input:focus-visible + .checkbox__box {
+  border-color: var(--border-active);
 }
 
 /* Checked — no fill, aqua border + dark tick */
@@ -10244,14 +10246,16 @@ button.list-item:focus-visible,
    STATES
    ------------------------------------------------------------ */
 
-/* Hover — aqua border (enabled) */
-.radio:hover .radio__input:not(:disabled) + .radio__control {
-  border-color: var(--border-active);
-}
-
-/* Focus */
+/* The focus ring shows on any focused control (error keeps its own red border). */
 .radio__input:focus-visible + .radio__control {
   box-shadow: var(--shadow-focus);
+}
+
+/* Hover and Focus preview selection with the aqua active border — except in the
+   error state, which stays red. */
+.radio:not(.radio--error):hover .radio__input:not(:disabled) + .radio__control,
+.radio:not(.radio--error) .radio__input:focus-visible + .radio__control {
+  border-color: var(--border-active);
 }
 
 /* Checked — aqua border + reveal dot / tick */
@@ -11597,6 +11601,65 @@ button.list-item:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .spinner { animation-duration: 2.4s; }
 }
+
+
+/* ==== components/status-dot/status-dot.css ==== */
+/*
+ * ============================================================
+ * STATUS DOT  (Figma "Status Dots")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=58151-4844
+ *
+ * A small solid dot that signals status at a glance — on its own, beside a
+ * label, or within a list/row.
+ *
+ * STATUS (colour):
+ *   .status-dot--positive     green   (--surface-success)
+ *   .status-dot--warning      amber   (--surface-warning)
+ *   .status-dot--negative     red     (--surface-error)
+ *   .status-dot--information   blue    (--surface-information)
+ *   .status-dot--rewards      aqua    (--brand-1-medium)
+ *   .status-dot--disabled     grey    (--icon-glyph-disabled)
+ *
+ * SIZE:  .status-dot--8 · --12 (default) · --16 · --20 · --24
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="status-dot.css">
+ *   <span class="status-dot status-dot--positive" role="img" aria-label="Active"></span>
+ * ============================================================
+ */
+
+.status-dot {
+  --status-dot-size: 12px;                            /* Size 12 (default) */
+  display:       inline-block;
+  flex:          0 0 auto;
+  width:         var(--status-dot-size);
+  height:        var(--status-dot-size);
+  border-radius: var(--radius-round);
+  background:    var(--surface-success);              /* default: positive */
+}
+
+
+/* ------------------------------------------------------------
+   STATUS
+   ------------------------------------------------------------ */
+.status-dot--positive    { background: var(--surface-success); }      /* green-60  */
+.status-dot--warning     { background: var(--surface-warning); }      /* orange-50 */
+.status-dot--negative    { background: var(--surface-error); }        /* red-60    */
+.status-dot--information  { background: var(--surface-information); }  /* blue-50   */
+.status-dot--rewards     { background: var(--brand-1-medium); }       /* aqua      */
+.status-dot--disabled    { background: var(--icon-glyph-disabled); }  /* grey-70   */
+
+
+/* ------------------------------------------------------------
+   SIZE
+   ------------------------------------------------------------ */
+.status-dot--8  { --status-dot-size: 8px; }
+.status-dot--12 { --status-dot-size: 12px; }
+.status-dot--16 { --status-dot-size: 16px; }
+.status-dot--20 { --status-dot-size: 20px; }
+.status-dot--24 { --status-dot-size: 24px; }
 
 
 /* ==== components/status-label/status-label.css ==== */
