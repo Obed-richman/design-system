@@ -57,7 +57,7 @@
   position:       relative;
   width:          100%;
   box-sizing:     border-box;
-  background:     var(--background-tertiary);     /* #f8f5f3 */
+  background:     var(--background-primary);
   font-family:    'Modern Era', sans-serif;
 
   /* The breakpoint below is a container query, so the bar reacts to its own
@@ -93,10 +93,14 @@
   position: sticky;
   top:      0;
   z-index:  100;
+  /* Reserve the hairline up front as a transparent border so revealing it on
+     scroll fades the colour in (no layout shift, unlike toggling border-width). */
+  border-bottom: var(--border-s) solid transparent;
+  transition:    border-color 200ms ease;
 }
 
 .sales-nav--sticky[data-scrolled] {
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom-color: var(--border-primary);
 }
 
 
