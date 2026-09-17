@@ -70,7 +70,7 @@ figma.connect(
       <span class="sales-nav__logo"><!-- Zego logo svg --></span>
       ${trustpilot}
     </div>
-    <button class="btn btn--tertiary btn--pill btn--small sales-nav__toggle" type="button" aria-expanded="${expanded}">
+    <button class="btn btn--tertiary btn--pill btn--medium sales-nav__toggle" type="button" aria-expanded="${expanded}">
       <span class="sales-nav__help-label">Help</span><span class="sales-nav__close-label">Close</span>
       <span class="btn__icon sales-nav__toggle-icon sales-nav__help-icon"><!-- icons/customer-service.svg --></span>
       <span class="btn__icon sales-nav__toggle-icon sales-nav__close-icon"><!-- icons/cross.svg --></span>
