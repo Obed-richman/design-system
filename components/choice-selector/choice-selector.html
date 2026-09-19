@@ -22,6 +22,7 @@
     .component-header__name { font-family: var(--font-family-base); font-weight: var(--font-weight-bold); font-size: var(--font-size-title-4); line-height: var(--line-height-title-4); color: var(--text-primary); margin: 0; }
     .component-header__description { font-family: var(--font-family-base); font-weight: var(--font-weight-regular); font-size: var(--font-size-body-2); line-height: var(--line-height-body-2); color: var(--text-pressed); margin: 4px 0 0; }
     .variants { background: var(--colour-white); border-radius: 16px; border: 1px solid var(--border-primary); padding: 24px; display: flex; flex-direction: column; gap: 32px; }
+    .variant__label { margin: 8px 0 -12px; font-size: var(--font-size-subtitle-4); font-weight: var(--font-weight-bold); text-transform: uppercase; letter-spacing: 0.08em; color: var(--colour-grey-60); }
   
 /* === consistent demo frame (injected) === */
     .variants > *:not([class*="__label"]) {
@@ -72,11 +73,11 @@
         + '<span class="radio__control"></span></label>';
     }
 
-    function selector(count, withIcon) {
-      const name = 'sel' + count;
+    function selector(count, withIcon, vertical) {
+      const name = 'sel' + (vertical ? 'v' : 'h') + count;
       let items = '';
       for (let i = 0; i < count; i++) items += item(name, i === 0, withIcon);
-      return '<fieldset class="choice-selector">'
+      return '<fieldset class="choice-selector' + (vertical ? ' choice-selector--vertical' : '') + '">'
         + '<div class="choice-selector__header">'
         + '<p class="choice-selector__title">Title</p>'
         + '<p class="choice-selector__paragraph">Paragraph</p>'
@@ -85,9 +86,13 @@
         + '</fieldset>';
     }
 
-    // Items 2–5 keep the leading icon; 6 drops it (too narrow), matching Figma
+    // Horizontal: items 2–5 keep the leading icon; 6 drops it (too narrow), matching Figma.
+    // Vertical (Figma "Multiple choice selector / Vertical"): full-width rows keep the icon.
     document.getElementById('variants').innerHTML =
-      [selector(2, true), selector(3, true), selector(4, true), selector(5, true), selector(6, false)].join('');
+      '<p class="variant__label">Horizontal</p>'
+      + [selector(2, true), selector(3, true), selector(4, true), selector(5, true), selector(6, false)].join('')
+      + '<p class="variant__label">Vertical</p>'
+      + [selector(2, true, true), selector(3, true, true), selector(4, true, true)].join('');
   </script>
 
 </body>
