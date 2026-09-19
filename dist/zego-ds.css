@@ -2876,10 +2876,22 @@ a.action-tile, button.action-tile { font: inherit; }
   flex-direction: column;
   gap:            var(--gap-x-small);   /* 8px */
   width:          100%;
+  box-sizing:     border-box;
   margin:         0;
   padding:        0;
   border:         0;                    /* reset <fieldset> */
   min-width:      0;
+}
+
+/* SURFACE — an optional white card wrapper (Figma's default on both the
+   horizontal and vertical selectors). Switch it on where the selector sits
+   directly on the page; leave it off when it's already inside a card or panel
+   (e.g. embedded in Detail Card or a Conditional Selector), so the background
+   follows the context. */
+.choice-selector--surface {
+  padding:       var(--spacer-16);      /* 16px */
+  border-radius: var(--radius-medium);  /* 16px */
+  background:    var(--surface-tertiary);
 }
 
 

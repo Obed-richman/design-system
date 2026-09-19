@@ -34,6 +34,9 @@
     }
       /* === flatten whole-list card (injected) === */
     .variants { background: transparent; border: 0; padding: 0; }
+    /* The selector now carries its own surface card, so drop the demo frame's
+       extra border/padding and let the real 16px card show. */
+    .variants > .choice-selector--surface { border: 0; padding: var(--spacer-16); }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>
@@ -77,7 +80,7 @@
       const name = 'sel' + (vertical ? 'v' : 'h') + count;
       let items = '';
       for (let i = 0; i < count; i++) items += item(name, i === 0, withIcon);
-      return '<fieldset class="choice-selector' + (vertical ? ' choice-selector--vertical' : '') + '">'
+      return '<fieldset class="choice-selector choice-selector--surface' + (vertical ? ' choice-selector--vertical' : '') + '">'
         + '<div class="choice-selector__header">'
         + '<p class="choice-selector__title">Title</p>'
         + '<p class="choice-selector__paragraph">Paragraph</p>'
