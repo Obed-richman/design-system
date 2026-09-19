@@ -3267,7 +3267,19 @@ a.action-tile, button.action-tile { font: inherit; }
   flex-direction: column;
   gap:            var(--gap-small);        /* 12px between options and panel */
   width:          100%;
+  box-sizing:     border-box;
   min-width:      0;
+}
+
+/* SURFACE — an optional white card wrapper (Figma's updated Conditional
+   Selector). The revealed follow-up keeps its own tinted panel inside; the
+   embedded Multiple Choice Selector stays flat so the card isn't doubled.
+   Switch it on where the question sits directly on the page; leave it off when
+   it's already inside a card or panel. */
+.conditional-selector--surface {
+  padding:       var(--spacer-16);         /* 16px */
+  border-radius: var(--radius-medium);     /* 16px */
+  background:    var(--surface-tertiary);  /* white */
 }
 
 

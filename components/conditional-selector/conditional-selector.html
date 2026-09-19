@@ -38,6 +38,8 @@
     }
       /* === flatten whole-list card (injected) === */
     .variants { background: transparent; border: 0; padding: 0; }
+    /* The selector now carries its own surface card — drop the demo frame. */
+    .variants > .conditional-selector--surface { border: 0; padding: var(--spacer-16); }
   </style>
   <link rel="stylesheet" href="../../pages/showcase-controls.css">
   <script src="../../pages/showcase-controls.js" defer></script>
@@ -64,7 +66,7 @@
 
     <div class="variants">
       <p class="variant__label">Closed — live, choose No to reveal the follow-up</p>
-      <div class="conditional-selector">
+      <div class="conditional-selector conditional-selector--surface">
           <fieldset class="choice-selector">
             <div class="choice-selector__header">
               <p class="choice-selector__title">Are you (or will you be) the legal owner of the vehicle?</p>
@@ -97,7 +99,7 @@
 
     <div class="variants">
       <p class="variant__label">Revealed — No pre-selected</p>
-      <div class="conditional-selector">
+      <div class="conditional-selector conditional-selector--surface">
           <fieldset class="choice-selector">
             <div class="choice-selector__header">
               <p class="choice-selector__title">Are you (or will you be) the legal owner of the vehicle?</p>
