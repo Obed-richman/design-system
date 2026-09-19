@@ -2937,10 +2937,9 @@ a.action-tile, button.action-tile { font: inherit; }
    VERTICAL — options stacked full width
    Figma's "Multiple choice selector / Vertical". Used where each option needs
    room for a leading icon and a longer label than a two-up row allows, so the
-   options stack instead of sharing the width. They sit Spacer-20 apart, not the
-   Spacer-8 of the horizontal row: side by side, proximity already reads as "one
-   question", but stacked they need the separation to stop reading as a list of
-   unrelated rows.
+   options stack instead of sharing the width. They sit Spacer-12 apart, more
+   than the Spacer-8 of the horizontal row so the stacked rows don't read as a
+   run-on list.
    ------------------------------------------------------------ */
 
 /* Direct children only. A follow-up nested in this list carries its own
@@ -2949,18 +2948,17 @@ a.action-tile, button.action-tile { font: inherit; }
 .choice-selector--vertical > .choice-selector__options {
   flex-direction: column;
   align-items:    stretch;
-  gap:            var(--spacer-20);
+  gap:            var(--spacer-12);
 }
 .choice-selector--vertical > .choice-selector__options > .text-icon-item {
   flex:  0 0 auto;
   width: 100%;
 }
 
-/* A follow-up revealed under the option that triggered it sits closer to it
-   (Spacer-12) than the options are to each other, which is what ties the two
-   together rather than reading as a third option. */
+/* A follow-up revealed under the option that triggered it sits the same
+   Spacer-12 below, tying it to its trigger rather than reading as a new option. */
 .choice-selector--vertical > .choice-selector__options > .conditional-selector__panel {
-  margin-top: calc(var(--spacer-12) - var(--spacer-20));   /* -8px */
+  margin-top: 0;
 }
 
 
