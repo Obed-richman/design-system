@@ -77,6 +77,9 @@
 
 .conditional-selector__panel {
   box-sizing:     border-box;
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-24);        /* 24px between revealed contents */
   width:          100%;
   padding:        var(--spacer-16);        /* 16px */
   background:     var(--surface-primary-medium);   /* #f2ede9 */
