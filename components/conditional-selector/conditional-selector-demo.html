@@ -92,5 +92,34 @@
         </div>
   </div>
 
+  <div class="card">
+    <p class="cap">Revealed — multiple inputs (24px gap between them)</p>
+    <div class="conditional-selector conditional-selector--surface">
+          <fieldset class="choice-selector">
+            <div class="choice-selector__header">
+              <p class="choice-selector__title">Is there a second registered keeper?</p>
+            </div>
+            <div class="choice-selector__options">
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">No</span></span><input class="radio__input" type="radio" name="keeper"><span class="radio__control"></span></label>
+              <label class="text-icon-item text-icon-item--inactive"><span class="text-icon-item__text"><span class="text-icon-item__label">Yes</span></span><input class="radio__input" type="radio" name="keeper" data-reveals checked><span class="radio__control"></span></label>
+            </div>
+          </fieldset>
+          <div class="conditional-selector__panel">
+            <div class="input-group">
+              <label class="input-label input-label--title" for="keeper-first">First name</label>
+              <div class="input-field"><input class="input" id="keeper-first" type="text" placeholder="Enter first name"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label input-label--title" for="keeper-last">Last name</label>
+              <div class="input-field"><input class="input" id="keeper-last" type="text" placeholder="Enter last name"></div>
+            </div>
+            <div class="input-group">
+              <label class="input-label input-label--title" for="keeper-email">Email address</label>
+              <div class="input-field"><input class="input" id="keeper-email" type="email" placeholder="name@example.com"></div>
+            </div>
+          </div>
+        </div>
+  </div>
+
 </body>
 </html>
