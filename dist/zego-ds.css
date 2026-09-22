@@ -10195,7 +10195,7 @@ button.list-item:focus-visible,
   display:       flex;
   align-items:   center;
   gap:           var(--gap-medium);                       /* 16px */
-  padding:       var(--gap-medium) 0;                     /* 16px vertical */
+  padding:       var(--gap-medium);                       /* 16px — sides too, so the hover fill extends past the text/radio */
   cursor:        pointer;
   border-bottom: var(--border-s) solid var(--border-primary);
   transition:    background-color 150ms ease;
