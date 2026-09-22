@@ -8635,6 +8635,97 @@ button.list-item:focus-visible,
 }
 
 
+/* ==== components/partner-logo/partner-logo.css ==== */
+/*
+ * ============================================================
+ * PARTNER LOGO  (Figma "Work Providers")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=3719-3954
+ *
+ * The slot system for a work-provider / partner brand mark, in the four Figma
+ * forms: Icon XS (24), Icon S (32), Tile (72 rounded square) and Wordmark.
+ *
+ * IMPORTANT — third-party brand assets:
+ * The marks rendered here are NEUTRAL TYPOGRAPHIC STAND-INS (a monogram on a
+ * tile, or the brand name as text), NOT the real partner logos. In production,
+ * drop each brand's official SVG into the slot: put an <svg> or <img> inside
+ * `.partner-logo` and it fills the frame; the monogram is only the fallback.
+ * This matches how Aggregator Partners handles third-party logos in this DS.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="partner-logo.css">
+ *   <span class="partner-logo partner-logo--tile" aria-label="Deliveroo">D</span>
+ *   <span class="partner-logo partner-logo--s"><img src="…/deliveroo.svg" alt="Deliveroo"></span>
+ * ============================================================
+ */
+
+.partner-logo {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  flex:            0 0 auto;
+  box-sizing:      border-box;
+  overflow:        hidden;
+  background:      var(--surface-secondary);        /* neutral placeholder ground */
+  color:           var(--text-primary);
+  font-family:     'Modern Era', sans-serif;
+  font-weight:     var(--font-weight-bold);
+  line-height:     1;
+  text-transform:  uppercase;
+}
+
+/* An official mark dropped into the slot fills the frame (and hides the ground). */
+.partner-logo img,
+.partner-logo svg {
+  display:    block;
+  width:      100%;
+  height:     100%;
+  object-fit: contain;
+}
+
+
+/* ------------------------------------------------------------
+   TYPE — Icon XS · Icon S · Tile
+   ------------------------------------------------------------ */
+.partner-logo--xs {
+  width:         24px;
+  height:        24px;
+  border-radius: var(--radius-x-small);             /* 4px */
+  font-size:     11px;
+}
+.partner-logo--s {
+  width:         32px;
+  height:        32px;
+  border-radius: var(--radius-x-small);
+  font-size:     13px;
+}
+.partner-logo--tile {
+  width:         72px;
+  height:        72px;
+  border-radius: var(--radius-medium);              /* 16px */
+  font-size:     var(--font-size-title-4);          /* 20px */
+}
+
+
+/* ------------------------------------------------------------
+   WORDMARK — the brand name as a typographic stand-in
+   (replace with the official lockup SVG in production).
+   ------------------------------------------------------------ */
+.partner-wordmark {
+  display:      inline-flex;
+  align-items:  center;
+  height:       32px;
+  font-family:  'Modern Era', sans-serif;
+  font-weight:  var(--font-weight-bold);
+  font-size:    var(--font-size-subtitle-1);        /* 18 / 24 */
+  line-height:  var(--line-height-subtitle-1);
+  color:        var(--text-primary);
+}
+.partner-wordmark img,
+.partner-wordmark svg { display: block; height: 100%; width: auto; }
+
+
 /* ==== components/payment-details/payment-details.css ==== */
 /*
  * ============================================================
