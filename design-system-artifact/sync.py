@@ -532,6 +532,30 @@ COVER = """<!-- @dsCard height=288 -->
 """
 
 # ====================================================================== main
+def strip_generated(text):
+    """The page appends generated sections to README.md after a '---' rule; ignore them."""
+    if text is None: return None
+    m = re.search(r'\n-{3,}\s*\n+## Consuming this system', text)
+    return (text[:m.start()] if m else text).rstrip() + '\n'
+
+def norm_tokens(t):
+    """Normalise the page's re-serialisation so only real differences count."""
+    t = json.loads(json.dumps(t))
+    first = (t.get('color', {}).get('themes') or [{'id': 'light'}])[0]['id']
+    def clean(d):
+        for k in [k for k, v in d.items() if v in ('', None) or (k == 'fontStyle' and v == 'normal')]: d.pop(k)
+        if isinstance(d.get('value'), dict) and set(d['value']) == {first}: d['value'] = d['value'][first]
+        if isinstance(d.get('fontWeight'), str) and d['fontWeight'].isdigit(): d['fontWeight'] = int(d['fontWeight'])
+        return d
+    for k, v in t.items():
+        if isinstance(v, dict):
+            for k2 in [k2 for k2, v2 in v.items() if v2 in ('', None)]: v.pop(k2)
+            for tok in v.get('tokens', []) if isinstance(v.get('tokens'), list) else []: clean(tok)
+    for g in t.get('type', {}).get('groups', []):
+        for st in g.get('styles', []): clean(st)
+    t.get('meta', {}).pop('synced', None); t.get('meta', {}).pop('ref', None)
+    return json.dumps(t, sort_keys=True)
+
 def load_current(cur):
     def j(p, default):
         f = os.path.join(cur, p)
@@ -549,6 +573,8 @@ def main():
     ap.add_argument('--out', default=os.path.join(REPO, '.ds-sync-out'))
     ap.add_argument('--by', default='Obed Richman')
     ap.add_argument('--via', default='')
+    ap.add_argument('--drop-page-only-tokens', action='store_true',
+                    help='remove tokens that exist only in the artifact (e.g. renamed on the page) instead of keeping them')
     ap.add_argument('--branch', default='', help='branch label for the ref (default: the checked-out branch)')
     a = ap.parse_args()
     cur = os.path.abspath(a.current) if a.current else ''
@@ -594,6 +620,8 @@ def main():
     def editable(path, generated):
         """prose: regenerate unless the page edited it since the last sync."""
         current = T(path)
+        if path == 'README.md':
+            current, generated = strip_generated(current), strip_generated(generated)
         last = state['generated'].get(path)
         if current is not None and last and sha(current) != last:
             kept_edits.append(path)
@@ -623,7 +651,8 @@ def main():
                 key = 'usage:' + t['name']
                 if t['name'] in cur_by:
                     ct = cur_by[t['name']][1]
-                    if ct.get('value') != t['value']: changed_tokens.append(t['name'])
+                    one = lambda v: v[next(iter(v))] if isinstance(v, dict) and len(v) == 1 else v
+                    if one(ct.get('value')) != one(t['value']): changed_tokens.append(t['name'])
                     last = state['usage'].get(key)
                     if last and sha(ct.get('usage', '')) != last:
                         t['usage'] = ct.get('usage', '')      # edited on the page: keep
@@ -635,7 +664,8 @@ def main():
         for name, (fam, t) in cur_by.items():
             if name not in new_names:
                 removed_tokens.append(name)
-                tokens.setdefault(fam, {'tokens': []}).setdefault('tokens', []).append(t)   # keep; ask before removing
+                if not a.drop_page_only_tokens:
+                    tokens.setdefault(fam, {'tokens': []}).setdefault('tokens', []).append(t)   # keep; ask before removing
         for k, v in cur_tokens.items():          # families / keys added on the page
             if k not in tokens: tokens[k] = v
         if isinstance(cur_tokens.get('type'), dict):
@@ -656,8 +686,7 @@ def main():
             for st in gr['styles']: state['usage']['style:' + st['name']] = sha(st['usage'])
     tok_text = json.dumps(tokens, indent=1, ensure_ascii=False)
     old_tok = T('tokens.json')
-    strip_meta = lambda s: re.sub(r'"(synced|ref)": "[^"]*"', '', s or '')
-    if old_tok is None or strip_meta(old_tok) != strip_meta(tok_text):
+    if old_tok is None or norm_tokens(json.loads(old_tok)) != norm_tokens(tokens):
         files['tokens.json'] = tok_text
 
     # ---- fonts (binary, by digest)
@@ -716,7 +745,18 @@ def main():
     lines.append(f'- Files to publish: {len(files)}')
     if changed_tokens: lines.append(f'- Token values changed ({len(changed_tokens)}): ' + ', '.join(f'`{x}`' for x in changed_tokens[:40]))
     if added_tokens and cur_tokens: lines.append(f'- Tokens added ({len(added_tokens)}): ' + ', '.join(f'`{x}`' for x in added_tokens[:40]))
-    if removed_tokens: lines.append(f'- Tokens no longer in the repo, KEPT until someone confirms removal ({len(removed_tokens)}): ' + ', '.join(f'`{x}`' for x in removed_tokens))
+    if removed_tokens:
+        verb = 'REMOVED (--drop-page-only-tokens)' if a.drop_page_only_tokens else 'KEPT until someone confirms removal'
+        lines.append(f'- Tokens in the artifact but not in the repo, {verb} ({len(removed_tokens)}): ' + ', '.join(f'`{x}`' for x in removed_tokens))
+    # every var() the component CSS uses must resolve against the tokens the artifact will hold
+    defined = {t['name'] for v in tokens.values() if isinstance(v, dict) and isinstance(v.get('tokens'), list) for t in v['tokens']}
+    defined |= {'font-' + k for k in tokens['type']['families']} | set(re.findall(r'--([A-Za-z0-9_-]+)\s*:', css))
+    unresolved = {}
+    for u in re.findall(r'var\(--([A-Za-z0-9_-]+)\)', css):
+        if u not in defined: unresolved[u] = unresolved.get(u, 0) + 1
+    if unresolved:
+        lines.append(f'- **WARNING: {sum(unresolved.values())} var() references in component CSS do not resolve** (a token was renamed or removed): '
+                     + ', '.join(f'`{k}`×{v}' for k, v in sorted(unresolved.items(), key=lambda x: -x[1])))
     if gone: lines.append('- Components no longer in the repo, KEPT: ' + ', '.join(gone))
     if kept_edits: lines.append('- Edited on the page since the last sync, left as edited: ' + ', '.join(f'`{x}`' for x in kept_edits))
     if unplaced: lines.append('- Source variables not placed in tokens.json: ' + ', '.join(f'`{x}`' for x in unplaced))
