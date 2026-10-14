@@ -2120,6 +2120,126 @@ a.action-tile, button.action-tile { font: inherit; }
 .bullet-point__info svg { display: block; width: 100%; height: 100%; }
 
 
+/* ==== components/button-item/button-item.css ==== */
+/*
+ * ============================================================
+ * BUTTON ITEM  (Figma "Button Item")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3968
+ *
+ * A tappable navigation / selection row: an Icon+ badge, a bold label (with an
+ * optional support line) and a trailing chevron, in a bordered white card.
+ * Composes Icon+ for the leading badge.
+ *
+ * STATES:
+ *   Default               white card, grey border
+ *   Hover / Active        aqua active border  (:hover / :active, or --hover/--active)
+ *   Focus                 aqua border + light-aqua fill + focus ring (:focus-visible / --focus)
+ *   Disabled              grey fill, muted label/chevron (--disabled, or :disabled on a button)
+ *
+ * Usage — link alongside button-item.css:
+ *   tokens.css · icon-plus.css
+ *
+ *   <a class="button-item" href="…">
+ *     <span class="icon-plus button-item__badge"><svg>…icons/new-driver.svg…</svg></span>
+ *     <span class="button-item__text">
+ *       <span class="button-item__label">New drivers</span>
+ *       <span class="button-item__support">…optional…</span>
+ *     </span>
+ *     <span class="button-item__chevron"><svg>…icons/chevron-small.svg…</svg></span>
+ *   </a>
+ * ============================================================
+ */
+
+/* The leading badge is the Icon+ component. */
+
+.button-item {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-8);
+  width:           100%;
+  box-sizing:      border-box;
+  /* pl 8 · pr 16 · py 8 (Figma) */
+  padding:         var(--spacer-8) var(--spacer-16) var(--spacer-8) var(--spacer-8);
+  background:      var(--surface-tertiary);          /* white */
+  border:          var(--border-m) solid var(--border-primary);   /* 2px grey */
+  border-radius:   var(--radius-medium);             /* 16px */
+  font-family:     'Modern Era', sans-serif;
+  color:           var(--text-primary);
+  text-align:      left;
+  text-decoration: none;
+  cursor:          pointer;
+  transition:      border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  -webkit-appearance: none;
+  appearance:         none;                          /* reset when used on <button> */
+}
+
+.button-item__badge { flex: 0 0 auto; }              /* the .icon-plus */
+
+.button-item__text {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:            var(--spacer-none, 0);
+}
+.button-item__label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);          /* 18 / 24 */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+.button-item__support {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);              /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.button-item__chevron {
+  flex:        0 0 auto;
+  display:     inline-flex;
+  color:       var(--icon-glyph-primary);
+}
+.button-item__chevron svg { display: block; width: 7px; height: 12px; }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+.button-item:hover,
+.button-item--hover,
+.button-item:active,
+.button-item--active {
+  border-color: var(--border-active);                /* aqua */
+}
+
+.button-item:focus-visible,
+.button-item--focus {
+  outline:      none;
+  border-color: var(--border-active);
+  background:   var(--surface-focus);                /* light aqua */
+  box-shadow:   var(--shadow-focus);
+}
+
+.button-item--disabled,
+.button-item:disabled {
+  background:     var(--background-disabled);         /* grey */
+  border-color:   var(--border-primary);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+.button-item--disabled .button-item__label,
+.button-item--disabled .button-item__support,
+.button-item--disabled .button-item__chevron,
+.button-item:disabled .button-item__label,
+.button-item:disabled .button-item__support,
+.button-item:disabled .button-item__chevron {
+  color: var(--text-disabled);
+}
+
+
 /* ==== components/button/button.css ==== */
 /*
  * ============================================================
@@ -8645,18 +8765,19 @@ button.list-item:focus-visible,
  * The slot system for a work-provider / partner brand mark, in the four Figma
  * forms: Icon XS (24), Icon S (32), Tile (72 rounded square) and Wordmark.
  *
- * IMPORTANT — third-party brand assets:
- * The marks rendered here are NEUTRAL TYPOGRAPHIC STAND-INS (a monogram on a
- * tile, or the brand name as text), NOT the real partner logos. In production,
- * drop each brand's official SVG into the slot: put an <svg> or <img> inside
- * `.partner-logo` and it fills the frame; the monogram is only the fallback.
- * This matches how Aggregator Partners handles third-party logos in this DS.
+ * Third-party brand assets:
+ * Each brand's official mark is an SVG (a few carry an embedded raster) under
+ * assets/partners/, exported verbatim from the Figma "Work Providers" set — the
+ * tile (brand-coloured square + mark) in <brand>.svg and the logotype in
+ * <brand>-wordmark.svg. Drop one into the slot — an <img> or <svg> inside
+ * `.partner-logo` fills the frame; a monogram/brand name is only the fallback
+ * when no official asset is supplied.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="partner-logo.css">
- *   <span class="partner-logo partner-logo--tile" aria-label="Deliveroo">D</span>
- *   <span class="partner-logo partner-logo--s"><img src="…/deliveroo.svg" alt="Deliveroo"></span>
+ *   <span class="partner-logo partner-logo--tile"><img src="…/deliveroo.svg" alt="Deliveroo"></span>
+ *   <span class="partner-wordmark"><img src="…/deliveroo-wordmark.svg" alt="Deliveroo"></span>
  * ============================================================
  */
 
@@ -8675,13 +8796,15 @@ button.list-item:focus-visible,
   text-transform:  uppercase;
 }
 
-/* An official mark dropped into the slot fills the frame (and hides the ground). */
+/* An official tile dropped into the slot fills the frame (and hides the ground).
+   Tiles are full-bleed brand squares, so `cover` edge-fills them; the frame's
+   border-radius + overflow:hidden clips the corners. */
 .partner-logo img,
 .partner-logo svg {
   display:    block;
   width:      100%;
   height:     100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 
@@ -8709,8 +8832,8 @@ button.list-item:focus-visible,
 
 
 /* ------------------------------------------------------------
-   WORDMARK — the brand name as a typographic stand-in
-   (replace with the official lockup SVG in production).
+   WORDMARK — the official brand logotype (assets/partners/
+   <brand>-wordmark.svg), rendered at a 32px cap height.
    ------------------------------------------------------------ */
 .partner-wordmark {
   display:      inline-flex;
@@ -9617,6 +9740,10 @@ button.list-item:focus-visible,
 
 
 
+/* Optional foot sections: the Buttons row reuses Button; the Item Details
+   payment breakdown reuses Status Label for its meta tags. */
+
+
 .product-card {
   display:        flex;
   flex-direction: column;
@@ -9894,7 +10021,9 @@ button.list-item:focus-visible,
 
 /* With a banner under it the header's padding-bottom stops being an inset from the
    card edge and becomes a GAP between two blocks, which 003 sets to a full 16. */
-.product-card__header:has(+ .product-card__banner) { padding-bottom: var(--spacer-16); }
+.product-card__header:has(+ .product-card__banner),
+.product-card__header:has(+ .product-card__details),
+.product-card__header:has(+ .product-card__buttons) { padding-bottom: var(--spacer-16); }
 
 .product-card__banner .marketing-banner {
   width:         100%;                           /* not the standalone's 343 */
@@ -9973,6 +10102,73 @@ button.list-item:focus-visible,
   width:      100%;
   height:     100%;
   object-fit: cover;
+}
+
+
+/* ------------------------------------------------------------
+   ITEM DETAILS — an optional cost / payment breakdown (Figma "Item Details").
+   Label + value lines in a tinted panel, then a row of Status Label tags.
+   A foot section like the banner: same 16px side inset, 16px gap to the header.
+   ------------------------------------------------------------ */
+.product-card__details {
+  padding: 0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
+}
+.product-card__details-panel {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-12);
+  box-sizing:     border-box;
+  padding:        var(--spacer-12);
+  background:     var(--surface-primary-low);          /* #F8F5F3, matching the banner */
+  border-radius:  var(--radius-small);                 /* 8px */
+}
+.product-card__details-lines {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--spacer-4);
+  margin:         0;
+}
+.product-card__details-line {
+  display:         flex;
+  align-items:     baseline;
+  justify-content: space-between;
+  gap:             var(--spacer-8);
+}
+.product-card__details-line dt,
+.product-card__details-line dd {
+  margin:      0;
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);                /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+.product-card__details-line dd {
+  text-align:           right;
+  font-variant-numeric: tabular-nums;
+}
+/* The Total line reads as the sum — set in bold. */
+.product-card__details-line--total dt,
+.product-card__details-line--total dd { font-weight: var(--font-weight-bold); }
+
+.product-card__details-meta {
+  display:   flex;
+  flex-wrap: wrap;
+  gap:       var(--spacer-4);
+}
+
+
+/* ------------------------------------------------------------
+   BUTTONS — an optional two-up action row (Figma "Buttons").
+   Equal halves, 12px apart; reuses the Button component.
+   ------------------------------------------------------------ */
+.product-card__buttons {
+  display: flex;
+  gap:     var(--spacer-12);
+  padding: 0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
+}
+.product-card__buttons .btn {
+  flex:      1 1 0;
+  min-width: 0;
 }
 
 

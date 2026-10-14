@@ -1,0 +1,120 @@
+/*
+ * ============================================================
+ * BUTTON ITEM  (Figma "Button Item")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57596-3968
+ *
+ * A tappable navigation / selection row: an Icon+ badge, a bold label (with an
+ * optional support line) and a trailing chevron, in a bordered white card.
+ * Composes Icon+ for the leading badge.
+ *
+ * STATES:
+ *   Default               white card, grey border
+ *   Hover / Active        aqua active border  (:hover / :active, or --hover/--active)
+ *   Focus                 aqua border + light-aqua fill + focus ring (:focus-visible / --focus)
+ *   Disabled              grey fill, muted label/chevron (--disabled, or :disabled on a button)
+ *
+ * Usage — link alongside button-item.css:
+ *   tokens.css · icon-plus.css
+ *
+ *   <a class="button-item" href="…">
+ *     <span class="icon-plus button-item__badge"><svg>…icons/new-driver.svg…</svg></span>
+ *     <span class="button-item__text">
+ *       <span class="button-item__label">New drivers</span>
+ *       <span class="button-item__support">…optional…</span>
+ *     </span>
+ *     <span class="button-item__chevron"><svg>…icons/chevron-small.svg…</svg></span>
+ *   </a>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+/* The leading badge is the Icon+ component. */
+@import '../icon-plus/icon-plus.css';
+
+
+.button-item {
+  display:         flex;
+  align-items:     center;
+  gap:             var(--spacer-8);
+  width:           100%;
+  box-sizing:      border-box;
+  /* pl 8 · pr 16 · py 8 (Figma) */
+  padding:         var(--spacer-8) var(--spacer-16) var(--spacer-8) var(--spacer-8);
+  background:      var(--surface-tertiary);          /* white */
+  border:          var(--border-m) solid var(--border-primary);   /* 2px grey */
+  border-radius:   var(--radius-medium);             /* 16px */
+  font-family:     'Modern Era', sans-serif;
+  color:           var(--text-primary);
+  text-align:      left;
+  text-decoration: none;
+  cursor:          pointer;
+  transition:      border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  -webkit-appearance: none;
+  appearance:         none;                          /* reset when used on <button> */
+}
+
+.button-item__badge { flex: 0 0 auto; }              /* the .icon-plus */
+
+.button-item__text {
+  flex:           1 1 auto;
+  min-width:      0;
+  display:        flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:            var(--spacer-none, 0);
+}
+.button-item__label {
+  font-weight: var(--font-weight-bold);
+  font-size:   var(--font-size-subtitle-1);          /* 18 / 24 */
+  line-height: var(--line-height-subtitle-1);
+  color:       var(--text-primary);
+}
+.button-item__support {
+  font-weight: var(--font-weight-regular);
+  font-size:   var(--font-size-body-2);              /* 16 / 24 */
+  line-height: var(--line-height-body-2);
+  color:       var(--text-primary);
+}
+
+.button-item__chevron {
+  flex:        0 0 auto;
+  display:     inline-flex;
+  color:       var(--icon-glyph-primary);
+}
+.button-item__chevron svg { display: block; width: 7px; height: 12px; }
+
+
+/* ------------------------------------------------------------
+   STATES
+   ------------------------------------------------------------ */
+.button-item:hover,
+.button-item--hover,
+.button-item:active,
+.button-item--active {
+  border-color: var(--border-active);                /* aqua */
+}
+
+.button-item:focus-visible,
+.button-item--focus {
+  outline:      none;
+  border-color: var(--border-active);
+  background:   var(--surface-focus);                /* light aqua */
+  box-shadow:   var(--shadow-focus);
+}
+
+.button-item--disabled,
+.button-item:disabled {
+  background:     var(--background-disabled);         /* grey */
+  border-color:   var(--border-primary);
+  cursor:         not-allowed;
+  pointer-events: none;
+}
+.button-item--disabled .button-item__label,
+.button-item--disabled .button-item__support,
+.button-item--disabled .button-item__chevron,
+.button-item:disabled .button-item__label,
+.button-item:disabled .button-item__support,
+.button-item:disabled .button-item__chevron {
+  color: var(--text-disabled);
+}

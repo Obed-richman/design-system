@@ -4,6 +4,7 @@
   "description": "Zego Design System — components, tokens, and Figma Code Connect",
   "private": true,
   "scripts": {
+    "build": "node build-dist.js",
     "figma:parse": "figma connect parse",
     "figma:publish": "figma connect publish",
     "figma:unpublish": "figma connect unpublish"

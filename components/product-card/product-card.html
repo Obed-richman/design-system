@@ -123,13 +123,61 @@
         + '</div>';
     }
 
+    /* Optional foot section: Item Details — a cost / payment breakdown panel
+       (label+value lines, a bold Total, then Status Label tags). */
+    function detailsCard() {
+      return '<div class="product-card">'
+        + '<div class="product-card__header">'
+        +   '<div class="product-card__top">'
+        +     '<span class="product-card__badge">' + CAL + '</span>'
+        +     '<div class="product-card__meta">'
+        +       '<span class="product-card__tag">Best value</span>'
+        +       '<label class="radio"><input class="radio__input" type="radio" name="product-details"><span class="radio__control"></span></label>'
+        +     '</div>'
+        +   '</div>'
+        +   '<div><h3 class="product-card__title">Comprehensive</h3><p class="product-card__subtitle">Your cover at a glance</p></div>'
+        +   bullets()
+        + '</div>'
+        + '<div class="product-card__details"><div class="product-card__details-panel">'
+        +   '<dl class="product-card__details-lines">'
+        +     '<div class="product-card__details-line"><dt>Starts</dt><dd>04/10/2025</dd></div>'
+        +     '<div class="product-card__details-line"><dt>Monthly payment</dt><dd>£12.50</dd></div>'
+        +     '<div class="product-card__details-line product-card__details-line--total"><dt>Total</dt><dd>£150.00</dd></div>'
+        +   '</dl>'
+        +   '<div class="product-card__details-meta"><span class="status-label status-label--information status-label--rounded">12 months</span><span class="status-label status-label--success status-label--rounded">0% APR</span></div>'
+        + '</div></div>'
+        + '</div>';
+    }
+
+    /* Optional foot section: Buttons — a two-up action row (reuses Button). */
+    function buttonsCard() {
+      return '<div class="product-card">'
+        + '<div class="product-card__header">'
+        +   '<div class="product-card__top">'
+        +     '<span class="product-card__badge">' + CAL + '</span>'
+        +     '<div class="product-card__meta">'
+        +       '<label class="radio"><input class="radio__input" type="radio" name="product-buttons"><span class="radio__control"></span></label>'
+        +     '</div>'
+        +   '</div>'
+        +   '<div><h3 class="product-card__title">Telematics</h3><p class="product-card__subtitle">Get up to £60 a year in rewards</p></div>'
+        +   bullets()
+        + '</div>'
+        + '<div class="product-card__buttons">'
+        +   '<button class="btn btn--secondary btn--pill" type="button">Documents</button>'
+        +   '<button class="btn btn--primary btn--pill" type="button">Select</button>'
+        + '</div>'
+        + '</div>';
+    }
+
     /* The three Figma states. Hover is forced with the modifier so it can be seen
        without a pointer; on a real card it comes from :hover. */
     document.getElementById('cards').innerHTML = [
       productCard({}),
       productCard({ hover: true }),
       productCard({ active: true }),
-      lockupCard()
+      lockupCard(),
+      detailsCard(),
+      buttonsCard()
     ].join('');
   </script>
 

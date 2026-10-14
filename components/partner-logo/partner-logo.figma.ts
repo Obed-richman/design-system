@@ -5,22 +5,23 @@ import figma, { html } from "@figma/code-connect/html";
  * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=3719-3954
  *
  * The slot system for a work-provider / partner brand mark: Icon XS (--xs 24),
- * Icon S (--s 32), Tile (--tile 72) and a Wordmark. The rendered mark is a
- * neutral typographic stand-in — third-party logos are not reproduced; drop the
- * brand's official SVG into the `.partner-logo` slot in production. Kept static.
+ * Icon S (--s 32), Tile (--tile 72) and a Wordmark. Each brand's official mark
+ * ships under assets/partners/ (<brand>.svg tile, <brand>-wordmark.svg logotype),
+ * exported verbatim from the Figma "Work Providers" set; an <img> drops into the
+ * slot and fills the frame. Kept static.
  */
 
 figma.connect(
   "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=3719-3954",
   {
     example: () =>
-      html`<!-- Tile (72) — official SVG goes inside; monogram is the fallback stand-in -->
-<span class="partner-logo partner-logo--tile" role="img" aria-label="Deliveroo">D</span>
+      html`<!-- Tile (72) — official brand tile (brand-coloured square + mark) -->
+<span class="partner-logo partner-logo--tile"><img src="…/assets/partners/deliveroo.svg" alt="Deliveroo"></span>
 
-<!-- Icon S (32) with an official mark dropped into the slot -->
-<span class="partner-logo partner-logo--s" role="img" aria-label="Uber"><!-- <img src="…/uber.svg" alt="Uber"> --></span>
+<!-- Icon S (32) — same tile asset, scaled down -->
+<span class="partner-logo partner-logo--s"><img src="…/assets/partners/uber.svg" alt="Uber"></span>
 
-<!-- Wordmark (stand-in — replace with the official lockup SVG) -->
-<span class="partner-wordmark" role="img" aria-label="Deliveroo">Deliveroo</span>`,
+<!-- Wordmark — official logotype -->
+<span class="partner-wordmark"><img src="…/assets/partners/deliveroo-wordmark.svg" alt="Deliveroo"></span>`,
   }
 );

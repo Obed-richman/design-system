@@ -7,18 +7,19 @@
  * The slot system for a work-provider / partner brand mark, in the four Figma
  * forms: Icon XS (24), Icon S (32), Tile (72 rounded square) and Wordmark.
  *
- * IMPORTANT — third-party brand assets:
- * The marks rendered here are NEUTRAL TYPOGRAPHIC STAND-INS (a monogram on a
- * tile, or the brand name as text), NOT the real partner logos. In production,
- * drop each brand's official SVG into the slot: put an <svg> or <img> inside
- * `.partner-logo` and it fills the frame; the monogram is only the fallback.
- * This matches how Aggregator Partners handles third-party logos in this DS.
+ * Third-party brand assets:
+ * Each brand's official mark is an SVG (a few carry an embedded raster) under
+ * assets/partners/, exported verbatim from the Figma "Work Providers" set — the
+ * tile (brand-coloured square + mark) in <brand>.svg and the logotype in
+ * <brand>-wordmark.svg. Drop one into the slot — an <img> or <svg> inside
+ * `.partner-logo` fills the frame; a monogram/brand name is only the fallback
+ * when no official asset is supplied.
  *
  * Usage:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
  *   <link rel="stylesheet" href="partner-logo.css">
- *   <span class="partner-logo partner-logo--tile" aria-label="Deliveroo">D</span>
- *   <span class="partner-logo partner-logo--s"><img src="…/deliveroo.svg" alt="Deliveroo"></span>
+ *   <span class="partner-logo partner-logo--tile"><img src="…/deliveroo.svg" alt="Deliveroo"></span>
+ *   <span class="partner-wordmark"><img src="…/deliveroo-wordmark.svg" alt="Deliveroo"></span>
  * ============================================================
  */
 
@@ -40,13 +41,15 @@
   text-transform:  uppercase;
 }
 
-/* An official mark dropped into the slot fills the frame (and hides the ground). */
+/* An official tile dropped into the slot fills the frame (and hides the ground).
+   Tiles are full-bleed brand squares, so `cover` edge-fills them; the frame's
+   border-radius + overflow:hidden clips the corners. */
 .partner-logo img,
 .partner-logo svg {
   display:    block;
   width:      100%;
   height:     100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 
@@ -74,8 +77,8 @@
 
 
 /* ------------------------------------------------------------
-   WORDMARK — the brand name as a typographic stand-in
-   (replace with the official lockup SVG in production).
+   WORDMARK — the official brand logotype (assets/partners/
+   <brand>-wordmark.svg), rendered at a 32px cap height.
    ------------------------------------------------------------ */
 .partner-wordmark {
   display:      inline-flex;
