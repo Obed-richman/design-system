@@ -1,8 +1,15 @@
 import figma, { html } from "@figma/code-connect/html";
 
 /**
- * Code Connect — Top Navigation / Platform
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57546-7734
+ * Code Connect — Top Navigation / Platform  —  ⚠ DEPRECATED
+ *
+ * DEPRECATED: the mapped node (57546-7734) was deleted in the Design-System-003
+ * reorganisation and has no current equivalent, so this file is EXCLUDED in
+ * figma.config.json and will not publish. Kept only so the mapping/markup isn't
+ * lost if the web platform header is ever re-added to the library; if it is,
+ * repoint the URL below to the new node id and drop the exclude entry.
+ *
+ * Figma (removed): https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57546-7734
  *
  * The logged-in platform header. "Expanded" opens the support dropdown; the
  * "Breakpoint" (Desktop/Mobile) presentation is handled by CSS (media query,

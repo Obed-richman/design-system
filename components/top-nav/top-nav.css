@@ -1,8 +1,15 @@
 /*
  * ============================================================
- * TOP NAVIGATION / PLATFORM COMPONENT
+ * TOP NAVIGATION / PLATFORM COMPONENT  —  ⚠ DEPRECATED
  * ============================================================
- * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57546-7734
+ * DEPRECATED: the Figma source (node 57546-7734) was deleted during the
+ * Design-System-003 reorganisation and has no current equivalent in the
+ * library (the DS "Top Navigation" is now a different, mobile-app component).
+ * This web platform header is kept code-only and is excluded from Code Connect
+ * (figma.config.json). Don't use it for new work; for app headers use the
+ * Mobile Top Nav component.
+ *
+ * Figma source (removed): https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=57546-7734
  *
  * The logged-in platform header: a navy bar with the Zego logo and Help /
  * Log out actions (desktop) or a menu button (mobile). Pressing Help / the
