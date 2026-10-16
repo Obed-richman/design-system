@@ -137,7 +137,7 @@
 
 .discount-code--collapsible {
   border-radius: var(--radius-medium);            /* 16 */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   padding:       var(--spacer-16);
 }
 

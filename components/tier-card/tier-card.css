@@ -55,7 +55,7 @@
   box-sizing:     border-box;
   border:         var(--border-m) solid var(--border-primary);
   border-radius:  var(--radius-medium);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
@@ -101,7 +101,7 @@
   box-sizing:         border-box;
   padding:            var(--spacer-12) var(--spacer-16) var(--spacer-16);
   border-radius:      var(--radius-medium) var(--radius-medium) 0 0;
-  background:         var(--surface-primary);
+  background:         var(--surface-tertiary);
 }
 
 .tier-card--active .tier-card__inner  { background: var(--surface-focus); }
@@ -132,7 +132,7 @@
   padding:         var(--gap-small) var(--spacer-16);
   border:          var(--border-m) solid var(--border-secondary);
   border-radius:   var(--radius-small);           /* 8px */
-  background:      var(--surface-primary);
+  background:      var(--surface-tertiary);
   color:           var(--text-primary);
   font-family:     inherit;
   font-weight:     var(--font-weight-bold);

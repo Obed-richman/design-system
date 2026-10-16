@@ -234,7 +234,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
 /* 16 all round on mobile, 32 all round on desktop — same 480px canvas hinge as
    the intro heading above. */
 .proto__card {
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border-radius: var(--radius-medium);
   padding:       var(--spacer-16);
 }
@@ -777,7 +777,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   box-sizing:    border-box;
   padding:       6px;
   border-radius: var(--radius-small);           /* 8px */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   box-shadow:    var(--shadow-dropdown);
   /* One 5s loop that already contains the return journey — hold, fan out, hold fanned,
      walk home, hold. 003 re-authored it that way on 21 Aug, so the `alternate` trick

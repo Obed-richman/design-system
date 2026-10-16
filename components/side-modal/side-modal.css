@@ -36,7 +36,7 @@
   width:          600px;
   max-width:      100%;
   box-sizing:     border-box;
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border:         var(--border-s) solid var(--border-primary);
   border-radius:  var(--radius-medium);            /* 16px */
   overflow:       hidden;

@@ -994,7 +994,7 @@ body { font-family: var(--font-family-base); }
 .accordion {
   width:            100%;
   box-sizing:       border-box;
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   border:           var(--border-s) solid var(--border-secondary);
   border-radius:    var(--radius-medium);        /* 16px */
   overflow:         hidden;
@@ -1143,7 +1143,7 @@ body { font-family: var(--font-family-base); }
   padding:          var(--gap-medium);           /* 16px */
   border:           var(--border-m) solid var(--border-primary);
   border-radius:    var(--radius-small);         /* 8px — Radius-8, what 003 binds */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   transition:       border-color 150ms ease, box-shadow 150ms ease;
 }
 
@@ -2897,7 +2897,7 @@ a.action-tile, button.action-tile { font: inherit; }
   justify-content: center;
   border:          var(--border-m) solid var(--border-primary);  /* 2px */
   border-radius:   var(--radius-x-small);          /* 4px */
-  background-color:var(--surface-primary);
+  background-color:var(--surface-tertiary);
   color:           var(--icon-glyph-primary);      /* tick colour */
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
@@ -3238,7 +3238,7 @@ a.action-tile, button.action-tile { font: inherit; }
   flex-direction:   column;
   gap:              var(--gap-medium);            /* 16px */
   padding:          var(--spacer-20);             /* 20px */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   /* inner radius = outer radius − frame width, so it nests cleanly */
   border-radius:    calc(var(--radius-large) - var(--spacer-4));   /* 20px */
 }
@@ -3737,7 +3737,7 @@ a.action-tile, button.action-tile { font: inherit; }
   border:        var(--border-s) solid var(--border-primary);
   border-radius: var(--radius-medium);             /* 16px */
   overflow:      hidden;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   font-family:   'Modern Era', sans-serif;
 }
 
@@ -3852,7 +3852,7 @@ a.action-tile, button.action-tile { font: inherit; }
   max-width:      400px;
   box-sizing:     border-box;
   padding:        var(--spacer-16);               /* 16px */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   /* Radius-24. Bound on the symbol but NOT on the Dates Wrapper inside it, which is
      how the two corners are told apart: the panel keeps Radius-16, the picker takes 24. */
   border-radius:  var(--radius-large);            /* 24px */
@@ -3901,7 +3901,7 @@ a.action-tile, button.action-tile { font: inherit; }
   padding:       var(--spacer-8);
   border:        var(--border-s) solid var(--border-primary);
   border-radius: var(--radius-medium);            /* 16px */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
 }
 
 .date-picker__weekday {
@@ -4094,7 +4094,7 @@ a.action-tile, button.action-tile { font: inherit; }
   width:          100%;
   max-width:      375px;
   box-sizing:     border-box;
-  background:     var(--surface-primary);         /* white */
+  background:     var(--surface-tertiary);         /* white */
   border:         var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius:  var(--radius-small);            /* 8px */
   font-family:    'Modern Era', sans-serif;
@@ -4428,7 +4428,7 @@ a.action-tile, button.action-tile { font: inherit; }
 
 .discount-code--collapsible {
   border-radius: var(--radius-medium);            /* 16 */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   padding:       var(--spacer-16);
 }
 
@@ -5220,7 +5220,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   box-sizing:   border-box;
   margin:       0;
   padding:      var(--spacer-12) var(--spacer-16); /* 12px 16px */
-  background:   var(--surface-primary);
+  background:   var(--surface-tertiary);
   border:       none;
   text-align:   left;
   font-family:  'Modern Era', sans-serif;
@@ -5312,7 +5312,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   align-items:    stretch;
   width:          100%;
   box-sizing:     border-box;
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border-radius:  var(--radius-small);           /* 8px */
   overflow:       hidden;
   box-shadow:     0 0 16px 0 rgba(39, 37, 45, 0.08),
@@ -5349,7 +5349,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   bottom:          var(--spacer-8);
   display:         flex;
   justify-content: center;
-  background:      var(--surface-primary);
+  background:      var(--surface-tertiary);
   border-radius:   var(--radius-round);
   overflow:        hidden;
   pointer-events:  none;
@@ -5824,7 +5824,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   overflow-y:     auto;
   box-sizing:     border-box;
   padding:        var(--spacer-8);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border:         var(--border-s) solid var(--border-primary);
   border-radius:  var(--radius-medium);         /* 16px */
   box-shadow:     var(--shadow-dropdown);
@@ -6168,7 +6168,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 .header-controls {
   width:       100%;
   box-sizing:  border-box;
-  background:  var(--surface-primary);
+  background:  var(--surface-tertiary);
   font-family: 'Modern Era', sans-serif;
   color:       var(--text-primary);
 }
@@ -7939,7 +7939,7 @@ button.list-item:focus-visible,
      title rather than beside it. Measured off the mobile variant: a 48px band,
      then Spacer-12 before the title. */
   padding:        60px var(--spacer-16) var(--spacer-16);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border-radius:  var(--radius-x-large);       /* 32px */
   box-shadow:     var(--shadow-dropdown);
   font-family:    'Modern Era', sans-serif;
@@ -8063,7 +8063,7 @@ button.list-item:focus-visible,
   gap:            var(--gap-small);            /* 12px */
   margin:         var(--gap-x-small) calc(-1 * var(--spacer-16)) calc(-1 * var(--spacer-16));
   padding:        var(--spacer-16);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
 }
 
 @media (min-width: 768px) {
@@ -8111,7 +8111,7 @@ button.list-item:focus-visible,
 
 .notice-toggle {
   /* Default state tokens (overridden per state below) */
-  --nt-surface: var(--surface-primary);
+  --nt-surface: var(--surface-tertiary);
   --nt-border:  var(--border-primary);
   --nt-text:    var(--text-primary);
 
@@ -8226,7 +8226,7 @@ button.list-item:focus-visible,
   border-radius:    var(--radius-small);                  /* 8px */
   /* surface, not background: a tile sitting ON whatever holds it. 003 binds
      surface/primary here; background/primary would flatten it in dark. */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   color:            var(--text-primary);
 
   font-family:      'Modern Era', sans-serif;
@@ -9439,7 +9439,7 @@ button.list-item:focus-visible,
      rest, because 003 gives the resting tile no outline at all. */
   border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);                     /* 16 */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   /* Spacer-16 from the outer edge, so the border comes off the padding. */
   padding:        calc(var(--spacer-16) - var(--border-m));
   font-family:    'Modern Era', sans-serif;
@@ -9689,7 +9689,7 @@ button.list-item:focus-visible,
   /* surface, not background: a pill sitting ON the section, not the page behind
      it. In dark the two diverge and background/primary would flatten this into the
      section it sits on. 003 binds surface/primary here. */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
 }
 
 .price-comparison__discount-label {
@@ -9766,7 +9766,7 @@ button.list-item:focus-visible,
      The two are both white in light mode, so the difference only shows in dark —
      where a surface steps to black-70 and a background stays black-80, which is
      what keeps the card readable against what it sits on. */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
@@ -10509,7 +10509,7 @@ button.list-item:focus-visible,
   justify-content: center;
   border:          var(--border-m) solid var(--border-secondary);  /* 2px */
   border-radius:   var(--radius-round);
-  background-color:var(--surface-primary);
+  background-color:var(--surface-tertiary);
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
@@ -11153,7 +11153,7 @@ button.list-item:focus-visible,
   max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
   overflow:      hidden;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border:        var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
@@ -11500,7 +11500,7 @@ button.list-item:focus-visible,
   width:          600px;
   max-width:      100%;
   box-sizing:     border-box;
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border:         var(--border-s) solid var(--border-primary);
   border-radius:  var(--radius-medium);            /* 16px */
   overflow:       hidden;
@@ -12250,7 +12250,7 @@ button.list-item:focus-visible,
   gap:            var(--gap-medium);              /* 16px */
   box-sizing:     border-box;
   padding:        var(--gap-medium);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);           /* 16px */
 }
@@ -12531,7 +12531,7 @@ button.list-item:focus-visible,
   min-height:  56px;                               /* Large */
   padding:     0 var(--spacer-16);
   box-sizing:  border-box;
-  background:  var(--surface-primary);
+  background:  var(--surface-tertiary);
 
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);
@@ -12652,7 +12652,7 @@ button.list-item:focus-visible,
   align-items:   stretch;
   width:         100%;
   box-sizing:    border-box;
-  background:    var(--surface-primary);           /* White */
+  background:    var(--surface-tertiary);           /* White */
   border-bottom: var(--border-s) solid var(--border-primary);
 }
 
@@ -12726,7 +12726,7 @@ button.list-item:focus-visible,
   padding:          0 var(--gap-medium);         /* 16px */
   border:           var(--border-m) solid transparent;   /* Default: borderless */
   border-radius:    var(--radius-small);         /* 8px */
-  background-color: var(--surface-primary);      /* white */
+  background-color: var(--surface-tertiary);      /* white */
   color:            var(--text-primary);
   cursor:           pointer;
   transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
@@ -12985,7 +12985,7 @@ button.list-item:focus-visible,
   box-sizing:     border-box;
   border:         var(--border-m) solid var(--border-primary);
   border-radius:  var(--radius-medium);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
@@ -13031,7 +13031,7 @@ button.list-item:focus-visible,
   box-sizing:         border-box;
   padding:            var(--spacer-12) var(--spacer-16) var(--spacer-16);
   border-radius:      var(--radius-medium) var(--radius-medium) 0 0;
-  background:         var(--surface-primary);
+  background:         var(--surface-tertiary);
 }
 
 .tier-card--active .tier-card__inner  { background: var(--surface-focus); }
@@ -13062,7 +13062,7 @@ button.list-item:focus-visible,
   padding:         var(--gap-small) var(--spacer-16);
   border:          var(--border-m) solid var(--border-secondary);
   border-radius:   var(--radius-small);           /* 8px */
-  background:      var(--surface-primary);
+  background:      var(--surface-tertiary);
   color:           var(--text-primary);
   font-family:     inherit;
   font-weight:     var(--font-weight-bold);
@@ -13254,7 +13254,7 @@ button.list-item:focus-visible,
   box-sizing:     border-box;
   padding:        var(--spacer-16) 0;
   border-radius:  var(--radius-medium);          /* 16px */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
 }
 
 .tier-section__included-title {
@@ -13769,7 +13769,7 @@ button.list-item:focus-visible,
   width:         343px;
   max-width:     calc(100% - 32px);
   box-sizing:    border-box;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   color:         var(--text-primary);
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    0 2px 6px rgba(39, 37, 45, 0.05),
@@ -14617,7 +14617,7 @@ html[data-viewport="mobile"] .top-nav__logout-row { display: block; }
   padding-right: var(--spacer-16);               /* 16px */
   /* surface, not background: the plate field sits ON a card. 003 binds
      surface/primary here. */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border:        var(--border-m) solid var(--border-secondary);  /* 2px */
   border-radius: var(--radius-small);            /* 8px */
   overflow:      hidden;

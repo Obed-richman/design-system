@@ -59,7 +59,7 @@
      The two are both white in light mode, so the difference only shows in dark —
      where a surface steps to black-70 and a background stays black-80, which is
      what keeps the card readable against what it sits on. */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }

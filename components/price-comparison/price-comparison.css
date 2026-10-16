@@ -109,7 +109,7 @@
   /* surface, not background: a pill sitting ON the section, not the page behind
      it. In dark the two diverge and background/primary would flatten this into the
      section it sits on. 003 binds surface/primary here. */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
 }
 
 .price-comparison__discount-label {

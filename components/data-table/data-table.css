@@ -29,7 +29,7 @@
   border:        var(--border-s) solid var(--border-primary);
   border-radius: var(--radius-medium);             /* 16px */
   overflow:      hidden;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   font-family:   'Modern Era', sans-serif;
 }
 

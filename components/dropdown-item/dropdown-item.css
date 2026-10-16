@@ -42,7 +42,7 @@
   box-sizing:   border-box;
   margin:       0;
   padding:      var(--spacer-12) var(--spacer-16); /* 12px 16px */
-  background:   var(--surface-primary);
+  background:   var(--surface-tertiary);
   border:       none;
   text-align:   left;
   font-family:  'Modern Era', sans-serif;

@@ -41,7 +41,7 @@
   border-radius:    var(--radius-small);                  /* 8px */
   /* surface, not background: a tile sitting ON whatever holds it. 003 binds
      surface/primary here; background/primary would flatten it in dark. */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   color:            var(--text-primary);
 
   font-family:      'Modern Era', sans-serif;

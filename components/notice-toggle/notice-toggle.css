@@ -36,7 +36,7 @@
 
 .notice-toggle {
   /* Default state tokens (overridden per state below) */
-  --nt-surface: var(--surface-primary);
+  --nt-surface: var(--surface-tertiary);
   --nt-border:  var(--border-primary);
   --nt-text:    var(--text-primary);
 

@@ -38,7 +38,7 @@
   width:          100%;
   max-width:      375px;
   box-sizing:     border-box;
-  background:     var(--surface-primary);         /* white */
+  background:     var(--surface-tertiary);         /* white */
   border:         var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius:  var(--radius-small);            /* 8px */
   font-family:    'Modern Era', sans-serif;

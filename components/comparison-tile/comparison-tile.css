@@ -110,7 +110,7 @@
   flex-direction:   column;
   gap:              var(--gap-medium);            /* 16px */
   padding:          var(--spacer-20);             /* 20px */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   /* inner radius = outer radius − frame width, so it nests cleanly */
   border-radius:    calc(var(--radius-large) - var(--spacer-4));   /* 20px */
 }

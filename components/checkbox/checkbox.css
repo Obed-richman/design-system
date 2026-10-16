@@ -72,7 +72,7 @@
   justify-content: center;
   border:          var(--border-m) solid var(--border-primary);  /* 2px */
   border-radius:   var(--radius-x-small);          /* 4px */
-  background-color:var(--surface-primary);
+  background-color:var(--surface-tertiary);
   color:           var(--icon-glyph-primary);      /* tick colour */
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }

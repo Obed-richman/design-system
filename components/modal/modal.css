@@ -124,7 +124,7 @@
      title rather than beside it. Measured off the mobile variant: a 48px band,
      then Spacer-12 before the title. */
   padding:        60px var(--spacer-16) var(--spacer-16);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border-radius:  var(--radius-x-large);       /* 32px */
   box-shadow:     var(--shadow-dropdown);
   font-family:    'Modern Era', sans-serif;
@@ -248,7 +248,7 @@
   gap:            var(--gap-small);            /* 12px */
   margin:         var(--gap-x-small) calc(-1 * var(--spacer-16)) calc(-1 * var(--spacer-16));
   padding:        var(--spacer-16);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
 }
 
 @media (min-width: 768px) {

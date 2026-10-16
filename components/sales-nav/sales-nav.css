@@ -193,7 +193,7 @@
   max-width:     calc(100% - var(--spacer-32));
   box-sizing:    border-box;
   overflow:      hidden;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border:        var(--border-s) solid var(--border-primary);   /* 1px */
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */

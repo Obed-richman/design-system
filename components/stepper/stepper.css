@@ -140,7 +140,7 @@
   gap:            var(--gap-medium);              /* 16px */
   box-sizing:     border-box;
   padding:        var(--gap-medium);
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);           /* 16px */
 }

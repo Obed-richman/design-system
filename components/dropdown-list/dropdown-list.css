@@ -36,7 +36,7 @@
   align-items:    stretch;
   width:          100%;
   box-sizing:     border-box;
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   border-radius:  var(--radius-small);           /* 8px */
   overflow:       hidden;
   box-shadow:     0 0 16px 0 rgba(39, 37, 45, 0.08),
@@ -73,7 +73,7 @@
   bottom:          var(--spacer-8);
   display:         flex;
   justify-content: center;
-  background:      var(--surface-primary);
+  background:      var(--surface-tertiary);
   border-radius:   var(--radius-round);
   overflow:        hidden;
   pointer-events:  none;

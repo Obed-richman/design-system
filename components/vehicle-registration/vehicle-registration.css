@@ -95,7 +95,7 @@
   padding-right: var(--spacer-16);               /* 16px */
   /* surface, not background: the plate field sits ON a card. 003 binds
      surface/primary here. */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border:        var(--border-m) solid var(--border-secondary);  /* 2px */
   border-radius: var(--radius-small);            /* 8px */
   overflow:      hidden;

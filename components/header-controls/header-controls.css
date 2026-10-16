@@ -28,7 +28,7 @@
 .header-controls {
   width:       100%;
   box-sizing:  border-box;
-  background:  var(--surface-primary);
+  background:  var(--surface-tertiary);
   font-family: 'Modern Era', sans-serif;
   color:       var(--text-primary);
 }

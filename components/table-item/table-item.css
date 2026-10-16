@@ -39,7 +39,7 @@
   min-height:  56px;                               /* Large */
   padding:     0 var(--spacer-16);
   box-sizing:  border-box;
-  background:  var(--surface-primary);
+  background:  var(--surface-tertiary);
 
   font-family: 'Modern Era', sans-serif;
   font-weight: var(--font-weight-regular);

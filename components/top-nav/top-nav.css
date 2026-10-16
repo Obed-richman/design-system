@@ -107,7 +107,7 @@
   width:         343px;
   max-width:     calc(100% - 32px);
   box-sizing:    border-box;
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   color:         var(--text-primary);
   border-radius: var(--radius-medium);            /* 16px */
   box-shadow:    0 2px 6px rgba(39, 37, 45, 0.05),

@@ -50,7 +50,7 @@
   padding:          0 var(--gap-medium);         /* 16px */
   border:           var(--border-m) solid transparent;   /* Default: borderless */
   border-radius:    var(--radius-small);         /* 8px */
-  background-color: var(--surface-primary);      /* white */
+  background-color: var(--surface-tertiary);      /* white */
   color:            var(--text-primary);
   cursor:           pointer;
   transition:       border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;

@@ -29,7 +29,7 @@
   align-items:   center;
   padding:       6px;
   border-radius: var(--radius-round, 9999px);
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border:        1px solid var(--border-primary);
   box-shadow:    0 4px 16px rgba(39, 37, 45, 0.18);
   font-family:   'Modern Era', sans-serif;
@@ -82,11 +82,11 @@
 [data-theme="dark"] .device,
 [data-theme="dark"] .checkout,
 [data-theme="dark"] .col--light {
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
   border-color:  var(--border-primary);
 }
 [data-theme="dark"] .back-btn {
-  background:   var(--surface-primary);
+  background:   var(--surface-tertiary);
   border-color: var(--border-primary);
   color:        var(--text-primary);
 }

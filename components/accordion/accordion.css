@@ -40,7 +40,7 @@
 .accordion {
   width:            100%;
   box-sizing:       border-box;
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   border:           var(--border-s) solid var(--border-secondary);
   border-radius:    var(--radius-medium);        /* 16px */
   overflow:         hidden;

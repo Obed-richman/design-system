@@ -46,7 +46,7 @@
   max-width:      400px;
   box-sizing:     border-box;
   padding:        var(--spacer-16);               /* 16px */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   /* Radius-24. Bound on the symbol but NOT on the Dates Wrapper inside it, which is
      how the two corners are told apart: the panel keeps Radius-16, the picker takes 24. */
   border-radius:  var(--radius-large);            /* 24px */
@@ -95,7 +95,7 @@
   padding:       var(--spacer-8);
   border:        var(--border-s) solid var(--border-primary);
   border-radius: var(--radius-medium);            /* 16px */
-  background:    var(--surface-primary);
+  background:    var(--surface-tertiary);
 }
 
 .date-picker__weekday {

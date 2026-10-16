@@ -46,7 +46,7 @@
      rest, because 003 gives the resting tile no outline at all. */
   border:         var(--border-m) solid transparent;
   border-radius:  var(--radius-medium);                     /* 16 */
-  background:     var(--surface-primary);
+  background:     var(--surface-tertiary);
   /* Spacer-16 from the outer edge, so the border comes off the padding. */
   padding:        calc(var(--spacer-16) - var(--border-m));
   font-family:    'Modern Era', sans-serif;

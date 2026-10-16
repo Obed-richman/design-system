@@ -45,7 +45,7 @@
   padding:          var(--gap-medium);           /* 16px */
   border:           var(--border-m) solid var(--border-primary);
   border-radius:    var(--radius-small);         /* 8px — Radius-8, what 003 binds */
-  background-color: var(--surface-primary);
+  background-color: var(--surface-tertiary);
   transition:       border-color 150ms ease, box-shadow 150ms ease;
 }
 
