@@ -374,7 +374,7 @@ body { font-family: var(--font-family-base); }
   --background-page:            var(--colour-grey-20);   /* app shell — not a Figma token */
 
   /* --- surface --- */
-  --surface-primary:            var(--colour-white);
+  --surface-primary:            var(--colour-ecru-30);   /* Figma surface/primary = Ecru 30 (was white; white is surface/tertiary) */
   --surface-primary-fixed:      var(--colour-white);
   --surface-secondary:          var(--colour-grey-30);
   --surface-secondary-hover:    var(--colour-grey-40);
