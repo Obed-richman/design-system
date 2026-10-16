@@ -87,7 +87,7 @@
    colour. Its border is a step deeper than its text, which is the same shape the
    other states use. */
 .status-label--brand {
-  color:            var(--brand-2-medium);          /* #A458FF */
+  color:            var(--brand-2);          /* #A458FF */
   border-color:     var(--border-brand-2-medium);   /* #750BF3 */
   background-color: var(--surface-brand-2-low);     /* #EDE0FE */
 }

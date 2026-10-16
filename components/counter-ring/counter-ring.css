@@ -73,7 +73,7 @@
 }
 .counter-ring__track { stroke: var(--surface-secondary); }   /* grey-30 track */
 .counter-ring__arc {
-  stroke:            var(--counter-ring-arc, var(--brand-2-medium)); /* purple-50 default; themeable */
+  stroke:            var(--counter-ring-arc, var(--brand-2)); /* purple-50 default; themeable */
   stroke-linecap:    round;
   stroke-dasharray:  100;
   stroke-dashoffset: calc(100 - var(--counter-ring-value));

@@ -115,6 +115,6 @@
 .dl-field__chip {
   padding:       0 var(--spacer-4);
   border-radius: var(--radius-x-small);
-  background:    var(--brand-4-medium);          /* yellow highlight */
+  background:    var(--brand-4);          /* yellow highlight */
   white-space:   nowrap;
 }

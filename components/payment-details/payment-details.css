@@ -90,7 +90,7 @@
 /* Selected — aqua border (live via :has, plus a static --selected hook). */
 .payment-details__method:has(.payment-details__method-input:checked),
 .payment-details__method--selected {
-  border-color: var(--brand-1-medium);
+  border-color: var(--brand-1);
 }
 .payment-details__method-input {
   position:       absolute;
@@ -149,4 +149,4 @@
 .payment-details__disclosures .display-row:first-child { border-top: none; }
 .payment-details__disclosures .display-row:last-child  { border-bottom: none; margin-bottom: 0; }
 /* Bullet markers take the brand purple. */
-.payment-details__disclosures .display-row__icon { color: var(--icon-glyph-brand-2-medium); }
+.payment-details__disclosures .display-row__icon { color: var(--icon-glyph-brand-2); }

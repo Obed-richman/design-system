@@ -93,7 +93,7 @@
   width:           24px;
   height:          24px;
   border-radius:   var(--radius-round);
-  background:      var(--brand-2-medium, #a458ff);
+  background:      var(--brand-2, #a458ff);
   color:           var(--text-on-color-fixed, #fff);
   font-weight:     var(--font-weight-bold);
   font-size:       var(--font-size-subtitle-4, 12px);

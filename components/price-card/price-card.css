@@ -168,7 +168,7 @@
   box-sizing:      border-box;
   border:          var(--border-s) solid transparent;
   border-radius:   var(--radius-x-small);                   /* 4 */
-  background:      var(--brand-4-medium);                   /* #FCFF5F */
+  background:      var(--brand-4);                   /* #FCFF5F */
   color:           var(--text-primary-fixed);
   font-weight:     var(--font-weight-regular);
   font-size:       var(--font-size-body-4);                 /* 12 / 16 */

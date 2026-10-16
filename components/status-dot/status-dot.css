@@ -12,7 +12,7 @@
  *   .status-dot--warning      amber   (--surface-warning)
  *   .status-dot--negative     red     (--surface-error)
  *   .status-dot--information   blue    (--surface-information)
- *   .status-dot--rewards      aqua    (--brand-1-medium)
+ *   .status-dot--rewards      aqua    (--brand-1)
  *   .status-dot--disabled     grey    (--icon-glyph-disabled)
  *
  * SIZE:  .status-dot--8 · --12 (default) · --16 · --20 · --24
@@ -45,7 +45,7 @@
 .status-dot--warning     { background: var(--surface-warning); }      /* orange-50 */
 .status-dot--negative    { background: var(--surface-error); }        /* red-60    */
 .status-dot--information  { background: var(--surface-information); }  /* blue-50   */
-.status-dot--rewards     { background: var(--brand-1-medium); }       /* aqua      */
+.status-dot--rewards     { background: var(--brand-1); }       /* aqua      */
 .status-dot--disabled    { background: var(--icon-glyph-disabled); }  /* grey-70   */
 
 

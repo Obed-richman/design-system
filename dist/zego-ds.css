@@ -131,6 +131,8 @@ body { font-family: var(--font-family-base); }
   --colour-red-80:     #AB0606;
   --colour-red-70:     #D00909;
   --colour-red-70-10:  #D009091A;
+  --colour-red-70-30:  #D009094D;
+  --colour-red-70-70:  #D00909B2;
   --colour-red-60:     #EB0000;
   --colour-red-50:     #FF2525;
   --colour-red-50-40:  #FF252566;
@@ -420,12 +422,13 @@ body { font-family: var(--font-family-base); }
   --border-success-low:         var(--colour-green-20);
   --border-error:               var(--colour-red-70);
   --border-error-low:           var(--colour-red-20);
+  --border-error-focus:         var(--colour-red-70-30);   /* new in Figma — Red 70 @30% */
   --border-warning:             var(--colour-orange-70);
   --border-warning-low:         var(--colour-orange-20);
   --border-information:         var(--colour-blue-70);
   --border-information-low:     var(--colour-blue-20);
   --border-brand-1:             var(--colour-aqua-50);
-  --border-brand-2:             var(--colour-purple-50);
+  --border-brand-2:             var(--colour-purple-70);   /* Figma border/brand-2 = Purple 70 (was Purple 50) */
   --border-brand-2-low:         var(--colour-purple-20);   /* new in Figma */
   --border-brand-2-medium:      var(--colour-purple-70);   /* new in Figma */
   --border-brand-3:             var(--colour-navy-50);
@@ -433,16 +436,16 @@ body { font-family: var(--font-family-base); }
 
   /* --- brand (mode-independent) --- */
   --brand-1-high:   var(--colour-aqua-100);
-  --brand-1-medium: var(--colour-aqua-50);
+  --brand-1: var(--colour-aqua-50);
   --brand-1-low:    var(--colour-aqua-10);
   --brand-2-high:   var(--colour-purple-80);
-  --brand-2-medium: var(--colour-purple-50);
+  --brand-2: var(--colour-purple-50);
   --brand-2-low:    var(--colour-purple-10);
   --brand-3-high:   var(--colour-navy-90);
-  --brand-3-medium: var(--colour-navy-50);
+  --brand-3: var(--colour-navy-50);
   --brand-3-low:    var(--colour-navy-10);
   --brand-4-high:   var(--colour-yellow-100);
-  --brand-4-medium: var(--colour-yellow-50);
+  --brand-4: var(--colour-yellow-50);
   --brand-4-low:    var(--colour-yellow-10);
 
   /* --- rating (driver score) — new in Figma --- */
@@ -488,7 +491,7 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-success-low:        var(--colour-green-20);
   --icon-glyph-tertiary:           var(--colour-ecru-20);
   --icon-glyph-brand-2-high:       var(--colour-purple-90);
-  --icon-glyph-brand-2-medium:     var(--colour-purple-50);
+  --icon-glyph-brand-2:     var(--colour-purple-50);
   --icon-glyph-brand-2-low:        var(--colour-purple-20);
   --icon-glyph-brand-3-high:       var(--colour-navy-90);
   --icon-glyph-brand-3-high-fixed: var(--colour-navy-90);
@@ -594,7 +597,7 @@ body { font-family: var(--font-family-base); }
   --icon-glyph-primary:     var(--colour-white);
   --icon-glyph-on-color:    var(--colour-black-80);
   --icon-glyph-tertiary:    var(--colour-black-90);
-  --icon-glyph-error-low:   var(--colour-red-70-10);
+  --icon-glyph-error-low:   var(--colour-red-70-70);
   --icon-glyph-error-high:  var(--colour-red-70);
   --icon-glyph-warning-high:  var(--colour-orange-70);
   --icon-glyph-warning-low:  var(--colour-orange-70-10);
@@ -1748,7 +1751,7 @@ a.action-tile, button.action-tile { font: inherit; }
 .alert--brand {
   --alert-surface: var(--surface-brand-2-low);     /* #EDE0FE */
   --alert-border:  var(--border-brand-2-low);
-  --alert-icon:    var(--icon-glyph-brand-2-medium);
+  --alert-icon:    var(--icon-glyph-brand-2);
 
   border-radius: var(--radius-x-small);            /* 4px */
 }
@@ -2106,7 +2109,7 @@ a.action-tile, button.action-tile { font: inherit; }
 .bullet-points--card .bullet-point__icon {
   width:  var(--icon-size-xxs);                  /* 16px */
   height: var(--icon-size-xxs);
-  color:  var(--icon-glyph-brand-2-medium);      /* purple tick */
+  color:  var(--icon-glyph-brand-2);      /* purple tick */
 }
 
 
@@ -2417,7 +2420,7 @@ a.action-tile, button.action-tile { font: inherit; }
    ------------------------------------------------------------ */
 
 .btn--primary {
-  background-color: var(--brand-1-medium);   /* Brand Aqua — same in both modes */
+  background-color: var(--brand-1);   /* Brand Aqua — same in both modes */
   border-color:     transparent;
   color:            var(--text-primary-fixed); /* #27252d */
 }
@@ -2437,7 +2440,7 @@ a.action-tile, button.action-tile { font: inherit; }
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
 .btn--primary:focus-visible,
 .btn--primary.btn--focused {
-  background-color: var(--brand-1-medium);
+  background-color: var(--brand-1);
 }
 
 .btn--primary:disabled,
@@ -3317,7 +3320,7 @@ a.action-tile, button.action-tile { font: inherit; }
 
 /* Active — bright aqua frame; radio checked shows the aqua dot (from radio.css) */
 .comparison-tile:has(.radio__input:checked),
-.comparison-tile--active { --tile-frame: var(--brand-1-medium); }
+.comparison-tile--active { --tile-frame: var(--brand-1); }
 
 /* Disabled — grey frame, muted content */
 .comparison-tile--disabled {
@@ -3661,7 +3664,7 @@ a.action-tile, button.action-tile { font: inherit; }
 }
 .counter-ring__track { stroke: var(--surface-secondary); }   /* grey-30 track */
 .counter-ring__arc {
-  stroke:            var(--counter-ring-arc, var(--brand-2-medium)); /* purple-50 default; themeable */
+  stroke:            var(--counter-ring-arc, var(--brand-2)); /* purple-50 default; themeable */
   stroke-linecap:    round;
   stroke-dasharray:  100;
   stroke-dashoffset: calc(100 - var(--counter-ring-value));
@@ -5170,7 +5173,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 .dl-field__chip {
   padding:       0 var(--spacer-4);
   border-radius: var(--radius-x-small);
-  background:    var(--brand-4-medium);          /* yellow highlight */
+  background:    var(--brand-4);          /* yellow highlight */
   white-space:   nowrap;
 }
 
@@ -6230,7 +6233,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   width:           24px;
   height:          24px;
   border-radius:   var(--radius-round);
-  background:      var(--brand-2-medium, #a458ff);
+  background:      var(--brand-2, #a458ff);
   color:           var(--text-on-color-fixed, #fff);
   font-weight:     var(--font-weight-bold);
   font-size:       var(--font-size-subtitle-4, 12px);
@@ -7435,7 +7438,7 @@ button.list-item:focus-visible,
   width:         12px;
   height:        12px;
   border-radius: var(--radius-round);
-  border:        var(--border-m) solid var(--brand-1-medium);
+  border:        var(--border-m) solid var(--brand-1);
   background:    var(--surface-tertiary);
   box-sizing:    border-box;
 }
@@ -7550,7 +7553,7 @@ button.list-item:focus-visible,
   flex:       0 0 auto;
   align-self: stretch;
   width:      129px;
-  background: linear-gradient(135deg, var(--brand-1-medium) 0%, var(--brand-2-medium) 100%);
+  background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
 }
 .marketing-banner__image img {
   display:    block;
@@ -8502,7 +8505,7 @@ button.list-item:focus-visible,
   width:         var(--onb-fill);
   height:        100%;
   border-radius: var(--radius-round);
-  background:    var(--brand-2-medium);          /* purple */
+  background:    var(--brand-2);          /* purple */
   transition:    width 250ms ease;
 }
 
@@ -8939,7 +8942,7 @@ button.list-item:focus-visible,
 /* Selected — aqua border (live via :has, plus a static --selected hook). */
 .payment-details__method:has(.payment-details__method-input:checked),
 .payment-details__method--selected {
-  border-color: var(--brand-1-medium);
+  border-color: var(--brand-1);
 }
 .payment-details__method-input {
   position:       absolute;
@@ -8998,7 +9001,7 @@ button.list-item:focus-visible,
 .payment-details__disclosures .display-row:first-child { border-top: none; }
 .payment-details__disclosures .display-row:last-child  { border-bottom: none; margin-bottom: 0; }
 /* Bullet markers take the brand purple. */
-.payment-details__disclosures .display-row__icon { color: var(--icon-glyph-brand-2-medium); }
+.payment-details__disclosures .display-row__icon { color: var(--icon-glyph-brand-2); }
 
 
 /* ==== components/payment-set/payment-set.css ==== */
@@ -9558,7 +9561,7 @@ button.list-item:focus-visible,
   box-sizing:      border-box;
   border:          var(--border-s) solid transparent;
   border-radius:   var(--radius-x-small);                   /* 4 */
-  background:      var(--brand-4-medium);                   /* #FCFF5F */
+  background:      var(--brand-4);                   /* #FCFF5F */
   color:           var(--text-primary-fixed);
   font-weight:     var(--font-weight-regular);
   font-size:       var(--font-size-body-4);                 /* 12 / 16 */
@@ -9917,7 +9920,7 @@ button.list-item:focus-visible,
   align-items:   center;
   padding:       var(--spacer-4) var(--spacer-8);
   border-radius: var(--radius-x-small);          /* 4px */
-  background:    var(--brand-4-medium);          /* yellow */
+  background:    var(--brand-4);          /* yellow */
   color:         var(--text-primary);
   font-weight:   var(--font-weight-medium);
   font-size:     11px;
@@ -9977,7 +9980,7 @@ button.list-item:focus-visible,
   width:      16px;
   height:     16px;
   margin-top: var(--spacer-4);                   /* (24px line - 16px glyph) / 2 */
-  color:      var(--icon-glyph-brand-2-medium);  /* #A458FF */
+  color:      var(--icon-glyph-brand-2);  /* #A458FF */
 }
 .product-card__benefit-icon svg { display: block; width: 100%; height: 100%; }
 
@@ -10780,7 +10783,7 @@ button.list-item:focus-visible,
    PROGRESS — the Counter Ring, tinted aqua (brand-1)
    ------------------------------------------------------------ */
 
-.rewards-tile__ring { --counter-ring-arc: var(--brand-1-medium); }
+.rewards-tile__ring { --counter-ring-arc: var(--brand-1); }
 
 
 /* ------------------------------------------------------------
@@ -11934,7 +11937,7 @@ button.list-item:focus-visible,
  *   .status-dot--warning      amber   (--surface-warning)
  *   .status-dot--negative     red     (--surface-error)
  *   .status-dot--information   blue    (--surface-information)
- *   .status-dot--rewards      aqua    (--brand-1-medium)
+ *   .status-dot--rewards      aqua    (--brand-1)
  *   .status-dot--disabled     grey    (--icon-glyph-disabled)
  *
  * SIZE:  .status-dot--8 · --12 (default) · --16 · --20 · --24
@@ -11964,7 +11967,7 @@ button.list-item:focus-visible,
 .status-dot--warning     { background: var(--surface-warning); }      /* orange-50 */
 .status-dot--negative    { background: var(--surface-error); }        /* red-60    */
 .status-dot--information  { background: var(--surface-information); }  /* blue-50   */
-.status-dot--rewards     { background: var(--brand-1-medium); }       /* aqua      */
+.status-dot--rewards     { background: var(--brand-1); }       /* aqua      */
 .status-dot--disabled    { background: var(--icon-glyph-disabled); }  /* grey-70   */
 
 
@@ -12065,7 +12068,7 @@ button.list-item:focus-visible,
    colour. Its border is a step deeper than its text, which is the same shape the
    other states use. */
 .status-label--brand {
-  color:            var(--brand-2-medium);          /* #A458FF */
+  color:            var(--brand-2);          /* #A458FF */
   border-color:     var(--border-brand-2-medium);   /* #750BF3 */
   background-color: var(--surface-brand-2-low);     /* #EDE0FE */
 }
@@ -13017,7 +13020,7 @@ button.list-item:focus-visible,
 
 /* Header colour ramp (used when several tiers sit side by side) */
 .tier-card--core     { --tier-head-bg: var(--surface-information); }
-.tier-card--max      { --tier-head-bg: var(--brand-2-medium); --tier-head-text: var(--text-on-color-fixed); }
+.tier-card--max      { --tier-head-bg: var(--brand-2); --tier-head-text: var(--text-on-color-fixed); }
 .tier-card--electric { --tier-head-bg: var(--brand-2-high);   --tier-head-text: var(--text-on-color-fixed); }
 
 .tier-card__inner {

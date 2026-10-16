@@ -110,7 +110,7 @@
 .bullet-points--card .bullet-point__icon {
   width:  var(--icon-size-xxs);                  /* 16px */
   height: var(--icon-size-xxs);
-  color:  var(--icon-glyph-brand-2-medium);      /* purple tick */
+  color:  var(--icon-glyph-brand-2);      /* purple tick */
 }
 
 

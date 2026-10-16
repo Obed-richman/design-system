@@ -170,7 +170,7 @@
 .alert--brand {
   --alert-surface: var(--surface-brand-2-low);     /* #EDE0FE */
   --alert-border:  var(--border-brand-2-low);
-  --alert-icon:    var(--icon-glyph-brand-2-medium);
+  --alert-icon:    var(--icon-glyph-brand-2);
 
   border-radius: var(--radius-x-small);            /* 4px */
 }

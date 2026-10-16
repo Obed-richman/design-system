@@ -176,7 +176,7 @@
    ------------------------------------------------------------ */
 
 .btn--primary {
-  background-color: var(--brand-1-medium);   /* Brand Aqua — same in both modes */
+  background-color: var(--brand-1);   /* Brand Aqua — same in both modes */
   border-color:     transparent;
   color:            var(--text-primary-fixed); /* #27252d */
 }
@@ -196,7 +196,7 @@
 /* Focused — default fill + focus ring (ring comes from the base rule above) */
 .btn--primary:focus-visible,
 .btn--primary.btn--focused {
-  background-color: var(--brand-1-medium);
+  background-color: var(--brand-1);
 }
 
 .btn--primary:disabled,

@@ -192,7 +192,7 @@
 
 /* Active — bright aqua frame; radio checked shows the aqua dot (from radio.css) */
 .comparison-tile:has(.radio__input:checked),
-.comparison-tile--active { --tile-frame: var(--brand-1-medium); }
+.comparison-tile--active { --tile-frame: var(--brand-1); }
 
 /* Disabled — grey frame, muted content */
 .comparison-tile--disabled {

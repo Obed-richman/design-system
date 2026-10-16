@@ -89,7 +89,7 @@
   flex:       0 0 auto;
   align-self: stretch;
   width:      129px;
-  background: linear-gradient(135deg, var(--brand-1-medium) 0%, var(--brand-2-medium) 100%);
+  background: linear-gradient(135deg, var(--brand-1) 0%, var(--brand-2) 100%);
 }
 .marketing-banner__image img {
   display:    block;

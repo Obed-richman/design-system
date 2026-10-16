@@ -90,7 +90,7 @@
 
 /* Header colour ramp (used when several tiers sit side by side) */
 .tier-card--core     { --tier-head-bg: var(--surface-information); }
-.tier-card--max      { --tier-head-bg: var(--brand-2-medium); --tier-head-text: var(--text-on-color-fixed); }
+.tier-card--max      { --tier-head-bg: var(--brand-2); --tier-head-text: var(--text-on-color-fixed); }
 .tier-card--electric { --tier-head-bg: var(--brand-2-high);   --tier-head-text: var(--text-on-color-fixed); }
 
 .tier-card__inner {
