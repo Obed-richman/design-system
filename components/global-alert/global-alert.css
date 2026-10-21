@@ -2,27 +2,34 @@
  * ============================================================
  * GLOBAL ALERT COMPONENT
  * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=61755-10365
+ *
  * A floating stack of messages pinned to the top of the viewport, for faults and
  * confirmations that belong to the SCREEN rather than to a field — a lookup that
  * didn't match, a save that failed, a change that went through. Anything with a
  * field to hang it on belongs on that field instead; this is what's left.
  *
- * Not in Figma yet — see KNOWN-ISSUES 3.15. Grown out of the screen-level alert
- * built for the sales journey, which is now a consumer of this rather than its
- * own implementation.
+ * TYPE (Figma variant)
+ *   Single   — one message (default).
+ *   Stacked  — when more than one is live they collapse into a stack: the newest
+ *              is shown in full and the rest peek below it, each inset and offset
+ *              down. Add .global-alert--stacked.
  *
  * SHAPE
- * The block is the STACK. Each message inside it is a plain design-system Alert,
- * so this component adds no colours of its own — the three states map onto Alert:
+ * The block is the STACK. Each message inside it is a plain design-system Alert
+ * (16px radius, 24px icon, Subtitle-2 title + Body-3 description), so this
+ * component adds no colours of its own — the states map onto Alert:
  *
  *   Error    → .alert--negative
  *   Warning  → .alert--warning
  *   Success  → .alert--positive
  *
+ * It adds only elevation (DS "Elevation Low (Top)") so the floating message lifts
+ * off what it covers, and the Stacked collapse.
+ *
  * DEPENDS ON Alert for the message itself (alert.css) and on alert.js for the
- * close button, which is that component's own behaviour. global-alert.js adds
- * only what the stack owns: raising, the two-deep cap, and the timer that
- * retires a Success on its own.
+ * close button. global-alert.js adds only what the stack owns: raising, the
+ * two-deep cap, and the timer that retires a Success on its own.
  *
  * Usage — one line, no markup needed; the stack is created on first use:
  *   <link rel="stylesheet" href="../tokens/tokens.css">
@@ -82,42 +89,17 @@
 
 /* ------------------------------------------------------------
    THE MESSAGES
-   Radius/Radius-8 rather than the Alert default 16: this reads as a notification
-   over the page, not a card in it. The DS elevation lifts it off what it covers —
-   without a shadow a fixed panel looks like part of the layout underneath.
+   The message is a plain Alert (16px radius, as Figma). The component adds the DS
+   elevation — "Elevation Low (Top)", two stacked drop shadows — so a fixed panel
+   reads as sitting OVER the page rather than as part of the layout underneath.
+   (Not --shadow-dropdown: that's a heavier menu shadow; this is the lighter
+   notification elevation from the Global alert in Figma.)
    ------------------------------------------------------------ */
 
 .global-alert .alert {
-  border-radius: var(--radius-small);       /* 8px */
-  box-shadow:    var(--shadow-dropdown);
+  box-shadow: 0 2px 4px rgba(39, 37, 45, 0.05),
+              0 4px 6px rgba(39, 37, 45, 0.10);
 }
-
-/* Body 2 copy with 16px glyphs either side of it. Bigger copy than Alert's inline
-   default because this is the only thing on screen asking to be read, and SMALLER
-   glyphs because beside 16/24 text a 24px glyph competes with the sentence it
-   belongs to — and a 24px × makes dismissing the message look like the main thing
-   on offer. Spacer-4 above the leading glyph sits it on the first line's cap
-   height rather than its ascender; box-sizing is spelled out so the 4px stays real
-   padding above a 16px glyph whatever reset is in play.
-
-   These are the component's own values, not an override of Alert — a floating
-   message is a different job from a note inside a card, which is what Alert's
-   defaults are drawn for. */
-.global-alert .alert__description {
-  font-size:   var(--font-size-body-2);     /* 16px */
-  line-height: var(--line-height-body-2);   /* 24px */
-}
-
-.global-alert .alert__icon {
-  box-sizing:  content-box;
-  width:       16px;
-  height:      16px;
-  padding-top: var(--spacer-4);
-}
-.global-alert .alert__icon svg { width: 16px; height: 16px; }
-
-.global-alert .alert__close        { width: 16px; height: 16px; }
-.global-alert .alert__close svg    { width: 16px; height: 16px; }
 
 /* Retiring — global-alert.js fades before it removes, so a message leaving on a
    timer doesn't just blink out. Kept in CSS so the duration is visible here and
@@ -129,4 +111,35 @@
 
 @media (prefers-reduced-motion: reduce) {
   .global-alert .alert { transition: none; }
+}
+
+
+/* ------------------------------------------------------------
+   TYPE=STACKED  (.global-alert--stacked)
+   The newest message is shown in full; the rest collapse behind it, each offset
+   down ~12px and inset 8px per level so only their bottom edge peeks out. Mirrors
+   the Figma Stacked variant (front 343-wide alert + peek layers at 8/24px inset &
+   offset). Purely presentational — the markup order is newest-first.
+   ------------------------------------------------------------ */
+
+.global-alert--stacked {
+  position:       relative;
+  display:        block;
+  padding-bottom: var(--spacer-24);          /* room for the peeking layers */
+}
+
+.global-alert--stacked > .alert { position: relative; z-index: 3; }
+
+/* second message — one step back */
+.global-alert--stacked > .alert:nth-child(2) {
+  position: absolute;
+  inset:    12px 8px auto 8px;                /* top right bottom left */
+  z-index:  2;
+}
+
+/* third and beyond — a further step back */
+.global-alert--stacked > .alert:nth-child(n + 3) {
+  position: absolute;
+  inset:    24px 16px auto 16px;
+  z-index:  1;
 }
