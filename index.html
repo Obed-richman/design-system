@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="components/input/input.css">
   <link rel="stylesheet" href="components/alert/alert.css">
   <link rel="stylesheet" href="components/global-alert/global-alert.css">
+  <link rel="stylesheet" href="components/app-download/app-download.css">
   <link rel="stylesheet" href="components/modal/modal.css">
   <link rel="stylesheet" href="components/overlay/overlay.css">
   <link rel="stylesheet" href="components/checkbox/checkbox.css">
@@ -278,6 +279,7 @@
     .card__preview .tile-list,
     .card__preview .highlight-card,
     .card__preview .row-list,
+    .card__preview .app-download,
     .card__preview .segment { pointer-events: none; }
 
     .card__body {
@@ -500,6 +502,17 @@
               <div class="alert__content"><p class="alert__title">Positive</p><p class="alert__description">Your details have been saved.</p></div>
               <button class="alert__close" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor" fill-opacity="0.3"/><path d="M14.7332 16.3392C14.9277 16.5389 15.2479 16.541 15.445 16.3439L16.1521 15.6369C16.3455 15.4435 16.3476 15.1305 16.1567 14.9345L13.3132 12.0141L16.2433 9.16117C16.443 8.96671 16.4452 8.64648 16.248 8.44937L15.541 7.74233C15.3476 7.54891 15.0346 7.54682 14.8386 7.73764L11.9181 10.5812L9.06528 7.6512C8.87082 7.45148 8.55059 7.44934 8.35349 7.64645L7.64644 8.35349C7.45302 8.54691 7.45093 8.85986 7.64175 9.05585L10.4853 11.9763L7.55531 14.8291C7.35559 15.0236 7.35345 15.3438 7.55056 15.5409L8.2576 16.2479C8.45103 16.4414 8.76397 16.4434 8.95996 16.2526L11.8804 13.4092L14.7332 16.3392Z" fill="currentColor"/></svg></button>
             </div>
+          </div>
+        `
+      },
+      {
+        name: "App Download",
+        description: "Official store badges that link to the app listings — iOS (App Store) and Android (Google Play). Exported verbatim to assets/app-download/.",
+        page: "components/app-download/app-download.html",
+        preview: `
+          <div class="app-download" style="gap:10px">
+            <a class="app-download__badge" href="#" aria-label="Download on the App Store"><img src="assets/app-download/app-store.svg" alt="Download on the App Store" height="38"></a>
+            <a class="app-download__badge" href="#" aria-label="Get it on Google Play"><img src="assets/app-download/google-play.svg" alt="Get it on Google Play" height="38"></a>
           </div>
         `
       },

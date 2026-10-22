@@ -17,6 +17,7 @@
 /* Components */
 @import url('../components/accordion/accordion.css');
 @import url('../components/acknowledge/acknowledge.css');
+@import url('../components/app-download/app-download.css');
 @import url('../components/addons-section/addons-section.css');
 @import url('../components/address-lookup/address-lookup.css');
 @import url('../components/alert/alert.css');

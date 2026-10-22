@@ -1,0 +1,71 @@
+/*
+ * ============================================================
+ * APP DOWNLOAD COMPONENT  (Figma "App Download")
+ * ============================================================
+ * Figma source: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=5372-13782
+ *
+ * The official app-store download badges, as links to the store listings.
+ *   Device=iOS      → assets/app-download/app-store.svg   ("Download on the App Store")
+ *   Device=Android  → assets/app-download/google-play.svg ("Get it on Google Play")
+ *
+ * The badge artwork is Apple's / Google's official mark, exported verbatim from
+ * Figma — do not recolour or redraw it. Each badge is a 48px-tall link; set the
+ * real store URL on the href.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="../tokens/tokens.css">
+ *   <link rel="stylesheet" href="app-download.css">
+ *   <div class="app-download">
+ *     <a class="app-download__badge" href="https://apps.apple.com/…">
+ *       <img src="../../assets/app-download/app-store.svg" alt="Download on the App Store" height="48">
+ *     </a>
+ *     <a class="app-download__badge" href="https://play.google.com/…">
+ *       <img src="../../assets/app-download/google-play.svg" alt="Get it on Google Play" height="48">
+ *     </a>
+ *   </div>
+ * ============================================================
+ */
+
+@import '../tokens/tokens.css';
+
+
+/* Stacked by default (iOS above Android, as in Figma). Add --row to sit them
+   side by side. */
+.app-download {
+  display:         inline-flex;
+  flex-direction:  column;
+  align-items:     flex-start;
+  gap:             var(--gap-medium);        /* 16px */
+}
+
+.app-download--row {
+  flex-direction: row;
+  flex-wrap:      wrap;
+}
+
+
+/* One badge — a link wrapping the official SVG. */
+.app-download__badge {
+  display:         inline-flex;
+  border-radius:   var(--radius-small);      /* ~matches the badge's own corner for the focus ring */
+  text-decoration: none;
+  transition:      opacity 120ms ease;
+}
+
+.app-download__badge img {
+  display: block;
+  height:  48px;                             /* Figma size; width tracks the artwork */
+  width:   auto;
+}
+
+.app-download__badge:hover   { opacity: 0.88; }       /* subtle press affordance */
+.app-download__badge:active  { opacity: 0.80; }
+
+.app-download__badge:focus-visible {
+  outline:    none;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-download__badge { transition: none; }
+}
