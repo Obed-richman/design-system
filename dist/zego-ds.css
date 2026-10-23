@@ -6214,39 +6214,34 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 
 /* ------------------------------------------------------------
    TYPE=STACKED  (.global-alert--stacked)
-   The newest message is shown in full; the rest collapse behind it, centred and
-   8px narrower on each side per level (so the front oversizes the one beneath it
-   by 8px left and right), each offset down ~12px so only its bottom edge peeks.
-   Mirrors the Figma Stacked variant. Purely presentational — newest-first order.
+   The newest message is shown in full; the rest collapse behind it, each showing
+   only a thin centred edge and 8px narrower on each side per level (so the front
+   oversizes the one beneath it by 8px left and right). Mirrors the Figma Stacked
+   variant. Purely presentational — newest-first order.
    ------------------------------------------------------------ */
 
-.global-alert--stacked {
-  position:       relative;
-  display:        block;
-  padding-bottom: var(--spacer-24);          /* room for the peeking layers */
-}
+.global-alert--stacked { display: block; }
 
-.global-alert--stacked > .alert { position: relative; z-index: 3; }
+.global-alert--stacked > .alert { position: relative; }
 
-/* second message — one step back: centred, 16px narrower (8px each side) */
-.global-alert--stacked > .alert:nth-child(2) {
-  position:  absolute;
-  top:       12px;
-  left:      50%;
-  width:     calc(100% - 16px);
-  transform: translateX(-50%);
-  z-index:   2;
-}
+/* newest message — full width, on top */
+.global-alert--stacked > .alert:first-child { z-index: 3; }
 
-/* third and beyond — a further step back: centred, 32px narrower (16px each side) */
-.global-alert--stacked > .alert:nth-child(n + 3) {
-  position:  absolute;
-  top:       24px;
-  left:      50%;
-  width:     calc(100% - 32px);
-  transform: translateX(-50%);
-  z-index:   1;
+/* the rest show only as a thin, clean edge tucked under the one above: a short
+   clipped strip (no hidden title/text pokes out), centred, and 8px narrower on
+   each side per level so the front oversizes the one beneath it on both sides. */
+.global-alert--stacked > .alert:not(:first-child) {
+  height:        16px;
+  overflow:      hidden;
+  margin-top:    -8px;                        /* ~8px of the edge shows below */
+  margin-inline: auto;                        /* centred */
+  box-shadow:    none;                        /* only the front carries elevation */
 }
+/* the peek is just a coloured edge — hide its contents so no title/text pokes out */
+.global-alert--stacked > .alert:not(:first-child) > * { visibility: hidden; }
+
+.global-alert--stacked > .alert:nth-child(2)     { width: calc(100% - 16px); z-index: 2; }
+.global-alert--stacked > .alert:nth-child(n + 3) { width: calc(100% - 32px); z-index: 1; }
 
 
 /* ==== components/header-controls/header-controls.css ==== */
