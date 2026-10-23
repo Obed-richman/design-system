@@ -36,7 +36,7 @@
 .factor-indicator__zone {
   flex:          1 1 0;
   height:        8px;
-  border-radius: var(--radius-x-small);             /* 4px */
+  border-radius: var(--radius-4);             /* 4px */
 }
 .factor-indicator__zone--red    { background: var(--surface-error); }    /* red-60 */
 .factor-indicator__zone--orange { background: var(--surface-warning); }  /* orange-50 */
@@ -53,13 +53,13 @@
   border-radius:   0;
 }
 .factor-indicator__half { flex: 1 1 0; height: 8px; }
-.factor-indicator__half:first-child { border-radius: var(--radius-x-small) 0 0 var(--radius-x-small); }
-.factor-indicator__half:last-child  { border-radius: 0 var(--radius-x-small) var(--radius-x-small) 0; }
+.factor-indicator__half:first-child { border-radius: var(--radius-4) 0 0 var(--radius-4); }
+.factor-indicator__half:last-child  { border-radius: 0 var(--radius-4) var(--radius-4) 0; }
 .factor-indicator__pointer {
   flex:          0 0 auto;
   width:         6px;
   height:        24px;
-  border-radius: var(--radius-x-small);
+  border-radius: var(--radius-4);
 }
 
 /* Halves + pointer take the active zone's colour. */

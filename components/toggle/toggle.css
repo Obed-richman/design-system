@@ -39,7 +39,7 @@
 .toggle {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-x-small);   /* 8px */
+  gap:         var(--spacer-8);   /* 8px */
   cursor:      pointer;
   font-family: 'Modern Era', sans-serif;
 }

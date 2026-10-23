@@ -96,8 +96,8 @@
   /* surface, not background: the plate field sits ON a card. 003 binds
      surface/primary here. */
   background:    var(--surface-tertiary);
-  border:        var(--border-m) solid var(--border-secondary);  /* 2px */
-  border-radius: var(--radius-small);            /* 8px */
+  border:        var(--border-2) solid var(--border-secondary);  /* 2px */
+  border-radius: var(--radius-8);            /* 8px */
   overflow:      hidden;
   transition:    border-color 150ms ease, box-shadow 150ms ease;
 }

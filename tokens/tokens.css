@@ -298,7 +298,10 @@ body { font-family: var(--font-family-base); }
 
 /* ============================================
    2. SIZE / SPACING / RADIUS / TYPE PRIMITIVES
-   (Confirmed in sync with Figma — unchanged.)
+   Numeric names mirror Figma "3. Size": radius/N, border/N, spacer/N, number/N.
+   (T-shirt names were retired to match Figma. Gap tokens removed — Figma has no
+   gap scale, so gaps use spacer/N; icon sizes use numeric labels, as Figma binds
+   icon dimensions to number/N.)
    ============================================ */
 
 :root {
@@ -310,19 +313,14 @@ body { font-family: var(--font-family-base); }
   --number-72: 72px; --number-80: 80px; --number-88: 88px; --number-94: 94px;
   --number-192: 192px;
 
-  /* Gap */
-  --gap-none: 0px;   --gap-xx-small: 4px; --gap-x-small: 8px; --gap-small: 12px;
-  --gap-medium: 16px; --gap-large: 24px; --gap-x-large: 32px; --gap-xx-large: 40px;
-  --gap-xxx-large: 48px;
-
   /* Radius */
-  --radius-none: 0px; --radius-x-small: 4px; --radius-small: 8px;
-  --radius-medium: 16px; --radius-large: 24px; --radius-x-large: 32px;
+  --radius-none: 0px; --radius-4: 4px; --radius-8: 8px;
+  --radius-16: 16px; --radius-24: 24px; --radius-32: 32px;
   --radius-round: 9999px;
 
   /* Border width */
-  --border-none: 0px; --border-s: 1px; --border-m: 2px; --border-l: 3px;
-  --border-focused: 4px; --border-icon: 8px;
+  --border-none: 0px; --border-1: 1px; --border-2: 2px; --border-3: 3px;
+  --border-4: 4px; --border-8: 8px;
 
   /* Spacer (mobile — desktop overrides in the @media below).
      The small steps are the same in both modes; only the large steps scale up. */
@@ -336,8 +334,8 @@ body { font-family: var(--font-family-base); }
   --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 311px;
 
   /* Icon sizes */
-  --icon-size-3xs: 12px; --icon-size-xxs: 16px; --icon-size-xs: 24px; --icon-size-s: 32px;
-  --icon-size-m: 48px; --icon-size-l: 64px; --icon-size-xl: 72px; --icon-size-xxl: 96px;
+  --icon-size-12: 12px; --icon-size-16: 16px; --icon-size-24: 24px; --icon-size-32: 32px;
+  --icon-size-48: 48px; --icon-size-64: 64px; --icon-size-72: 72px; --icon-size-96: 96px;
 }
 
 @media (min-width: 768px) {
@@ -518,7 +516,7 @@ body { font-family: var(--font-family-base); }
 
   /* --- shadows --- */
   --shadow-dropdown: 0 2px 6px rgba(39, 37, 45, 0.05), 0 4px 16px rgba(39, 37, 45, 0.1);
-  --shadow-focus:    0 0 0 var(--border-focused) var(--border-focus);
+  --shadow-focus:    0 0 0 var(--border-4) var(--border-focus);
 
 }
 

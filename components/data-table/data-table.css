@@ -26,8 +26,8 @@
 .data-table {
   width:         100%;
   box-sizing:    border-box;
-  border:        var(--border-s) solid var(--border-primary);
-  border-radius: var(--radius-medium);             /* 16px */
+  border:        var(--border-1) solid var(--border-primary);
+  border-radius: var(--radius-16);             /* 16px */
   overflow:      hidden;
   background:    var(--surface-tertiary);
   font-family:   'Modern Era', sans-serif;
@@ -50,7 +50,7 @@
    TABLE — header + body rows
    ------------------------------------------------------------ */
 
-.data-table__head.table-row { border-top: var(--border-s) solid var(--border-primary); }
+.data-table__head.table-row { border-top: var(--border-1) solid var(--border-primary); }
 
 /* Sortable header cell — Title text plus a small up/down control. */
 .data-table__sort {
@@ -79,7 +79,7 @@
   justify-content: space-between;
   gap:             var(--spacer-16);
   padding:         var(--spacer-16);
-  border-top:      var(--border-s) solid var(--border-primary);
+  border-top:      var(--border-1) solid var(--border-primary);
 }
 .data-table__summary {
   font-size:   var(--font-size-body-3);            /* 14 */

@@ -38,8 +38,8 @@
   box-sizing:     border-box;
   padding:        var(--spacer-16);
   background:     var(--hc-surface);
-  border:         var(--border-s) solid var(--hc-border);
-  border-radius:  var(--radius-medium);            /* 16px */
+  border:         var(--border-1) solid var(--hc-border);
+  border-radius:  var(--radius-16);            /* 16px */
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -89,7 +89,7 @@
 .highlight-card .info-field__icon {
   background:    var(--hc-icon-surface);
   color:         var(--hc-accent);
-  border-radius: var(--radius-small);              /* 8px — the card keeps its own chip */
+  border-radius: var(--radius-8);              /* 8px — the card keeps its own chip */
 }
 .highlight-card .info-field__icon svg { width: 20px; height: 20px; }
 
@@ -101,7 +101,7 @@
 .highlight-card__sub {
   margin-top:  var(--spacer-12);
   padding-top: var(--spacer-12);
-  border-top:  var(--border-s) solid var(--hc-border);
+  border-top:  var(--border-1) solid var(--hc-border);
   font-size:   var(--font-size-body-3);            /* 14px */
   line-height: var(--line-height-body-3);
   color:       var(--hc-accent);

@@ -41,10 +41,10 @@
 .acknowledge {
   display:          flex;
   align-items:      flex-start;
-  gap:              var(--gap-x-small);          /* 8px */
-  padding:          var(--gap-medium);           /* 16px */
-  border:           var(--border-m) solid var(--border-primary);
-  border-radius:    var(--radius-small);         /* 8px — Radius-8, what 003 binds */
+  gap:              var(--spacer-8);          /* 8px */
+  padding:          var(--spacer-16);           /* 16px */
+  border:           var(--border-2) solid var(--border-primary);
+  border-radius:    var(--radius-8);         /* 8px — Radius-8, what 003 binds */
   background-color: var(--surface-tertiary);
   transition:       border-color 150ms ease, box-shadow 150ms ease;
 }

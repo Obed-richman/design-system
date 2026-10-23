@@ -112,7 +112,7 @@
   display:               grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap:            var(--spacer-20);
-  row-gap:               var(--gap-medium);      /* 16px */
+  row-gap:               var(--spacer-16);      /* 16px */
   width:                 100%;
 }
 .footer-sales__point {
@@ -158,6 +158,6 @@
 @container (min-width: 768px) {
   .footer-sales__points {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap:            var(--gap-medium);    /* 16px */
+    column-gap:            var(--spacer-16);    /* 16px */
   }
 }

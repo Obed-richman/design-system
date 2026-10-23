@@ -113,7 +113,7 @@
 .discount-code__applied.alert {
   align-items:   center;
   gap:           var(--spacer-16);
-  border-radius: var(--radius-small);             /* 8px (Alert default is 16) */
+  border-radius: var(--radius-8);             /* 8px (Alert default is 16) */
   border-color:  var(--border-information);        /* #0887c3 */
 }
 .discount-code__applied .alert__icon { color: var(--icon-glyph-primary); }  /* dark ticket, not blue */
@@ -136,7 +136,7 @@
    ------------------------------------------------------------ */
 
 .discount-code--collapsible {
-  border-radius: var(--radius-medium);            /* 16 */
+  border-radius: var(--radius-16);            /* 16 */
   background:    var(--surface-tertiary);
   padding:       var(--spacer-16);
 }
@@ -180,7 +180,7 @@
 .discount-code--collapsible[data-open="true"] .discount-code__form {
   margin-top:  var(--spacer-16);
   padding-top: var(--spacer-16);
-  border-top:  var(--border-s) solid var(--border-primary);
+  border-top:  var(--border-1) solid var(--border-primary);
 }
 
 /* An applied code takes the collapse away entirely rather than staying openable. A

@@ -67,17 +67,17 @@
 .global-alert {
   position:       fixed;
   z-index:        200;
-  top:            var(--gap-medium);        /* 16px */
+  top:            var(--spacer-16);        /* 16px */
   left:           0;
   right:          0;
   margin-inline:  auto;
   box-sizing:     border-box;
-  padding-inline: var(--gap-medium);
-  max-width:      calc(var(--frame-content) + 2 * var(--gap-medium));
+  padding-inline: var(--spacer-16);
+  max-width:      calc(var(--frame-content) + 2 * var(--spacer-16));
 
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-x-small);       /* 8px between stacked messages */
+  gap:            var(--spacer-8);       /* 8px between stacked messages */
 
   /* The container spans the width even when empty, so it must never intercept a
      click meant for the page. The messages themselves take pointer events back. */

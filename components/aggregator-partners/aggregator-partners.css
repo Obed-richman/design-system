@@ -29,7 +29,7 @@
   padding:               48px;
   box-sizing:            border-box;
   background:            var(--brand-3-high);      /* navy #00166c */
-  border-radius:         var(--radius-large);      /* 24px */
+  border-radius:         var(--radius-24);      /* 24px */
   color:                 var(--icon-glyph-on-color); /* white */
   font-family:           'Modern Era', sans-serif;
 }

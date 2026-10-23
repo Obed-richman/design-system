@@ -31,7 +31,7 @@
   display:       flex;
   align-items:   stretch;
   width:         100%;
-  border-bottom: var(--border-s) solid var(--border-primary);   /* baseline track */
+  border-bottom: var(--border-1) solid var(--border-primary);   /* baseline track */
 }
 
 /* Each tab shares the bar width equally, with centred label */

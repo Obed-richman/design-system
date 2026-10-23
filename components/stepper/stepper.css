@@ -58,7 +58,7 @@
 .stepper {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-x-small);            /* 8px between steps */
+  gap:            var(--spacer-8);            /* 8px between steps */
   width:          100%;
   box-sizing:     border-box;
   font-family:    'Modern Era', sans-serif;
@@ -71,7 +71,7 @@
 
 .stepper__item {
   display:     flex;
-  gap:         var(--gap-x-small);               /* 8px */
+  gap:         var(--spacer-8);               /* 8px */
   align-items: flex-start;
   width:       100%;
 }
@@ -87,7 +87,7 @@
   flex:        0 0 auto;
   display:     flex;
   align-items: center;
-  padding:     var(--gap-medium) 0;              /* 16px */
+  padding:     var(--spacer-16) 0;              /* 16px */
 }
 
 .stepper__status-icon {
@@ -95,8 +95,8 @@
   align-items:     center;
   justify-content: center;
   box-sizing:      border-box;
-  width:           var(--icon-size-xs);          /* 24px */
-  height:          var(--icon-size-xs);
+  width:           var(--icon-size-24);          /* 24px */
+  height:          var(--icon-size-24);
   flex-shrink:     0;
 }
 .stepper__status-icon svg { display: block; width: 100%; height: 100%; }
@@ -116,12 +116,12 @@
   box-sizing:    border-box;
 }
 .stepper__status-icon--not-started::before {
-  border: var(--border-s) solid var(--border-secondary);
+  border: var(--border-1) solid var(--border-secondary);
 }
 
 /* Active — the step in progress */
 .stepper__status-icon--active::before {
-  border:     var(--border-m) solid var(--border-success);
+  border:     var(--border-2) solid var(--border-success);
   background: var(--surface-success);
 }
 
@@ -137,12 +137,12 @@
   min-width:      0;
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-medium);              /* 16px */
+  gap:            var(--spacer-16);              /* 16px */
   box-sizing:     border-box;
-  padding:        var(--gap-medium);
+  padding:        var(--spacer-16);
   background:     var(--surface-tertiary);
-  border:         var(--border-m) solid transparent;
-  border-radius:  var(--radius-medium);           /* 16px */
+  border:         var(--border-2) solid transparent;
+  border-radius:  var(--radius-16);           /* 16px */
 }
 
 .stepper__item--active .stepper__card {
@@ -171,7 +171,7 @@
 }
 
 /* The title and its paragraph sit closer together than the card's own gap */
-.stepper__title + .stepper__text { margin-top: calc(var(--spacer-4) - var(--gap-medium)); }
+.stepper__title + .stepper__text { margin-top: calc(var(--spacer-4) - var(--spacer-16)); }
 
 /* Inline link — underlined, matching .alert__link. (The Figma mock leaves it
    underline-free; the design system underlines inline links.) */
@@ -194,9 +194,9 @@
 
 .stepper__row-icon {
   flex:       0 0 auto;
-  width:      var(--icon-size-xxs);               /* 16px */
-  height:     var(--icon-size-xxs);
-  margin-top: var(--gap-xx-small);                /* 4px — align to the first line */
+  width:      var(--icon-size-16);               /* 16px */
+  height:     var(--icon-size-16);
+  margin-top: var(--spacer-4);                /* 4px — align to the first line */
   color:      var(--text-on-color-fixed);         /* white glyph on the two-tone disc */
 }
 .stepper__row-icon svg { display: block; width: 100%; height: 100%; }

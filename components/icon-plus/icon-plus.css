@@ -35,7 +35,7 @@
   flex:            0 0 auto;
   width:           48px;                            /* Size 48 (default) */
   height:          48px;
-  border-radius:   var(--radius-small);             /* 8px */
+  border-radius:   var(--radius-8);             /* 8px */
   background:      var(--ip-surface);
   color:           var(--ip-glyph);
 }
@@ -46,8 +46,8 @@
    SIZE — the square + its radius scale together
    ------------------------------------------------------------ */
 
-.icon-plus--72 { width: 72px; height: 72px; border-radius: var(--radius-medium);  /* 16px */ }
-.icon-plus--32 { width: 32px; height: 32px; border-radius: var(--radius-x-small); /* 4px  */ }
+.icon-plus--72 { width: 72px; height: 72px; border-radius: var(--radius-16);  /* 16px */ }
+.icon-plus--32 { width: 32px; height: 32px; border-radius: var(--radius-4); /* 4px  */ }
 
 
 /* ------------------------------------------------------------

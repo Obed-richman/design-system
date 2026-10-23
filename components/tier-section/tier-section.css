@@ -40,7 +40,7 @@
   max-width:      876px;
   box-sizing:     border-box;
   padding:        var(--spacer-24);
-  border-radius:  var(--radius-large);           /* 24px */
+  border-radius:  var(--radius-24);           /* 24px */
   background:     var(--background-tertiary);
   font-family:    'Modern Era', sans-serif;
 }
@@ -95,7 +95,7 @@
   width:          100%;
   box-sizing:     border-box;
   padding:        var(--spacer-16) 0;
-  border-radius:  var(--radius-medium);          /* 16px */
+  border-radius:  var(--radius-16);          /* 16px */
   background:     var(--surface-tertiary);
 }
 
@@ -127,7 +127,7 @@
 .tier-section__tiers {
   display:     flex;
   align-items: stretch;
-  gap:         var(--gap-x-small);               /* 8px */
+  gap:         var(--spacer-8);               /* 8px */
   width:       100%;
 }
 .tier-section__tiers > .tier-card { flex: 1 1 0; min-width: 0; }
@@ -148,7 +148,7 @@
   width:         100%;
   box-sizing:    border-box;
   padding:       0 var(--spacer-16);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-16);
   background:    var(--background-primary);
 }
 /* Drop the outer edges — keep only the divider between rows */

@@ -44,12 +44,12 @@
   box-sizing:       border-box;
   display:          flex;
   align-items:      center;
-  gap:              var(--gap-x-small);          /* 8px */
+  gap:              var(--spacer-8);          /* 8px */
   width:            100%;
   min-height:       48px;                        /* Large */
-  padding:          0 var(--gap-medium);         /* 16px */
-  border:           var(--border-m) solid transparent;   /* Default: borderless */
-  border-radius:    var(--radius-small);         /* 8px */
+  padding:          0 var(--spacer-16);         /* 16px */
+  border:           var(--border-2) solid transparent;   /* Default: borderless */
+  border-radius:    var(--radius-8);         /* 8px */
   background-color: var(--surface-tertiary);      /* white */
   color:            var(--text-primary);
   cursor:           pointer;
@@ -71,7 +71,7 @@
   min-width:      0;
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-xx-small);           /* 4px */
+  gap:            var(--spacer-4);           /* 4px */
 }
 .text-icon-item__label {
   font-family: 'Modern Era', sans-serif;
@@ -101,7 +101,7 @@
    Spacer-12 measured from the outer edge, which is how Figma reads it — the 2px
    border sits inside that 12, so the padding is what's left of it. */
 .text-icon-item:has(.text-icon-item__support) {
-  padding-block: calc(var(--gap-small) - var(--border-m));   /* 12 - 2 = 10 */
+  padding-block: calc(var(--spacer-12) - var(--border-2));   /* 12 - 2 = 10 */
 }
 
 /* Trailing radio (reused from radio.css) */
@@ -114,8 +114,8 @@
    SIZES
    ------------------------------------------------------------ */
 
-.text-icon-item--32 { min-height: 32px; padding: 0 var(--gap-small); }        /* 12px */
-.text-icon-item--24 { min-height: 24px; padding: 0 var(--gap-x-small); gap: var(--gap-xx-small); }
+.text-icon-item--32 { min-height: 32px; padding: 0 var(--spacer-12); }        /* 12px */
+.text-icon-item--24 { min-height: 24px; padding: 0 var(--spacer-8); gap: var(--spacer-4); }
 
 .text-icon-item--32 .text-icon-item__icon,
 .text-icon-item--24 .text-icon-item__icon { width: 16px; height: 16px; }

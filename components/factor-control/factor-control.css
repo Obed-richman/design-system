@@ -35,7 +35,7 @@
   box-sizing:     border-box;
   padding:        var(--spacer-20) var(--spacer-24) var(--spacer-24);
   background:     var(--surface-tertiary);          /* white */
-  border-radius:  var(--radius-small);              /* 8px */
+  border-radius:  var(--radius-8);              /* 8px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }

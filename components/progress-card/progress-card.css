@@ -32,7 +32,7 @@
   padding:        var(--spacer-16);
   overflow:       hidden;
   background:     var(--surface-tertiary);          /* white */
-  border-radius:  var(--radius-medium);             /* 16px */
+  border-radius:  var(--radius-16);             /* 16px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }

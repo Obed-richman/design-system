@@ -80,14 +80,14 @@
 .tp-reviews__carousel {
   display:     flex;
   align-items: center;
-  gap:         var(--gap-large);                 /* 24px */
+  gap:         var(--spacer-24);                 /* 24px */
   width:       100%;
   max-width:   1020px;
 }
 
 .tp-reviews__track {
   display:          flex;
-  gap:              var(--gap-x-large);          /* 32px */
+  gap:              var(--spacer-32);          /* 32px */
   flex:             1 1 auto;
   overflow-x:       auto;
   scroll-snap-type: x mandatory;
@@ -109,8 +109,8 @@
   gap:             var(--spacer-16);
   flex:            0 0 270px;
   box-sizing:      border-box;
-  padding:         var(--gap-large);             /* 24px */
-  border-radius:   var(--radius-large);          /* 24px */
+  padding:         var(--spacer-24);             /* 24px */
+  border-radius:   var(--radius-24);          /* 24px */
   background:      var(--background-tertiary);
   scroll-snap-align: center;
 }

@@ -70,7 +70,7 @@
 }
 
 /* "Border" boolean — hairline along the bottom edge */
-.sales-nav--border { border-bottom: var(--border-s) solid var(--border-primary); }
+.sales-nav--border { border-bottom: var(--border-1) solid var(--border-primary); }
 
 
 /* ------------------------------------------------------------
@@ -95,7 +95,7 @@
   z-index:  100;
   /* Reserve the hairline up front as a transparent border so revealing it on
      scroll fades the colour in (no layout shift, unlike toggling border-width). */
-  border-bottom: var(--border-s) solid transparent;
+  border-bottom: var(--border-1) solid transparent;
   transition:    border-color 200ms ease;
 }
 
@@ -117,7 +117,7 @@
   display:         flex;
   align-items:     center;
   justify-content: space-between;
-  gap:             var(--gap-medium);
+  gap:             var(--spacer-16);
   padding:         var(--spacer-12) var(--spacer-16) 0;   /* 12 top · 16 sides */
 }
 
@@ -134,7 +134,7 @@
 .sales-nav__lockup {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-x-small);               /* 8px */
+  gap:         var(--spacer-8);               /* 8px */
 }
 .sales-nav__lockup-text {
   font-weight: var(--font-weight-regular);
@@ -194,8 +194,8 @@
   box-sizing:    border-box;
   overflow:      hidden;
   background:    var(--surface-tertiary);
-  border:        var(--border-s) solid var(--border-primary);   /* 1px */
-  border-radius: var(--radius-medium);            /* 16px */
+  border:        var(--border-1) solid var(--border-primary);   /* 1px */
+  border-radius: var(--radius-16);            /* 16px */
   box-shadow:    var(--shadow-dropdown);          /* Shadow/Elevation Low */
   opacity:       0;
   visibility:    hidden;
@@ -209,7 +209,7 @@
 }
 
 /* 1px rule between consecutive rows */
-.sales-nav__panel > * + * { border-top: var(--border-s) solid var(--border-primary); }
+.sales-nav__panel > * + * { border-top: var(--border-1) solid var(--border-primary); }
 
 
 /* --- Row: icon + title + subtitle (Call us, Chat with us) --- */
@@ -219,7 +219,7 @@
 
 .sales-nav__row-main {
   display:     flex;
-  gap:         var(--gap-medium);                /* 16px */
+  gap:         var(--spacer-16);                /* 16px */
   align-items: center;
   padding:     var(--spacer-16) 0;
 }
@@ -253,9 +253,9 @@
 /* --- Opening hours box (Alerts) — sits inside the Call us row --- */
 
 .sales-nav__hours {
-  padding:       var(--spacer-8) var(--gap-small);   /* 8px 12px */
+  padding:       var(--spacer-8) var(--spacer-12);   /* 8px 12px */
   background:    var(--surface-primary-low);
-  border-radius: var(--radius-small);                /* 8px */
+  border-radius: var(--radius-8);                /* 8px */
 }
 .sales-nav__hours-title {
   margin:      0 0 var(--spacer-4);
@@ -308,7 +308,7 @@
    ------------------------------------------------------------ */
 
 @container (max-width: 1023px) {
-  .sales-nav__steps .onboarding-steps { gap: var(--gap-x-small); }   /* 8px */
+  .sales-nav__steps .onboarding-steps { gap: var(--spacer-8); }   /* 8px */
   .sales-nav__steps .onboarding-steps__label {
     font-size:   var(--font-size-subtitle-3);    /* 14px */
     line-height: var(--line-height-subtitle-3);

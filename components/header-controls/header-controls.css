@@ -43,14 +43,14 @@
   align-items:   center;
   gap:           var(--spacer-16);
   padding:       var(--spacer-8) var(--spacer-16);
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
 }
 /* Global search — the DS Text Input, sized to the header's 40px row. */
 .header-controls__search {
   flex:      0 1 343px;
   max-width: 343px;
   height:    40px;
-  padding:   0 var(--gap-medium);
+  padding:   0 var(--spacer-16);
 }
 .header-controls__actions {
   display:     flex;
@@ -165,7 +165,7 @@ a.header-controls__crumb:hover { color: var(--text-primary); }
 .header-controls .control-set--tabs { padding: 0 var(--spacer-16); }
 
 .header-controls .control-set--tabs .tab-item {
-  border-right: var(--border-s) solid var(--border-primary);
+  border-right: var(--border-1) solid var(--border-primary);
 }
 .header-controls .control-set--tabs .tab-item:last-child {
   border-right: none;

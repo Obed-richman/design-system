@@ -70,7 +70,7 @@
 .input-group {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-x-small);   /* 8px */
+  gap:            var(--spacer-8);   /* 8px */
   width:          100%;
 }
 
@@ -106,15 +106,15 @@
 .input-field {
   display:          flex;
   align-items:      center;
-  gap:              var(--gap-x-small);                    /* 8px between text and icon */
+  gap:              var(--spacer-8);                    /* 8px between text and icon */
   height:           48px;
-  padding:          var(--gap-small) var(--gap-medium);    /* 12px 16px */
+  padding:          var(--spacer-12) var(--spacer-16);    /* 12px 16px */
   width:            100%;
   box-sizing:       border-box;
 
   background-color: var(--background-tertiary);            /* white */
-  border:           var(--border-m) solid var(--border-secondary); /* 2px #d4d3d5 */
-  border-radius:    var(--radius-small);                   /* 8px */
+  border:           var(--border-2) solid var(--border-secondary); /* 2px #d4d3d5 */
+  border-radius:    var(--radius-8);                   /* 8px */
 
   transition:       border-color     150ms ease,
                     background-color 150ms ease,
@@ -267,7 +267,7 @@
    the first one — a second paragraph of supporting text is a separate sentence and
    keeps the group's own 8px. */
 .input-label + .input-support {
-  margin-top: calc(var(--spacer-4) - var(--gap-x-small));   /* 4 - 8 = -4 */
+  margin-top: calc(var(--spacer-4) - var(--spacer-8));   /* 4 - 8 = -4 */
 }
 
 
@@ -446,10 +446,10 @@
   display:       inline-flex;
   align-items:   center;
   gap:           var(--spacer-8);
-  margin:        calc(-1 * var(--gap-small)) 0;   /* fill the field's height */
+  margin:        calc(-1 * var(--spacer-12)) 0;   /* fill the field's height */
   padding:       0 var(--spacer-16);
   border:        none;
-  border-radius: var(--radius-small) 0 0 var(--radius-small);
+  border-radius: var(--radius-8) 0 0 var(--radius-8);
   background:    var(--surface-primary-medium);  /* #f2ede9 */
   cursor:        pointer;
   font-family:   'Modern Era', sans-serif;
@@ -475,7 +475,7 @@
 .input-phone[data-open="true"] .input-phone__chevron { transform: rotate(-90deg); }
 
 /* The number sits in the white area beside the panel */
-.input-phone .input { padding-left: var(--gap-medium); }
+.input-phone .input { padding-left: var(--spacer-16); }
 
 .input-phone__list {
   position: absolute;
@@ -541,7 +541,7 @@
 .input-message--error {
   display:     flex;
   align-items: flex-start;
-  gap:         var(--gap-x-small);       /* 8px, icon to text */
+  gap:         var(--spacer-8);       /* 8px, icon to text */
 }
 .input-message--error::before {
   content:     '';

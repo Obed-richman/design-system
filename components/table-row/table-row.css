@@ -40,7 +40,7 @@
   width:         100%;
   box-sizing:    border-box;
   background:    var(--surface-tertiary);           /* White */
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
 }
 
 /* Grey — the alternate (zebra) background */

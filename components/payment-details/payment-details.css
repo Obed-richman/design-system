@@ -33,7 +33,7 @@
   box-sizing:     border-box;
   padding:        var(--spacer-16);
   background:     var(--surface-tertiary);          /* white */
-  border-radius:  var(--radius-medium);             /* 16px */
+  border-radius:  var(--radius-16);             /* 16px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }
@@ -81,8 +81,8 @@
   justify-content: center;
   height:          48px;
   box-sizing:      border-box;
-  border:          var(--border-m) solid var(--border-secondary);   /* 2px */
-  border-radius:   var(--radius-small);
+  border:          var(--border-2) solid var(--border-secondary);   /* 2px */
+  border-radius:   var(--radius-8);
   background:      var(--background-tertiary);
   cursor:          pointer;
   transition:      border-color 0.15s ease;
@@ -141,8 +141,8 @@
    DISCLOSURES — a bordered panel of bullet-point Display Rows
    ------------------------------------------------------------ */
 .payment-details__disclosures {
-  border:        var(--border-m) solid var(--border-primary);
-  border-radius: var(--radius-small);
+  border:        var(--border-2) solid var(--border-primary);
+  border-radius: var(--radius-8);
   padding:       0 var(--spacer-16);
 }
 /* Only keep the hairline between rows — the panel border does the rest. */

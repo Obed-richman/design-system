@@ -37,14 +37,14 @@
 
 .display-row {
   display:       flex;
-  gap:           var(--gap-medium);              /* 16px */
+  gap:           var(--spacer-16);              /* 16px */
   align-items:   flex-start;
   width:         100%;
   box-sizing:    border-box;
-  padding:       var(--gap-medium) 0;            /* 16px vertical */
-  border-top:    var(--border-s) solid var(--border-primary);
-  border-bottom: var(--border-s) solid var(--border-primary);
-  margin-bottom: calc(-1 * var(--border-s));     /* collapse divider with next row */
+  padding:       var(--spacer-16) 0;            /* 16px vertical */
+  border-top:    var(--border-1) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
+  margin-bottom: calc(-1 * var(--border-1));     /* collapse divider with next row */
   background:    transparent;
   font-family:   'Modern Era', sans-serif;
 }

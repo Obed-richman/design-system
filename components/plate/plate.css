@@ -26,8 +26,8 @@
   display:          inline-flex;
   align-items:      center;
   justify-content:  center;
-  padding:          var(--gap-xx-small) var(--gap-x-small);   /* 4px 8px */
-  border-radius:    var(--radius-x-small);                    /* 4px */
+  padding:          var(--spacer-4) var(--spacer-8);   /* 4px 8px */
+  border-radius:    var(--radius-4);                    /* 4px */
   background-color: var(--surface-warning);                   /* plate yellow */
   color:            var(--text-primary-fixed);                /* ink, fixed */
 

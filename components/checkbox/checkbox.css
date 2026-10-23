@@ -38,7 +38,7 @@
 .checkbox {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-x-small);   /* 8px */
+  gap:         var(--spacer-8);   /* 8px */
   cursor:      pointer;
   font-family: 'Modern Era', sans-serif;
 }
@@ -70,8 +70,8 @@
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
-  border:          var(--border-m) solid var(--border-primary);  /* 2px */
-  border-radius:   var(--radius-x-small);          /* 4px */
+  border:          var(--border-2) solid var(--border-primary);  /* 2px */
+  border-radius:   var(--radius-4);          /* 4px */
   background-color:var(--surface-tertiary);
   color:           var(--icon-glyph-primary);      /* tick colour */
   transition:      background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;

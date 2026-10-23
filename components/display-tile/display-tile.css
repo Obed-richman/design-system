@@ -35,8 +35,8 @@
   box-sizing:      border-box;
   padding:         var(--spacer-16);
   background:      var(--surface-tertiary);         /* white */
-  border:          var(--border-s) solid var(--border-primary);
-  border-radius:   var(--radius-medium);            /* 16px */
+  border:          var(--border-1) solid var(--border-primary);
+  border-radius:   var(--radius-16);            /* 16px */
   color:           inherit;
   text-decoration: none;
   font-family:     'Modern Era', sans-serif;

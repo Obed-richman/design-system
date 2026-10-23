@@ -39,7 +39,7 @@
   width:          100%;
   box-sizing:     border-box;
   padding:        var(--spacer-16) var(--spacer-32) var(--spacer-48);
-  border-top:     var(--border-s) solid var(--border-primary);
+  border-top:     var(--border-1) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
 

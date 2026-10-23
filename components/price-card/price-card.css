@@ -44,11 +44,11 @@
   box-sizing:     border-box;
   /* Border-2 at every state so choosing a tile doesn't resize it; transparent at
      rest, because 003 gives the resting tile no outline at all. */
-  border:         var(--border-m) solid transparent;
-  border-radius:  var(--radius-medium);                     /* 16 */
+  border:         var(--border-2) solid transparent;
+  border-radius:  var(--radius-16);                     /* 16 */
   background:     var(--surface-tertiary);
   /* Spacer-16 from the outer edge, so the border comes off the padding. */
-  padding:        calc(var(--spacer-16) - var(--border-m));
+  padding:        calc(var(--spacer-16) - var(--border-2));
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -77,7 +77,7 @@
   flex:            0 0 auto;
   width:           48px;
   height:          48px;
-  border-radius:   var(--radius-small);                     /* 8 */
+  border-radius:   var(--radius-8);                     /* 8 */
   background:      var(--icon-glyph-brand-2-low);           /* #DBBFFD */
   color:           var(--icon-glyph-brand-2-high);          /* #4B059F */
 }
@@ -108,7 +108,7 @@
 .price-card__panel {
   margin-top:    var(--spacer-16);
   padding:       var(--spacer-12);
-  border-radius: var(--radius-small);                       /* 8 */
+  border-radius: var(--radius-8);                       /* 8 */
   background:    var(--surface-primary-low);               /* #F8F5F3 */
   transition:    background-color 150ms ease;
 }
@@ -166,8 +166,8 @@
   height:          24px;
   padding:         0 var(--spacer-4);
   box-sizing:      border-box;
-  border:          var(--border-s) solid transparent;
-  border-radius:   var(--radius-x-small);                   /* 4 */
+  border:          var(--border-1) solid transparent;
+  border-radius:   var(--radius-4);                   /* 4 */
   background:      var(--brand-4);                   /* #FCFF5F */
   color:           var(--text-primary-fixed);
   font-weight:     var(--font-weight-regular);

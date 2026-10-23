@@ -37,8 +37,8 @@
   align-items:      center;
   justify-content:  center;
 
-  border:           var(--border-m) solid transparent;   /* 2px; Default has no visible border */
-  border-radius:    var(--radius-small);                  /* 8px */
+  border:           var(--border-2) solid transparent;   /* 2px; Default has no visible border */
+  border-radius:    var(--radius-8);                  /* 8px */
   /* surface, not background: a tile sitting ON whatever holds it. 003 binds
      surface/primary here; background/primary would flatten it in dark. */
   background-color: var(--surface-tertiary);

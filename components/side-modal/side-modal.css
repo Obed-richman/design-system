@@ -37,8 +37,8 @@
   max-width:      100%;
   box-sizing:     border-box;
   background:     var(--surface-tertiary);
-  border:         var(--border-s) solid var(--border-primary);
-  border-radius:  var(--radius-medium);            /* 16px */
+  border:         var(--border-1) solid var(--border-primary);
+  border-radius:  var(--radius-16);            /* 16px */
   overflow:       hidden;
   box-shadow:     0 4px 24px rgba(39, 37, 45, 0.12);
   font-family:    'Modern Era', sans-serif;
@@ -55,7 +55,7 @@
   align-items:   center;
   gap:           var(--spacer-16);
   padding:       var(--spacer-12) var(--spacer-16);
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
 }
 .side-modal__section-title {
   flex:        1;

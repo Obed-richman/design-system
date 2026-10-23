@@ -44,7 +44,7 @@
 
 .onboarding-steps {
   display:     flex;
-  gap:         var(--gap-medium);                /* 16px */
+  gap:         var(--spacer-16);                /* 16px */
   align-items: flex-start;
   width:       100%;
   box-sizing:  border-box;
@@ -68,7 +68,7 @@
      whole component 56. At 4 it came to 28, and that was the missing 4px in the Sales
      Navigation's mobile height (124 against 003's 128). Read off 57552:33036,
      14 Aug 2026. */
-  gap:             var(--gap-x-small);           /* 8px */
+  gap:             var(--spacer-8);           /* 8px */
 }
 
 .onboarding-steps__step--current  { --onb-fill: 50%; }
@@ -124,14 +124,14 @@
    COMPACT / RESPONSIVE
    ------------------------------------------------------------ */
 
-.onboarding-steps--compact { gap: var(--gap-x-small); }   /* 8px */
+.onboarding-steps--compact { gap: var(--spacer-8); }   /* 8px */
 .onboarding-steps--compact .onboarding-steps__label {
   font-size:   var(--font-size-subtitle-3);      /* 14px */
   line-height: var(--line-height-subtitle-3);
 }
 
 @media (max-width: 768px) {
-  .onboarding-steps { gap: var(--gap-x-small); } /* 8px */
+  .onboarding-steps { gap: var(--spacer-8); } /* 8px */
   .onboarding-steps__label {
     font-size:   var(--font-size-subtitle-3);    /* 14px */
     line-height: var(--line-height-subtitle-3);
@@ -147,7 +147,7 @@
    step is "incomplete".
    ------------------------------------------------------------ */
 
-.onboarding-steps--numbered .onboarding-steps__step { gap: var(--gap-x-small); }  /* 8px */
+.onboarding-steps--numbered .onboarding-steps__step { gap: var(--spacer-8); }  /* 8px */
 
 .onboarding-steps__badge {
   display:         inline-flex;

@@ -29,7 +29,7 @@
 
 .divider {
   width:      100%;
-  height:     var(--border-s);                   /* 1px */
+  height:     var(--border-1);                   /* 1px */
   margin:     0;
   border:     none;
   background: var(--border-primary);
@@ -57,7 +57,7 @@
   content:    "";
   flex:       1 0 0;
   min-width:  1px;
-  height:     var(--border-s);                   /* 1px */
+  height:     var(--border-1);                   /* 1px */
   background: var(--border-primary);
 }
 

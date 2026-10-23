@@ -32,7 +32,7 @@
   max-width:     327px;
   box-sizing:    border-box;
   padding:       var(--spacer-12) var(--spacer-16);
-  border-radius: var(--radius-small);          /* 8px */
+  border-radius: var(--radius-8);          /* 8px */
   background:    var(--background-inverse);      /* #27252d */
   color:         var(--text-on-color);           /* white */
   font-family:   'Modern Era', sans-serif;

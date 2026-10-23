@@ -50,7 +50,7 @@ body {
   padding:         var(--spacer-20) var(--spacer-16) var(--spacer-32);
   display:         flex;
   flex-direction:  column;
-  gap:             var(--gap-large);
+  gap:             var(--spacer-24);
 }
 
 .proto--wrapper { max-width: calc(var(--frame-wrapper) + 2 * var(--spacer-16)); }
@@ -208,7 +208,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
        its intrinsic height would win and re-inflate the row. */
     height:        calc(100% - 2 * var(--spacer-32));
     object-fit:    cover;
-    border-radius: var(--radius-small);
+    border-radius: var(--radius-8);
   }
 }
 
@@ -235,7 +235,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
    the intro heading above. */
 .proto__card {
   background:    var(--surface-tertiary);
-  border-radius: var(--radius-medium);
+  border-radius: var(--radius-16);
   padding:       var(--spacer-16);
 }
 
@@ -246,7 +246,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
      The padding steps with it for the same reason. */
   .proto__card {
     padding:       var(--spacer-32);
-    border-radius: var(--radius-x-large);          /* 32px */
+    border-radius: var(--radius-32);          /* 32px */
   }
 }
 
@@ -281,7 +281,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
 /* A footnote below the rows, separated by the same rule */
 .proto__card-note {
   padding-top: var(--spacer-16);
-  border-top:  var(--border-s) solid var(--border-primary);
+  border-top:  var(--border-1) solid var(--border-primary);
 }
 
 
@@ -324,15 +324,15 @@ html[data-viewport="mobile"] > body > .footer-sales {
    STEP ACTIONS
    ------------------------------------------------------------ */
 
-.proto__actions { display: flex; gap: var(--gap-small); align-items: center; }
+.proto__actions { display: flex; gap: var(--spacer-12); align-items: center; }
 .proto__actions .btn--primary { flex: 1 1 auto; }
 
 /* A dashed drop zone marking where to paste real screen content. Delete these
    as each screen gets built out. */
 .proto__todo {
   padding:       var(--spacer-24) var(--spacer-16);
-  border:        var(--border-s) dashed var(--border-primary);
-  border-radius: var(--radius-medium);
+  border:        var(--border-1) dashed var(--border-primary);
+  border-radius: var(--radius-16);
   text-align:    center;
   font-size:     var(--font-size-body-3);
   line-height:   var(--line-height-body-3);
@@ -369,7 +369,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
 .proto__optins {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-x-small);   /* 8px */
+  gap:            var(--spacer-8);   /* 8px */
 }
 
 
@@ -388,7 +388,7 @@ html[data-viewport="mobile"] > body > .footer-sales {
   display:        flex;
   flex-direction: column;
   align-items:    center;
-  gap:            var(--gap-medium);      /* 16px */
+  gap:            var(--spacer-16);      /* 16px */
   width:          100%;
 }
 
@@ -463,7 +463,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 
    ------------------------------------------------------------ */
 
-.proto .alert--information { border-radius: var(--radius-small); }   /* 8px */
+.proto .alert--information { border-radius: var(--radius-8); }   /* 8px */
 
 /* Body 2 copy with the glyph stepped DOWN to 16px — beside 16/24 text a 24px
    glyph competes with the sentence it belongs to. Spacer-4 above it sits the
@@ -601,8 +601,8 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   width:           100%;
   border-collapse: separate;                     /* so the outer radius holds */
   border-spacing:  0;
-  border:          var(--border-s) solid var(--border-primary);
-  border-radius:   var(--radius-small);
+  border:          var(--border-1) solid var(--border-primary);
+  border-radius:   var(--radius-8);
   overflow:        hidden;
   font-family:     'Modern Era', sans-serif;
   text-align:      center;
@@ -630,7 +630,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
 .compare__row-header,
 .compare__cell {
   padding:     var(--spacer-12) var(--spacer-8);
-  border-top:  var(--border-s) solid var(--border-primary);
+  border-top:  var(--border-1) solid var(--border-primary);
   font-weight: var(--font-weight-regular);
   font-size:   var(--font-size-body-2);          /* 16 / 24, matching the headers */
   line-height: var(--line-height-body-2);
@@ -668,7 +668,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   /* Radius-24. Measured off the frame rather than read off a variable — 003's
      own binding list stops at 16 here, so this is the one number on the screen
      that isn't token-backed. */
-  border-radius:   var(--radius-large);
+  border-radius:   var(--radius-24);
   /* tertiary-MEDIUM (#F2EDE9), a step deeper than the page's tertiary-low, which
      is what makes the panel read as a panel with no border and no shadow. */
   background:      var(--surface-primary-medium);
@@ -721,7 +721,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   display:       inline-block;
   margin:        var(--spacer-8) 0 0;
   padding:       var(--spacer-4) var(--spacer-8);
-  border-radius: var(--radius-x-small);          /* 4px */
+  border-radius: var(--radius-4);          /* 4px */
   background:    var(--brand-2);          /* #A458FF */
   color:         var(--text-on-color-fixed);
   font-weight:   var(--font-weight-bold);
@@ -776,7 +776,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   height:        117px;
   box-sizing:    border-box;
   padding:       6px;
-  border-radius: var(--radius-small);           /* 8px */
+  border-radius: var(--radius-8);           /* 8px */
   background:    var(--surface-tertiary);
   box-shadow:    var(--shadow-dropdown);
   /* One 5s loop that already contains the return journey — hold, fan out, hold fanned,
@@ -799,7 +799,7 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
   width:         100%;
   aspect-ratio:  400 / 250;                     /* the faces are all 400x250 */
   object-fit:    cover;
-  border-radius: var(--radius-x-small);         /* 4px */
+  border-radius: var(--radius-4);         /* 4px */
 }
 
 .proto__fan-name {
@@ -940,13 +940,13 @@ html[data-viewport="mobile"] .global-alert { max-width: var(--proto-device); }
    card that turned up. The other Product Cards keep the component's Radius-16 at every
    width; only this one steps. */
 @container (min-width: 480px) {
-  .product-card.proto__offer { border-radius: var(--radius-x-large); }   /* 32px */
+  .product-card.proto__offer { border-radius: var(--radius-32); }   /* 32px */
 
   /* And the inset steps with the corner, the same pairing the white wrapper uses: a
      32px radius around 16px of padding leaves the content sitting closer to the corner
      than the corner is deep. Minus the border, because Product Card measures its inset
      from the card's outer edge and the stroke sits inside it. */
   .product-card.proto__offer .product-card__header {
-    padding: calc(var(--spacer-32) - var(--border-m));                   /* 30 + 2 = 32 */
+    padding: calc(var(--spacer-32) - var(--border-2));                   /* 30 + 2 = 32 */
   }
 }

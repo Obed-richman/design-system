@@ -52,7 +52,7 @@
   flex-direction: column;
   gap:            var(--spacer-16);
   background:     var(--surface-tertiary);         /* white */
-  border-radius:  var(--radius-medium);            /* 16px */
+  border-radius:  var(--radius-16);            /* 16px */
   padding:        var(--spacer-16);
 }
 .tile-list__card-title {

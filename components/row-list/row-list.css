@@ -65,7 +65,7 @@
   display:        flex;
   flex-direction: column;
   background:     var(--surface-tertiary);         /* white */
-  border-radius:  var(--radius-medium);            /* 16px */
+  border-radius:  var(--radius-16);            /* 16px */
   padding:        0 var(--spacer-16);              /* inset dividers by default */
 }
 
@@ -83,7 +83,7 @@
 
 /* A divider sits above every item except the first. */
 .row-list__card > * + * {
-  border-top: var(--border-s) solid var(--border-primary);
+  border-top: var(--border-1) solid var(--border-primary);
 }
 /* …but the inner-text heading is a section, not a row — the item right after it
    keeps no divider so the heading reads as a header, not a separated row. */

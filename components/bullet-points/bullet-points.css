@@ -29,7 +29,7 @@
 .bullet-points {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-large);              /* 24px */
+  gap:            var(--spacer-24);              /* 24px */
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -49,7 +49,7 @@
 .bullet-point {
   display:     flex;
   align-items: center;
-  gap:         var(--gap-medium);                /* 16px */
+  gap:         var(--spacer-16);                /* 16px */
 }
 /* Top-align the tick when a row wraps or carries a support line */
 .bullet-point--support { align-items: flex-start; }
@@ -65,13 +65,13 @@
 .bullet-point__main {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-xx-small);           /* 4px */
+  gap:            var(--spacer-4);           /* 4px */
   min-width:      0;
 }
 .bullet-point__row {
   display:     flex;
   align-items: center;
-  gap:         var(--gap-x-small);               /* 8px */
+  gap:         var(--spacer-8);               /* 8px */
 }
 .bullet-point__text {
   font-weight: var(--font-weight-regular);
@@ -97,7 +97,7 @@
   gap:           var(--spacer-8);                /* 8px */
   padding:       var(--spacer-16);
   background:    var(--surface-primary-medium);
-  border-radius: var(--radius-small);            /* 8px */
+  border-radius: var(--radius-8);            /* 8px */
 }
 
 .bullet-points--card .bullet-points__title {
@@ -108,8 +108,8 @@
 .bullet-points--card .bullet-point { gap: var(--spacer-4); }
 
 .bullet-points--card .bullet-point__icon {
-  width:  var(--icon-size-xxs);                  /* 16px */
-  height: var(--icon-size-xxs);
+  width:  var(--icon-size-16);                  /* 16px */
+  height: var(--icon-size-16);
   color:  var(--icon-glyph-brand-2);      /* purple tick */
 }
 

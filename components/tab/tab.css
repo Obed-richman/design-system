@@ -37,9 +37,9 @@
   appearance:         none;
   background-color:   transparent;
   border:             none;
-  border-bottom:      var(--border-m) solid transparent;   /* indicator (reserved) */
-  margin-bottom:      calc(-1 * var(--border-s));          /* overlap the track line */
-  padding:            var(--gap-medium);                   /* 16px */
+  border-bottom:      var(--border-2) solid transparent;   /* indicator (reserved) */
+  margin-bottom:      calc(-1 * var(--border-1));          /* overlap the track line */
+  padding:            var(--spacer-16);                   /* 16px */
   cursor:             pointer;
 
   font-family: 'Modern Era', sans-serif;
@@ -58,7 +58,7 @@
    ------------------------------------------------------------ */
 
 .tab-item--mobile {
-  padding:     var(--gap-small) var(--gap-medium);         /* 12px 16px */
+  padding:     var(--spacer-12) var(--spacer-16);         /* 12px 16px */
   font-size:   var(--font-size-subtitle-3);                /* 14px */
   line-height: var(--line-height-subtitle-3);              /* 20px */
 }
@@ -67,7 +67,7 @@
    repo breakpoint. .tab-item--mobile forces the compact size at any width. */
 @media (max-width: 768px) {
   .tab-item {
-    padding:     var(--gap-small) var(--gap-medium);       /* 12px 16px */
+    padding:     var(--spacer-12) var(--spacer-16);       /* 12px 16px */
     font-size:   var(--font-size-subtitle-3);              /* 14px */
     line-height: var(--line-height-subtitle-3);            /* 20px */
   }

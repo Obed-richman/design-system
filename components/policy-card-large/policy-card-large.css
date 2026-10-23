@@ -39,7 +39,7 @@
   box-sizing:     border-box;
   padding:        var(--spacer-16) 0;               /* 0 sides so the status band can bleed */
   background:     var(--surface-tertiary);          /* white */
-  border-radius:  var(--radius-medium);             /* 16px */
+  border-radius:  var(--radius-16);             /* 16px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }

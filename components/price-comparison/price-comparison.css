@@ -39,7 +39,7 @@
   max-width:        876px;
   box-sizing:       border-box;
   padding:          var(--spacer-20);            /* 20px */
-  border-radius:    var(--radius-x-large);       /* 32px */
+  border-radius:    var(--radius-32);       /* 32px */
   background-color: var(--background-tertiary);  /* cream */
   font-family:      'Modern Era', sans-serif;
 }
@@ -53,7 +53,7 @@
   display:        flex;
   flex-direction: column;
   align-items:    center;
-  gap:            var(--gap-small);              /* 12px */
+  gap:            var(--spacer-12);              /* 12px */
   width:          100%;
   text-align:     center;
 }
@@ -101,11 +101,11 @@
 .price-comparison__discount {
   display:          flex;
   flex-direction:   column;
-  gap:              var(--gap-x-small);          /* 8px */
+  gap:              var(--spacer-8);          /* 8px */
   width:            100%;
   box-sizing:       border-box;
-  padding:          var(--gap-medium);           /* 16px */
-  border-radius:    var(--radius-medium);        /* 16px */
+  padding:          var(--spacer-16);           /* 16px */
+  border-radius:    var(--radius-16);        /* 16px */
   /* surface, not background: a pill sitting ON the section, not the page behind
      it. In dark the two diverge and background/primary would flatten this into the
      section it sits on. 003 binds surface/primary here. */
@@ -122,6 +122,6 @@
 .price-comparison__discount-row {
   display:     flex;
   align-items: flex-end;
-  gap:         var(--gap-x-small);               /* 8px */
+  gap:         var(--spacer-8);               /* 8px */
 }
 .price-comparison__discount-row .input-field { flex: 1; min-width: 0; }

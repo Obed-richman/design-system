@@ -34,7 +34,7 @@
   box-sizing:     border-box;
   overflow:       hidden;
   background:     var(--surface-primary-low);        /* ecru-20 */
-  border-radius:  var(--radius-small);               /* 8px */
+  border-radius:  var(--radius-8);               /* 8px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }
@@ -88,7 +88,7 @@
   justify-content: space-between;
   gap:             var(--spacer-8);
   padding:         var(--spacer-16);
-  border-top:      var(--border-s) solid var(--border-primary);
+  border-top:      var(--border-1) solid var(--border-primary);
   color:           var(--text-primary);
   text-decoration: none;
   font-weight:     var(--font-weight-bold);

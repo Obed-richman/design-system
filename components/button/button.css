@@ -52,9 +52,9 @@
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
-  gap:             var(--gap-x-small);        /* 8px between text and icon */
+  gap:             var(--spacer-8);        /* 8px between text and icon */
   height:          48px;                       /* Large (default) */
-  padding:         0 var(--gap-medium);        /* 16px sides; height owns the vertical */
+  padding:         0 var(--spacer-16);        /* 16px sides; height owns the vertical */
 
   /* Typography — Modern Era Bold */
   font-family:     'Modern Era', sans-serif;
@@ -67,7 +67,7 @@
 
   /* Behaviour */
   cursor:          pointer;
-  border:          var(--border-s) solid transparent;
+  border:          var(--border-1) solid transparent;
   outline:         none;
 
   /* Snappy, consistent transitions across every interaction state */
@@ -114,13 +114,13 @@
 
 /* Rounded — softer rectangle */
 .btn--rounded {
-  border-radius: var(--radius-small);    /* 8px */
+  border-radius: var(--radius-8);    /* 8px */
 }
 
 /* FAB — icon-only circular button */
 .btn--fab {
   border-radius: var(--radius-round);
-  padding:       var(--gap-small);     /* equal padding all sides */
+  padding:       var(--spacer-12);     /* equal padding all sides */
   width:         40px;
   height:        40px;
 }
@@ -148,7 +148,7 @@
 /* Large (48px) — Subtitle 2 / 16px. Same as the default. */
 .btn--large {
   height:      48px;
-  padding:     0 var(--gap-medium);                /* 16px sides */
+  padding:     0 var(--spacer-16);                /* 16px sides */
   font-size:   var(--font-size-subtitle-2);        /* 16px */
   line-height: var(--line-height-subtitle-2);      /* 24px */
 }
@@ -156,7 +156,7 @@
 /* Medium (32px) — Subtitle 3 / 14px. */
 .btn--medium {
   height:      32px;
-  padding:     0 var(--gap-small);                 /* 12px sides */
+  padding:     0 var(--spacer-12);                 /* 12px sides */
   font-size:   var(--font-size-subtitle-3);        /* 14px */
   line-height: var(--line-height-subtitle-3);      /* 20px */
 }
@@ -164,7 +164,7 @@
 /* Small (24px) — Subtitle 4 / 12px. */
 .btn--small {
   height:      24px;
-  padding:     0 var(--gap-x-small);               /* 8px sides */
+  padding:     0 var(--spacer-8);               /* 8px sides */
   font-size:   var(--font-size-subtitle-4);        /* 12px */
   line-height: var(--line-height-subtitle-4);      /* 16px */
 }

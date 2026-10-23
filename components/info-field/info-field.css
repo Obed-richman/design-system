@@ -26,9 +26,9 @@
 .info-field {
   display:       flex;
   align-items:   center;
-  gap:           var(--gap-small);                 /* 12px */
+  gap:           var(--spacer-12);                 /* 12px */
   padding:       var(--spacer-12) 0;
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
   font-family:   'Modern Era', sans-serif;
   color:         var(--text-primary);
 }
@@ -43,7 +43,7 @@
   flex:            0 0 auto;
   width:           32px;
   height:          32px;
-  border-radius:   var(--radius-x-small);          /* 4px */
+  border-radius:   var(--radius-4);          /* 4px */
   background:      var(--colour-green-20);
   color:           var(--icon-glyph-success-medium);
 }

@@ -37,7 +37,7 @@
   padding:        var(--spacer-16);
   overflow:       hidden;
   background:     var(--surface-brand-3-high);      /* navy-90 */
-  border-radius:  var(--radius-medium);             /* 16px */
+  border-radius:  var(--radius-16);             /* 16px */
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-on-color-fixed);       /* white */
 }
@@ -82,7 +82,7 @@
   align-items:     center;
   justify-content: center;
   box-sizing:      border-box;
-  border:          var(--border-s) solid var(--border-on-color);   /* white */
+  border:          var(--border-1) solid var(--border-on-color);   /* white */
   background:      transparent;
   color:           var(--text-on-color-fixed);
   border-radius:   var(--radius-round);

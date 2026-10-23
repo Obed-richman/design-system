@@ -36,7 +36,7 @@
   padding:         var(--spacer-16);
   background:      var(--surface-tertiary);         /* white */
   border:          none;
-  border-radius:   var(--radius-medium);            /* 16px */
+  border-radius:   var(--radius-16);            /* 16px */
   box-shadow:      var(--shadow-dropdown);          /* Elevation Low */
   font-family:     'Modern Era', sans-serif;
   color:           var(--text-primary);

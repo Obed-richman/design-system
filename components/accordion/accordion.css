@@ -41,8 +41,8 @@
   width:            100%;
   box-sizing:       border-box;
   background-color: var(--surface-tertiary);
-  border:           var(--border-s) solid var(--border-secondary);
-  border-radius:    var(--radius-medium);        /* 16px */
+  border:           var(--border-1) solid var(--border-secondary);
+  border-radius:    var(--radius-16);        /* 16px */
   overflow:         hidden;
 }
 
@@ -56,8 +56,8 @@
 .accordion__header {
   display:      flex;
   align-items:  center;
-  gap:          var(--gap-medium);               /* 16px */
-  padding:      var(--gap-medium) var(--spacer-24); /* 16px 24px */
+  gap:          var(--spacer-16);               /* 16px */
+  padding:      var(--spacer-16) var(--spacer-24); /* 16px 24px */
   cursor:       pointer;
   list-style:   none;                            /* remove default marker */
   user-select:  none;
@@ -99,7 +99,7 @@
   display:        flex;
   flex-direction: column;
   padding:        0 var(--spacer-24) var(--spacer-24);   /* 0 24px 24px */
-  border-top:     var(--border-s) solid var(--border-primary);
+  border-top:     var(--border-1) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -107,9 +107,9 @@
 .accordion__action {
   display:       flex;
   align-items:   center;
-  gap:           var(--gap-x-small);
-  padding:       var(--gap-small) 0;             /* 12px */
-  border-bottom: var(--border-s) solid var(--border-primary);
+  gap:           var(--spacer-8);
+  padding:       var(--spacer-12) 0;             /* 12px */
+  border-bottom: var(--border-1) solid var(--border-primary);
 }
 .accordion__action .btn { margin-left: auto; }  /* push the button to the right */
 
@@ -126,8 +126,8 @@
 /* Information label */
 .accordion__info {
   margin:        0;
-  padding:       var(--gap-medium) 0;            /* 16px */
-  border-bottom: var(--border-s) solid var(--border-primary);
+  padding:       var(--spacer-16) 0;            /* 16px */
+  border-bottom: var(--border-1) solid var(--border-primary);
   font-weight:   var(--font-weight-regular);
   font-size:     var(--font-size-body-2);        /* 16px */
   line-height:   var(--line-height-body-2);
@@ -141,4 +141,4 @@
 .accordion__panel .display-row:first-of-type { border-top: none; }
 
 /* Trailing alert */
-.accordion__panel .alert { margin-top: var(--gap-medium); }
+.accordion__panel .alert { margin-top: var(--spacer-16); }

@@ -34,7 +34,7 @@
   width:         100%;
   height:        16px;
   box-sizing:    border-box;
-  border-radius: var(--radius-x-small);             /* 4px */
+  border-radius: var(--radius-4);             /* 4px */
   background:    var(--overlay-light-low);          /* translucent white track */
 }
 
@@ -48,7 +48,7 @@
   align-items:     center;
   justify-content: flex-end;
   background:      var(--progress-track-fill, var(--rating-risk));  /* red-50 */
-  border-radius:   var(--radius-x-small) 0 0 var(--radius-x-small);
+  border-radius:   var(--radius-4) 0 0 var(--radius-4);
   transition:      width 400ms ease;
 }
 
@@ -63,7 +63,7 @@
 }
 
 /* Full — round the fill fully and drop the indicator. Empty — no indicator. */
-.progress-track[style*="value: 100"] .progress-track__fill { border-radius: var(--radius-x-small); }
+.progress-track[style*="value: 100"] .progress-track__fill { border-radius: var(--radius-4); }
 .progress-track[style*="value: 100"] .progress-track__indicator,
 .progress-track[style*="value: 0"]   .progress-track__indicator { display: none; }
 

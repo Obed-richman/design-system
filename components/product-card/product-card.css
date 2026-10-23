@@ -53,8 +53,8 @@
   /* Border-2, the width 003 binds on the Active state, carried at every state so
      the card doesn't resize when it's chosen. Transparent at rest: the resting card
      in 003 has no outline at all, just its surface against the page. */
-  border:         var(--border-m) solid transparent;
-  border-radius:  var(--radius-medium);                /* 16px */
+  border:         var(--border-2) solid transparent;
+  border-radius:  var(--radius-16);                /* 16px */
   /* surface, not background: this is a card sitting ON the page, not the page.
      The two are both white in light mode, so the difference only shows in dark —
      where a surface steps to black-70 and a background stays black-80, which is
@@ -100,7 +100,7 @@
 .product-card__header {
   display:        flex;
   flex-direction: column;
-  padding:        calc(var(--spacer-16) - var(--border-m));   /* 14 + 2 = 16 */
+  padding:        calc(var(--spacer-16) - var(--border-2));   /* 14 + 2 = 16 */
 }
 
 .product-card__top {
@@ -119,7 +119,7 @@
   flex:            0 0 auto;
   width:           48px;
   height:          48px;
-  border-radius:   var(--radius-small);          /* 8px */
+  border-radius:   var(--radius-8);          /* 8px */
   /* icon/glyph/brand-2-low, not surface/brand-2-low — a step deeper (purple-20
      #DBBFFD against purple-10 #EDE0FE), which is what 003 binds on the badge. */
   background:      var(--icon-glyph-brand-2-low);
@@ -212,7 +212,7 @@
   display:       inline-flex;
   align-items:   center;
   padding:       var(--spacer-4) var(--spacer-8);
-  border-radius: var(--radius-x-small);          /* 4px */
+  border-radius: var(--radius-4);          /* 4px */
   background:    var(--brand-4);          /* yellow */
   color:         var(--text-primary);
   font-weight:   var(--font-weight-medium);
@@ -312,7 +312,7 @@
 .product-card__banner {
   display:         flex;
   justify-content: center;
-  padding:         0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
+  padding:         0 calc(var(--spacer-16) - var(--border-2)) calc(var(--spacer-16) - var(--border-2));
 }
 
 /* With a banner under it the header's padding-bottom stops being an inset from the
@@ -323,7 +323,7 @@
 
 .product-card__banner .marketing-banner {
   width:         100%;                           /* not the standalone's 343 */
-  border-radius: var(--radius-small);            /* 8, not the standalone's 16 */
+  border-radius: var(--radius-8);            /* 8, not the standalone's 16 */
   background:    var(--surface-primary-low);    /* #F8F5F3, not the aqua */
   transition:    background-color 150ms ease;
 }
@@ -382,7 +382,7 @@
   width:         82px;
   height:        51px;
   margin-left:   -40px;                          /* 82 - 42, the step 003 draws */
-  border-radius: var(--radius-x-small);          /* 4px */
+  border-radius: var(--radius-4);          /* 4px */
   overflow:      hidden;
   transform:     rotate(-7.5deg);
   box-shadow:    0 0 10px rgba(39,37,45,0.08), 0 1px 2px rgba(0,0,0,0.1);
@@ -407,7 +407,7 @@
    A foot section like the banner: same 16px side inset, 16px gap to the header.
    ------------------------------------------------------------ */
 .product-card__details {
-  padding: 0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
+  padding: 0 calc(var(--spacer-16) - var(--border-2)) calc(var(--spacer-16) - var(--border-2));
 }
 .product-card__details-panel {
   display:        flex;
@@ -416,7 +416,7 @@
   box-sizing:     border-box;
   padding:        var(--spacer-12);
   background:     var(--surface-primary-low);          /* #F8F5F3, matching the banner */
-  border-radius:  var(--radius-small);                 /* 8px */
+  border-radius:  var(--radius-8);                 /* 8px */
 }
 .product-card__details-lines {
   display:        flex;
@@ -460,7 +460,7 @@
 .product-card__buttons {
   display: flex;
   gap:     var(--spacer-12);
-  padding: 0 calc(var(--spacer-16) - var(--border-m)) calc(var(--spacer-16) - var(--border-m));
+  padding: 0 calc(var(--spacer-16) - var(--border-2)) calc(var(--spacer-16) - var(--border-2));
 }
 .product-card__buttons .btn {
   flex:      1 1 0;

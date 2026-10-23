@@ -53,15 +53,15 @@
   flex-direction: column;
   width:          100%;
   box-sizing:     border-box;
-  border:         var(--border-m) solid var(--border-primary);
-  border-radius:  var(--radius-medium);
+  border:         var(--border-2) solid var(--border-primary);
+  border-radius:  var(--radius-16);
   background:     var(--surface-tertiary);
   overflow:       hidden;
   font-family:    'Modern Era', sans-serif;
 }
 
 .tier-card--active {
-  border:     var(--border-m) solid var(--border-active);
+  border:     var(--border-2) solid var(--border-active);
   background: var(--surface-focus);
 }
 
@@ -76,7 +76,7 @@
   align-items:        center;
   gap:                var(--spacer-12);
   padding-top:        var(--spacer-12);
-  border-bottom:      var(--border-l) solid var(--border-primary);
+  border-bottom:      var(--border-3) solid var(--border-primary);
   background:         var(--tier-head-bg, var(--surface-information-low));
 }
 
@@ -100,7 +100,7 @@
   width:              100%;
   box-sizing:         border-box;
   padding:            var(--spacer-12) var(--spacer-16) var(--spacer-16);
-  border-radius:      var(--radius-medium) var(--radius-medium) 0 0;
+  border-radius:      var(--radius-16) var(--radius-16) 0 0;
   background:         var(--surface-tertiary);
 }
 
@@ -126,12 +126,12 @@
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
-  gap:             var(--gap-x-small);
+  gap:             var(--spacer-8);
   width:           100%;
   box-sizing:      border-box;
-  padding:         var(--gap-small) var(--spacer-16);
-  border:          var(--border-m) solid var(--border-secondary);
-  border-radius:   var(--radius-small);           /* 8px */
+  padding:         var(--spacer-12) var(--spacer-16);
+  border:          var(--border-2) solid var(--border-secondary);
+  border-radius:   var(--radius-8);           /* 8px */
   background:      var(--surface-tertiary);
   color:           var(--text-primary);
   font-family:     inherit;
@@ -144,7 +144,7 @@
 .tier-card__select:hover { border-color: var(--border-active); }
 
 .tier-card--active .tier-card__select {
-  border: var(--border-m) solid var(--border-active);
+  border: var(--border-2) solid var(--border-active);
 }
 
 
@@ -159,7 +159,7 @@
   align-items:   flex-start;
   gap:           var(--spacer-12);
   padding:       var(--spacer-12);
-  border-bottom: var(--border-s) solid var(--border-primary);
+  border-bottom: var(--border-1) solid var(--border-primary);
 }
 .tier-card__feature:last-child { border-bottom: none; }
 
@@ -203,7 +203,7 @@
 .tier-card__subhead {
   margin:        0;
   padding:       var(--spacer-12) var(--spacer-12) var(--spacer-4);
-  border-top:    var(--border-s) solid var(--border-primary);
+  border-top:    var(--border-1) solid var(--border-primary);
   font-weight:   var(--font-weight-bold);
   font-size:     var(--font-size-subtitle-3);    /* 14px */
   line-height:   var(--line-height-subtitle-3);

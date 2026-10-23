@@ -59,19 +59,19 @@
 .partner-logo--xs {
   width:         24px;
   height:        24px;
-  border-radius: var(--radius-x-small);             /* 4px */
+  border-radius: var(--radius-4);             /* 4px */
   font-size:     11px;
 }
 .partner-logo--s {
   width:         32px;
   height:        32px;
-  border-radius: var(--radius-x-small);
+  border-radius: var(--radius-4);
   font-size:     13px;
 }
 .partner-logo--tile {
   width:         72px;
   height:        72px;
-  border-radius: var(--radius-medium);              /* 16px */
+  border-radius: var(--radius-16);              /* 16px */
   font-size:     var(--font-size-title-4);          /* 20px */
 }
 

@@ -42,7 +42,7 @@
   box-sizing:      border-box;
   padding:         var(--spacer-8) var(--spacer-8);
   background:      var(--background-tertiary);
-  border-top:      var(--border-s) solid var(--border-primary);
+  border-top:      var(--border-1) solid var(--border-primary);
   font-family:     'Modern Era', sans-serif;
 }
 
@@ -69,7 +69,7 @@
 
 .bottom-nav__item:focus-visible {
   outline:        none;
-  border-radius:  var(--radius-small);
+  border-radius:  var(--radius-8);
   box-shadow:     var(--shadow-focus);
 }
 

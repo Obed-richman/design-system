@@ -53,7 +53,7 @@
 .conditional-selector {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-small);        /* 12px between options and panel */
+  gap:            var(--spacer-12);        /* 12px between options and panel */
   width:          100%;
   box-sizing:     border-box;
   min-width:      0;
@@ -66,7 +66,7 @@
    it's already inside a card or panel. */
 .conditional-selector--surface {
   padding:       var(--spacer-16);         /* 16px */
-  border-radius: var(--radius-medium);     /* 16px */
+  border-radius: var(--radius-16);     /* 16px */
   background:    var(--surface-tertiary);  /* white */
 }
 
@@ -83,7 +83,7 @@
   width:          100%;
   padding:        var(--spacer-16);        /* 16px */
   background:     var(--surface-primary-medium);   /* #f2ede9 */
-  border-radius:  var(--radius-small);     /* 8px */
+  border-radius:  var(--radius-8);     /* 8px */
 }
 
 /* [hidden] alone loses to the display above, so restate it */

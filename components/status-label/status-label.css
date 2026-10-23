@@ -39,12 +39,12 @@
   display:         inline-flex;
   align-items:     center;
   justify-content: center;
-  gap:             var(--gap-x-small);     /* 8px — between an icon and the text */
+  gap:             var(--spacer-8);     /* 8px — between an icon and the text */
   height:          24px;
-  padding:         var(--spacer-4) var(--gap-x-small);   /* 4px 8px */
+  padding:         var(--spacer-4) var(--spacer-8);   /* 4px 8px */
   box-sizing:      border-box;
 
-  border:          var(--border-s) solid transparent;
+  border:          var(--border-1) solid transparent;
   border-radius:   var(--radius-round);    /* Pill (default) */
 
   font-family:     'Modern Era', sans-serif;
@@ -74,7 +74,7 @@
    STYLE — Rounded
    ------------------------------------------------------------ */
 
-.status-label--rounded { border-radius: var(--radius-x-small); }   /* 4px */
+.status-label--rounded { border-radius: var(--radius-4); }   /* 4px */
 
 
 /* ------------------------------------------------------------

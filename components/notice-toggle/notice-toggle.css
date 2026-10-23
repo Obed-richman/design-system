@@ -47,8 +47,8 @@
   max-width:     343px;
   box-sizing:    border-box;
   padding:       var(--spacer-16);                /* 16px */
-  border:        var(--border-s) solid var(--nt-border);
-  border-radius: var(--radius-medium);            /* 16px */
+  border:        var(--border-1) solid var(--nt-border);
+  border-radius: var(--radius-16);            /* 16px */
   background:    var(--nt-surface);
   font-family:   'Modern Era', sans-serif;
 }

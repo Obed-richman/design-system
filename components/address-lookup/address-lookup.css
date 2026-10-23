@@ -49,7 +49,7 @@
 
 .address-lookup__title {
   display:     block;
-  margin:      0 0 var(--gap-x-small);   /* 8px */
+  margin:      0 0 var(--spacer-8);   /* 8px */
   font-weight: var(--font-weight-bold);
   font-size:   var(--font-size-subtitle-2);      /* 16px */
   line-height: var(--line-height-subtitle-2);
@@ -124,10 +124,10 @@
   box-sizing:     border-box;
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-medium);              /* 16px */
+  gap:            var(--spacer-16);              /* 16px */
   padding:        var(--spacer-16);
-  border:         var(--border-s) solid var(--border-primary);
-  border-radius:  var(--radius-small);            /* 8px */
+  border:         var(--border-1) solid var(--border-primary);
+  border-radius:  var(--radius-8);            /* 8px */
 }
 
 .address-lookup__lines {
@@ -148,6 +148,6 @@
 .address-lookup__manual {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-medium);              /* 16px between fields */
+  gap:            var(--spacer-16);              /* 16px between fields */
 }
 .address-lookup__manual .btn { width: 100%; }

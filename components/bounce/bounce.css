@@ -54,7 +54,7 @@
 .bounce-dots {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-xx-small);   /* 4px */
+  gap:         var(--spacer-4);   /* 4px */
   color:       var(--icon-glyph-primary);   /* dot colour — adapts to theme */
 }
 

@@ -57,7 +57,7 @@
   box-sizing:       border-box;
   padding:          0 var(--spacer-4) var(--spacer-4);   /* top flush, 4px sides + bottom */
   background-color: var(--tile-frame);
-  border-radius:    var(--radius-large);          /* 24px */
+  border-radius:    var(--radius-24);          /* 24px */
   cursor:           pointer;
   font-family:      'Modern Era', sans-serif;
   transition:       background-color 150ms ease, box-shadow 150ms ease;
@@ -71,8 +71,8 @@
 .comparison-tile__header {
   display:     flex;
   align-items: center;
-  gap:         var(--gap-medium);                 /* 16px */
-  padding:     var(--gap-medium) var(--spacer-20);/* 16px 20px */
+  gap:         var(--spacer-16);                 /* 16px */
+  padding:     var(--spacer-16) var(--spacer-20);/* 16px 20px */
 }
 
 .comparison-tile__title {
@@ -90,7 +90,7 @@
   display:          inline-flex;
   align-items:      center;
   height:           24px;
-  padding:          0 var(--gap-small);           /* 12px */
+  padding:          0 var(--spacer-12);           /* 12px */
   border-radius:    var(--radius-round);
   background-color: var(--surface-information-low);
   color:            var(--text-link-pressed);
@@ -108,17 +108,17 @@
 .comparison-tile__body {
   display:          flex;
   flex-direction:   column;
-  gap:              var(--gap-medium);            /* 16px */
+  gap:              var(--spacer-16);            /* 16px */
   padding:          var(--spacer-20);             /* 20px */
   background-color: var(--surface-tertiary);
   /* inner radius = outer radius − frame width, so it nests cleanly */
-  border-radius:    calc(var(--radius-large) - var(--spacer-4));   /* 20px */
+  border-radius:    calc(var(--radius-24) - var(--spacer-4));   /* 20px */
 }
 
 .comparison-tile__price-group {
   display:        flex;
   flex-direction: column;
-  gap:            var(--gap-xx-small);            /* 4px */
+  gap:            var(--spacer-4);            /* 4px */
 }
 
 .comparison-tile__price {
@@ -136,7 +136,7 @@
 }
 
 .comparison-tile__period {
-  margin-left:    var(--gap-xx-small);            /* 4px */
+  margin-left:    var(--spacer-4);            /* 4px */
   padding-bottom: 4px;                            /* baseline-align with the amount */
   font-weight:    var(--font-weight-bold);
   font-size:      var(--font-size-subtitle-1);    /* 18px */
@@ -181,14 +181,14 @@
 .comparison-tile:hover,
 .comparison-tile--hover {
   --tile-frame: var(--surface-focus);
-  box-shadow:   0 0 0 var(--border-focused) var(--border-active);
+  box-shadow:   0 0 0 var(--border-4) var(--border-active);
 }
 .comparison-tile:hover .radio__control,
 .comparison-tile--hover .radio__control { border-color: var(--border-active); }
 
 /* Keyboard focus */
 .comparison-tile:focus-within,
-.comparison-tile--focused { box-shadow: 0 0 0 var(--border-focused) var(--border-active); }
+.comparison-tile--focused { box-shadow: 0 0 0 var(--border-4) var(--border-active); }
 
 /* Active — bright aqua frame; radio checked shows the aqua dot (from radio.css) */
 .comparison-tile:has(.radio__input:checked),

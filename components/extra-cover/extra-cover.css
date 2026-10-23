@@ -30,9 +30,9 @@
   width:          100%;
   max-width:      603px;
   box-sizing:     border-box;
-  border-radius:  var(--radius-medium);          /* 16px */
+  border-radius:  var(--radius-16);          /* 16px */
   background:     var(--background-tertiary);     /* Figma: background/tertiary = white */
-  border:         var(--border-s) solid var(--border-primary);
+  border:         var(--border-1) solid var(--border-primary);
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -64,7 +64,7 @@
   flex:            0 0 auto;
   width:           48px;
   height:          48px;
-  border-radius:   var(--radius-small);          /* 8px */
+  border-radius:   var(--radius-8);          /* 8px */
   background:      var(--icon-glyph-brand-2-low); /* Figma: icon/glyph/brand-2-low = purple-20 */
   color:           var(--brand-3-high);           /* navy glyph */
 }
@@ -78,7 +78,7 @@
   padding:       2px var(--spacer-8);
   border-radius: var(--radius-round);
   background:    var(--surface-focus);
-  border:        var(--border-s) solid var(--border-active);
+  border:        var(--border-1) solid var(--border-active);
   color:         var(--text-link-on-dark);
   font-weight:   var(--font-weight-bold);
   font-size:     var(--font-size-subtitle-4);    /* 12px */
@@ -119,8 +119,8 @@
   width:         100%;
   box-sizing:    border-box;
   padding:       var(--spacer-12) var(--spacer-16);
-  border:        var(--border-s) solid var(--border-primary);
-  border-radius: var(--radius-small);            /* 8px */
+  border:        var(--border-1) solid var(--border-primary);
+  border-radius: var(--radius-8);            /* 8px */
 }
 .extra-cover__tile-icon {
   flex:  0 0 auto;
@@ -151,7 +151,7 @@
   width:           100%;
   box-sizing:      border-box;
   padding:         var(--spacer-16);
-  border-top:      var(--border-s) solid var(--border-primary);
+  border-top:      var(--border-1) solid var(--border-primary);
 }
 .extra-cover__price {
   margin:      0;

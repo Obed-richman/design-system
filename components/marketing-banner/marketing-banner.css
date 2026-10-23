@@ -38,7 +38,7 @@
   box-sizing:    border-box;
   padding-left:  var(--spacer-16);
   overflow:      hidden;                    /* clips the image to the rounded corners */
-  border-radius: var(--radius-medium);      /* 16px */
+  border-radius: var(--radius-16);      /* 16px */
   background:    var(--brand-1-low);         /* aqua tint */
   font-family:   'Modern Era', sans-serif;
   color:         var(--text-primary-fixed);

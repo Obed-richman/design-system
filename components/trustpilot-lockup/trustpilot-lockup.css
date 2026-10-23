@@ -35,7 +35,7 @@
 .trustpilot-lockup {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-small);                 /* 12px */
+  gap:         var(--spacer-12);                 /* 12px */
   font-family: 'Modern Era', sans-serif;
   color:       var(--text-primary);
 }
@@ -44,7 +44,7 @@
 .trustpilot-lockup--stacked {
   flex-direction: column;
   align-items:    center;
-  gap:            var(--gap-x-small);            /* 8px */
+  gap:            var(--spacer-8);            /* 8px */
 }
 
 /* Alignment (mainly for the stacked layout) */
@@ -82,7 +82,7 @@
 .trustpilot-logo {
   display:     inline-flex;
   align-items: center;
-  gap:         var(--gap-xx-small);              /* 4px */
+  gap:         var(--spacer-4);              /* 4px */
 }
 .trustpilot-logo__star {
   flex-shrink: 0;

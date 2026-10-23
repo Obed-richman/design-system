@@ -35,7 +35,7 @@
   display:         inline-flex;
   flex-direction:  column;
   align-items:     flex-start;
-  gap:             var(--gap-medium);        /* 16px */
+  gap:             var(--spacer-16);        /* 16px */
 }
 
 .app-download--row {
@@ -47,7 +47,7 @@
 /* One badge — a link wrapping the official SVG. */
 .app-download__badge {
   display:         inline-flex;
-  border-radius:   var(--radius-small);      /* ~matches the badge's own corner for the focus ring */
+  border-radius:   var(--radius-8);      /* ~matches the badge's own corner for the focus ring */
   text-decoration: none;
   transition:      opacity 120ms ease;
 }
