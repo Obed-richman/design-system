@@ -100,25 +100,38 @@
   box-shadow: var(--shadow-elevation-low-top);
 }
 
-/* Retiring — global-alert.js fades before it removes, so a message leaving on a
-   timer doesn't just blink out. Kept in CSS so the duration is visible here and
-   respects the reduced-motion rule below. */
-.global-alert .alert {
-  transition: opacity 150ms ease;
+/* Motion — a message eases in as it stacks, and slides up as it leaves (whether
+   dismissed by its close button or retired on a timer). global-alert.js adds and
+   removes; the CSS owns the movement. The reduced-motion rule turns it all off,
+   and global-alert.js keeps a timeout fallback so a message still gets removed
+   when no transition fires. */
+@keyframes ga-stack-in {
+  from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);    }
 }
-.global-alert .alert[data-leaving] { opacity: 0; }
+.global-alert .alert {
+  animation:  ga-stack-in 220ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.global-alert .alert[data-leaving] {
+  opacity:   0;
+  transform: translateY(-12px);                /* slides up on the way out */
+}
+/* The stacked presentation centres its peeks with their own transform, so it
+   opts out of the enter animation (which would fight that centring). */
+.global-alert--stacked > .alert { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .global-alert .alert { transition: none; }
+  .global-alert .alert { animation: none; transition: none; }
 }
 
 
 /* ------------------------------------------------------------
    TYPE=STACKED  (.global-alert--stacked)
-   The newest message is shown in full; the rest collapse behind it, each offset
-   down ~12px and inset 8px per level so only their bottom edge peeks out. Mirrors
-   the Figma Stacked variant (front 343-wide alert + peek layers at 8/24px inset &
-   offset). Purely presentational — the markup order is newest-first.
+   The newest message is shown in full; the rest collapse behind it, centred and
+   8px narrower on each side per level (so the front oversizes the one beneath it
+   by 8px left and right), each offset down ~12px so only its bottom edge peeks.
+   Mirrors the Figma Stacked variant. Purely presentational — newest-first order.
    ------------------------------------------------------------ */
 
 .global-alert--stacked {
@@ -129,16 +142,22 @@
 
 .global-alert--stacked > .alert { position: relative; z-index: 3; }
 
-/* second message — one step back */
+/* second message — one step back: centred, 16px narrower (8px each side) */
 .global-alert--stacked > .alert:nth-child(2) {
-  position: absolute;
-  inset:    12px 8px auto 8px;                /* top right bottom left */
-  z-index:  2;
+  position:  absolute;
+  top:       12px;
+  left:      50%;
+  width:     calc(100% - 16px);
+  transform: translateX(-50%);
+  z-index:   2;
 }
 
-/* third and beyond — a further step back */
+/* third and beyond — a further step back: centred, 32px narrower (16px each side) */
 .global-alert--stacked > .alert:nth-child(n + 3) {
-  position: absolute;
-  inset:    24px 16px auto 16px;
-  z-index:  1;
+  position:  absolute;
+  top:       24px;
+  left:      50%;
+  width:     calc(100% - 32px);
+  transform: translateX(-50%);
+  z-index:   1;
 }

@@ -138,6 +138,19 @@
     return host ? Array.prototype.slice.call(host.children) : [];
   }
 
+  /* Dismissing a stack message slides it up, not just a plain fade. The close
+     button is otherwise handled by alert.js — intercept it here in the CAPTURE
+     phase, and only for messages inside our stack, so this runs first and
+     retire() (which sets data-leaving → the CSS slide-up) wins over that fade. */
+  document.addEventListener('click', function (event) {
+    var btn = event.target.closest ? event.target.closest('.alert__close') : null;
+    if (!btn) return;
+    var alert = btn.closest('.alert');
+    if (!alert || !alert.closest('[data-global-alert]')) return;   /* only ours */
+    event.stopPropagation();                 /* keep alert.js's listener off it */
+    retire(alert);
+  }, true);
+
   window.GlobalAlert = {
     show:    show,
     dismiss: function (el) { if (el) retire(el); },
