@@ -138,7 +138,7 @@
   background:              var(--overlay-light-medium);
   -webkit-backdrop-filter: blur(16px);
           backdrop-filter: blur(16px);
-  box-shadow:              0 1px 16px rgba(0, 0, 0, 0.08);
+  box-shadow:              var(--shadow-elevation-low-bottom);
 }
 
 .bottom-nav--ios .bottom-nav__item {

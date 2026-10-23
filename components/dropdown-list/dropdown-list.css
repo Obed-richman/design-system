@@ -39,8 +39,7 @@
   background:     var(--surface-tertiary);
   border-radius:  var(--radius-8);           /* 8px */
   overflow:       hidden;
-  box-shadow:     0 0 16px 0 rgba(39, 37, 45, 0.08),
-                  0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow:     var(--shadow-elevation-low);
 }
 
 

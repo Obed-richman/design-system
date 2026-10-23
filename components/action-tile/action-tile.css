@@ -47,7 +47,7 @@
 }
 a.action-tile, button.action-tile { font: inherit; }
 .action-tile:hover {
-  box-shadow: 0 6px 12px rgba(39, 37, 45, 0.12), 0 2px 4px rgba(39, 37, 45, 0.06);
+  box-shadow: var(--shadow-elevation-high);
 }
 .action-tile:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 

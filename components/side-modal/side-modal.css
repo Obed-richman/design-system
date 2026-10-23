@@ -40,7 +40,7 @@
   border:         var(--border-1) solid var(--border-primary);
   border-radius:  var(--radius-16);            /* 16px */
   overflow:       hidden;
-  box-shadow:     0 4px 24px rgba(39, 37, 45, 0.12);
+  box-shadow:     var(--shadow-elevation-high);
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }

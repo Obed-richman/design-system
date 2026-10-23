@@ -1281,7 +1281,7 @@ body { font-family: var(--font-family-base); }
 }
 a.action-tile, button.action-tile { font: inherit; }
 .action-tile:hover {
-  box-shadow: 0 6px 12px rgba(39, 37, 45, 0.12), 0 2px 4px rgba(39, 37, 45, 0.06);
+  box-shadow: var(--shadow-elevation-high);
 }
 .action-tile:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 
@@ -1977,7 +1977,7 @@ a.action-tile, button.action-tile { font: inherit; }
   background:              var(--overlay-light-medium);
   -webkit-backdrop-filter: blur(16px);
           backdrop-filter: blur(16px);
-  box-shadow:              0 1px 16px rgba(0, 0, 0, 0.08);
+  box-shadow:              var(--shadow-elevation-low-bottom);
 }
 
 .bottom-nav--ios .bottom-nav__item {
@@ -5394,8 +5394,7 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
   background:     var(--surface-tertiary);
   border-radius:  var(--radius-8);           /* 8px */
   overflow:       hidden;
-  box-shadow:     0 0 16px 0 rgba(39, 37, 45, 0.08),
-                  0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow:     var(--shadow-elevation-low);
 }
 
 
@@ -10896,7 +10895,7 @@ button.list-item:focus-visible,
 .rewards-tile__preview > :nth-child(2) {
   z-index:       1;
   margin-inline: -12px;                             /* overlap its neighbours */
-  box-shadow:    0 6px 16px rgba(39, 37, 45, 0.20);
+  box-shadow:    var(--shadow-elevation-low);
 }
 .rewards-tile__preview img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
@@ -11595,7 +11594,7 @@ button.list-item:focus-visible,
   border:         var(--border-1) solid var(--border-primary);
   border-radius:  var(--radius-16);            /* 16px */
   overflow:       hidden;
-  box-shadow:     0 4px 24px rgba(39, 37, 45, 0.12);
+  box-shadow:     var(--shadow-elevation-high);
   font-family:    'Modern Era', sans-serif;
   color:          var(--text-primary);
 }
