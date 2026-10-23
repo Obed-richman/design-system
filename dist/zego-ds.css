@@ -333,8 +333,11 @@ body { font-family: var(--font-family-base); }
   --spacer-48:  48px;
   --spacer-64:  32px; --spacer-80:  32px; --spacer-96:  48px; --spacer-192: 24px;
 
-  /* Frame (mobile) */
+  /* Frame (mobile). Figma "3. Size" frame scale (12-col grid): screen, wrapper(12),
+     container(10), section(8), content(6), element(4), column(3). On mobile the
+     wide frames collapse to the content width and element/column inset. */
   --frame-screen: 375px; --frame-wrapper: 343px; --frame-container: 343px; --frame-content: 311px;
+  --frame-section: 343px; --frame-element: 311px; --frame-column: 311px;
 
   /* Icon sizes */
   --icon-size-12: 12px; --icon-size-16: 16px; --icon-size-24: 24px; --icon-size-32: 32px;
@@ -346,6 +349,7 @@ body { font-family: var(--font-family-base); }
     /* Spacer (desktop) — only the large steps differ from mobile */
     --spacer-64: 64px; --spacer-80: 80px; --spacer-96: 96px; --spacer-192: 192px;
     --frame-screen: 1440px; --frame-wrapper: 1200px; --frame-container: 996px; --frame-content: 588px;
+    --frame-section: 792px; --frame-element: 384px; --frame-column: 282px;   /* 8/4/3 cols @ 78 + 24 gutter */
   }
 }
 
@@ -517,9 +521,16 @@ body { font-family: var(--font-family-base); }
   --text-primary-fixed:        var(--colour-black-80);
   --text-on-color-fixed:       var(--colour-white);
 
-  /* --- shadows --- */
-  --shadow-dropdown: 0 2px 6px rgba(39, 37, 45, 0.05), 0 4px 16px rgba(39, 37, 45, 0.1);
-  --shadow-focus:    0 0 0 var(--border-4) var(--border-focus);
+  /* --- shadows / elevation (Figma "Shadow", node 57382-46033) ---
+     Black = text-primary #27252d at 5% / 10%; focus = aqua-50 at 30%.
+     Layer order follows Figma. --shadow-dropdown kept as an alias of
+     Elevation Low (its long-standing name across components). */
+  --shadow-elevation-high:       0 10px 16px rgba(39, 37, 45, 0.10), 0 4px 6px rgba(39, 37, 45, 0.05);
+  --shadow-elevation-low:        0 4px 16px rgba(39, 37, 45, 0.10), 0 2px 6px rgba(39, 37, 45, 0.05);
+  --shadow-elevation-low-top:    0 2px 4px rgba(39, 37, 45, 0.05), 0 4px 6px rgba(39, 37, 45, 0.10);
+  --shadow-elevation-low-bottom: 0 -2px 4px rgba(39, 37, 45, 0.05), 0 -4px 6px rgba(39, 37, 45, 0.10);
+  --shadow-dropdown:             var(--shadow-elevation-low);
+  --shadow-focus:                0 0 0 var(--border-4) var(--border-focus);
 
 }
 
@@ -3925,8 +3936,7 @@ a.action-tile, button.action-tile { font: inherit; }
   /* Radius-24. Bound on the symbol but NOT on the Dates Wrapper inside it, which is
      how the two corners are told apart: the panel keeps Radius-16, the picker takes 24. */
   border-radius:  var(--radius-24);            /* 24px */
-  box-shadow:     0 2px 6px rgba(39, 37, 45, 0.05),
-                  0 4px 16px rgba(39, 37, 45, 0.10);
+  box-shadow:     var(--shadow-elevation-low);
   font-family:    'Modern Era', sans-serif;
 }
 
@@ -6167,15 +6177,14 @@ a.display-tile:focus-visible, button.display-tile:focus-visible,
 /* ------------------------------------------------------------
    THE MESSAGES
    The message is a plain Alert (16px radius, as Figma). The component adds the DS
-   elevation — "Elevation Low (Top)", two stacked drop shadows — so a fixed panel
-   reads as sitting OVER the page rather than as part of the layout underneath.
-   (Not --shadow-dropdown: that's a heavier menu shadow; this is the lighter
-   notification elevation from the Global alert in Figma.)
+   elevation — "Elevation Low (Top)" (var(--shadow-elevation-low-top)) — so a
+   fixed panel reads as sitting OVER the page, not as part of the layout beneath.
+   (Not Elevation Low / --shadow-dropdown, the heavier menu shadow; this is the
+   lighter top-of-viewport notification elevation from the Global alert in Figma.)
    ------------------------------------------------------------ */
 
 .global-alert .alert {
-  box-shadow: 0 2px 4px rgba(39, 37, 45, 0.05),
-              0 4px 6px rgba(39, 37, 45, 0.10);
+  box-shadow: var(--shadow-elevation-low-top);
 }
 
 /* Retiring — global-alert.js fades before it removes, so a message leaving on a
@@ -13854,8 +13863,7 @@ button.list-item:focus-visible,
   background:    var(--surface-tertiary);
   color:         var(--text-primary);
   border-radius: var(--radius-16);            /* 16px */
-  box-shadow:    0 2px 6px rgba(39, 37, 45, 0.05),
-                 0 4px 16px rgba(39, 37, 45, 0.10);
+  box-shadow:    var(--shadow-elevation-low);
   overflow:      hidden;
   opacity:       0;
   visibility:    hidden;

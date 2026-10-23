@@ -90,15 +90,14 @@
 /* ------------------------------------------------------------
    THE MESSAGES
    The message is a plain Alert (16px radius, as Figma). The component adds the DS
-   elevation — "Elevation Low (Top)", two stacked drop shadows — so a fixed panel
-   reads as sitting OVER the page rather than as part of the layout underneath.
-   (Not --shadow-dropdown: that's a heavier menu shadow; this is the lighter
-   notification elevation from the Global alert in Figma.)
+   elevation — "Elevation Low (Top)" (var(--shadow-elevation-low-top)) — so a
+   fixed panel reads as sitting OVER the page, not as part of the layout beneath.
+   (Not Elevation Low / --shadow-dropdown, the heavier menu shadow; this is the
+   lighter top-of-viewport notification elevation from the Global alert in Figma.)
    ------------------------------------------------------------ */
 
 .global-alert .alert {
-  box-shadow: 0 2px 4px rgba(39, 37, 45, 0.05),
-              0 4px 6px rgba(39, 37, 45, 0.10);
+  box-shadow: var(--shadow-elevation-low-top);
 }
 
 /* Retiring — global-alert.js fades before it removes, so a message leaving on a
