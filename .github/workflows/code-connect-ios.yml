@@ -1,0 +1,49 @@
+name: Code Connect (iOS)
+
+# Publishes the SwiftUI Code Connect to Figma when an iOS mapping changes on main.
+# Runs on macOS because the Code Connect swift parser needs the Swift toolchain.
+# Needs a repo secret FIGMA_ACCESS_TOKEN (scopes: File content: Read + Code Connect: Write).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'platforms/ios/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/code-connect-ios.yml'
+  workflow_dispatch: {}
+
+concurrency:
+  group: code-connect-ios
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - run: npm ci
+
+      # Cache the Swift build so the parser isn't rebuilt from scratch each run.
+      - name: Cache Swift build
+        uses: actions/cache@v4
+        with:
+          path: platforms/ios/.build
+          key: swift-build-${{ runner.os }}-${{ hashFiles('platforms/ios/Package.swift') }}
+          restore-keys: swift-build-${{ runner.os }}-
+
+      - name: Resolve Swift package
+        working-directory: platforms/ios
+        run: swift package resolve
+
+      - name: Publish iOS Code Connect
+        run: npm run figma:publish:ios
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}

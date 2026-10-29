@@ -33,6 +33,24 @@ environment variable or `--token`.
 - Prop mapping mirrors the web `button.figma.ts`: Figma's **Hierarchy**,
   **Style** and **State** variant properties map to Swift/Kotlin enums.
 
+## Automated publishing (GitHub Actions)
+
+Two workflows publish on push to `main` (and can be run manually from the Actions
+tab):
+
+- `.github/workflows/code-connect-web.yml` — runs `npm run figma:publish` when a
+  `components/**/*.figma.ts` or `figma.config.json` changes (Ubuntu).
+- `.github/workflows/code-connect-ios.yml` — runs `npm run figma:publish:ios` when
+  anything under `platforms/ios/` changes (macOS, for the Swift toolchain).
+
+**One-time setup:** add a repository secret named **`FIGMA_ACCESS_TOKEN`** (scopes
+*File content: Read* + *Code Connect: Write*) under **Settings → Secrets and
+variables → Actions**. Without it the jobs fail with "Couldn't find a Figma
+access token".
+
+Android isn't automated here — it needs a Compose Gradle project; add a job in the
+Android repo's CI once the mapping lives there.
+
 ## ⚠ Verify against current Figma docs before first publish
 
 Figma is consolidating Code Connect onto a single **template-file** format and
