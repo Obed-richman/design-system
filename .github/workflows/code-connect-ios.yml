@@ -26,7 +26,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
 
       - run: npm ci
@@ -39,14 +39,11 @@ jobs:
           key: swift-build-${{ runner.os }}-${{ hashFiles('platforms/ios/Package.swift') }}
           restore-keys: swift-build-${{ runner.os }}-
 
-      - name: Swift version (diagnostic)
-        run: swift --version
-
       - name: Resolve Swift package
         working-directory: platforms/ios
         run: swift package resolve
 
       - name: Publish iOS Code Connect
-        run: npm run figma:publish:ios -- --verbose
+        run: npm run figma:publish:ios
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
