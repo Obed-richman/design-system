@@ -8,7 +8,10 @@ import PackageDescription
 // target instead.
 let package = Package(
     name: "ZegoDesignSystem",
-    platforms: [.iOS(.v15)],
+    // iOS is the real target; macOS 13 is declared only so the Figma Code
+    // Connect package (which requires macOS 13) resolves when the parser runs
+    // on a Mac host — the CI runner builds for macOS, not iOS.
+    platforms: [.iOS(.v15), .macOS(.v13)],
     products: [
         .library(name: "ZegoDesignSystem", targets: ["ZegoDesignSystem"]),
     ],
