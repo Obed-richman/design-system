@@ -1,17 +1,22 @@
 import figma, { html } from "@figma/code-connect/html";
 
 /**
- * Code Connect — Policy Dash Card (Figma "Cards / Policy / Dash")
- * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59608-25437
+ * Code Connect — Policy Dash Card (Figma "Cards_Policies")
+ * Figma: https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=61725-6243
  *
  * A white policy dashboard card: registration + overflow menu, a coloured status
  * dot with a label, and one or two action buttons. Swap the dot modifier and
  * status text per state; Renew/Ending add a primary Renew button before Manage.
  * Composes Button; kept static.
+ *
+ * The old node (59608-25437) was deleted in the Design-System-003 card
+ * reorganisation; this is the current equivalent — the "Cards_Policies" set,
+ * whose Type / Status / Action (Kebab/Chevron) variants and two-button Actions
+ * sub-component match this markup.
  */
 
 figma.connect(
-  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=59608-25437",
+  "https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003?node-id=61725-6243",
   {
     example: () =>
       html`<div class="policy-dash">
