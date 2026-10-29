@@ -1,2 +1,8 @@
 node_modules/
 .DS_Store
+
+# native Code Connect build artifacts
+platforms/ios/.build/
+platforms/ios/Package.resolved
+platforms/android/.gradle/
+platforms/android/build/
