@@ -4,7 +4,7 @@ A coded component library that mirrors our Figma design system.
 This repository is the source of truth for design tokens and UI components,
 and is connected to our Figma file via Code Connect.
 
-**Figma file:** [002-Components](https://www.figma.com/design/4NtsfRmqPTlPHGIYvaPeAN)
+**Figma file:** [Design-System-003](https://www.figma.com/design/Jvq1VmDPfcCMgbjUTIbjaI/Design-System-003)
 
 ---
 
@@ -23,7 +23,7 @@ design-system/
 │       ├── <name>-demo.html        # Bare snippet for the dist bundle
 │       └── <name>.figma.ts         # Figma Code Connect mapping (colocated)
 └── dist/
-    └── zego-ds.css / .js           # Built bundle (via build-dist.py)
+    └── zego-ds.css / .js           # Built bundle (via build-dist.js — `npm run build`)
 ```
 
 ---
@@ -45,10 +45,10 @@ Always use semantic tokens in components. Never hardcode hex values.
 
 ```css
 .button {
-  background-color: var(--brand-1-medium);       /* Brand aqua */
+  background-color: var(--brand-1);              /* Brand aqua */
   color:            var(--text-primary-fixed);
-  border-radius:    var(--radius-medium);
-  padding:          var(--gap-small) var(--gap-large);
+  border-radius:    var(--radius-8);
+  padding:          var(--spacer-8) var(--spacer-16);
   box-shadow:       var(--shadow-dropdown);
 }
 
@@ -64,9 +64,9 @@ Always use semantic tokens in components. Never hardcode hex values.
 | Primitive | Semantic | Description |
 | --- | --- | --- |
 | `--colour-navy-90` | `--brand-3-high` | Primary brand navy |
-| `--colour-aqua-50` | `--brand-1-medium` | Primary brand aqua / CTA colour |
+| `--colour-aqua-50` | `--brand-1` | Primary brand aqua / CTA colour |
 | `--colour-purple-80` | `--brand-2-high` | Brand purple |
-| `--colour-purple-50` | `--brand-2-medium` | Brand light purple |
+| `--colour-purple-50` | `--brand-2` | Brand light purple |
 | `--colour-ecru-20` | `--background-primary` | Brand ecru / warm neutral |
 
 ---
